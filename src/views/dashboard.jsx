@@ -1,23 +1,34 @@
+import AlertDialogSlide from "../components/add-record-modal"
+import { Navbar } from "../components/navbar"
 import { RecordCard } from "../components/record-card"
+import { Search } from "../components/search"
+import cattleIcon from '../icons/cattle.png'
+import goatIcon from '../icons/goat.png'
+import sheepIcon from '../icons/sheep.png'
 
 export const Dashboard = () => {
+    
     return (
         <div>
-            <div className="grid grid-cols-4">
-                <div></div>
-                <div className="col-span-2"><RecordCard type="GOAT" /></div>
-                <div></div>
-            </div>
-            <div className="grid grid-cols-4">
-                <div></div>
-                <div className="col-span-2"><RecordCard type="SHEEP" /></div>
-                <div></div>
-            </div>
-            <div className="grid grid-cols-4">
-                <div></div>
-                <div className="col-span-2"><RecordCard type="CATTLE" /></div>
-                <div></div>
-            </div>
+            <Navbar/>
+
+          <div className="flex flex-col justify-center items-center h-full">
+                <div className="w-4/5 md:w-1/4 ">
+                   <div className=""> <Search/></div>
+                </div>
+             <div className=" w-4/5 md:w-3/5" >
+                    <div className="mb-10 md:mb-0">
+        
+                        <div className=""><RecordCard type="GOAT" icon={goatIcon}/></div>
+                    </div>
+                    <div className="mb-10 md:mb-0">
+                        <div className=""><RecordCard type="SHEEP" icon={sheepIcon} /></div>
+                    </div>
+                    <div className="mb-10 md:mb-0">
+                        <div className=""><RecordCard type="CATTLE" icon={cattleIcon} /></div>
+                    </div>
+             </div>
+          </div>
         </div>
 
     )

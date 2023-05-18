@@ -2,3 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+.brand-green-bg{
+    background-color: #0FA958;
+}
+
+.brand-green-font{
+    color: #0FA958;
+}
+
+.record-card :hover{
+    background-color: #0fa95707;
+    /* color: white; */
+    transform: scale(1.05, 1.05);
+}
+
+.dash-search{
+    border: 0.5px solid #0FA958;
+    border-radius: 30px;
+}
