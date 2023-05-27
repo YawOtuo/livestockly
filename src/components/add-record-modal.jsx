@@ -46,36 +46,61 @@ export default function AlertDialogSlide() {
           <DialogContentText id="alert-dialog-slide-description">
             <div className='py-1 flex flex-row'>
               <label className='flex flex-row items-center '>
-                <img src={nestTag} width={"10%"} className='mr-2'/>
-                Enter name</label>
+                Name/Tag</label>
               <input type='text'></input>
 
             </div>
             <div className='py-1 flex flex-row'>
               <label className='flex flex-row items-center '>
-                <img src={nestTag} width={"10%"} className='mr-2'/>
-                Enter name</label>
+                Tag Colour</label>
               <input type='text'></input>
 
             </div>
             <div className='py-1 flex flex-row'>
               <label className='flex flex-row items-center '>
-                <img src={nestTag} width={"10%"} className='mr-2'/>
-                Enter name</label>
+                Sire</label>
               <input type='text'></input>
 
             </div>
             <div className='py-1 flex flex-row'>
               <label className='flex flex-row items-center '>
-                <img src={nestTag} width={"10%"} className='mr-2'/>
-                Enter name</label>
+                Dam</label>
               <input type='text'></input>
 
             </div>
             <div className='py-1 flex flex-row'>
               <label className='flex flex-row items-center '>
-                <img src={nestTag} width={"10%"} className='mr-2'/>
-                Enter name</label>
+                Number of Kids</label>
+              <input type='text'></input>
+
+            </div>
+            <div className='py-1 flex flex-row'>
+              <label className='flex flex-row items-center '>
+                Gender</label>
+              <input type='text'></input>
+
+            </div>
+            <div className='py-1 flex flex-row'>
+              <label className='flex flex-row items-center '>
+                Colour</label>
+              <input type='text'></input>
+
+            </div>
+            <div className='py-1 flex flex-row'>
+              <label className='flex flex-row items-center '>
+                Castrated</label>
+              <input type='text'></input>
+
+            </div>
+            <div className='py-1 flex flex-row'>
+              <label className='flex flex-row items-center '>
+                Health Condition</label>
+              <input type='text'></input>
+
+            </div>
+            <div className='py-1 flex flex-row items-between'>
+              <label className='flex flex-row items-center '>
+                Remarks</label>
               <input type='text'></input>
 
             </div>

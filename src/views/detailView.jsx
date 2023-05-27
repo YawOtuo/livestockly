@@ -5,14 +5,15 @@ export const DetailView = (props) => {
 
     const params = useParams()
 
-    const info = ['help', 'beauty',
-        'help', 'beauty',
-        'help', 'beauty']
+    const info = ['Name/Tag', 'Tag Colour',
+        'Sire: ', 'Dam',
+        'Number of Kids', 'Gender',
+    "Colour", "Castrated", "Health Condition", "Remarks"]
 
     const displayInfo = () => {
         return info.map((item) => {
-            return <div className="col-span-6 md:col-span-2 p-5 shadow-md">
-                {item}
+            return <div className="col-span-6 md:col-span-2 p-5 ">
+                {item} : N/A
             </div>
         })
     }

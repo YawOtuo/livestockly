@@ -5,7 +5,8 @@ export const TagCard = (props) => {
     return (
         <Link to={`/dashboard/goats/${props.tag}`}>
 
-            <div className='flex flex-row text-center w-full items-center justify-center py-5 shadow-md'>
+            <div className='flex flex-row text-center w-full items-center 
+            justify-center py-5 shadow-sm'>
                 <img src={tagIcon} width="5%" className='mx-5' />
                 {props.tag}
             </div>
