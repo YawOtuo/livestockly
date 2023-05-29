@@ -3,12 +3,12 @@ import tagIcon from '../icons/tag-outline.png'
 
 export const TagCard = (props) => {
     return (
-        <Link to={`/dashboard/goats/${props.tag}`}>
+        <Link to={`/dashboard/${props.type}/${props.id}`}>
 
             <div className='flex flex-row text-center w-full items-center 
             justify-center py-5 shadow-sm'>
                 <img src={tagIcon} width="5%" className='mx-5' />
-                {props.tag}
+                {props.name}
             </div>
         </Link>
 

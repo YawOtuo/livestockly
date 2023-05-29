@@ -1,17 +1,38 @@
+import { useEffect, useState } from "react"
 import { Navbar } from "../components/navbar"
 import { TagCard } from "../components/tag-card"
+import axios from "axios"
+import { url } from "../weburl"
+import { useParams } from "react-router-dom"
 
-export const ListView = () => {
+export const ListView = (props) => {
+    const [animals, setAnimals] = useState()
+    const params = useParams()
+    let type = params.type
+    useEffect(() => {
+        axios
+            .get(`${url}records/${type}`)
+            .then((res) => {
+                setAnimals(res.data)
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
 
-    const animals = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    // const animals = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     const renderList = () => {
-        return animals.map((item) => {
-            return <div className="col-start-2 col-span-10 md:col-span-3 items-center">
-                <TagCard tag={item} />
-            </div>
+        if (animals) {
+            return animals.map((item) => {
+                return <div className="col-start-2 col-span-10 md:col-span-3 items-center">
+                    <TagCard id={item['id']} type={item['type']} name={item['name']} />
+                </div>
 
-        })
+            })
+        }
+
     }
 
     return (
@@ -19,7 +40,7 @@ export const ListView = () => {
             <Navbar />
             <div className="container mx-auto">
                 <div>
-                    <p>Displaying all</p>
+                    <p>Displaying all {type}</p>
                 </div>
                 <div className="">
                     <div className="grid grid-cols-12 

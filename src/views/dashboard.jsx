@@ -19,13 +19,13 @@ export const Dashboard = () => {
              <div className=" w-4/5 md:w-3/5" >
                     <div className="mb-10 md:mb-0">
         
-                        <div className=""><RecordCard type="GOAT" icon={goatIcon}/></div>
+                        <div className=""><RecordCard type="goats" icon={goatIcon}/></div>
                     </div>
                     <div className="mb-10 md:mb-0">
-                        <div className=""><RecordCard type="SHEEP" icon={sheepIcon} /></div>
+                        <div className=""><RecordCard type="sheep" icon={sheepIcon} /></div>
                     </div>
                     <div className="mb-10 md:mb-0">
-                        <div className=""><RecordCard type="CATTLE" icon={cattleIcon} /></div>
+                        <div className=""><RecordCard type="cattle" icon={cattleIcon} /></div>
                     </div>
              </div>
           </div>
