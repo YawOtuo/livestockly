@@ -30,12 +30,32 @@ export const DetailView = (props) => {
 
     const displayInfo = () => {
         if (animal) {
-            return Object.keys(animal).map((item) => {
 
-                return <div className="col-span-6 md:col-span-2 p-5 ">
-                    {item} : {animal[item]}
+            return (
+                <div className=" items-center justify-center w-4/5 md:w-3/5">
+                    <div className=" flex  flex-col md:flex-row justify-center text-left capitalize ">
+                        <div className=" w-full">
+                            <div> name: {animal['name'] || "N/A"} </div>
+                            <div> type: {animal['type'] || "N/A"} </div>
+                            <div> tag_colour: {animal['tag_colour'] || "N/A"}</div>
+                            <div> number of kids: {animal['number_of_kids'] || "N/A"}</div>
+
+                        </div>
+                        <div className="w-full">
+                            <div> colour: {animal['colour'] || "N/A"}</div>
+                            <div> castrated: {animal['castrated'] || "N/A"}</div>
+                            <div> health condition: {animal['health_condition'] || "N/A"}</div>
+                            <hr />
+                            <div> remarks: <span className="brand-green-font font-bold">{animal['remarks'] || "N/A"}</span></div>
+
+                        </div>
+
+
+                    </div>
+
                 </div>
-            })
+
+            )
         }
     }
 
@@ -43,18 +63,18 @@ export const DetailView = (props) => {
         <div className="justify-center text-center">
             <Navbar />
             <div className=" justify-center">
-                <h1 className="flex flex-row justify-center items-center text-uppercase">
+                <div className="flex flex-row justify-center items-center text-uppercase">
                     {animal && animal.type == "goat" &&
                         <img src={goatIcon} className="w-100" />}
                     {animal && animal.type == "sheep" &&
-                        <img src={sheepIcon} className="w-100"/>}
+                        <img src={sheepIcon} className="w-100" />}
                     {animal && animal.type == "cattle" &&
-                        <img src={cattleIcon} className="w-100"/>}
-                    {!animal ? params.id : animal.name} </h1>
+                        <img src={cattleIcon} className="w-100" />}
+                    <h1 className="font-xl font-bold uppercase"> {!animal ? params.id : animal.name}</h1> </div>
 
                 <div className="p-10 flex flex-col">
-                    <div className="grid grid-cols-6 gap-3 
-                    justify-center items-center">
+                    <div className="
+                    justify-center items-center flex ">
                         {displayInfo()}
                     </div>
                 </div>

@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import rightArrow from '../icons/arrow-right.png'
 import AlertDialogSlide from './add-record-modal'
+import { useState } from 'react'
 
 export const RecordCard = (props) => {
+
     return (
         <div className='record-card'>
             <div className="shadow-md text-center py-5 px-5 mt-5 flex flex-row justify-between">
