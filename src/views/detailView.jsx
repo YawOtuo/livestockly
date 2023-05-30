@@ -6,6 +6,7 @@ import { url } from "../weburl"
 import cattleIcon from '../icons/cattle.png'
 import goatIcon from '../icons/goat.png'
 import sheepIcon from '../icons/sheep.png'
+import { Button } from "@mui/material"
 export const DetailView = (props) => {
 
     const params = useParams()
@@ -32,7 +33,7 @@ export const DetailView = (props) => {
         if (animal) {
 
             return (
-                <div className=" items-center justify-center w-4/5 md:w-3/5">
+                <div className=" items-center justify-center w-4/5 md:w-2/4">
                     <div className=" flex  flex-col md:flex-row justify-center text-left capitalize ">
                         <div className=" w-full">
                             <div> name: {animal['name'] || "N/A"} </div>
@@ -77,6 +78,13 @@ export const DetailView = (props) => {
                     justify-center items-center flex ">
                         {displayInfo()}
                     </div>
+                </div>
+
+                <div className="justify-center ">
+                    <Button sx={{color : "#0FA958"}}
+                    >Edit</Button>
+                    <Button sx={{color: "red"}}>Delete</Button>
+
                 </div>
             </div>
         </div>
