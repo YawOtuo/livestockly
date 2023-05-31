@@ -19,7 +19,7 @@ export const RecordCard = (props) => {
 
                 <div className='flex flex-row text-center items-center '>
                     <div>
-                        <AlertDialogSlide />
+                        <AlertDialogSlide type={props.type}/>
 
 
                     </div>
