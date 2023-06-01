@@ -7,22 +7,25 @@ import cattleIcon from '../icons/cattle.png'
 import goatIcon from '../icons/goat.png'
 import sheepIcon from '../icons/sheep.png'
 import { Button } from "@mui/material"
+import AlertDialogSlide from "../components/add-record-modal"
 export const DetailView = (props) => {
 
     const params = useParams()
     const [animal, setAnimal] = useState([])
+    const [recordEditted, setRecordEditted] = useState(0)
 
     useEffect(() => {
         axios
             .get(`${url}records/${params.id}`)
             .then((res) => {
                 setAnimal(res.data)
-                console.log(res)
             })
             .catch((err) => {
                 console.log(err)
             })
-    }, [])
+    }, [recordEditted])
+
+
 
     const info = ['Name/Tag', 'Tag Colour',
         'Sire: ', 'Dam', "Type",
@@ -36,18 +39,18 @@ export const DetailView = (props) => {
                 <div className=" items-center justify-center w-4/5 md:w-2/4">
                     <div className=" flex  flex-col md:flex-row justify-center text-left capitalize ">
                         <div className=" w-full">
-                            <div> name: {animal['name'] || "N/A"} </div>
-                            <div> type: {animal['type'] || "N/A"} </div>
-                            <div> tag_colour: {animal['tag_colour'] || "N/A"}</div>
-                            <div> number of kids: {animal['number_of_kids'] || "N/A"}</div>
+                            <p> name: {animal['name'] || "N/A"} </p>
+                            <p> type: {animal['type'] || "N/A"} </p>
+                            <p> tag_colour: {animal['tag_colour'] || "N/A"}</p>
+                            <p> number of kids: {animal['number_of_kids'] || "N/A"}</p>
 
                         </div>
                         <div className="w-full">
-                            <div> colour: {animal['colour'] || "N/A"}</div>
-                            <div> castrated: {animal['castrated'] || "N/A"}</div>
-                            <div> health condition: {animal['health_condition'] || "N/A"}</div>
+                            <p> colour: {animal['colour'] || "N/A"}</p>
+                            <p> castrated: {animal['castrated'] || "N/A"}</p>
+                            <p> health condition: {animal['health_condition'] || "N/A"}</p>
                             <hr />
-                            <div> remarks: <span className="brand-green-font font-bold">{animal['remarks'] || "N/A"}</span></div>
+                            <p> remarks: <span className="brand-green-font font-bold">{animal['remarks'] || "N/A"}</span></p>
 
                         </div>
 
@@ -71,21 +74,23 @@ export const DetailView = (props) => {
                         <img src={sheepIcon} className="w-100" />}
                     {animal && animal.type == "cattle" &&
                         <img src={cattleIcon} className="w-100" />}
-                    <h1 className="font-xl font-bold uppercase"> {!animal ? params.id : animal.name}</h1> </div>
+                    <h1 className="font-xl font-bold uppercase"> {!animal ? params.id : animal.name}</h1>
+                </div>
+                <div className="justify-center flex flex-row ">
+                    <AlertDialogSlide edit={true} record={animal}
+                        setRecordEditted={setRecordEditted} recordEditted={recordEditted} />
+                    <Button sx={{ color: "red" }}>Delete</Button>
 
-                <div className="p-10 flex flex-col">
+                </div>
+
+                <div className=" mt-6 flex flex-col">
                     <div className="
                     justify-center items-center flex ">
                         {displayInfo()}
                     </div>
                 </div>
 
-                <div className="justify-center ">
-                    <Button sx={{color : "#0FA958"}}
-                    >Edit</Button>
-                    <Button sx={{color: "red"}}>Delete</Button>
 
-                </div>
             </div>
         </div>
     )

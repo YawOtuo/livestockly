@@ -22,22 +22,45 @@ const Transition = React.forwardRef(function Transition(
 
 export default function AlertDialogSlide(props) {
   const [open, setOpen] = React.useState(false);
-  const [record, setRecord] = React.useState({type: props.type})
+  const [record, setRecord] = React.useState({ type: props.type })
 
+  React.useEffect(()=> {
+    if(props.edit){
+      setRecord(props.record)
+      console.log('setting record')
+    }
+  }, [props.record])
   const handleOnChange = (e) => {
     let value = e.target.value
     let name = e.target.name
-    setRecord({...record, [name]:  value})
+    setRecord({ ...record, [name]: value })
   }
   const submitRecord = () => {
     axios
-    .post(`${url}records`,
-     record
-     )
-    .then((res)=>{
-      handleClose()
-    })
-    .catch((err)=>console.log(err))
+      .post(`${url}records`,
+        record
+      )
+      .then((res) => {
+        handleClose()
+      })
+      .catch((err) => console.log(err))
+  }
+
+  const updateRecord = () => {
+    if (props.record.id) {
+      axios
+        .post(`${url}records/${props.record.id}`,
+          record
+        )
+        .then((res) => {
+          handleClose()
+
+          // need a value to update the state with so that it reloads
+          props.setRecordEditted(props.recordEditted + 1)
+        })
+        .catch((err) => console.log(err))
+    }
+
   }
 
   const handleClickOpen = () => {
@@ -51,7 +74,13 @@ export default function AlertDialogSlide(props) {
   return (
     <div>
       <Button variant="standard" onClick={handleClickOpen}>
-        <img src={addIcon} width="40%" />
+        {
+          props.edit ?
+            <p>Edit</p>
+
+            :
+            <img src={addIcon} width="40%" />
+        }
       </Button>
       <Dialog
         open={open}
@@ -60,21 +89,25 @@ export default function AlertDialogSlide(props) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"NEW RECORD"}</DialogTitle>
+        <DialogTitle>{props.edit ?
+          "EDIT RECORD"
+          : "NEW RECORD"
+        }</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <div className='py-1 flex flex-row'>
               <label className='flex flex-row items-center '>
                 Name/Tag</label>
               <input type='text' name='name'
-               onChange={e=> handleOnChange(e)}></input>
+                value={record.name}
+                onChange={e => handleOnChange(e)}></input>
 
             </div>
             <div className='py-1 flex flex-row'>
               <label className='flex flex-row items-center '>
                 Tag Colour</label>
               <input type='text' name="tag_colour"
-               onChange={e=> handleOnChange(e)} ></input>
+                onChange={e => handleOnChange(e)} ></input>
 
             </div>
             {/* <div className='py-1 flex flex-row'>
@@ -94,8 +127,8 @@ export default function AlertDialogSlide(props) {
               <label className='flex flex-row items-center '>
                 Number of Kids</label>
               <input type='text'
-              name="number_of_kids"
-              onChange={e=> handleOnChange(e)}
+                name="number_of_kids"
+                onChange={e => handleOnChange(e)}
               ></input>
 
             </div>
@@ -103,8 +136,8 @@ export default function AlertDialogSlide(props) {
               <label className='flex flex-row items-center '>
                 Gender</label>
               <input type='text'
-              name='gender'
-              onChange={e=> handleOnChange(e)}
+                name='gender'
+                onChange={e => handleOnChange(e)}
               ></input>
 
             </div>
@@ -112,37 +145,43 @@ export default function AlertDialogSlide(props) {
               <label className='flex flex-row items-center '>
                 Colour</label>
               <input type='text' name='colour'
-               onChange={e=> handleOnChange(e)}></input>
+                onChange={e => handleOnChange(e)}></input>
 
             </div>
             <div className='py-1 flex flex-row'>
               <label className='flex flex-row items-center '>
                 Castrated</label>
               <input type='text' name='castrated'
-               onChange={e=> handleOnChange(e)}></input>
+                onChange={e => handleOnChange(e)}></input>
 
             </div>
             <div className='py-1 flex flex-row'>
               <label className='flex flex-row items-center '>
                 Health Condition</label>
               <input type='text' name="health_condition"
-               onChange={e=> handleOnChange(e)}></input>
+                onChange={e => handleOnChange(e)}></input>
 
             </div>
             <div className='py-1 flex flex-row items-between'>
               <label className='flex flex-row items-center '>
                 Remarks</label>
               <input type='text' name='remarks'
-               onChange={e=> handleOnChange(e)}></input>
+                onChange={e => handleOnChange(e)}></input>
 
             </div>
           </DialogContentText>
         </DialogContent>
-      
+
         <div className='w-full text-center brand-green-bg '>
-          <Button onClick={submitRecord} className='w-full'>
-           <span className='text-white'> ADD</span>
-            </Button>
+          <Button onClick={props.edit ? updateRecord : submitRecord} className='w-full'>
+            <span className='text-white'>
+               {
+                props.edit ?
+                "EDIT"
+                : "ADD"
+               }
+               </span>
+          </Button>
         </div>
       </Dialog>
     </div>
