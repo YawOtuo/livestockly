@@ -12,7 +12,7 @@ export const RecordCard = (props) => {
 
                 <div className="flex flex-row text-center items-center ">
                     <div className=""><img src={props.icon} width="50%" /></div>
-                    <div className="text-uppercase"> {props.type}</div>
+                    <div className="text-uppercase w-full"> {props.type} ({props.number})</div>
                 </div>
                 </Link>
 

@@ -8,12 +8,15 @@ import { useParams } from "react-router-dom"
 export const ListView = (props) => {
     const [animals, setAnimals] = useState()
     const params = useParams()
+    const [number, setNumber] = useState(0)
+
     let type = params.type
     useEffect(() => {
         axios
             .get(`${url}records/${type}`)
             .then((res) => {
                 setAnimals(res.data)
+                setNumber(res.data.length)
                 console.log(res)
             })
             .catch((err) => {
@@ -38,9 +41,9 @@ export const ListView = (props) => {
     return (
         <div>
             <Navbar />
-            <div className="container mx-auto">
-                <div>
-                    <p>Displaying all {type}</p>
+            <div className="container mx-auto text-center ">
+                <div className="pb-3">
+                    <p>Displaying all<span className="brand-green-font"> {number}</span> {type} </p>
                 </div>
                 <div className="">
                     <div className="grid grid-cols-12 

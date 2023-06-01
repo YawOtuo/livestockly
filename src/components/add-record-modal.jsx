@@ -8,6 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import addIcon from '../icons/add.png'
+import editIcon from '../icons/edit.png'
+
 import nestTag from '../icons/nest-tag.png'
 import axios from 'axios';
 import { url } from '../weburl';
@@ -76,7 +78,7 @@ export default function AlertDialogSlide(props) {
       <Button variant="standard" onClick={handleClickOpen}>
         {
           props.edit ?
-            <p>Edit</p>
+          <img src={editIcon} width="90%" />
 
             :
             <img src={addIcon} width="40%" />
@@ -91,7 +93,7 @@ export default function AlertDialogSlide(props) {
       >
         <DialogTitle>{props.edit ?
           "EDIT RECORD"
-          : "NEW RECORD"
+          : `NEW RECORD (${props.type})`
         }</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
