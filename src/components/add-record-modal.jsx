@@ -13,6 +13,7 @@ import editIcon from '../icons/edit.png'
 import nestTag from '../icons/nest-tag.png'
 import axios from 'axios';
 import { url } from '../weburl';
+import { SelectSireModal } from './select-sire-modal';
 
 
 const Transition = React.forwardRef(function Transition(
@@ -112,19 +113,12 @@ export default function AlertDialogSlide(props) {
                 onChange={e => handleOnChange(e)} ></input>
 
             </div>
-            {/* <div className='py-1 flex flex-row'>
-              <label className='flex flex-row items-center '>
-                Sire</label>
-              <input type='text'
-               onChange={e=> handleOnChange(e)}></input>
+            <div className='flex flex-row'>
+              <SelectSireModal/>
+              <SelectSireModal/>
+            </div>
 
-            </div> */}
-            {/* <div className='py-1 flex flex-row'>
-              <label className='flex flex-row items-center '>
-                Dam</label>
-              <input type='text'></input>
-
-            </div> */}
+          
             <div className='py-1 flex flex-row'>
               <label className='flex flex-row items-center '>
                 Number of Kids</label>

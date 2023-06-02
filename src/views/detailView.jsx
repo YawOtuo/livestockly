@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { Navbar } from "../components/navbar"
 import { useEffect, useState } from "react"
 import axios from "axios"
@@ -16,6 +16,8 @@ export const DetailView = (props) => {
 
     const params = useParams()
     const [animal, setAnimal] = useState([])
+    const [sire, setSire] = useState([])
+    const [dam, setDam] = useState([])
     const [recordEditted, setRecordEditted] = useState(0)
 
     useEffect(() => {
@@ -29,7 +31,35 @@ export const DetailView = (props) => {
             })
     }, [recordEditted])
 
+    useEffect(() => {
+        if (animal && animal.id) {
+            animal.sire && getSire(animal.sire)
+            animal.dam && getDam(animal.dam)
+        }
+    }, [animal])
 
+
+    const getSire = (id) => {
+        axios
+            .get(`${url}records/${id}`)
+            .then((res) => {
+                setSire(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    const getDam = (id) => {
+        axios
+            .get(`${url}records/${id}`)
+            .then((res) => {
+                setDam(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     const info = ['Name/Tag', 'Tag Colour',
         'Sire: ', 'Dam', "Type",
@@ -42,15 +72,39 @@ export const DetailView = (props) => {
             return (
                 <div className=" items-center justify-center w-4/5">
                     <div className=" flex  flex-col md:flex-row justify-around  capitalize mb-5 leading-10">
-                        <div className=" w-full">
+                        <div className="w-full">
+                            <p> sire: &nbsp;
+                                {sire.id ?
+                                    <Link to={`/dashboard/${sire.type}/${sire.id}`}>
+                                        <span className="font-bold brand-green-font">{(sire && sire['name']) || "N/A"}</span>
+                                    </Link>
+                                    :
+                                    <span className="font-bold brand-green-font">{(sire && sire['name']) || "N/A"}</span>
+                                }
+
+                            </p>
+
+                            <p> dam: &nbsp;
+                                {dam.id ?
+                                    <Link to={`/dashboard/${dam.type}/${dam.id}`}>
+                                        <span className="font-bold brand-green-font">{(dam && dam['name']) || "N/A"}</span>
+                                    </Link>
+                                    :
+                                    <span className="font-bold brand-green-font">{(dam && dam['name']) || "N/A"}</span>
+                                }
+                            </p>
+
+                        </div>
+                        <div className=" w-full" >
+
                             <p> tag colour: {animal['tag_colour'] || "N/A"}</p>
                             <p> number of kids: {animal['number_of_kids'] || "N/A"}</p>
-                            <p> colour: {animal['colour'] || "N/A"}</p>
 
                         </div>
                         <div className="w-full">
                             <p> castrated: {animal['castrated'] || "N/A"}</p>
                             <p> health condition: {animal['health_condition'] || "N/A"}</p>
+                            <p> colour: {animal['colour'] || "N/A"}</p>
 
 
                         </div>
@@ -87,7 +141,7 @@ export const DetailView = (props) => {
                     <h1 className="font-xl font-bold uppercase"> {!animal ? params.id : animal.name}</h1>
                 </div>
 
-        <hr />
+                <hr />
 
                 <div className=" my-6 flex flex-col">
                     <div className="
