@@ -17,6 +17,12 @@
 }
 
 .dash-search{
-    border: 0.5px solid #0FA958;
+    border: 2px solid #0fa9574d;
     border-radius: 30px;
+}
+
+
+.search-input{
+    border: 1px solid #0FA958;
+    border-radius: 15px;
 }

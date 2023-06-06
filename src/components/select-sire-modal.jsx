@@ -11,17 +11,33 @@ import addIcon from '../icons/add.png'
 import editIcon from '../icons/edit.png'
 import axios from 'axios';
 import { url } from '../weburl';
+import { SearchResultCard } from "./search-result-card";
 
-export const SelectSireModal = () => {
+export const SelectSireModal = (props) => {
     const [open, setOpen] = useState(false);
+    const [searchInput, setSearchInput] = useState()
+    const [searchResults, setSearchResults] = useState([])
+    const [noSearchResultFound, setNoSearchResultFound] = useState(false)
 
     const sires = [
         "sire1", "sire22", "sire3", "sire4"
     ]
 
     useEffect(() => {
-        //search url
-    }, [])
+        if (searchInput) {
+            axios
+                .post(`${url}records/${props.type}/search`, { query: searchInput })
+                .then((res) => {
+                    setNoSearchResultFound(false)
+                    setSearchResults(res.data)
+        })
+                .catch((err) => setNoSearchResultFound(true))
+        }
+    }, [searchInput])
+
+    useEffect(() => {
+
+    }, [searchInput])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -31,19 +47,27 @@ export const SelectSireModal = () => {
         setOpen(false);
     };
 
+    
+
     const displaySires = () => {
-        return sires.map((item) => {
-            return <div className="col-span-4 w-full">
-                {item}
-            </div>
+        return searchResults.map((item) => {
+            return <div className="col-span-1">
+                <SearchResultCard name={item['name']}/>
+                </div>
+           
+                
         })
+    }
+
+    const onSearchInputChange = (e) => {
+        setSearchInput(e.target.value)
     }
 
     return (
         <div>
             <Button variant="standard" onClick={handleClickOpen}>
                 {
-                    <p>Select Sire</p>
+                    <p className="uppercase">Select {props.name}</p>
                 }
             </Button>
             <Dialog
@@ -52,15 +76,23 @@ export const SelectSireModal = () => {
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>Select Sire</DialogTitle>
+                <DialogTitle>Select {props.name}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         <div className="justify-center items-center flex flex-col">
-                            <input type="text" />
-                                <div className="grid grid-cols-12 
+                            <input type="text" placeholder="Search"
+                             onChange={e => onSearchInputChange(e)} className=" px-2 search-input"/>
+                            <div c5lassName="grid grid-cols-3 py-2
                                 w-full justify-center items-center">
-                                    {displaySires()}
-                                </div>
+                                {noSearchResultFound ?
+
+                                    <p className="alig">No Search Result found</p>
+
+                                    :
+
+                                    displaySires()
+                                }
+                            </div>
                         </div>
                     </DialogContentText>
                 </DialogContent>

@@ -114,8 +114,8 @@ export default function AlertDialogSlide(props) {
 
             </div>
             <div className='flex flex-row'>
-              <SelectSireModal/>
-              <SelectSireModal/>
+              <SelectSireModal type={props.type} name='sire' />
+              <SelectSireModal type={props.type} name='dam' />
             </div>
 
           

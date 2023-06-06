@@ -1,1 +1,3 @@
 fix CORS error
+slow reloading
+firebase page not found
