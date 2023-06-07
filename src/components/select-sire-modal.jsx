@@ -30,7 +30,7 @@ export const SelectSireModal = (props) => {
                 .then((res) => {
                     setNoSearchResultFound(false)
                     setSearchResults(res.data)
-        })
+                })
                 .catch((err) => setNoSearchResultFound(true))
         }
     }, [searchInput])
@@ -47,15 +47,21 @@ export const SelectSireModal = (props) => {
         setOpen(false);
     };
 
-    
+
 
     const displaySires = () => {
         return searchResults.map((item) => {
-            return <div className="col-span-1">
-                <SearchResultCard name={item['name']}/>
-                </div>
-           
-                
+            return <button className="col-span-1" onClick={e => {
+                e.preventDefault()
+                props.setParent({ id: item['id'], name: item['name'] })
+                handleClose()
+            }
+
+            }>
+                <SearchResultCard name={item['name']} />
+            </button>
+
+
         })
     }
 
@@ -81,7 +87,7 @@ export const SelectSireModal = (props) => {
                     <DialogContentText id="alert-dialog-slide-description">
                         <div className="justify-center items-center flex flex-col">
                             <input type="text" placeholder="Search"
-                             onChange={e => onSearchInputChange(e)} className=" px-2 search-input"/>
+                                onChange={e => onSearchInputChange(e)} className=" px-2 search-input" />
                             <div c5lassName="grid grid-cols-3 py-2
                                 w-full justify-center items-center">
                                 {noSearchResultFound ?

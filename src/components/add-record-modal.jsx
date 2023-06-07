@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -25,14 +25,32 @@ const Transition = React.forwardRef(function Transition(
 
 export default function AlertDialogSlide(props) {
   const [open, setOpen] = React.useState(false);
-  const [record, setRecord] = React.useState({ type: props.type })
+  const [record, setRecord] = React.useState({ type: props.type, sire: null, dam: null })
+  const [sire, setSire] = React.useState({id: null, name: null})
+  const [dam, setDam] = React.useState({id: null, name: null})
 
-  React.useEffect(()=> {
-    if(props.edit){
+
+  useEffect(() => {
+    if (props.edit) {
       setRecord(props.record)
       console.log('setting record')
     }
+
+    console.log(record.name)
   }, [props.record])
+
+  
+
+  useEffect(()=> {
+    if(sire.id){
+      setRecord({ ...record, sire: sire.id })
+    }
+    if(dam.id){
+      setRecord({ ...record, dam: dam.id })
+    }
+
+}, [sire, dam])
+
   const handleOnChange = (e) => {
     let value = e.target.value
     let name = e.target.name
@@ -79,7 +97,7 @@ export default function AlertDialogSlide(props) {
       <Button variant="standard" onClick={handleClickOpen}>
         {
           props.edit ?
-          <img src={editIcon} width="90%" />
+            <img src={editIcon} width="90%" />
 
             :
             <img src={addIcon} width="40%" />
@@ -97,8 +115,8 @@ export default function AlertDialogSlide(props) {
           : `NEW RECORD (${props.type})`
         }</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            <div className='py-1 flex flex-row'>
+          <DialogContentText id="alert-dialog-slide-description" className='text-black'>
+            <div className='py-1 flex flex-row '>
               <label className='flex flex-row items-center '>
                 Name/Tag</label>
               <input type='text' name='name'
@@ -114,11 +132,24 @@ export default function AlertDialogSlide(props) {
 
             </div>
             <div className='flex flex-row'>
-              <SelectSireModal type={props.type} name='sire' />
-              <SelectSireModal type={props.type} name='dam' />
+              <div>
+                Sire: {sire.name}
+                <SelectSireModal
+                setParent={setSire}
+                 type={props.type} name='sire' />
+
+              </div>
+
+              <div>
+                Dam: {dam.name}
+                <SelectSireModal t
+                setParent={setDam}
+                type={props.type} name='dam' />
+
+              </div>
             </div>
 
-          
+
             <div className='py-1 flex flex-row'>
               <label className='flex flex-row items-center '>
                 Number of Kids</label>
@@ -171,12 +202,12 @@ export default function AlertDialogSlide(props) {
         <div className='w-full text-center brand-green-bg '>
           <Button onClick={props.edit ? updateRecord : submitRecord} className='w-full'>
             <span className='text-white'>
-               {
+              {
                 props.edit ?
-                "EDIT"
-                : "ADD"
-               }
-               </span>
+                  "EDIT"
+                  : "ADD"
+              }
+            </span>
           </Button>
         </div>
       </Dialog>
