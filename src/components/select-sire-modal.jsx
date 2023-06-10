@@ -71,7 +71,7 @@ export const SelectSireModal = (props) => {
 
     return (
         <div>
-            <Button variant="standard" onClick={handleClickOpen}>
+            <Button variant="standard" sx={{color: "#0FA958"}} onClick={handleClickOpen}>
                 {
                     <p className="uppercase">Select {props.name}</p>
                 }

@@ -26,3 +26,9 @@
     border: 1px solid #0FA958;
     border-radius: 15px;
 }
+
+.record-form-input{
+    border: 1px solid #0FA958;
+    border-radius: 15px;
+    height: 30px;
+}
