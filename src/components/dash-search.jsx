@@ -58,7 +58,7 @@ export const DashSearch = (props) => {
         justify-center items-center">
             <input type="text"
                 onChange={e => onSearchInputChange(e)}
-
+        
                 placeholder="Search" className="
             w-4/5 md:w-1/2 
              py-2 pl-5 pr-2 dash-search"></input>

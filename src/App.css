@@ -32,3 +32,31 @@
     border-radius: 15px;
     height: 30px;
 }
+
+.bg-login-left{
+    background-image: url('./images/livestockgrass.jpeg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.view_height_100{
+    height: 100vh;
+}
+
+@media screen and (max-width: 760px) {
+    .bg-login-left{
+        height: max-height;
+    }  
+}
+
+@media screen and (min-width: 760px) {
+    .bg-login-left{
+
+        height: 85vh;
+    }  
+}
+
+.bg-darkened{
+    background-color: rgba(0, 0, 0, 0.063);
+}

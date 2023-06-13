@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import faceIcon from '../icons/face.png'
 import { Button } from '@mui/material';
 
 export const Navbar = () => {
     var currentDate = new Date();
     
-
+    const navigate = useNavigate()
     // Get the current date as a string
     var today = currentDate.toLocaleDateString();
     return (
@@ -26,7 +26,9 @@ export const Navbar = () => {
                         yotuo2002@gmail.com
                     </p>
 
-                    <Button >Logout</Button>
+                    <Button onClick={e => {
+                        navigate('/login')
+                    }}>Logout</Button>
 
                 </div>
             </div>
