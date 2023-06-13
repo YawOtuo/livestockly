@@ -1,20 +1,34 @@
 import { Link } from 'react-router-dom'
 import faceIcon from '../icons/face.png'
+import { Button } from '@mui/material';
 
 export const Navbar = () => {
-    return (
-        <div className="shadow-sm flex flex-row justify-between 
-          text-center justify-center py-3 px-3 mb-6">
-            <div className='text-xs'>
-                January
-            </div>
-            <div>
-                <Link to='/dashboard' className='brand-green-font text-lg'>BOATEY FARMS</Link>
-            </div>
-            <div className='flex flex-row justify-center'>
-                <div className="text-xs"><img src={faceIcon} width="50%" /></div>
+    var currentDate = new Date();
+    
 
-               <div className='text-xs'> yotuo2002@gmail.com</div>
+    // Get the current date as a string
+    var today = currentDate.toLocaleDateString();
+    return (
+        <div className="shadow-sm grid grid-cols-3 justify-center py-3 px-3 mb-6">
+            <div className='col-span-1 text-xs'>
+                {today}
+            </div>
+            <div className='col-span-1 text-center ' >
+                <Link to='/dashboard' className='brand-green-font 
+                font-bold text-lg'>BOATEY FARMS</Link>
+            </div>
+            <div className='col-span-1 text-right'>
+                <div className='flex flex-row justify-center items-center w-full'>
+
+                    <p className='w-full flex flex-row items-center justify-end text-xs '>
+                        <img src={faceIcon} width={"30px"} />
+
+                        yotuo2002@gmail.com
+                    </p>
+
+                    <Button >Logout</Button>
+
+                </div>
             </div>
         </div>
     )

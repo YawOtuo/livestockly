@@ -99,6 +99,7 @@ export const DetailView = (props) => {
 
                             <p> tag colour: {animal['tag_colour'] || "N/A"}</p>
                             <p> number of kids: {animal['number_of_kids'] || "N/A"}</p>
+                            <p> weight: {animal['weight'] || "N/A"}</p>
 
                         </div>
                         <div className="w-full">

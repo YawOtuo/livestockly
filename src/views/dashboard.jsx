@@ -15,6 +15,7 @@ export const Dashboard = () => {
     const [numberOfSheep, setNumberOfSheep] = useState(0)
     const [numberOfCattle, setNumberOfCattle] = useState(0)
 
+
     useEffect(()=>{
         axios
         .get(`${url}records/goats/count`)

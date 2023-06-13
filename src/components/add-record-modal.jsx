@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -15,6 +15,7 @@ import axios from 'axios';
 import { url } from '../weburl';
 import { SelectSireModal } from './select-sire-modal';
 import { TextField } from './textfield';
+import { LoadingModal } from './loading-modal';
 
 
 
@@ -25,12 +26,13 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide(props) {
+export default function AddRecordModal(props) {
   const [open, setOpen] = React.useState(false);
   const [record, setRecord] = React.useState({ type: props.type, sire: null, dam: null })
   const [sire, setSire] = React.useState({ id: null, name: null })
   const [dam, setDam] = React.useState({ id: null, name: null })
-
+  const [loading, setLoading]= useState(false)
+  const [error, setError] = useState()
 
   useEffect(() => {
     if (props.edit) {
@@ -38,7 +40,6 @@ export default function AlertDialogSlide(props) {
       console.log('setting record')
     }
 
-    console.log(record.name)
   }, [props.record])
 
 
@@ -53,35 +54,48 @@ export default function AlertDialogSlide(props) {
 
   }, [sire, dam])
 
+
+
   const handleOnChange = (e) => {
     let value = e.target.value
     let name = e.target.name
     setRecord({ ...record, [name]: value })
   }
   const submitRecord = () => {
+    setLoading(true)
     axios
       .post(`${url}records`,
         record
       )
       .then((res) => {
         handleClose()
+        setLoading(false)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err)
+        setError(err)
+      })
   }
 
   const updateRecord = () => {
     if (props.record.id) {
+      setLoading(true)
       axios
         .post(`${url}records/${props.record.id}`,
           record
         )
         .then((res) => {
           handleClose()
+          setLoading(false)
+          
 
           // need a value to update the state with so that it reloads
           props.setRecordEditted(props.recordEditted + 1)
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          setError(err)
+          console.log(error)
+        })
     }
 
   }
@@ -105,6 +119,7 @@ export default function AlertDialogSlide(props) {
             <img src={addIcon} width="40%" />
         }
       </Button>
+      { !loading ? 
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -201,6 +216,9 @@ export default function AlertDialogSlide(props) {
           </Button>
         </div>
       </Dialog>
+      :
+            <LoadingModal open={loading}/>
+      }
     </div>
   );
 }
