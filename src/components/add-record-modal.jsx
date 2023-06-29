@@ -16,6 +16,8 @@ import { url } from '../weburl';
 import { SelectSireModal } from './select-sire-modal';
 import { TextField } from './textfield';
 import { LoadingModal } from './loading-modal';
+import { useSelector, useDispatch } from 'react-redux'
+import { addMessage } from '../redux/reducers/messages';
 
 
 
@@ -33,6 +35,7 @@ export default function AddRecordModal(props) {
   const [dam, setDam] = React.useState({ id: null, name: null })
   const [loading, setLoading]= useState(false)
   const [error, setError] = useState()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (props.edit) {
@@ -69,7 +72,10 @@ export default function AddRecordModal(props) {
       )
       .then((res) => {
         handleClose()
+        
         setLoading(false)
+        dispatch(addMessage("successfully created Record"))
+
       })
       .catch((err) => {
         console.log(err)
@@ -87,6 +93,8 @@ export default function AddRecordModal(props) {
         .then((res) => {
           handleClose()
           setLoading(false)
+          dispatch(addMessage("Successfully updated record of "+ props.record.name))
+
           
 
           // need a value to update the state with so that it reloads

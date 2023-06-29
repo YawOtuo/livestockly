@@ -1,5 +1,7 @@
 slow reloading
-fields
+
 test database
-design
+
 edit search not working
+
+logout button on phone

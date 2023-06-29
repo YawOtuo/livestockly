@@ -8,12 +8,29 @@ import { ListView } from './views/listView';
 import { DetailView } from './views/detailView';
 import { Login } from './views/login';
 
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+
+
 function App() {
+
+  const message = useSelector((state) => state.messages.message)
+  const notify = (message) => toast.success(message);
+
+  useEffect(()=> {
+    if(message){
+        console.log('message updated')
+        notify(message)
+    }
+    console.log('errrrrrr')
+}, [message])
+
   return (
     <BrowserRouter>
 
       <Routes>
-      <Route path="/" element={<Dashboard />} />
+      <Route path="/" element={<Login />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/:type" element={<ListView />} />
@@ -23,6 +40,8 @@ function App() {
 
 
       </Routes>
+      <ToastContainer/>
+
     </BrowserRouter>
   );
 }

@@ -6,6 +6,7 @@ import { url } from "../weburl"
 import cattleIcon from '../icons/cattle.png'
 import goatIcon from '../icons/goat.png'
 import sheepIcon from '../icons/sheep.png'
+import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai'
 import bulletIcon from '../icons/bullet.png'
 import deleteIcon from '../icons/delete.png'
 
@@ -70,42 +71,27 @@ export const DetailView = (props) => {
         if (animal) {
 
             return (
-                <div className=" items-center justify-center w-4/5">
-                    <div className=" flex  flex-col md:flex-row justify-around  capitalize mb-5 leading-10">
-                        <div className="w-full">
-                            <p> sire: &nbsp;
-                                {sire.id ?
-                                    <Link to={`/dashboard/${sire.type}/${sire.id}`}>
-                                        <span className="font-bold brand-green-font">{(sire && sire['name']) || "N/A"}</span>
-                                    </Link>
-                                    :
-                                    <span className="font-bold brand-green-font">{(sire && sire['name']) || "N/A"}</span>
-                                }
+                <div className=" items-center justify-center  w-3/5 md:w-2/5">
+                    <div className=" flex  flex-col md:flex-row justify-center  capitalize mb-5 leading-10">
 
-                            </p>
-
-                            <p> dam: &nbsp;
-                                {dam.id ?
-                                    <Link to={`/dashboard/${dam.type}/${dam.id}`}>
-                                        <span className="font-bold brand-green-font">{(dam && dam['name']) || "N/A"}</span>
-                                    </Link>
-                                    :
-                                    <span className="font-bold brand-green-font">{(dam && dam['name']) || "N/A"}</span>
-                                }
-                            </p>
-
-                        </div>
-                        <div className=" w-full" >
+                        <div className=" w-full text-left">
 
                             <p> tag colour: {animal['tag_colour'] || "N/A"}</p>
                             <p> number of kids: {animal['number_of_kids'] || "N/A"}</p>
                             <p> weight: {animal['weight'] || "N/A"}</p>
+                            <p> colour: {animal['colour'] || "N/A"}</p>
+                            <p> castrated: {animal['castrated'] || "N/A"}</p>
+
+
 
                         </div>
-                        <div className="w-full">
-                            <p> castrated: {animal['castrated'] || "N/A"}</p>
+                        <div className="w-full text-left">
                             <p> health condition: {animal['health_condition'] || "N/A"}</p>
-                            <p> colour: {animal['colour'] || "N/A"}</p>
+                            <p> Date Of Birth: {animal['date_of_birth'] || "N/A"}</p>
+                            <p> Date Purchased: {animal['date_purchased'] || "N/A"}</p>
+                            <p> Alive: {animal['colour'] || "N/A"}</p>
+                            <p> Sold: {animal['colour'] || "N/A"}</p>
+                            <p> vaccination info: <span className="">{animal['vaccination_info'] || "N/A"}</span></p>
 
 
                         </div>
@@ -116,7 +102,7 @@ export const DetailView = (props) => {
                     <hr />
 
                     <div className="w-full capitalize mt-5">
-
+                    
                         <p> remarks: <span className="brand-green-font font-bold">{animal['remarks'] || "N/A"}</span></p>
 
                     </div>
@@ -139,7 +125,32 @@ export const DetailView = (props) => {
                         <img src={sheepIcon} className="w-100" />}
                     {animal && animal.type == "cattle" &&
                         <img src={cattleIcon} className="w-100" />}
-                    <h1 className="font-xl font-bold uppercase"> {!animal ? params.id : animal.name}</h1>
+                    <div className="flex flex-col">
+                        <h1 className="font-xl font-bold uppercase"> {!animal ? params.id : animal.name}</h1>
+                        <div className="flex gap-10 capitalize pt-4">
+                            <p> sire: &nbsp;
+                                {sire.id ?
+                                    <Link to={`/dashboard/${sire.type}/${sire.id}`}>
+                                        <span className="font-bold brand-green-font">{(sire && sire['name']) || "N/A"}</span>
+                                    </Link>
+                                    :
+                                    <span className="font-bold brand-green-font">{(sire && sire['name']) || "N/A"}</span>
+                                }
+
+                            </p>
+
+                            <p> dam: &nbsp;
+                                {dam.id ?
+                                    <Link to={`/dashboard/${dam.type}/${dam.id}`}>
+                                        <span className="font-bold brand-green-font">{(dam && dam['name']) || "N/A"}</span>
+                                    </Link>
+                                    :
+                                    <span className="font-bold brand-green-font">{(dam && dam['name']) || "N/A"}</span>
+                                }
+                            </p>
+
+                        </div>
+                    </div>
                 </div>
 
                 <hr />
@@ -152,14 +163,16 @@ export const DetailView = (props) => {
                 </div>
 
                 <hr />
-                <div className="justify-center flex flex-row pt-5">
-                    <AlertDialogSlide edit={true} record={animal}
-                        setRecordEditted={setRecordEditted} recordEditted={recordEditted} />
-                    <Button sx={{ color: "red" }}>
-                        <img src={deleteIcon} width="50%" />
-
-                    </Button>
-
+                <div className="justify-center items-center flex flex-row gap-10 pt-5">
+                    <div className="flex uppercase items-center">
+                        <AlertDialogSlide edit={true} record={animal}
+                            setRecordEditted={setRecordEditted} recordEditted={recordEditted} />
+                        Edit
+                    </div>
+                    <div className="flex uppercase items-center">
+                        <AiOutlineDelete color="0FA958" size={30} />
+                        Delete
+                    </div>
                 </div>
 
             </div>
