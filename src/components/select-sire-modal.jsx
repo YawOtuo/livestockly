@@ -19,10 +19,7 @@ export const SelectSireModal = (props) => {
     const [searchResults, setSearchResults] = useState([])
     const [noSearchResultFound, setNoSearchResultFound] = useState(false)
 
-    const sires = [
-        "sire1", "sire22", "sire3", "sire4"
-    ]
-
+    
     useEffect(() => {
         if (searchInput) {
             axios

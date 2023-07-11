@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import AlertDialogSlide from "../components/add-record-modal"
-import { Navbar } from "../components/navbar"
+import { MobileNav, Navbar } from "../components/navbar"
 import { RecordCard } from "../components/record-card"
 import { Search } from "../components/dash-search"
 import cattleIcon from '../icons/cattle.png'
@@ -15,6 +15,7 @@ import SimpleSnackbar from "../components/toast/success"
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { useMediaQuery } from "@mui/material"
 
 export const Dashboard = () => {
 
@@ -26,6 +27,7 @@ export const Dashboard = () => {
 
     const message = useSelector((state) => state.messages.message)
     const dispatch = useDispatch()
+    const matches = useMediaQuery('(max-width: 800px')
 
     useEffect(() => {
             notify("Welcome back Yaw")
@@ -48,7 +50,7 @@ export const Dashboard = () => {
 
     return (
         <div>
-            <Navbar />
+            {matches ? <MobileNav/> : <Navbar />}
 
          
 

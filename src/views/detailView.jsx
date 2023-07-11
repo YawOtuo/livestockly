@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { Navbar } from "../components/navbar"
 import { useEffect, useState } from "react"
 import axios from "axios"
@@ -13,6 +13,9 @@ import deleteIcon from '../icons/delete.png'
 
 import { Button } from "@mui/material"
 import AlertDialogSlide from "../components/add-record-modal"
+import { deleteRecord } from "../api/apis"
+import { useDispatch } from "react-redux"
+import { addMessage } from "../redux/reducers/messages"
 export const DetailView = (props) => {
 
     const params = useParams()
@@ -20,6 +23,8 @@ export const DetailView = (props) => {
     const [sire, setSire] = useState([])
     const [dam, setDam] = useState([])
     const [recordEditted, setRecordEditted] = useState(0)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         axios
@@ -62,11 +67,16 @@ export const DetailView = (props) => {
             })
     }
 
-    const info = ['Name/Tag', 'Tag Colour',
-        'Sire: ', 'Dam', "Type",
-        'Number of Kids', 'Gender',
-        "Colour", "Castrated", "Health Condition", "Remarks"]
+    const _deleteRecord = () => {
+        deleteRecord(animal.id)
+        .then((res)=> {
+            navigate('/dashboard')
+            dispatch(addMessage("Deleted Record"))
+        })
+        .catch((err)=> console.log(err))
+    }
 
+    
     const displayInfo = () => {
         if (animal) {
 
@@ -165,12 +175,12 @@ export const DetailView = (props) => {
                 <hr />
                 <div className="justify-center items-center flex flex-row gap-10 pt-5">
                     <div className="flex uppercase items-center">
-                        <AlertDialogSlide edit={true} record={animal}
+                        <AlertDialogSlide edit={true} type={animal && animal.type} record={animal}
                             setRecordEditted={setRecordEditted} recordEditted={recordEditted} />
                         Edit
                     </div>
                     <div className="flex uppercase items-center">
-                        <AiOutlineDelete color="0FA958" size={30} />
+                        <AiOutlineDelete color="0FA958" size={30} onClick={_deleteRecord} />
                         Delete
                     </div>
                 </div>
