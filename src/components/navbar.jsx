@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import faceIcon from '../icons/face.png'
 import { Button, useMediaQuery } from '@mui/material';
 import { useEffect, useState } from 'react';
+import {RxHamburgerMenu} from 'react-icons/rx'
 
 export const Navbar = () => {
     var currentDate = new Date();
@@ -49,17 +50,23 @@ export const MobileNav = () => {
     }, [openNav])
     return(
         <div>
-            <button onClick={e => setOpenNav((init) => !init)}>
-                Open
-            </button>
+            <div className='p-5 pb-0'>
+
+                <button onClick={e => setOpenNav((init) => !init)}>
+                    <RxHamburgerMenu size={30} color='#446353fa'/>
+                </button>
+
+                <h3 className='text-[#446353fa] font-bold'>BOATEY FARMS</h3>
+
+            </div>
             {
                 openNav && 
                 <div className={`h-screen bg-[#446353fa] flex flex-col
                 text-white items-center gap-10 justify-start pt-20 text-1xl uppercase ease-in-out absolute ${width} z-[10]`}>
                     <p>otuo yaw twumasi</p>
-                    <p>Dashboard</p>
+                    <Link to={'/dashboard'}>Dashboard</Link>
                     <p>Finances</p>
-                    <p>Logout</p>
+                    <Link to={'/login'}>Logout</Link>
 
                 </div>
             }

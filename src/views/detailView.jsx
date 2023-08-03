@@ -16,6 +16,7 @@ import AlertDialogSlide from "../components/add-record-modal"
 import { deleteRecord } from "../api/apis"
 import { useDispatch } from "react-redux"
 import { addMessage } from "../redux/reducers/messages"
+import Swal from "sweetalert2"
 export const DetailView = (props) => {
 
     const params = useParams()
@@ -68,15 +69,31 @@ export const DetailView = (props) => {
     }
 
     const _deleteRecord = () => {
-        deleteRecord(animal.id)
-        .then((res)=> {
-            navigate('/dashboard')
-            dispatch(addMessage("Deleted Record"))
+
+        Swal.fire({
+            title: 'Are you sure you want to delete?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Don't Delete`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Deleted!', '', 'success')
+                deleteRecord(animal.id)
+                    .then((res) => {
+                        navigate('/dashboard')
+                        dispatch(addMessage("Deleted Record"))
+
+                    })
+                    .catch((err) => console.log(err))
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
         })
-        .catch((err)=> console.log(err))
+
     }
 
-    
+
     const displayInfo = () => {
         if (animal) {
 
@@ -112,7 +129,7 @@ export const DetailView = (props) => {
                     <hr />
 
                     <div className="w-full capitalize mt-5">
-                    
+
                         <p> remarks: <span className="brand-green-font font-bold">{animal['remarks'] || "N/A"}</span></p>
 
                     </div>

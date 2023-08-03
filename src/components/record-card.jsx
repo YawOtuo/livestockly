@@ -6,7 +6,7 @@ import { useState } from 'react'
 export const RecordCard = (props) => {
 
     return (
-        <div className='record-card'>
+        <div className='record-card relative'>
             <div className="shadow-md text-center py-5 px-5 mt-5 flex flex-row justify-between">
                 <Link to={`/dashboard/${props.type}`}>
 
@@ -30,6 +30,9 @@ export const RecordCard = (props) => {
                         <div className=""><img src={rightArrow} width="50%" /></div>
                         </Link>
                     </div>
+                    {/* <div className='absolute right-0 h-full' >
+                        <img src='/greenFrame.svg' width={"100"} height={"100%"}></img>
+                    </div> */}
                 </div>
             </div >
         </div>
