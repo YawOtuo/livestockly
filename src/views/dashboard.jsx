@@ -16,6 +16,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { useMediaQuery } from "@mui/material"
+import Layout from "./layout"
 
 export const Dashboard = () => {
 
@@ -49,12 +50,12 @@ export const Dashboard = () => {
 
 
     return (
-        <div>
+        <Layout>
             {matches ? <MobileNav/> : <Navbar />}
 
          
 
-            <div className="flex flex-col justify-center items-center h-full mt-20 md:mt-0">
+            <div className="flex flex-col justify-center items-center w-full  md:mt-0">
                 <div className="w-full">
                     <div className=""> <DashSearch /></div>
                 </div>
@@ -71,7 +72,7 @@ export const Dashboard = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </Layout>
 
     )
 }

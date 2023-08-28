@@ -5,3 +5,16 @@ test database
 edit search not working
 
 logout button on phone
+
+permissions
+
+weight record. vaccination. we want to keep the fields and the old data
+
+buck...goat...ewe
+ram...sheep...
+
+pictures
+
+only broda should edit
+
+allow them to report 

@@ -4,6 +4,7 @@ import { TagCard } from "../components/tag-card"
 import axios from "axios"
 import { url } from "../weburl"
 import { useParams } from "react-router-dom"
+import Layout from "./layout"
 
 export const ListView = (props) => {
     const [animals, setAnimals] = useState()
@@ -39,7 +40,7 @@ export const ListView = (props) => {
     }
 
     return (
-        <div>
+        <Layout>
             <Navbar />
             <div className="container mx-auto text-center ">
                 <div className="pb-3">
@@ -52,6 +53,6 @@ export const ListView = (props) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </Layout>
     )
 }

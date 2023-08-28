@@ -11,6 +11,7 @@ import { Login } from './views/login';
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import Workers from './views/workers';
 
 
 function App() {
@@ -36,6 +37,8 @@ function App() {
         <Route path="/dashboard/:type" element={<ListView />} />
         <Route path="/dashboard/:type/:id" element={<DetailView />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/workers" element={<Workers />} />
+
 
 
 
