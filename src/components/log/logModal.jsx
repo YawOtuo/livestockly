@@ -11,6 +11,7 @@ import { BiSolidBookAdd } from "react-icons/bi";
 import { useMutation, useQuery } from "react-query";
 import { fetchRecord, updateRecord } from "../../views/detailView/api";
 import { useParams } from "react-router-dom";
+import { today } from "../../utils/date";
 
 
 const Transition = React.forwardRef(function Transition(
@@ -33,9 +34,27 @@ const LogModal = (props) => {
 
     const [record, setRecord] = useState([])
 
-    useEffect(() =>{
-        setRecord(data?.weight)
-    }, [data])
+    useEffect(() => {
+        switch (props.label) {
+            case "weight":
+                setRecord(data?.weight || []);
+                break;
+            case "health_condition":
+                setRecord(data?.health_condition || []);
+                break;
+            case "vaccination_info":
+                setRecord(data?.vaccination_info || []);
+                break;
+            case "remarks":
+                setRecord(data?.remarks || []);
+                break;
+            default:
+                break;
+        }
+    }, [props.label, data]);
+
+
+
 
 
 
@@ -51,10 +70,11 @@ const LogModal = (props) => {
             ...record,
             dataInput // Add the new item to the array
         ]
-        console.log(updatedData)
-
-        const updatedItem = await updateMutation.mutateAsync({"weight":updatedData});
-        console.log(updatedItem)
+        const updatePayload = {
+            [props.label]: updatedData // Create an object with the label as the key
+        };
+        const updatedItem = await updateMutation.mutateAsync(updatePayload);
+        handleClose()
     };
     const handleClickOpen = () => {
         setOpen(true);
@@ -88,7 +108,8 @@ const LogModal = (props) => {
                         className='pt-4 text-black'>
 
                         <div className='flex flex-col gap-2 lg:gap-6'>
-                            <TextField label={"date"} type="text" name="date" handleOnChange={handleOnChange} />
+                            <TextField label={"date"} type="text" name="date"
+                            handleOnChange={handleOnChange} />
 
 
 

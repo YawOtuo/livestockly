@@ -13,7 +13,7 @@
       }
     ]
   },
-  "emulators": {
+    "emulators": {
     "auth": {
       "port": 9099
     },

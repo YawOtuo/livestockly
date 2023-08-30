@@ -18,3 +18,5 @@ pictures
 only broda should edit
 
 allow them to report 
+
+colour as an integer

@@ -20,6 +20,7 @@ import { styled } from "@stitches/react"
 import PageSlide from "../../framer/pageSlide"
 import SlideEnterToLeft from "../../framer/slideInWithGreen"
 import Log from "../../components/log/log"
+import { returnGender } from "../../utils/gender"
 export const DetailView = (props) => {
 
     const params = useParams()
@@ -135,6 +136,7 @@ export const DetailView = (props) => {
                        capitalize ">
                             <p> tag colour: {animal['tag_colour'] || "N/A"}</p>
                             <p> number of kids: {animal['number_of_kids'] || "N/A"}</p>
+                            
 
 
                             <p> Date Of Birth: {animal['date_of_birth'] || "N/A"}</p>
@@ -155,11 +157,11 @@ export const DetailView = (props) => {
 
                         <Log title="Weight" label="weight"/>
 
-                        <Log title="Health Condition" label="weight" />
+                        <Log title="Health Condition" label="health_condition" />
 
-                        <Log title="Vaccination Info" label="weight"/>
+                        <Log title="Vaccination Info" label="vaccination_info"/>
 
-                        <Log title="Remarks" label="weight"/>
+                        <Log title="Remarks" label="remarks"/>
 
                     </div>
                 </div>
@@ -190,7 +192,7 @@ export const DetailView = (props) => {
                         </div>
 
                         <div className="flex  col-span-5 lg:col-span-1 flex-col  items-center lg:items-start gap-4 capitalize ">
-                            <p> sire: &nbsp;
+                            <p> {returnGender(animal.type, "male")}: &nbsp;
                                 {sire.id ?
                                     <Link to={`/dashboard/${sire.type}/${sire.id}`}>
                                         <span className="font-bold brand-green-font">{(sire && sire['name']) || "N/A"}</span>
@@ -201,7 +203,7 @@ export const DetailView = (props) => {
 
                             </p>
 
-                            <p> dam: &nbsp;
+                            <p> {returnGender(animal.type, "female")}: &nbsp;
                                 {dam.id ?
                                     <Link to={`/dashboard/${dam.type}/${dam.id}`}>
                                         <span className="font-bold brand-green-font">{(dam && dam['name']) || "N/A"}</span>
@@ -223,6 +225,8 @@ export const DetailView = (props) => {
                         <div className="flex-col flex 
                         col-span-5 lg:col-span-1 gap-4 lg:items-start">
                             <p> castrated: <TextGreenBold>{animal['castrated'] ? "yes" : "no" || "N/A"}</TextGreenBold></p>
+
+                            <p> gender: <TextGreenBold>{animal['gender'] || "N/A"}</TextGreenBold></p>
 
                             <p> colour: <span className="brand-green-font font-bold">{animal['colour'] || "N/A"}</span></p>
                         </div>

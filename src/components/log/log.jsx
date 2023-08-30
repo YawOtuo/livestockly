@@ -13,9 +13,20 @@ const Log = (props) => {
 
     const { data, error, isLoading } = useQuery('record', () => fetchRecord(params.id));
 
-    const [r, setR] = useState(data)
+    const [r, setR] = useState()
     useEffect(() => {
-        setR(data?.weight)
+        if (props.label == 'weight') {
+            setR(data?.weight)
+        }
+        if (props.label == 'vaccination_info') {
+            setR(data?.vaccination_info)
+        } 
+        if (props.label == 'health_condition') {
+            setR(data?.health_condition)
+        }
+        if (props.label == 'remarks'){
+            setR(data?.remarks)
+        }
     }, [data])
 
     return (
@@ -29,7 +40,7 @@ const Log = (props) => {
 
             </div>
             {
-                data?.weight?.map((r) => (
+                r?.map((r) => (
                     <LogI className="shadow-md flex justify-between">
 
                         <div>
@@ -41,11 +52,11 @@ const Log = (props) => {
                             }}>{r['content']}</p>
                         </div>
 
-                      <div className="flex gap-1 lg:gap-4">
-                            <button><AiOutlineEdit size={20}/></button>
+                        <div className="flex gap-1 lg:gap-4">
+                            <button><AiOutlineEdit size={20} /></button>
                             <button >
                                 <MdOutlineDelete size={20} /></button>
-                      </div>
+                        </div>
                     </LogI>
                 ))
             }
