@@ -11,7 +11,7 @@ const WorkerCard = () => {
 }
 
 const Root = styled('div', {
-    backgroundColor:"rgb(0, 0, 0 , 12%)",
+    backgroundColor:"#6fa88a17",
     minWidth:"300px",
     width:"100%",
     maxWidth:"500px",

@@ -17,6 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useMediaQuery } from "@mui/material"
 import Layout from "./layout"
+import SlideEnter from "../framer/slideEnter"
 
 export const Dashboard = () => {
 
@@ -31,7 +32,7 @@ export const Dashboard = () => {
     const matches = useMediaQuery('(max-width: 800px')
 
     useEffect(() => {
-            notify("Welcome back Yaw")
+        notify("Welcome back Yaw")
         axios
             .get(`${url}records/goats/count`)
             .then(res => setNumberOfGoats(res.data))
@@ -51,27 +52,30 @@ export const Dashboard = () => {
 
     return (
         <Layout>
-            {matches ? <MobileNav/> : <Navbar />}
+            {matches ? <MobileNav /> : <Navbar />}
 
-         
 
-            <div className="flex flex-col justify-center items-center w-full  md:mt-0">
-                <div className="w-full">
-                    <div className=""> <DashSearch /></div>
-                </div>
-                <div className=" w-4/5 md:w-3/5 " >
-                    <div className="mb-10 md:mb-0 ">
+               <SlideEnter>
+                        <div className="flex flex-col justify-center items-center w-full  md:mt-0">
+                            <div className="w-full">
+                                <div className=""> <DashSearch /></div>
+                            </div>
+                            <div className=" w-4/5 md:w-3/5 " >
+                                <div className="mb-10 md:mb-0 ">
+    
+                                    <div className=""><RecordCard number={numberOfGoats} type="goats" icon={goatIcon} /></div>
+                                </div>
+                                <div className="mb-10 md:mb-0">
+                                    <div className=""><RecordCard number={numberOfSheep} type="sheep" icon={sheepIcon} /></div>
+                                </div>
+                                <div className="mb-10 md:mb-0">
+                                    <div className=""><RecordCard number={numberOfCattle} type="cattle" icon={cattleIcon} /></div>
+                                </div>
+                            </div>
+                        </div>
+             
+               </SlideEnter>
 
-                        <div className=""><RecordCard number={numberOfGoats} type="goats" icon={goatIcon} /></div>
-                    </div>
-                    <div className="mb-10 md:mb-0">
-                        <div className=""><RecordCard number={numberOfSheep} type="sheep" icon={sheepIcon} /></div>
-                    </div>
-                    <div className="mb-10 md:mb-0">
-                        <div className=""><RecordCard number={numberOfCattle} type="cattle" icon={cattleIcon} /></div>
-                    </div>
-                </div>
-            </div>
         </Layout>
 
     )

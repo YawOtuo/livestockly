@@ -14,7 +14,7 @@ const SideNav = () => {
                 <NavButtons><Link to={'/dashboard'}>Home</Link></NavButtons>
                 <NavButtons>
                     <NavAccordion
-                        items={['sheep', 'goat', 'cattle']}
+                        items={['sheep', 'goats', 'cattle']}
                         label='Records'
                     />
                 </NavButtons>

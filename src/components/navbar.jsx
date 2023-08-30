@@ -13,7 +13,7 @@ export const Navbar = () => {
     // Get the current date as a string
     var today = currentDate.toLocaleDateString();
     return (
-        <div className="shadow-sm grid grid-cols-3 justify-center py-3 px-3 ">
+        <div className="shadow-sm grid grid-cols-3 justify-center py-3 px-3 bg-white">
             {!isTab && <div className='col-span-1 text-xs'>
                 {today}
             </div>}
