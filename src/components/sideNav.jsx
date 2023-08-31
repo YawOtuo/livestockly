@@ -2,13 +2,15 @@ import { styled } from "@stitches/react"
 import { Link } from "react-router-dom"
 import NavAccordion from "./navAccordion"
 import { IoIosContact } from 'react-icons/io';
+import { useSelector } from "react-redux";
 
 const SideNav = () => {
+    const userData = useSelector((state) => state?.users?.user)
     return (
         <Root>
             <div className="flex items-center gap-2 text-white">
                 <IoIosContact color="white" size={40} />
-                <p>Yaw Twumasi Otuo</p>
+                <p>{userData?.username || ""}</p>
             </div>
             <div className="h-full flex flex-col gap-10">
                 <NavButtons><Link to={'/dashboard'}>Home</Link></NavButtons>
@@ -25,7 +27,7 @@ const SideNav = () => {
                 <NavButtons><Link>Settings</Link></NavButtons>
             </div>
             <div>
-                <p className="text-white">yotuo2002@gmail.com
+                <p className="text-white">{userData?.email}
                 </p>
             </div>
         </Root>

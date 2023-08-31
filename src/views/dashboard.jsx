@@ -18,6 +18,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useMediaQuery } from "@mui/material"
 import Layout from "./layout"
 import SlideEnter from "../framer/slideEnter"
+import { useQuery } from "react-query"
+import { getRecordSp } from "../api/recordsApi"
 
 export const Dashboard = () => {
 
@@ -31,23 +33,34 @@ export const Dashboard = () => {
     const dispatch = useDispatch()
     const matches = useMediaQuery('(max-width: 800px')
 
+    const { sheep, error, isLoading } = useQuery('record', () => getRecordSp('sheep'));
+    const { goats } = useQuery('record', () => getRecordSp('goats'));
+    const { cattle } = useQuery('record', () => getRecordSp('cattle'));
+
+    const userData = useSelector((state) => state.users?.user)
+    const userName = userData?.username
+
+
     useEffect(() => {
-        notify("Welcome back Yaw")
-        axios
-            .get(`${url}records/goats/count`)
-            .then(res => setNumberOfGoats(res.data))
-            .catch((err => console.log(err)))
+        if (userData) {
+            notify(`Welcome back ${userName}`)
+            axios
+                .get(`${url}records/goats/count`)
+                .then(res => setNumberOfGoats(res.data))
+                .catch((err => console.log(err)))
 
-        axios
-            .get(`${url}records/cattle/count`)
-            .then(res => setNumberOfCattle(res.data))
-            .catch((err => console.log(err)))
+            axios
+                .get(`${url}records/cattle/count`)
+                .then(res => setNumberOfCattle(res.data))
+                .catch((err => console.log(err)))
 
-        axios
-            .get(`${url}records/sheep/count`)
-            .then(res => setNumberOfSheep(res.data))
-            .catch((err => console.log(err)))
-    }, [])
+            axios
+                .get(`${url}records/sheep/count`)
+                .then(res => setNumberOfSheep(res.data))
+                .catch((err => console.log(err)))
+        }
+
+    }, [userData])
 
 
     return (
@@ -55,26 +68,26 @@ export const Dashboard = () => {
             {matches ? <MobileNav /> : <Navbar />}
 
 
-               <SlideEnter>
-                        <div className="flex flex-col justify-center items-center w-full  md:mt-0">
-                            <div className="w-full">
-                                <div className=""> <DashSearch /></div>
-                            </div>
-                            <div className=" w-4/5 md:w-3/5 " >
-                                <div className="mb-10 md:mb-0 ">
-    
-                                    <div className=""><RecordCard number={numberOfGoats} type="goats" icon={goatIcon} /></div>
-                                </div>
-                                <div className="mb-10 md:mb-0">
-                                    <div className=""><RecordCard number={numberOfSheep} type="sheep" icon={sheepIcon} /></div>
-                                </div>
-                                <div className="mb-10 md:mb-0">
-                                    <div className=""><RecordCard number={numberOfCattle} type="cattle" icon={cattleIcon} /></div>
-                                </div>
-                            </div>
+            <SlideEnter>
+                <div className="flex flex-col justify-center items-center w-full  md:mt-0">
+                    <div className="w-full">
+                        <div className=""> <DashSearch /></div>
+                    </div>
+                    <div className=" w-4/5 md:w-3/5 " >
+                        <div className="mb-10 md:mb-0 ">
+
+                            <div className=""><RecordCard number={numberOfGoats} type="goats" icon={goatIcon} /></div>
                         </div>
-             
-               </SlideEnter>
+                        <div className="mb-10 md:mb-0">
+                            <div className=""><RecordCard number={numberOfSheep} type="sheep" icon={sheepIcon} /></div>
+                        </div>
+                        <div className="mb-10 md:mb-0">
+                            <div className=""><RecordCard number={numberOfCattle} type="cattle" icon={cattleIcon} /></div>
+                        </div>
+                    </div>
+                </div>
+
+            </SlideEnter>
 
         </Layout>
 

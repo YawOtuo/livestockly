@@ -17,7 +17,7 @@ export const ListView = (props) => {
         axios
             .get(`${url}records/${type}`)
             .then((res) => {
-                setAnimals(res.data)
+            setAnimals(res.data)
                 setNumber(res.data.length)
                 console.log(res)
             })
@@ -43,7 +43,7 @@ export const ListView = (props) => {
     return (
         <Layout>
             <Navbar />
-           <SlideEnter>
+            <SlideEnter>
                 <div className="container mx-auto text-center ">
                     <div className="pb-3">
                         <p>Displaying all<span className="brand-green-font"> {number}</span> {type} </p>
@@ -55,7 +55,7 @@ export const ListView = (props) => {
                         </div>
                     </div>
                 </div>
-           </SlideEnter>
+            </SlideEnter>
         </Layout>
     )
 }
