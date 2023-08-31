@@ -161,7 +161,7 @@ export const DetailView = (props) => {
 
                         <Log title="Vaccination Info" label="vaccination_info"/>
 
-                        <Log title="Remarks" label="remarks"/>
+                        <Log title="General Information" label="remarks"/>
 
                     </div>
                 </div>
