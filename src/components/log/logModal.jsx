@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { addMessage } from "../../redux/reducers/messages";
 import { BiSolidBookAdd } from "react-icons/bi";
 import { useMutation, useQuery } from "react-query";
-import { fetchRecord, updateRecord } from "../../views/detailView/api";
+import { fetchRecord, updateRecord, updateRecordJSON } from "../../views/detailView/api";
 import { useParams } from "react-router-dom";
 import { today } from "../../utils/date";
 import { AiOutlineEdit } from "react-icons/ai";
@@ -27,48 +27,24 @@ const LogModal = (props) => {
     const params = useParams();
     const dispatch = useDispatch();
 
-    const updateMutation = useMutation((data) => updateRecord(params.id, data))
-
-    const { data, error, isLoading } = useQuery('record', () => fetchRecord(params.id));
-
     const [dataInput, setDataInput] = useState([]);
 
     const [record, setRecord] = useState([])
 
     useEffect(() => {
-        switch (props.label) {
-            case "weight":
-                setRecord(data?.weight || []);
-                break;
-            case "health_condition":
-                setRecord(data?.health_condition || []);
-                break;
-            case "vaccination_info":
-                setRecord(data?.vaccination_info || []);
-                break;
-            case "remarks":
-                setRecord(data?.remarks || []);
-                break;
-            default:
-                break;
-        }
-    }, [props.label, data]);
-
-
-    useEffect(() => {
         if (props.edit) {
             switch (props.label) {
                 case "weight":
-                    setDataInput(data?.weight)
+                    setDataInput(props.data)
                     break;
                 case "health_condition":
-                    setDataInput(data?.health_condition)
+                    setDataInput(props.data)
                     break;
                 case "vaccination_info":
-                    setDataInput(data?.vaccination_info)
+                    setDataInput(props.data)
                     break;
                 case "remarks":
-                    setDataInput(data?.remarks)
+                    setDataInput(props.data)
                     break;
                 default:
                     break;
@@ -76,7 +52,6 @@ const LogModal = (props) => {
         }
     }
         , [props.edit])
-
 
     const handleOnChange = (e) => {
         let value = e.target.value
@@ -86,14 +61,8 @@ const LogModal = (props) => {
 
 
     const handleUpdate = async () => {
-        const updatedData = [
-            ...record,
-            dataInput // Add the new item to the array
-        ]
-        const updatePayload = {
-            [props.label]: updatedData // Create an object with the label as the key
-        };
-        const updatedItem = await updateMutation.mutateAsync(updatePayload);
+        console.log([props.label])
+        updateRecordJSON(params.id, [dataInput], props.label)
         handleClose()
     };
     const handleClickOpen = () => {
@@ -135,10 +104,10 @@ const LogModal = (props) => {
 
                         <div className='flex flex-col gap-2 lg:gap-6'>
                             <TextField label={"date"} type="text" name="date"
-                                handleOnChange={handleOnChange} 
-                                value={dataInput && dataInput[0] && dataInput[0]['date']}
-                                />
-                            
+                                handleOnChange={handleOnChange}
+                                value={dataInput && dataInput['date']}
+                            />
+
                         </div>
 
                         <div className='flex flex-col  gap-3 xl:gap-6'>
@@ -148,7 +117,7 @@ const LogModal = (props) => {
 
                             <Textarea placeholder={props.type} minRows={4} name={"content"}
                                 onChange={handleOnChange}
-                                value={dataInput && dataInput[0] && dataInput[0]['content']}
+                                value={dataInput && dataInput['content']}
                             />
 
 

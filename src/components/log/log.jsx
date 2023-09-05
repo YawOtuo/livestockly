@@ -39,7 +39,7 @@ const Log = (props) => {
 
             </div>
             {
-                r?.map((r) => (
+                r?.map((r, index) => (
                     <LogI className="shadow-md flex justify-between">
 
                         <div>
@@ -55,8 +55,9 @@ const Log = (props) => {
                             <LogModal 
                             edit={true}
                             icon="edit"
+                            index={index}
                             type={props.title} label={props.label} 
-                            data={data}/>
+                            data={r}/>
                             <button >
                                 <MdOutlineDelete size={20} /></button>
                         </div>
