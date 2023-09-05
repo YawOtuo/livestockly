@@ -6,6 +6,8 @@ import { url } from "../weburl"
 import { useParams } from "react-router-dom"
 import Layout from "./layout"
 import SlideEnter from "../framer/slideEnter"
+import { DashSearch } from "../components/dash-search"
+import AddRecordModal from "../components/add-record-modal"
 
 export const ListView = (props) => {
     const [animals, setAnimals] = useState()
@@ -45,8 +47,12 @@ export const ListView = (props) => {
             <Navbar />
             <SlideEnter>
                 <div className="container mx-auto text-center ">
-                    <div className="pb-3">
-                        <p>Displaying all<span className="brand-green-font"> {number}</span> {type} </p>
+                    <DashSearch/>
+
+                    <div className="pb-3 flex items-center justify-center">
+                        <p>Displaying all<span className="brand-green-font"> {number}</span> {type} 
+                        </p>
+                         <AddRecordModal type={type}/>
                     </div>
                     <div className="">
                         <div className="grid grid-cols-12 

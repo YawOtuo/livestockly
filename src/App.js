@@ -3,22 +3,25 @@ import './App.css';
 import { Dashboard } from './views/dashboard';
 import { Navbar } from './components/navbar';
 import { Search } from './components/dash-search';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { ListView } from './views/listView';
 import { DetailView } from './views/detailView';
 import { Login } from './views/login/login';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import Workers from './views/workers';
 import { AnimatePresence } from 'framer-motion';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
-import { getUser, setUserDetails } from './redux/reducers/users';
+import { getUser, setAuthenticated, setUserDetails } from './redux/reducers/users';
 import { getCurrentUser } from './api/apis';
 import { addMessage } from './redux/reducers/messages';
 import { getRecordSp } from './api/recordsApi';
+import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
+import PrivateRoute from './components/PrivateRoute';
 
+const cloudName = 'daurieb51'
 const queryClient = new QueryClient();
 
 function App() {
@@ -27,56 +30,93 @@ function App() {
   const notify = (message) => toast.success(message);
   const dispatch = useDispatch()
   const userData = useSelector((state) => state.user)
+  const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
 
   useEffect(() => {
     if (message) {
-      console.log('message updated')
       notify(message)
+      console.log(isAuthenticated)
     }
-    console.log('errrrrrr')
+
   }, [message])
 
 
-  useEffect(() => {
-    const accessToken = JSON.parse(localStorage.getItem('authToken'))
-    if (accessToken) {
-      const headers = {
-        Authorization: `Bearer ${accessToken['access_token']}`,
-      };
 
-      getCurrentUser(headers)
-        .then((res) => {
-          dispatch(addMessage('yesss'));
-          dispatch(setUserDetails(res.data))
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+
+  useEffect(() => {
+    // console.log('here')
+    const accessToken = JSON.parse(localStorage.getItem('authToken'))
+
+    if (accessToken) {
+      if (accessToken) {
+        const headers = {
+          Authorization: `Bearer ${accessToken['access_token']}`,
+        };
+
+        getCurrentUser(headers)
+          .then((res) => {
+            dispatch(addMessage('yesss'));
+            dispatch(setUserDetails(res.data))
+            dispatch(setAuthenticated(true))
+            // window.location="/dashboard"
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
-  }, [localStorage.getItem['authToken']])
+  }, [localStorage.getItem('authToken')])
+
+
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <CloudinaryContext cloudName={cloudName}>
 
-        <Routes>
-          <Route path="/" element={<Login />} />
+        <BrowserRouter>
 
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/:type" element={<AnimatePresence mode='wait'><ListView /></AnimatePresence>} />
-          <Route path="/dashboard/:type/:id" element={<AnimatePresence
-            mode='wait'
-          ><DetailView /></AnimatePresence>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/workers" element={<Workers />} />
+          <Routes>
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute isAuthenticated={isAuthenticated}>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route index path="/" element={
+              isAuthenticated ? <Dashboard /> : <Login />
+
+            } />
+
+            <Route path="/login" element={
+              isAuthenticated ? <Dashboard /> : <Login/>
+
+            } />
+
+            <Route path="/dashboard/:type" element={<PrivateRoute isAuthenticated={isAuthenticated}><AnimatePresence mode='wait'><ListView /></AnimatePresence> </PrivateRoute>} />
+
+            <Route path="/dashboard/:type/:id" element={
+              <PrivateRoute isAuthenticated={isAuthenticated}>
+                <AnimatePresence
+                  mode='wait'
+                ><DetailView /></AnimatePresence>
+              </PrivateRoute>
+            } />
+
+
+            <Route path="/workers" element={
+              <PrivateRoute isAuthenticated={isAuthenticated}> <Workers /></PrivateRoute>
+            } />
 
 
 
 
 
-        </Routes>
+          </Routes>
 
-        <ToastContainer />
-      </BrowserRouter>
+          <ToastContainer />
+        </BrowserRouter>
+      </CloudinaryContext>
     </QueryClientProvider>
   );
 }

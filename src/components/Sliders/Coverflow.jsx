@@ -11,7 +11,7 @@ const images = [
 
 ]
 
-const CoverFlow = () => {
+const CoverFlow = (props) => {
     return (
         <div>
             <Swiper
@@ -46,9 +46,12 @@ const CoverFlow = () => {
                   }}
             >
                 {
-                    images.map((r) => (
+                    props.images?.map((r) => (
                         <SwiperSlide>
-                            <img src={r} width={"100%"} alt="pic" />
+                            <img src={
+                                `https://res.cloudinary.com/daurieb51/image/upload/v1693905807/${r}.jpg`
+                                
+                            } width={"100%"} alt="pic" />
                         </SwiperSlide>
                     ))
                 }

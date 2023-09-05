@@ -12,6 +12,7 @@ import { useMutation, useQuery } from "react-query";
 import { fetchRecord, updateRecord } from "../../views/detailView/api";
 import { useParams } from "react-router-dom";
 import { today } from "../../utils/date";
+import { AiOutlineEdit } from "react-icons/ai";
 
 
 const Transition = React.forwardRef(function Transition(
@@ -54,8 +55,27 @@ const LogModal = (props) => {
     }, [props.label, data]);
 
 
-
-
+    useEffect(() => {
+        if (props.edit) {
+            switch (props.label) {
+                case "weight":
+                    setDataInput(data?.weight)
+                    break;
+                case "health_condition":
+                    setDataInput(data?.health_condition)
+                    break;
+                case "vaccination_info":
+                    setDataInput(data?.vaccination_info)
+                    break;
+                case "remarks":
+                    setDataInput(data?.remarks)
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+        , [props.edit])
 
 
     const handleOnChange = (e) => {
@@ -87,7 +107,13 @@ const LogModal = (props) => {
     return (
         <Root>
             <button onClick={handleClickOpen}>
-                <BiSolidBookAdd color="#0FA958" size={30} />
+
+                {
+                    props.icon == 'edit' && <AiOutlineEdit color="" size={20} />
+                }
+                {
+                    props.icon == 'add' && <BiSolidBookAdd color="#0FA958" size={30} />
+                }
             </button>
             <Dialog
                 open={open}
@@ -109,10 +135,10 @@ const LogModal = (props) => {
 
                         <div className='flex flex-col gap-2 lg:gap-6'>
                             <TextField label={"date"} type="text" name="date"
-                            handleOnChange={handleOnChange} />
-
-
-
+                                handleOnChange={handleOnChange} 
+                                value={dataInput && dataInput[0] && dataInput[0]['date']}
+                                />
+                            
                         </div>
 
                         <div className='flex flex-col  gap-3 xl:gap-6'>
@@ -121,7 +147,9 @@ const LogModal = (props) => {
 
 
                             <Textarea placeholder={props.type} minRows={4} name={"content"}
-                                onChange={handleOnChange} />
+                                onChange={handleOnChange}
+                                value={dataInput && dataInput[0] && dataInput[0]['content']}
+                            />
 
 
                         </div>

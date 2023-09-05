@@ -4,9 +4,12 @@ import { Button, useMediaQuery } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { RxHamburgerMenu } from 'react-icons/rx'
 import SideNav from './sideNav';
+import { setAuthenticated } from '../redux/reducers/users';
+import { useDispatch } from 'react-redux';
 
 export const Navbar = () => {
     var currentDate = new Date();
+    const dispatch = useDispatch()
     const isMobile = useMediaQuery('(max-width: 600px)');
     const isTab = useMediaQuery('(max-width: 1000px)');
     const navigate = useNavigate()
@@ -30,7 +33,8 @@ export const Navbar = () => {
                     </p>
 
                     <Button onClick={e => {
-                        navigate('/login')
+                        localStorage.setItem('authToken', 0)
+                        dispatch(setAuthenticated(false))
                     }}>Logout</Button>
 
                 </div>

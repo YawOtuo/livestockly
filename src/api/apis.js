@@ -26,3 +26,7 @@ export const getCurrentUser = (headers) => {
 
 }
 
+export const uploadImage = (body, id) =>{
+    console.log(body)
+    return axios.post(`${url}records/${id}`, body );
+}

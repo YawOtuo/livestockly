@@ -8,7 +8,7 @@ import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai'
 import { Button } from "@mui/material"
 import AlertDialogSlide from "../../components/add-record-modal"
 import { deleteRecord } from "../../api/apis"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addMessage } from "../../redux/reducers/messages"
 import Swal from "sweetalert2"
 import RecentRecords from "../../components/recentRecords"
@@ -21,6 +21,8 @@ import PageSlide from "../../framer/pageSlide"
 import SlideEnterToLeft from "../../framer/slideInWithGreen"
 import Log from "../../components/log/log"
 import { returnGender } from "../../utils/gender"
+import ImageUploader from "../../components/image-uploader"
+import { PermissionComponent } from "../../components/permission-component"
 export const DetailView = (props) => {
 
     const params = useParams()
@@ -32,6 +34,7 @@ export const DetailView = (props) => {
     const dispatch = useDispatch()
     const [recents, setRecents] = useState()
     const [recentsSp, setRecentsSp] = useState()
+    const user = useSelector((state) => state?.users)
 
     useEffect(() => {
         axios
@@ -163,6 +166,11 @@ export const DetailView = (props) => {
 
                         <Log title="General Information" label="remarks"/>
 
+                       <ImageUploader
+                       setRecordEditted={setRecordEditted}
+                       public_id={animal.public_id}
+                       id={animal.id}/>
+
                     </div>
                 </div>
 
@@ -237,19 +245,22 @@ export const DetailView = (props) => {
 
                             {displayInfo()}
                             <div className="px-10">
-                                <CoverFlow />
+                                <CoverFlow images={animal.public_id} />
                             </div>
-                            <div className="justify-center items-center flex flex-row gap-10 pt-5">
-                                <div className="flex uppercase items-center">
-                                    <AlertDialogSlide edit={true} type={animal && animal.type} record={animal}
-                                        setRecordEditted={setRecordEditted} recordEditted={recordEditted} />
-                                    Edit
+
+                            <PermissionComponent level={["2", "3"]}>
+                                <div className="justify-center items-center flex flex-row gap-10 pt-5">
+                                    <div className="flex uppercase items-center">
+                                        <AlertDialogSlide edit={true} type={animal && animal.type} record={animal}
+                                            setRecordEditted={setRecordEditted} recordEditted={recordEditted} />
+                                        Edit
+                                    </div>
+                                    <div className="flex uppercase items-center">
+                                        <AiOutlineDelete color="0FA958" size={30} onClick={_deleteRecord} />
+                                        Delete
+                                    </div>
                                 </div>
-                                <div className="flex uppercase items-center">
-                                    <AiOutlineDelete color="0FA958" size={30} onClick={_deleteRecord} />
-                                    Delete
-                                </div>
-                            </div>
+                            </PermissionComponent>
                         </div>
 
                         <div className="mt-10 lg:mt-0 col-span-5 md:col-span-1 

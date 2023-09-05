@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import rightArrow from '../icons/arrow-right.png'
-import AlertDialogSlide from './add-record-modal'
+import AddRecordModal from './add-record-modal'
 import { useState } from 'react'
 
 export const RecordCard = (props) => {
@@ -19,7 +19,7 @@ export const RecordCard = (props) => {
 
                 <div className='flex flex-row text-center items-center '>
                     <div>
-                        <AlertDialogSlide type={props.type}/>
+                        <AddRecordModal type={props.type}/>
 
 
                     </div>

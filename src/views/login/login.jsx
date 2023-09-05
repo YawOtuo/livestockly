@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { styled } from "@stitches/react"
 import { useState } from "react"
 import { login, signUp } from "../../api/apis"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addMessage } from "../../redux/reducers/messages"
 import { setUserToken } from "../../redux/reducers/users"
 
@@ -13,6 +13,7 @@ export const Login = () => {
 
     ])
     const dispatch = useDispatch()
+    const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
 
     const handleOnChange = (e) => {
         console.log('value here')
@@ -33,8 +34,6 @@ export const Login = () => {
 
 
                 // Retrieving the token
-
-
 
             })
             .catch((err) => {

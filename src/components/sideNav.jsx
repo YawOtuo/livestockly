@@ -3,14 +3,23 @@ import { Link } from "react-router-dom"
 import NavAccordion from "./navAccordion"
 import { IoIosContact } from 'react-icons/io';
 import { useSelector } from "react-redux";
+import { getStatus } from "../utils/permissions";
 
 const SideNav = () => {
     const userData = useSelector((state) => state?.users?.user)
     return (
         <Root>
-            <div className="flex items-center gap-2 text-white">
+            <div className="flex  flex-col capitalize items-center gap-2 text-white">
                 <IoIosContact color="white" size={40} />
-                <p>{userData?.username || ""}</p>
+                <p className="mb-0 text-xs">
+
+                    {getStatus(userData?.permission)}: &nbsp;
+                    <span className='text-[#0FA958]'>
+
+                        {userData?.username || ""}
+                    </span>
+                </p>
+
             </div>
             <div className="h-full flex flex-col gap-10">
                 <NavButtons><Link to={'/dashboard'}>Home</Link></NavButtons>
@@ -27,7 +36,7 @@ const SideNav = () => {
                 <NavButtons><Link>Settings</Link></NavButtons>
             </div>
             <div>
-                <p className="text-white">{userData?.email}
+                <p className="text-xs text-[#0FA958]">{userData?.email}
                 </p>
             </div>
         </Root>

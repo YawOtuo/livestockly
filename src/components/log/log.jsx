@@ -10,7 +10,6 @@ import { AiOutlineEdit } from "react-icons/ai"
 
 const Log = (props) => {
     const params = useParams();
-
     const { data, error, isLoading } = useQuery('record', () => fetchRecord(params.id));
 
     const [r, setR] = useState()
@@ -20,11 +19,11 @@ const Log = (props) => {
         }
         if (props.label == 'vaccination_info') {
             setR(data?.vaccination_info)
-        } 
+        }
         if (props.label == 'health_condition') {
             setR(data?.health_condition)
         }
-        if (props.label == 'remarks'){
+        if (props.label == 'remarks') {
             setR(data?.remarks)
         }
     }, [data])
@@ -35,7 +34,7 @@ const Log = (props) => {
             <div className="flex gap-3 items-center uppercase text-[#0FA958]
            font-bold ">
                 {props.title}
-                <LogModal type={props.title} label={props.label} />
+                <LogModal icon='add' type={props.title} label={props.label} />
 
 
             </div>
@@ -53,7 +52,11 @@ const Log = (props) => {
                         </div>
 
                         <div className="flex gap-1 lg:gap-4">
-                            <button><AiOutlineEdit size={20} /></button>
+                            <LogModal 
+                            edit={true}
+                            icon="edit"
+                            type={props.title} label={props.label} 
+                            data={data}/>
                             <button >
                                 <MdOutlineDelete size={20} /></button>
                         </div>

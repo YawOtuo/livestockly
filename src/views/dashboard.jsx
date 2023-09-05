@@ -46,7 +46,10 @@ export const Dashboard = () => {
             notify(`Welcome back ${userName}`)
             axios
                 .get(`${url}records/goats/count`)
-                .then(res => setNumberOfGoats(res.data))
+                .then(res => {
+                    console.log(res.data)
+                    setNumberOfGoats(res.data)}
+                    )
                 .catch((err => console.log(err)))
 
             axios
