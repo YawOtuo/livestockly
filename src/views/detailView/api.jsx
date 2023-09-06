@@ -31,9 +31,22 @@ export const fetchRecord = async (id) => {
     return response.json();
   }; 
 
-  export const deleteRecordJSON = async (id, label, jund) => {
+  export const updateRecordJSONOne = async (id, data, label, index) => {
 
-    const response = await fetch(`${url}records/${id}/${label}`, {
+    console.log(id, data, label, index)
+    const response = await fetch(`${url}records/${id}/${label}/index/${index}`, {
+        method: 'POST', // or 'PATCH' depending on your API
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    return response.json();
+  }; 
+
+  export const deleteRecordJSONOne = async (id, label, index) => {
+
+    const response = await fetch(`${url}records/${id}/${label}/index/${index}`, {
         method: 'DELETE', // or 'PATCH' depending on your API
         headers: {
           'Content-Type': 'application/json',
@@ -41,3 +54,13 @@ export const fetchRecord = async (id) => {
     });
     return response.json();
   }; 
+
+  export const deleteImage = async (id, index) => {
+    const response = await fetch(`${url}records/image/${id}/index/${index}`, {
+      method: 'DELETE', // or 'PATCH' depending on your API
+      headers: {
+        'Content-Type': 'application/json',
+      },
+  });
+  return response.json();
+  }

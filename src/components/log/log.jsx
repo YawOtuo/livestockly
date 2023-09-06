@@ -4,13 +4,19 @@ import { MdOutlineDelete } from 'react-icons/md'
 import { BiSolidBookAdd } from 'react-icons/bi'
 import LogModal from "./logModal"
 import { useQuery } from "react-query"
-import { fetchRecord } from "../../views/detailView/api"
-import { useParams } from "react-router-dom"
+import { deleteRecordJSONOne, fetchRecord } from "../../views/detailView/api"
+import { Navigate, useParams } from "react-router-dom"
 import { AiOutlineEdit } from "react-icons/ai"
+import { useDispatch, useSelector } from "react-redux"
+import Swal from "sweetalert2"
+import { addMessage } from "../../redux/reducers/messages"
 
 const Log = (props) => {
     const params = useParams();
     const { data, error, isLoading } = useQuery('record', () => fetchRecord(params.id));
+    const refreshCount = useSelector((state) => state?.app.refresh)
+    const dispatch = useDispatch()
+
 
     const [r, setR] = useState()
     useEffect(() => {
@@ -27,6 +33,34 @@ const Log = (props) => {
             setR(data?.remarks)
         }
     }, [data])
+
+    useEffect(()=>{
+
+    }, [refreshCount])
+
+    const handleDelete = (index) => {
+        
+        Swal.fire({
+            title: 'Are you sure you want to delete?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Don't Delete`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Deleted!', '', 'success')
+                deleteRecordJSONOne(props.animalId, props.label, index)
+                    .then((res) => {
+                        Navigate('/dashboard')
+                        dispatch(addMessage("Deleted Data"))
+
+                    })
+                    .catch((err) => console.log(err))
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        })
+    }
 
     return (
         <Root >
@@ -58,7 +92,7 @@ const Log = (props) => {
                             index={index}
                             type={props.title} label={props.label} 
                             data={r}/>
-                            <button >
+                            <button onClick={e => handleDelete(index)}>
                                 <MdOutlineDelete size={20} /></button>
                         </div>
                     </LogI>

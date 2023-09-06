@@ -23,6 +23,7 @@ import Log from "../../components/log/log"
 import { returnGender } from "../../utils/gender"
 import ImageUploader from "../../components/image-uploader"
 import { PermissionComponent } from "../../components/permission-component"
+import { refresh } from "../../redux/reducers/app"
 export const DetailView = (props) => {
 
     const params = useParams()
@@ -35,6 +36,8 @@ export const DetailView = (props) => {
     const [recents, setRecents] = useState()
     const [recentsSp, setRecentsSp] = useState()
     const user = useSelector((state) => state?.users)
+    const refreshCount = useSelector((state) => state?.app.refresh)
+
 
     useEffect(() => {
         axios
@@ -47,6 +50,7 @@ export const DetailView = (props) => {
             })
     }, [])
 
+
     useEffect(() => {
         axios
             .get(`${url}records/${params.id}`)
@@ -56,7 +60,10 @@ export const DetailView = (props) => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [recordEditted])
+    }, [recordEditted, refreshCount])
+
+
+
 
     useEffect(() => {
         if (animal && animal.id) {
@@ -158,13 +165,13 @@ export const DetailView = (props) => {
                     flex flex-col justify-start items-center lg:items-start capitalize text-left gap-4">
                        
 
-                        <Log title="Weight" label="weight"/>
+                        <Log title="Weight" label="weight" animalId={animal?.id}/>
 
-                        <Log title="Health Condition" label="health_condition" />
+                        <Log title="Health Condition" label="health_condition"  animalId={animal?.id}/>
 
-                        <Log title="Vaccination Info" label="vaccination_info"/>
+                        <Log title="Vaccination Info" label="vaccination_info"  animalId={animal?.id}/>
 
-                        <Log title="General Information" label="remarks"/>
+                        <Log title="General Information" label="remarks" animalId={animal?.id} />
 
                        <ImageUploader
                        setRecordEditted={setRecordEditted}
@@ -245,7 +252,7 @@ export const DetailView = (props) => {
 
                             {displayInfo()}
                             <div className="px-10">
-                                <CoverFlow images={animal.public_id} />
+                                <CoverFlow images={animal.public_id} animalId={animal?.id} />
                             </div>
 
                             <PermissionComponent level={["2", "3"]}>

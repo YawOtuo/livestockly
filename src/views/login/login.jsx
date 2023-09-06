@@ -26,9 +26,9 @@ export const Login = () => {
             .then((res) => {
                 console.log(res)
                 localStorage.setItem('authToken',
-                    JSON.stringify(res.data))
+                    JSON.stringify(res?.data))
                 dispatch(addMessage(res.message))
-                dispatch(setUserToken(res.data))
+                dispatch(setUserToken(res?.data))
                 dispatch(addMessage('LoginSuccessful'))
                 navigate('/dashboard')
 
@@ -37,7 +37,7 @@ export const Login = () => {
 
             })
             .catch((err) => {
-                dispatch(addMessage(err.response.data['detail']))
+                dispatch(addMessage(err.response?.data['detail']))
             })
     }
 
@@ -80,6 +80,7 @@ export const Login = () => {
                         <TextField label='USERNAME'
                             name="username"
                             value={user.username}
+                            required={true}
                             onChange={handleOnChange} />
 
                     </div>
@@ -89,6 +90,7 @@ export const Login = () => {
                             name="password"
                             type="password"
                             value={user.password}
+                            required={true}
                             onChange={handleOnChange} />
 
 

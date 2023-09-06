@@ -9,10 +9,11 @@ import { useDispatch } from "react-redux";
 import { addMessage } from "../../redux/reducers/messages";
 import { BiSolidBookAdd } from "react-icons/bi";
 import { useMutation, useQuery } from "react-query";
-import { fetchRecord, updateRecord, updateRecordJSON } from "../../views/detailView/api";
+import { fetchRecord, updateRecord, updateRecordJSON, updateRecordJSONOne } from "../../views/detailView/api";
 import { useParams } from "react-router-dom";
 import { today } from "../../utils/date";
 import { AiOutlineEdit } from "react-icons/ai";
+import { refresh } from "../../redux/reducers/app";
 
 
 const Transition = React.forwardRef(function Transition(
@@ -60,10 +61,12 @@ const LogModal = (props) => {
     }
 
 
+
     const handleUpdate = async () => {
-        console.log([props.label])
-        updateRecordJSON(params.id, [dataInput], props.label)
+        !props.edit ? updateRecordJSON(params.id, [dataInput], props.label) : 
+        updateRecordJSONOne(params.id, [dataInput], props.label, props.index)
         handleClose()
+        dispatch(refresh())
     };
     const handleClickOpen = () => {
         setOpen(true);
