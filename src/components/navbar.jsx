@@ -35,6 +35,8 @@ export const Navbar = () => {
                     <Button onClick={e => {
                         localStorage.setItem('authToken', 0)
                         dispatch(setAuthenticated(false))
+                        localStorage.setItem('isAuthenticated', false)
+                        navigate('/login')
                     }}>Logout</Button>
 
                 </div>

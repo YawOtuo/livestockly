@@ -35,7 +35,6 @@ function App() {
   useEffect(() => {
     if (message) {
       notify(message)
-      console.log(isAuthenticated)
     }
 
   }, [message])
@@ -43,10 +42,12 @@ function App() {
 
 
 
+
+
   useEffect(() => {
     // console.log('here')
     const accessToken = JSON.parse(localStorage.getItem('authToken'))
-
+    // const _isAuthenticated = localStorage.getItem('isAuthenticated')
     if (accessToken) {
       if (accessToken) {
         const headers = {
@@ -57,7 +58,7 @@ function App() {
           .then((res) => {
             dispatch(addMessage('yesss'));
             dispatch(setUserDetails(res.data))
-            dispatch(setAuthenticated(true))
+            // dispatch(setAuthenticated(isAuthenticated))
             // window.location="/dashboard"
           })
           .catch((err) => {
@@ -84,12 +85,12 @@ function App() {
               }
             />
             <Route index path="/" element={
-              isAuthenticated ? <Dashboard /> : <Login />
+              <Login />
 
             } />
 
             <Route path="/login" element={
-              isAuthenticated ? <Dashboard /> : <Login/>
+               <Login/>
 
             } />
 

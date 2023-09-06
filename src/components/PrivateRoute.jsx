@@ -6,10 +6,7 @@ import { Navigate } from "react-router-dom";
 const PrivateRoute = ({  children }) => {
   const isAuthenticated = useSelector((state) => state.users.isAuthenticated) 
 
-  useEffect(()=>{
-
-  }, [isAuthenticated])
-  if (!isAuthenticated) {
+  if (isAuthenticated == "false") {
     return <Navigate to="/login" replace />;
   }
   return children;

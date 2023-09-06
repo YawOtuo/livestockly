@@ -7,7 +7,7 @@ export const PermissionComponent = (props) => {
     const [display, setDisplay] = useState(true)
     useEffect(()=>{
        
-        if (props.level.includes(user.user.permission)){
+        if (props.level.includes(user?.user?.permission)){
             setDisplay(true)
         
         }

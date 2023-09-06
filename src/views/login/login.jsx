@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { styled } from "@stitches/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { login, signUp } from "../../api/apis"
 import { useDispatch, useSelector } from "react-redux"
 import { addMessage } from "../../redux/reducers/messages"
@@ -14,6 +14,12 @@ export const Login = () => {
     ])
     const dispatch = useDispatch()
     const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
+    // useEffect(() => {
+    //     if (isAuthenticated) {
+    //         navigate(-1)
+    //         console.log('going back')
+    //     }
+    // }, [])
 
     const handleOnChange = (e) => {
         console.log('value here')
@@ -24,9 +30,11 @@ export const Login = () => {
     const handleLogin = (e) => {
         login(user)
             .then((res) => {
-                console.log(res)
+                
                 localStorage.setItem('authToken',
                     JSON.stringify(res?.data))
+                localStorage.setItem('isAuthenticated',
+                    true)
                 dispatch(addMessage(res.message))
                 dispatch(setUserToken(res?.data))
                 dispatch(addMessage('LoginSuccessful'))
@@ -105,11 +113,11 @@ export const Login = () => {
                             className="">SIGN UP</Button>
 
                         <Button
-                        sx={{
-                            color: "grey"
+                            sx={{
+                                color: "grey"
 
-                        }}
-                            
+                            }}
+
                             onClick={handleLogin}
                             className="text-center">LOGIN</Button>
                     </div>
