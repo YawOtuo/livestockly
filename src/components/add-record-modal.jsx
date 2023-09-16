@@ -19,6 +19,7 @@ import { LoadingModal } from './loading-modal';
 import { useSelector, useDispatch } from 'react-redux'
 import { addMessage } from '../redux/reducers/messages';
 import { Textarea } from '@mui/joy';
+import { today } from '../utils/date';
 
 
 
@@ -31,7 +32,10 @@ const Transition = React.forwardRef(function Transition(
 
 export default function AddRecordModal(props) {
   const [open, setOpen] = React.useState(false);
-  const [record, setRecord] = React.useState({ type: props.type, sire: null, dam: null })
+  const [record, setRecord] = React.useState({
+    type: props.type, sire: null, dam: null
+  })
+
   const [sire, setSire] = React.useState({ id: null, name: null })
   const [dam, setDam] = React.useState({ id: null, name: null })
   const [loading, setLoading] = useState(false)
@@ -63,7 +67,18 @@ export default function AddRecordModal(props) {
   const handleOnChange = (e) => {
     let value = e.target.value
     let name = e.target.name
-    setRecord({ ...record, [name]: value })
+    if (['weight', 'vaccination_info', 'remarks', 'health_condition'].includes(name)) {
+      setRecord({
+        ...record, [name]: [
+          { 'date': today, 'content': value }
+        ]
+      });
+      
+    } else {
+      setRecord({ ...record, [name]: value });
+
+
+    }
   }
   const submitRecord = () => {
     setLoading(true)
@@ -155,13 +170,16 @@ export default function AddRecordModal(props) {
 
 
                 <TextField label={"colour"} value={record.colour} name="colour" type="text" handleOnChange={handleOnChange} />
-                <TextField label={"health condition"} value={record.health_condition} name="health_condition"
+
+                <TextField label={"health condition"} value={record.health_condition?.content} name="health_condition"
                   type="text" handleOnChange={handleOnChange} />
+
                 <TextField label={"number of kids"} value={record.number_of_kids} name="number_of_kids"
                   type="number" handleOnChange={handleOnChange} />
 
-                <TextField label={"weight"} value={record.weight} name="weight"
+                <TextField label={"weight"} value={record.weight?.content} name="weight"
                   type="number" handleOnChange={handleOnChange} />
+
                 <TextField label={"date of birth"} name="date_of_birth"
                   type="text" value={record.date_of_birth} handleOnChange={handleOnChange} />
 
@@ -193,10 +211,10 @@ export default function AddRecordModal(props) {
                     Gender
                   </div>
                   <div className='mx-3 flex flex-row gap-2'>
-                    <input type="radio" id="html" name="gender" value="male" 
-                    onChange={handleOnChange} />
+                    <input type="radio" id="html" name="gender" value="male"
+                      onChange={handleOnChange} />
                     <label for="html">male</label>
-                    <input type="radio" id="css" name="gender" value="female" onChange={handleOnChange}  />
+                    <input type="radio" id="css" name="gender" value="female" onChange={handleOnChange} />
                     <label for="css">female</label>
                   </div>
 
@@ -214,12 +232,12 @@ export default function AddRecordModal(props) {
                   </div>
 
                 </div>
-                <div className='mb-5'> <Textarea placeholder='Vaccination Info' name='vaccination_info' minRows={4} onChange={handleOnChange} value={record.vaccination_info} /></div>
+                <div className='mb-5'> <Textarea placeholder='Vaccination Info' name='vaccination_info' minRows={4} onChange={handleOnChange} value={record.vaccination_info?.content} /></div>
 
                 <Textarea placeholder='Remarks' minRows={4} name='remarks'
-                onChange={handleOnChange} value={record.remarks} />
+                  onChange={handleOnChange} value={record.remarks?.content} />
 
-                <input type='file'/>
+                <input type='file' />
 
               </div>
 
