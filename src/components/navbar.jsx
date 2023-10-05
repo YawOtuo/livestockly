@@ -6,6 +6,7 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 import SideNav from './sideNav';
 import { setAuthenticated } from '../redux/reducers/users';
 import { useDispatch } from 'react-redux';
+import { Logout } from './logout';
 
 export const Navbar = () => {
     var currentDate = new Date();
@@ -32,12 +33,7 @@ export const Navbar = () => {
 
                     </p>
 
-                    <Button onClick={e => {
-                        localStorage.setItem('authToken', 0)
-                        dispatch(setAuthenticated(false))
-                        localStorage.setItem('isAuthenticated', false)
-                        navigate('/login')
-                    }}>Logout</Button>
+                <Logout nav={true}/>
 
                 </div>
             </div>}

@@ -1,11 +1,17 @@
 import { styled } from "@stitches/react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import NavAccordion from "./navAccordion"
 import { IoIosContact } from 'react-icons/io';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getStatus } from "../utils/permissions";
+import { Button } from "@mui/material";
+import { setAuthenticated } from "../redux/reducers/users";
+import { Logout } from "./logout";
 
 const SideNav = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const userData = useSelector((state) => state?.users?.user)
     return (
         <Root>
@@ -34,6 +40,8 @@ const SideNav = () => {
                 {/* <NavButtons><Link>Notifications</Link></NavButtons> */}
 
                 <NavButtons><Link>Settings</Link></NavButtons>
+
+                <Logout/>
             </div>
             <div>
                 <p className="text-xs text-[#0FA958]">{userData?.email}

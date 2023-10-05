@@ -15,7 +15,7 @@ export const Login = () => {
     const dispatch = useDispatch()
     const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
     useEffect(() => {
-        if (isAuthenticated) {
+        if (isAuthenticated =="true") {
             navigate('/dashboard')
         }
     }, [isAuthenticated])
@@ -36,7 +36,7 @@ export const Login = () => {
                     true)
                 dispatch(addMessage(res.message))
                 dispatch(setUserToken(res?.data))
-                dispatch(setAuthenticated(true))
+                dispatch(setAuthenticated("true"))
                 dispatch(addMessage('LoginSuccessful'))
 
 
@@ -57,7 +57,7 @@ export const Login = () => {
                     true)
                 dispatch(addMessage(res.message))
                 dispatch(setUserToken(res?.data))
-                dispatch(setAuthenticated(true))
+                dispatch(setAuthenticated("true"))
                 dispatch(addMessage('Signup Succesful'))
 
 
