@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { login, signUp } from "../../api/apis"
 import { useDispatch, useSelector } from "react-redux"
 import { addMessage } from "../../redux/reducers/messages"
-import { setUserToken } from "../../redux/reducers/users"
+import { setAuthenticated, setUserToken } from "../../redux/reducers/users"
 
 export const Login = () => {
     const navigate = useNavigate()
@@ -14,12 +14,11 @@ export const Login = () => {
     ])
     const dispatch = useDispatch()
     const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
-    // useEffect(() => {
-    //     if (isAuthenticated) {
-    //         navigate(-1)
-    //         console.log('going back')
-    //     }
-    // }, [])
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/dashboard')
+        }
+    }, [isAuthenticated])
 
     const handleOnChange = (e) => {
         console.log('value here')
@@ -30,15 +29,15 @@ export const Login = () => {
     const handleLogin = (e) => {
         login(user)
             .then((res) => {
-                
+
                 localStorage.setItem('authToken',
                     JSON.stringify(res?.data))
                 localStorage.setItem('isAuthenticated',
                     true)
                 dispatch(addMessage(res.message))
                 dispatch(setUserToken(res?.data))
+                dispatch(setAuthenticated(true))
                 dispatch(addMessage('LoginSuccessful'))
-                navigate('/dashboard')
 
 
                 // Retrieving the token
@@ -53,12 +52,14 @@ export const Login = () => {
         signUp(user)
             .then((res) => {
                 localStorage.setItem('authToken',
-                    JSON.stringify(res.data))
+                    JSON.stringify(res?.data))
+                localStorage.setItem('isAuthenticated',
+                    true)
                 dispatch(addMessage(res.message))
-                dispatch(setUserToken(res.data))
-                dispatch(addMessage('SignUp Succesful'))
+                dispatch(setUserToken(res?.data))
+                dispatch(setAuthenticated(true))
+                dispatch(addMessage('Signup Succesful'))
 
-                navigate('/dashboard')
 
 
             })
@@ -79,8 +80,9 @@ export const Login = () => {
                     <h1 className="uppercase brand-green-font font-bold">Boatey Farms</h1>
 
                     <div className="py-5">
-                        <TextField label='COMPANY CODE'
-                            name="company_code"
+                        <TextField label='FARM NAME'
+                            name="farm_name"
+                            required={true}
                             onChange={handleOnChange} />
 
                     </div>

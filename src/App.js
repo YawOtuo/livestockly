@@ -20,6 +20,8 @@ import { addMessage } from './redux/reducers/messages';
 import { getRecordSp } from './api/recordsApi';
 import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
 import PrivateRoute from './components/PrivateRoute';
+import { fetchCompanyUsers } from './views/workers/api';
+import { WorkersDetail } from './views/workers/WorkersDetail';
 
 const cloudName = 'daurieb51'
 const queryClient = new QueryClient();
@@ -32,17 +34,13 @@ function App() {
   const userData = useSelector((state) => state.user)
   const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
 
+
   useEffect(() => {
     if (message) {
       notify(message)
     }
 
   }, [message])
-
-
-
-
-
 
   useEffect(() => {
     // console.log('here')
@@ -90,7 +88,7 @@ function App() {
             } />
 
             <Route path="/login" element={
-               <Login/>
+              <Login />
 
             } />
 
@@ -109,6 +107,10 @@ function App() {
               <PrivateRoute isAuthenticated={isAuthenticated}> <Workers /></PrivateRoute>
             } />
 
+
+            <Route path="/workers/:id" element={
+              <PrivateRoute isAuthenticated={isAuthenticated}> <WorkersDetail /></PrivateRoute>
+            } />
 
 
 

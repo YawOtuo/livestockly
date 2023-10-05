@@ -1,28 +1,24 @@
 import { styled } from "@stitches/react"
 import { IoIosContact } from "react-icons/io"
 
-const WorkerCard = () => {
+const WorkerCard = (props) => {
     return(
-        <Root>
-            <IoIosContact size={150} color="grey"/>
-            <p>Name nde</p>
+        <Root className="flex items-center justify-center gap-5">
+            <IoIosContact size={50} color="grey"/>
+            <p>{props?.data?.username}</p>
         </Root>
     )
 }
 
 const Root = styled('div', {
-    backgroundColor:"#6fa88a17",
-    minWidth:"300px",
+    border:"1px solid #6fa88a17",
+    minWidth:"100px",
     width:"100%",
-    maxWidth:"500px",
-    display:"flex",
-    flexDirection:"column",
-    justifyContent:"center",
-    alignItems:"center",
+    maxWidth:"200px",
     minHeight:"200px",
-    maxHeight:"300px",
+    maxHeight:"100px",
     height:"100%",
-    aspectRatio:"500/400",
+    aspectRatio:"200/100",
 
     " &:hover":{
         backgroundColor:"rgb(12, 0, 0 , 12%)",

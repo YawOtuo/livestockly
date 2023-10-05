@@ -106,7 +106,7 @@ const LogModal = (props) => {
                         className='pt-4 text-black'>
 
                         <div className='flex flex-col gap-2 lg:gap-6'>
-                            <TextField label={"date"} type="text" name="date"
+                            <TextField label={"date"} type="date" name="date"
                                 handleOnChange={handleOnChange}
                                 value={dataInput && dataInput['date']}
                             />
