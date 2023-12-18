@@ -14,7 +14,7 @@ const SideNav = () => {
 
     const userData = useSelector((state) => state?.users?.user)
     return (
-        <Root>
+        <Root className="">
             <div className="flex  flex-col capitalize items-center gap-2 text-white">
                 <IoIosContact color="white" size={40} />
                 <p className="mb-0 text-xs">

@@ -16,13 +16,13 @@ export const login = (data) => {
     for (var key in data) {
         form_data.append(key, data[key]);
     }
-    return axios.post(`${url}users`, form_data);
+    return axios.post(`${url}users/login`, form_data);
 
 }
 
 export const getCurrentUser = (headers) => {
     console.log(headers)
-    return axios.get(`${url}users/`, {headers});
+    return axios.get(`${url}users/active`, {headers});
 
 }
 

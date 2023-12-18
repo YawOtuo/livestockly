@@ -43,9 +43,7 @@ function App() {
   }, [message])
 
   useEffect(() => {
-    // console.log('here')
     const accessToken = JSON.parse(localStorage.getItem('authToken'))
-    // const _isAuthenticated = localStorage.getItem('isAuthenticated')
     if (accessToken) {
       if (accessToken) {
         const headers = {
@@ -56,8 +54,7 @@ function App() {
           .then((res) => {
             dispatch(addMessage('yesss'));
             dispatch(setUserDetails(res.data))
-            // dispatch(setAuthenticated(isAuthenticated))
-            // window.location="/dashboard"
+       
           })
           .catch((err) => {
             console.log(err);
