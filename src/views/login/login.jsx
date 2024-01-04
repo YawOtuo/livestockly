@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { login, signUp } from "../../api/apis"
 import { useDispatch, useSelector } from "react-redux"
 import { addMessage } from "../../redux/reducers/messages"
-import { setAuthenticated, setUserToken } from "../../redux/reducers/users"
+import { setAuthenticated, setUserDetails, setUserToken } from "../../redux/reducers/users"
 
 export const Login = () => {
     const navigate = useNavigate()
@@ -13,9 +13,11 @@ export const Login = () => {
 
     ])
     const dispatch = useDispatch()
-    const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
+    const isAuthenticated = useSelector((state) => state.users.user?.session ? true : false);
+
+
     useEffect(() => {
-        if (isAuthenticated =="true") {
+        if (isAuthenticated) {
             navigate('/dashboard')
         }
     }, [isAuthenticated])
@@ -27,20 +29,12 @@ export const Login = () => {
         setUser({ ...user, [name]: value })
     }
     const handleLogin = (e) => {
-        login(user)
+        login(user?.farm_name, user)
             .then((res) => {
-
-                localStorage.setItem('authToken',
-                    JSON.stringify(res?.data))
-                localStorage.setItem('isAuthenticated',
-                    true)
+                dispatch(setUserDetails(res))
                 dispatch(addMessage(res.message))
-                dispatch(setUserToken(res?.data))
-                dispatch(setAuthenticated("true"))
                 dispatch(addMessage('LoginSuccessful'))
 
-
-                // Retrieving the token
 
             })
             .catch((err) => {
@@ -49,22 +43,17 @@ export const Login = () => {
     }
 
     const handleSignUp = (e) => {
-        signUp(user)
+        signUp(user?.farm_name, user)
             .then((res) => {
-                localStorage.setItem('authToken',
-                    JSON.stringify(res?.data))
-                localStorage.setItem('isAuthenticated',
-                    true)
+                dispatch(setUserDetails(res))
                 dispatch(addMessage(res.message))
-                dispatch(setUserToken(res?.data))
-                dispatch(setAuthenticated("true"))
                 dispatch(addMessage('Signup Succesful'))
 
 
 
             })
             .catch((err) => {
-                dispatch(addMessage(err.response.data['detail']))
+                dispatch(addMessage(err.response?.data['detail']))
             })
     }
 
@@ -87,9 +76,9 @@ export const Login = () => {
 
                     </div>
                     <div className="py-5">
-                        <TextField label='USERNAME'
-                            name="username"
-                            value={user.username}
+                        <TextField label='EMAIL'
+                            name="email"
+                            value={user.email}
                             required={true}
                             onChange={handleOnChange} />
 

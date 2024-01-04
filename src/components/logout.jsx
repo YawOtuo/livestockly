@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { setAuthenticated } from "../redux/reducers/users";
+import { setAuthenticated, setUserDetails } from "../redux/reducers/users";
 import { useDispatch } from "react-redux";
 import { Button } from "@mui/material";
+import { signOut } from "../api/apis";
 
 export const Logout = (props) => {
   const navigate = useNavigate();
@@ -10,9 +11,9 @@ export const Logout = (props) => {
   <div className={!props.nav ? `md:hidden` : "text-white"}>
       <Button
         onClick={(e) => {
-          localStorage.setItem("authToken", 0);
-          dispatch(setAuthenticated("false"));
-          localStorage.setItem("isAuthenticated", "false");
+          signOut()
+          dispatch(setUserDetails(null))
+
           navigate("/login");
         }}>
         <p 

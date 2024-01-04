@@ -45,3 +45,14 @@ export const GetAllFarmUsers = async (id) => {
     return response.json();
   };
 
+
+
+  export const VerifyFarmExists = async (name) => {
+    const response = await fetch(`${url}farms/verify/${name}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json", // Set the content type to JSON
+      },
+    });
+    return response.json();
+  }

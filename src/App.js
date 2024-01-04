@@ -23,8 +23,11 @@ import PrivateRoute from './components/PrivateRoute';
 import { fetchCompanyUsers } from './views/workers/api';
 import { WorkersDetail } from './views/workers/WorkersDetail';
 
+
 const cloudName = 'daurieb51'
 const queryClient = new QueryClient();
+
+
 
 function App() {
 
@@ -32,8 +35,7 @@ function App() {
   const notify = (message) => toast.success(message);
   const dispatch = useDispatch()
   const userData = useSelector((state) => state.user)
-  const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
-
+  const isAuthenticated = useSelector((state) => state.users.user?.session ? true : false);
 
   useEffect(() => {
     if (message) {
@@ -43,25 +45,17 @@ function App() {
   }, [message])
 
   useEffect(() => {
-    const accessToken = JSON.parse(localStorage.getItem('authToken'))
-    if (accessToken) {
-      if (accessToken) {
-        const headers = {
-          Authorization: `Bearer ${accessToken['access_token']}`,
-        };
+    getCurrentUser()
+      .then((res) => {
+        console.log(res)
+        dispatch(setUserDetails(res))
 
-        getCurrentUser(headers)
-          .then((res) => {
-            dispatch(addMessage('yesss'));
-            dispatch(setUserDetails(res.data))
-       
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    }
-  }, [localStorage.getItem('authToken')])
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+  }, [])
 
 
   return (
