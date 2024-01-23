@@ -92,7 +92,7 @@ export default function Profile({ searchParams }: any) {
             reverse
             label="View all animals"
             icon="arrow-right"
-            url="/records"
+            url="/dashboard/records"
           />
         </div>
         <PermissionComponent level={3}>
@@ -101,7 +101,7 @@ export default function Profile({ searchParams }: any) {
               reverse
               label="View all workers"
               icon="arrow-right"
-              url="/workers"
+              url="/dashboard/workers"
             />
           </div>
         </PermissionComponent>

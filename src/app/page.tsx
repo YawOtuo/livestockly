@@ -1,5 +1,6 @@
 "use client";
 import { CustomLoaders } from "@/components/Loaders";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -15,7 +16,7 @@ export default function Home() {
       BOATEY FARMS...
       <CustomLoaders variant="syncloader" colour="green1" />
 
-      
+      <Link className="" href={'/login'}>Go to Login</Link>
     </main>
   );
 }
