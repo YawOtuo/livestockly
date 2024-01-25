@@ -70,7 +70,7 @@ function FarmVerify({ onSuccess }: Props) {
               {success && <p className="text-sm text-green1 ">Verified!!!</p>}
             </div>
 
-            {loading == false && (
+            {loading !== true && (
               <Button
                 type="submit"
                 className="bg-green1 h-[52px] !text-white w-full font-bold hover:!bg-green1">
