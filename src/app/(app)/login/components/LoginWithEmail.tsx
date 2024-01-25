@@ -85,6 +85,13 @@ function LoginWithEmail() {
                   <CustomLoaders variant="syncloader" colour="green1" />
                 )}
               </div>
+
+          
+                <LoginButtons
+                  type="submit"
+                  variant="email"
+                  content="Login with email"
+                />
             </Form>
           )}
         </Formik>
