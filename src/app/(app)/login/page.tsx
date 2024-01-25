@@ -10,29 +10,20 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import FarmVerify from "./components/FarmVerify";
+import LoginOptions from "./components/LoginOptions";
 
 const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const isLoggedIn = useIsLoggedInReRoute(true, "/dashboard");
 
-  const formik = useFormik({
-    initialValues: {
-      farm_name: "",
-      email: "",
-      password: "",
-    },
-    onSubmit: (values) => {
-      logInWithEmailAndPassword(values.farm_name, values.email, values.password)
-        .then((res) => {
-          console.log(res);
-          dispatch(setUserDetails(res));
-          router.push("/dashboard");
-        })
-        .catch((err) => console.log(err));
-    },
-  });
+  const [activeIndex, setActiveIndex] = useState(0);
 
+  const pages: JSX.Element[] = [
+    <FarmVerify onSuccess={setActiveIndex} />,
+    <LoginOptions />,
+  ];
   return (
     <Root className="py-5 px-4  bg-grey bg-darkened view_height_100">
       <div className="flex flex-col lg:flex-row m-1 md:m-5  h-full ">
@@ -42,58 +33,10 @@ const Page = () => {
                 py-0 lg:py-5 md:py-0 flex flex-col justify-center items-center
                  bg-white"
           style={{ height: "max-height" }}>
-          <h1 className="uppercase brand-green-font font-bold">Boatey Farms</h1>
-          <form onSubmit={formik.handleSubmit}>
-            <div className="py-5">
-              <TextField
-                className="w-full"
-                label="FARM NAME"
-                name="farm_name"
-                required={true}
-                onChange={formik.handleChange}
-                value={formik.values.farm_name}
-              />
-            </div>
-            <div className="py-5">
-              <TextField
-                className="w-full"
-                label="EMAIL"
-                name="email"
-                required={true}
-                onChange={formik.handleChange}
-                value={formik.values.email}
-              />
-            </div>
-
-            <div className="py-5">
-              <TextField
-                className="w-full"
-                label="PASSWORD"
-                name="password"
-                type="password"
-                required={true}
-                onChange={formik.handleChange}
-                value={formik.values.password}
-              />
-            </div>
-            <div className="flex flex-col gap-4">
-              <Button
-                sx={{
-                  color: "grey",
-                }}
-                f
-                onClick={formik.handleSubmit}
-                className="text-center text-green1">
-                LOGIN
-              </Button>
-              <div className="flex gap-5 items-center text-xs">
-                <p>Don&apos;t have an account already? </p>
-                <Link className="text-gray-500 uppercase" href={"/sign-up"}>
-                  Register
-                </Link>
-              </div>
-            </div>
-          </form>
+          <h1 className="mb-10 uppercase text-green1 font-bold">
+            Boatey Farms
+          </h1>
+          {pages[activeIndex]}
         </div>
       </div>
     </Root>

@@ -51,48 +51,40 @@ googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
-// const signInWithGoogle = async (farm_name) => {
-//   const auth = getAuth();
+const signUpWithGoogle = async (farm) => {
+  const auth = getAuth();
 
-//   try {
-//     const farmExists = await VerifyFarmExists(farm_name);
-
-//     if (farmExists.status !== 404) {
-//       console.log(farmExists.status);
-//       const result = await signInWithPopup(auth, googleProvider);
-//       const user = result.user;
-//       console.log(result);
-
-//       const credential = GoogleAuthProvider.credentialFromResult(result);
-//       if (credential) {
-//         const result2 = await AddUser({
-//           farm_id: farmExists?.id,
-//           username: user.displayName,
-//           email: user.email,
-//           uid: user.uid,
-//         });
-//         console.log(result2);
-//       } else {
-//         console.error("Google sign-in credential not available.");
-//       }
-//     } else {
-//       console.log("Farm does not exist. Google sign-in skipped.");
-//     }
-//   } catch (error) {
-//     console.error("Error signing in with Google:", error);
-//   }
-// };
-
-const logInWithEmailAndPassword = async (farm_name, email, password) => {
   try {
-    const farmExists = await VerifyFarmExists(farm_name);
-    if (farmExists?.detail?.success !== false) {
-      await signInWithEmailAndPassword(auth, email, password);
+    const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
+    console.log(result);
+
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    if (credential) {
+      const result2 = await AddUser({
+        farm_id: farm?.id,
+        username: user.displayName,
+        email: user.email,
+        uid: user.uid,
+      });
+      console.log(result2);
+      return result;
+    } else {
+      console.error("Google sign-in credential not available.");
     }
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
+  } catch (error) {
+    console.error("Error signing in with Google:", error);
   }
+};
+
+const loginWithGoogle = async (farm) => {
+  const auth = getAuth();
+
+  return await signInWithPopup(auth, googleProvider);
+};
+
+const logInWithEmailAndPassword = async (email, password) => {
+  return await signInWithEmailAndPassword(auth, email, password);
 };
 
 const registerWithEmailAndPassword = async (farm_name, email, password) => {
@@ -145,7 +137,8 @@ const Logout = () => {
 export {
   auth,
   db,
-  // signInWithGoogle,
+  loginWithGoogle,
+  signUpWithGoogle,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,

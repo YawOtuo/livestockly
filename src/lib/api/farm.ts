@@ -68,13 +68,7 @@ export const VerifyFarmExists = async (name) => {
     },
   });
 
-  if (!response.ok) {
-    if (response.status === 404) {
-      throw new Error(`Farm with name '${name}' not found`);
-    } else {
-      throw new Error(`Error: ${response.statusText}`);
-    }
-  }
+
 
   return response.json();
 };
