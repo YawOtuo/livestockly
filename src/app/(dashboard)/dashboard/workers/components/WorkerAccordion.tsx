@@ -9,6 +9,7 @@ import { IoIosContact } from "react-icons/io";
 import { AcceptUser, DeAcceptUser } from "@/lib/api/users";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PermissionDialog from "./PermissionDialog";
+import { useSelector } from "react-redux";
 
 type Props = {
   worker: any;
@@ -17,6 +18,7 @@ type Props = {
 
 export default function WorkerAccordion({ worker, accepted = false }: Props) {
   const queryClient = useQueryClient();
+  const userSqlData = useSelector((state) => state?.users?.userSqlData);
 
   const acceptMutation = useMutation((id) => AcceptUser(id), {
     onSuccess: () => {
@@ -38,19 +40,21 @@ export default function WorkerAccordion({ worker, accepted = false }: Props) {
     rejectMutation.mutate(newItem);
   };
 
-
   return (
     <div className="w-full max-w-[400px]">
-      <Accordion>
+      <Accordion className="">
         <AccordionSummary
+    
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1-content"
           id="panel1-header">
-          <div className="flex items-center rounded-md min-w-[300px] cursor-pointer justify-start gap-5 px-10 py-5  ">
+          <div className="flex items-center rounded-md min-w-[300px] cursor-pointer justify-start gap-5 px-10 py-5 ">
             <div className="flex gap-5 items-center justify-center">
               <IoIosContact size={50} color="grey" />
               <div className="flex flex-col gap-1">
-                <p className="font-semibold">{worker?.username}</p>
+                <p className="font-semibold">{worker?.username}
+                {worker?.id == userSqlData?.id && <span className=""> (me)</span> }
+                </p>
                 <p className="text-xs">{worker?.email}</p>
               </div>
             </div>
@@ -63,9 +67,7 @@ export default function WorkerAccordion({ worker, accepted = false }: Props) {
               onClick={() => handleReject(worker?.id)}>
               Remove
             </Button>
-            <PermissionDialog worker={worker} 
-            
-            />
+            <PermissionDialog worker={worker} />
           </AccordionDetails>
         )}
         {!accepted && (
