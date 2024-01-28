@@ -10,7 +10,7 @@ type Props = {
 function LoginButtons({ variant, content,onClick, type="button" }: Props) {
   const classes: any = {
     email: "!bg-black !text-white",
-    google: "!text-black",
+    google: "!text-black ",
   };
   return (
     <div>

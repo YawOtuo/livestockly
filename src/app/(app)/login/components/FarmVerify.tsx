@@ -10,8 +10,9 @@ import { useDispatch } from "react-redux";
 
 type Props = {
   onSuccess: Dispatch<SetStateAction<number>>;
+  page: string
 };
-function FarmVerify({ onSuccess }: Props) {
+function FarmVerify({ onSuccess, page }: Props) {
   const queryClient = useQueryClient();
   const [success, setSuccess] = useState<boolean>();
   const [loading, setLoading] = useState(false);

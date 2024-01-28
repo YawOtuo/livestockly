@@ -25,7 +25,7 @@ const Page = () => {
     <LoginOptions />,
   ];
   return (
-    <Root className="py-5 px-4  bg-grey bg-darkened view_height_100">
+    <Root className="px-4  bg-grey bg-darkened view_height_100">
       <div className="flex flex-col lg:flex-row m-1 md:m-5  h-full ">
         <div className="flex-[0_0_50%] max-h-[50vh] lg:max-h-[100vh] lg:flex-[0_1_50%] aspect-square bg-[url('/images/livestockgrass.jpeg')] bg-cover bg-center flex flex-col justify-center items-center"></div>
         <div

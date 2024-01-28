@@ -5,7 +5,11 @@ import { useState } from "react";
 import { VerifyFarmExists } from "@/lib/api/farm";
 import LoginWithEmail from "./LoginWithEmail";
 
-function LoginOptions() {
+
+type Props = {
+    page: string
+}
+function LoginOptions({page} : Props) {
   const queryClient = useQueryClient();
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -25,7 +29,7 @@ function LoginOptions() {
   };
   return (
     <div>
-      <LoginWithEmail />
+      <LoginWithEmail page={page}/>
     </div>
   );
 }

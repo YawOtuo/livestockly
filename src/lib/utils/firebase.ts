@@ -87,31 +87,28 @@ const logInWithEmailAndPassword = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
-const registerWithEmailAndPassword = async (farm_name, email, password) => {
+const registerWithEmailAndPassword = async (
+  farm,
+  username,
+  email,
+  password
+) => {
   try {
-    const farmExists = await VerifyFarmExists(farm_name);
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
 
-    if (farmExists?.detail?.success !== false) {
-      console.log(farmExists);
-
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      const user = res.user;
-
-      // Add the user only if createUserWithEmailAndPassword is successful
-      if (res) {
-        const result2 = await AddUser({
-          farm_id: farmExists?.id,
-          email: user.email,
-          uid: user.uid,
-        });
-        console.log(result2);
-      }
-
-      return user;
-    } else {
-      console.log("Farm does not exist. User creation skipped.");
-      return null; // or handle the case where user creation is skipped
+    // Add the user only if createUserWithEmailAndPassword is successful
+    if (res) {
+      const result2 = await AddUser({
+        farm_id: farm?.id,
+        username: username,
+        email: user.email,
+        uid: user.uid,
+      });
+      console.log(result2);
     }
+
+    return user;
   } catch (err) {
     console.error(err);
     alert(err.message);
