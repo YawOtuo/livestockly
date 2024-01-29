@@ -20,20 +20,20 @@ export const GetAllFarmRecords = async (id) => {
   return response.json();
 };
 
-export const GetAllFarmRecordsSp = async (type) => {
+export const GetAllFarmRecordsSp = async (farm_id, type) => {
   switch (type) {
     case "sheep":
-      let response = await fetch(`${url}records/sheep`);
+      let response = await fetch(`${url}records/farms/${farm_id}/sheep`);
       return response.json();
       break;
     case "goats":
-      let responseS = await fetch(`${url}records/goats`);
+      let responseS = await fetch(`${url}records/farms/${farm_id}/goats`);
       // const responseText = await responseS.text(); // Read the response body as text
       return responseS.json();
       break;
 
     case "cattle":
-      let responseC = await fetch(`${url}records/cattle`);
+      let responseC = await fetch(`${url}records/farms/${farm_id}/cattle`);
       return responseC.json();
       break;
     default:

@@ -33,21 +33,21 @@ const Page = () => {
     isLoading: isLoadingCattle,
     error: errorCattle,
     data: cattle,
-  } = useQuery(["cattle"], () => GetAllFarmRecordsSp("cattle"), {
+  } = useQuery(["cattle"], () => GetAllFarmRecordsSp(userSqlData?.farm_id, "cattle"), {
     enabled: !!userSqlData?.farm_id,
   });
   const {
     isLoading: isLoadingGoats,
     error: errorGoats,
     data: goats,
-  } = useQuery(["goats"], () => GetAllFarmRecordsSp("goats"), {
+  } = useQuery(["goats"], () => GetAllFarmRecordsSp(userSqlData?.farm_id, "goats"), {
     enabled: !!userSqlData?.farm_id,
   });
   const {
     isLoading: isLoadingSheep,
     error: errorSheep,
     data: sheep,
-  } = useQuery(["sheep"], () => GetAllFarmRecordsSp("sheep"), {
+  } = useQuery(["sheep"], () => GetAllFarmRecordsSp(userSqlData?.farm_id, "sheep"), {
     enabled: !!userSqlData?.farm_id,
   });
 

@@ -18,8 +18,9 @@ const TotalSales = ({ filter, amount, url }: Props) => {
       }}
       className="flex flex-col aspect-[182/109] items-center justify-center gap-3 w-full md:max-w-[182px]  
     max-h-[101px] md:max-h-[109px] cursor-pointer hover:scale-[1.05] hover:bg-green2">
-      {amount && <p className="text-yellow1 font-bold text-xl">{amount}</p>}{" "}
-      {!amount && <CustomLoaders colour="green1" variant="syncloader"/>}
+      {amount && <p className="text-yellow1 font-bold text-xl">{amount}</p>}
+      {amount == undefined ||
+        (null && <CustomLoaders colour="green1" variant="syncloader" />)}
       <p className="capitalize text-center text-sm">Total {filter}</p>
     </Root>
   );

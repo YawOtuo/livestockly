@@ -140,6 +140,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
               ...record,
             }}
             onSubmit={(values) => {
+              values.farm_id = userSqlData?.farm_id,
               values.gender = otherData?.gender;
               values.alive = otherData?.alive;
               values.type = otherData?.type || type;
