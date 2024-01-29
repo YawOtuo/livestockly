@@ -29,8 +29,8 @@ const Page = () => {
       <div className="flex flex-col lg:flex-row m-1 md:m-5  h-full ">
         <div className="flex-[0_0_50%] max-h-[50vh] lg:max-h-[100vh] lg:flex-[0_1_50%] aspect-square bg-[url('/images/livestockgrass.jpeg')] bg-cover bg-center flex flex-col justify-center items-center"></div>
         <div
-          className="flex-[1_1_700px]
-                py-0 lg:py-5 md:py-0 flex flex-col justify-center items-center
+          className="lg:flex-[1_1_700px]
+                py-5 lg:py-5 md:py-0 flex flex-col justify-center items-center
                  bg-white"
           style={{ height: "max-height" }}>
           <h1 className="mb-10 uppercase text-green1 font-bold">
