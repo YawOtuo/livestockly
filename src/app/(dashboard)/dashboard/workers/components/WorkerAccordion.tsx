@@ -44,7 +44,6 @@ export default function WorkerAccordion({ worker, accepted = false }: Props) {
     <div className="w-full max-w-[400px]">
       <Accordion className="">
         <AccordionSummary
-    
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1-content"
           id="panel1-header">
@@ -52,8 +51,11 @@ export default function WorkerAccordion({ worker, accepted = false }: Props) {
             <div className="flex gap-5 items-center justify-center">
               <IoIosContact size={50} color="grey" />
               <div className="flex flex-col gap-1">
-                <p className="font-semibold">{worker?.username}
-                {worker?.id == userSqlData?.id && <span className=""> (me)</span> }
+                <p className="font-semibold">
+                  {worker?.username}
+                  {worker?.id == userSqlData?.id && (
+                    <span className=""> (me)</span>
+                  )}
                 </p>
                 <p className="text-xs">{worker?.email}</p>
               </div>
@@ -67,7 +69,9 @@ export default function WorkerAccordion({ worker, accepted = false }: Props) {
               onClick={() => handleReject(worker?.id)}>
               Remove
             </Button>
-            <PermissionDialog worker={worker} />
+            {worker?.id !== userSqlData?.id && (
+              <PermissionDialog worker={worker} />
+            )}{" "}
           </AccordionDetails>
         )}
         {!accepted && (

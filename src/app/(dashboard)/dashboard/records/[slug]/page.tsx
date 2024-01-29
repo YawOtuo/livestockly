@@ -46,7 +46,7 @@ const Page = ({} : Props) => {
 
   const renderList: any = {
     sheep: (
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 gap-5 px-3">
         {sheep?.map((item, index) => (
           <div className="col-span-3 lg:col-span-1 items-center" key={index}>
             <TagCard record={item} />
@@ -55,7 +55,7 @@ const Page = ({} : Props) => {
       </div>
     ),
     goats: (
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 gap-5 px-3">
         {goats?.map((item, index) => (
           <div className="col-span-3 lg:col-span-1 items-center" key={index}>
             <TagCard record={item} />
@@ -64,7 +64,7 @@ const Page = ({} : Props) => {
       </div>
     ),
     cattle: (
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 gap-5 px-3">
         {cattle?.map((item, index) => (
           <div className="col-span-3 lg:col-span-1 items-center" key={index}>
             <TagCard record={item} />

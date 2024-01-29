@@ -20,6 +20,9 @@ import { AddRecord, GetOneRecord, updateRecord } from "@/lib/api/record";
 import CustomTextArea from "./CustomTextArea";
 import { Form, Formik } from "formik";
 import CustomRadioInput from "./CustomRadioInput";
+import CustomSwitch from "./CustomSwitch";
+import { today } from "@/lib/utils/date";
+import CustomSelect from "./CustomSelect";
 const addIcon = "/icons/add.png";
 const editIcon = "/icons/edit.png";
 
@@ -38,8 +41,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
   const userSqlData = useSelector((state) => state?.users?.userSqlData);
   const [sire, setSire] = useState();
   const [dam, setDam] = useState();
-  const [otherData, setOtherData] = useState([]);
-
+  const [otherData, setOtherData] = useState({});
 
   const {
     isLoading: isLoadingSire,
@@ -108,7 +110,10 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
   };
   return (
     <div>
-      <Button variant="text" className="!text-green1 !capitalize" onClick={handleClickOpen}>
+      <Button
+        variant="text"
+        className="!text-green1 !capitalize"
+        onClick={handleClickOpen}>
         {edit ? (
           <img src={editIcon} width="90%" />
         ) : (
@@ -132,131 +137,213 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
         <DialogContent>
           <Formik
             initialValues={{
-             ...record
+              ...record,
             }}
             onSubmit={(values) => {
-              console.log("submitting");
+              values.gender = otherData?.gender;
+              values.alive = otherData?.alive;
+              values.type = otherData?.type || type;
+              values.remarks = otherData?.remarks;
+              values.weight = otherData?.weight && [
+                { content: values?.weight, date: today },
+              ];
+              values.vaccination_info = otherData?.vaccination_info && [
+                { content: otherData?.vaccination_info, date: today },
+              ];
+              values.health_condition = otherData?.health_condition && [
+                { content: otherData?.health_condition, date: today },
+              ];
+
+              values.remarks = otherData?.remarks && [
+                { content: otherData?.remarks, date: today },
+              ];
+
+              values.castrated = otherData?.castrated;
+
               !edit ? handleCreate(values) : handleUpdate(values);
             }}>
-            <Form>
-              <DialogContentText
-                id="alert-dialog-slide-description"
-                className="pt-4 text-black grid grid-cols-2">
-                <div className="col-span-2 lg:col-span-1 flex flex-col gap-2 lg:gap-6">
-                  <CustomTextField label={"tag name"} type="text" name="name" />
+            {({ handleSubmit, handleBlur, values, errors, handleChange }) => (
+              <Form>
+                <DialogContentText
+                  id="alert-dialog-slide-description"
+                  className="pt-4 text-black grid grid-cols-2">
+                  <div className="col-span-2 lg:col-span-1 flex flex-col gap-2 lg:gap-6">
+                    <CustomTextField
+                      label={"tag name"}
+                      type="text"
+                      name="name"
+                      required={true}
+                      onChange={handleChange}
+                      value={values.name}
+                    />
 
-                  <CustomTextField
-                    label={"tag colour"}
-                    type="text"
-                    name="tag_colour"
-                  />
+                    <CustomTextField
+                      label={"tag colour"}
+                      type="text"
+                      name="tag_colour"
+                      onChange={handleChange}
+                      value={values.tag_colour}
+                    />
 
-                  <CustomTextField label={"colour"} name="colour" type="text" />
+                    <CustomTextField
+                      label={"colour"}
+                      name="colour"
+                      type="text"
+                      onChange={handleChange}
+                      value={values.colour}
+                    />
 
-                  <CustomTextField
-                    label={"health condition"}
-                    name="health_condition"
-                    type="text"
-                  />
-
-                  <CustomTextField
-                    label={"number of kids"}
-                    name="number_of_kids"
-                    type="number"
-                  />
-
-                  <CustomTextField
-                    label={"weight"}
-                    name="weight"
-                    type="number"
-                  />
-
-                  <CustomTextField
-                    label={"date of birth"}
-                    name="date_of_birth"
-                    type="text"
-                  />
-                </div>
-                <div className="flex flex-col col-span-2 lg:col-span-1 gap-3 xl:gap-6">
-                  <div className="flex flex-row text-black">
-                    <div>
-                      Sire: {sire?.name}
-                      <SelectSireModal
-                        setParent={setSire}
-                        type={type}
-                        name="sire"
+                    {!edit && (
+                      <CustomTextField
+                        label={"health condition"}
+                        name="health_condition"
+                        type="text"
+                        onChange={handleChange}
+                        value={values.health_condition}
                       />
-                    </div>
+                    )}
 
-                    <div>
-                      Dam: {dam?.name}
-                      <SelectSireModal
-                        setParent={setDam}
-                        type={type}
-                        name="dam"
-                      />
-                    </div>
-                  </div>
+                    <CustomTextField
+                      label={"number of kids"}
+                      name="number_of_kids"
+                      type="number"
+                      onChange={handleChange}
+                      value={values.number_of_kids}
+                    />
 
-                  {/* <div className="text-black flex flex-row py-1">
-                    <div className="">Gender</div>
-                    <div className="mx-3 flex flex-row gap-2">
-                      <CustomRadioInput
-                        id="html"
-                        name="gender"
-                        value="male"
-                        onChange={() => setOtherData([])}
+                    {!edit && (
+                      <CustomTextField
+                        label={"weight"}
+                        name="weight"
+                        type="number"
+                        onChange={handleChange}
+                        value={values.weight}
                       />
-                      <label htmlFor="html">male</label>
-                
-                      <label htmlFor="css">female</label>
-                    </div>
-                  </div> */}
+                    )}
 
-                  {/* <div className="text-black flex flex-row py-1">
-                    <div className="">Castrated</div>
-                    <div className="mx-3 flex flex-row gap-2">
-                      <input
-                        id="html"
-                        name="castrated"
-                        value="yes"
-                        onChange={handleOnChange}
-                      />
-                      <label htmlFor="html">yes</label>
-                
-                      <label htmlFor="css">no</label>
-                    </div>
-                  </div> */}
-                  <div className="mb-5">
-                    {" "}
-                    <CustomTextArea
-                      placeholder="Vaccination Info"
-                      name="vaccination_info"
-                      onChange={(e) =>
-                        setOtherData((prev) => [...prev, e.target.value])
-                      }
-                      value={record?.vaccination_info?.content}
+                    <CustomTextField
+                      label={"date of birth"}
+                      name="date_of_birth"
+                      type="date"
+                      onChange={handleChange}
+                      value={values.date_of_birth}
+                    />
+
+                    <CustomRadioInput
+                      defaultValue="sheep"
+                      onChange={setOtherData}
+                      title="type"
+                      data={[
+                        {
+                          label: "sheep",
+                          value: "sheep",
+                        },
+                        {
+                          label: "goat",
+                          value: "goat",
+                        },
+                        {
+                          label: "cattle",
+                          value: "cattle",
+                        },
+                      ]}
+                    />
+
+                    <CustomRadioInput
+                      defaultValue="male"
+                      onChange={setOtherData}
+                      title="gender"
+                      data={[
+                        {
+                          label: "male",
+                          value: "male",
+                        },
+                        {
+                          label: "female",
+                          value: "female",
+                        },
+                      ]}
                     />
                   </div>
+                  <div className="flex flex-col col-span-2 lg:col-span-1 gap-3 xl:gap-6">
+                    <div className="flex flex-row gap-10 text-black">
+                      <div className="">
+                        Sire {sire?.name}
+                        <SelectSireModal
+                          setParent={setSire}
+                          type={type}
+                          name="sire"
+                        />
+                      </div>
 
-                  <CustomTextArea
-                    placeholder="Remarks"
-                    name="remarks"
-                    onChange={(e) =>
-                      setOtherData((prev) => [...prev, e.target.value])
-                    }
-                    value={record?.remarks?.content}
-                  />
+                      <div>
+                        Dam {dam?.name}
+                        <SelectSireModal
+                          setParent={setDam}
+                          type={type}
+                          name="dam"
+                        />
+                      </div>
+                    </div>
+                    <CustomRadioInput
+                      onChange={setOtherData}
+                      title="castrated"
+                      data={[
+                        {
+                          label: "yes",
+                          value: "yes",
+                        },
+                        {
+                          label: "no",
+                          value: "no",
+                        },
+                      ]}
+                    />
+                    {!edit && (
+                      <div className="mb-5">
+                        {" "}
+                        <CustomTextArea
+                          label="Vaccination info"
+                          placeholder="Vaccination Info"
+                          name="vaccination_info"
+                          onChange={(e) =>
+                            setOtherData((prev) => ({
+                              ...prev,
+                              vaccination_info: e.target.value,
+                            }))
+                          }
+                          value={record?.vaccination_info?.content}
+                        />
+                      </div>
+                    )}
 
-                  {/* <input type="file" /> */}
+                    {!edit && (
+                      <CustomTextArea
+                        label="Remarks"
+                        placeholder="Remarks"
+                        name="remarks"
+                        onChange={(e) =>
+                          setOtherData((prev) => ({
+                            ...prev,
+                            remarks: e.target.value,
+                          }))
+                        }
+                        value={record?.remarks?.content}
+                      />
+                    )}
+
+                    {/* <input type="file" /> */}
+                  </div>
+
+                  <CustomSwitch label="alive" onChange={setOtherData} />
+                </DialogContentText>
+                <div className="w-full text-center mt-5 rounded-lg bg-green1 ">
+                  <Button type="submit" className="w-full">
+                    <span className="text-white">{edit ? "EDIT" : "ADD"}</span>
+                  </Button>
                 </div>
-              </DialogContentText>
-              <div className="w-full text-center mt-5 rounded-lg bg-green1 ">
-                <Button type="submit" className="w-full">
-                  <span className="text-white">{edit ? "EDIT" : "ADD"}</span>
-                </Button>
-              </div>
-            </Form>
+              </Form>
+            )}
           </Formik>
         </DialogContent>
       </Dialog>

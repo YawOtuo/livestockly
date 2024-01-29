@@ -8,7 +8,7 @@ import {
   logInWithEmailAndPassword,
   loginWithGoogle,
   registerWithEmailAndPassword,
-  signInWithGoogle,
+  signUpWithGoogle,
 } from "@/lib/utils/firebase";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,8 +29,8 @@ function LoginWithEmail({ page }: Props) {
 
   const farm = useSelector((state) => state?.farm?.details);
 
-  const handleGoogleLogin = () => {
-    signInWithGoogle(farm);
+  const handleGoogleSignUp = () => {
+    signUpWithGoogle(farm);
   };
 
   return (
@@ -67,7 +67,12 @@ function LoginWithEmail({ page }: Props) {
                     });
 
                 page == "sign-up" &&
-                  registerWithEmailAndPassword(farm, values?.username, values?.email, values?.password)
+                  registerWithEmailAndPassword(
+                    farm,
+                    values?.username,
+                    values?.email,
+                    values?.password
+                  )
                     .then((res) => {
                       console.log(res);
                       setLoading(false);
@@ -90,14 +95,16 @@ function LoginWithEmail({ page }: Props) {
                       </p>
                     )}
 
-                  {  <TextField
-                      className="w-full"
-                      label="USERNAME"
-                      name="username"
-                      required={true}
-                      onChange={handleChange}
-                      value={values.username}
-                    />}
+                    {page == "sign-up" && (
+                      <TextField
+                        className="w-full"
+                        label="USERNAME"
+                        name="username"
+                        required={true}
+                        onChange={handleChange}
+                        value={values.username}
+                      />
+                    )}
                     <TextField
                       className="w-full"
                       label="EMAIL"
@@ -139,7 +146,7 @@ function LoginWithEmail({ page }: Props) {
 
           <div className="flex flex-col gap-5 border-2 rounded-md">
             <LoginButtons
-              onClick={page == "sign-up" ? signInWithGoogle : loginWithGoogle}
+              onClick={page == "sign-up" ? handleGoogleSignUp : loginWithGoogle}
               type="submit"
               variant="google"
               content={

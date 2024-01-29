@@ -88,38 +88,44 @@ const LogModal = (props) => {
           {props?.edit ? `EDIT ${props?.type}` : `ADD ${props?.type}`}
         </DialogTitle>
         <DialogContent>
-          <Formik>
-            <Form>
-              <DialogContentText
-                id="alert-dialog-slide-description"
-                className="pt-4 text-black">
-                <div className="flex flex-col gap-2 lg:gap-6">
-                  <CustomTextField
-                    label={"date"}
-                    type="date"
-                    name="date"
-                    handleOnChange={handleOnChange}
-                    value={dataInput && dataInput["date"]}
-                  />
-                </div>
+          <Formik onSubmit={(values) => {}}>
+            {({ handleSubmit, handleBlur, values, errors, handleChange }) => (
+              <Form>
+                <DialogContentText
+                  id="alert-dialog-slide-description"
+                  className="pt-4 text-black">
+                  <div className="flex flex-col gap-2 lg:gap-6">
+                    <CustomTextField
+                      label={"date"}
+                      type="date"
+                      name="date"
+                      required
+                      onChange={handleOnChange}
+                      value={dataInput && dataInput["date"]}
+                    />
+                  </div>
 
-                <div className="flex flex-col  gap-3 xl:gap-6">
-                  <textarea
-                    placeholder={props.type}
-                    minRows={4}
-                    name={"content"}
-                    onChange={handleOnChange}
-                    value={dataInput && dataInput["content"]}
-                  />
-                </div>
-              </DialogContentText>
-            </Form>
+                  <div className="flex flex-col  gap-3 xl:gap-6">
+                    <textarea
+                      className="border-2 p-2 rounded-md"
+                      placeholder={props.type}
+                      minRows={4}
+                      name={"content"}
+                      onChange={handleOnChange}
+                      value={dataInput && dataInput["content"]}
+                    />
+                  </div>
+                </DialogContentText>
+              </Form>
+            )}
           </Formik>
         </DialogContent>
 
         <div className="w-full text-center brand-green-bg ">
-          <Button onClick={() => handleUpdate()} className="w-full">
-            <span className="text-white">{props?.edit ? "EDIT" : "ADD"}</span>
+          <Button onClick={() => handleUpdate()} className="!bg-green1 w-full">
+            <span className="text-white font-semibold">
+              {props?.edit ? "EDIT" : "ADD"}
+            </span>
           </Button>
         </div>
       </Dialog>

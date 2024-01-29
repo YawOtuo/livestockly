@@ -114,20 +114,20 @@ function Page() {
     <Root className="justify-center text-center bg-[#446353fa]">
       <SlideEnterToLeft>
         <div className="relative justify-center">
-          <div className="absolute flex w-full justify-between top-5 left-5">
+          <div className="absolute flex w-full justify-between top-0 left-0">
             <Button className=" !text-green1" onClick={() => router.back(-1)}>
               <IoIosArrowRoundBack size="30" />
               Back
             </Button>
             <PermissionComponent level={2}>
-              <div className="w-full justify-center items-center flex">
+              <div className="w-full justify-center items-center flex flex-wrap">
                 <div className="flex uppercase items-center">
                   {animal && (
                     <AddRecordModal edit={true} title="Edit" record={animal} />
                   )}
                 </div>
-                <div className="flex uppercase items-center">
-                  <AiOutlineDelete color="0FA958" size={30} />
+                <div className="flex uppercase items-center flex-wrap">
+                  <AiOutlineDelete color="red" size={30} />
                   Delete
                 </div>
               </div>
@@ -143,7 +143,7 @@ function Page() {
 
               <h1 className="text-2xl font-bold uppercase">
                 {" "}
-                {!animal ? params?.id : animal?.name}
+                {animal?.name}
               </h1>
             </div>
 
