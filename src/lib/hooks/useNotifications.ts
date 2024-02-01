@@ -10,8 +10,9 @@ import { useSelector } from "react-redux";
 type notificationData = {
   subject: string;
   content: string;
-  from_id?: string | number;
-  to_id?: string | number;
+  from_id?: number;
+  to_id?: number;
+  to_farm_id? : number
 };
 
 const useNotifications = () => {

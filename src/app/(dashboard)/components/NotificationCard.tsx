@@ -54,7 +54,7 @@ export default function NotificationCard({ notification }: Props) {
               )}
             </p>
 
-            <p className="font-semibold text-lg">
+            <p className="font-semibold">
               {!notification?.type && notification?.subject}
             </p>
 

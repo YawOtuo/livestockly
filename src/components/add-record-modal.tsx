@@ -106,7 +106,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
     createNotification({
       subject: `New record ${data?.name} has been created by ${userSqlData?.username}`,
       content: "",
-      to_id: userSqlData?.id,
+      to_farm_id: userSqlData?.farm_id,
     });
     setOpen(false);
   };
@@ -116,7 +116,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
     createNotification({
       subject: `Record ${data?.name} has been updated by ${userSqlData?.username}`,
       content: "",
-      to_id: userSqlData?.id,
+      to_farm_id: userSqlData?.farm_id,
     });
     setOpen(false);
   };
