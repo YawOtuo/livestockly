@@ -33,9 +33,9 @@ const Page = () => {
                 py-5 lg:py-5 md:py-0 flex flex-col justify-center items-center
                  bg-white"
           style={{ height: "max-height" }}>
-          <h1 className="mb-10 uppercase text-green1 font-bold">
-            <span className="font-semibold">liveStock</span>{" "}
-            <span className="font-bold text-green1">Diary</span>{" "}
+          <h1 className="mb-10   font-bold">
+            <span className="font-semibold lowercase">liveStock</span>
+            <span className="font-bold text-green1 uppercase">Diary</span>
           </h1>
           {pages[activeIndex]}
         </div>
