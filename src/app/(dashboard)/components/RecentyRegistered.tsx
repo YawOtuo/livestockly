@@ -1,4 +1,5 @@
 import IconButton from "@/components/IconButton";
+import TagCardSpecific from "@/components/TagCardSpecific";
 import TagCard from "@/components/tag-card";
 import { GetAllFarmRecords } from "@/lib/api/farm";
 import { Button } from "@mui/material";
@@ -30,7 +31,7 @@ export default function RecentlyRegistered() {
       </div>{" "}
       <div className="grid grid-cols-4 mt-5 gap-5 justify-start w-full">
         {records?.slice(0, 15).map((r: any, index: any) => (
-          <TagCard key={index} record={r} />
+          <TagCardSpecific key={index} record={r} />
         ))}
       </div>
     </div>

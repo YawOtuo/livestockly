@@ -33,6 +33,44 @@ function LoginWithEmail({ page }: Props) {
     signUpWithGoogle(farm);
   };
 
+  const handleSubmit = (values) => {
+    setLoading(true);
+    page != "sign-up" &&
+      logInWithEmailAndPassword(values?.email, values?.password)
+        .then((res) => {
+          console.log(res);
+          setLoading(false);
+          dispatch(setUserDetails(res));
+          router.push("/dashboard");
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+
+          setErrorText("Invalid credentials");
+        });
+
+    page == "sign-up" &&
+      registerWithEmailAndPassword(
+        farm,
+        values?.username,
+        values?.email,
+        values?.password
+      )
+        .then((res) => {
+          console.log(res);
+          setLoading(false);
+          dispatch(setUserDetails(res));
+          router.push("/dashboard");
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+
+          setErrorText("Invalid credentials");
+        });
+  };
+
   return (
     <div>
       {farm?.id ? (
@@ -49,43 +87,7 @@ function LoginWithEmail({ page }: Props) {
           {showFields && (
             <Formik
               initialValues={{}}
-              onSubmit={(values: any) => {
-                setLoading(true);
-                page != "sign-up" &&
-                  logInWithEmailAndPassword(values?.email, values?.password)
-                    .then((res) => {
-                      console.log(res);
-                      setLoading(false);
-                      dispatch(setUserDetails(res));
-                      router.push("/dashboard");
-                    })
-                    .catch((err) => {
-                      setLoading(false);
-                      console.log(err);
-
-                      setErrorText("Invalid credentials");
-                    });
-
-                page == "sign-up" &&
-                  registerWithEmailAndPassword(
-                    farm,
-                    values?.username,
-                    values?.email,
-                    values?.password
-                  )
-                    .then((res) => {
-                      console.log(res);
-                      setLoading(false);
-                      dispatch(setUserDetails(res));
-                      router.push("/dashboard");
-                    })
-                    .catch((err) => {
-                      setLoading(false);
-                      console.log(err);
-
-                      setErrorText("Invalid credentials");
-                    });
-              }}>
+              onSubmit={(values: any) => handleSubmit(values)}>
               {({ handleSubmit, handleBlur, values, errors, handleChange }) => (
                 <Form className="flex flex-col gap-5">
                   <div className="flex flex-col  gap-5">

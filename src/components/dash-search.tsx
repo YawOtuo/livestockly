@@ -21,7 +21,7 @@ export const DashSearch = (props) => {
     isLoading: isSearching,
     error: errorSearch,
     data: searches,
-  } = useQuery([`search-${keyword}`], () => searchRecords(keyword), {
+  } = useQuery([`search-${keyword}`], () => searchRecords(userSqlData?.farm_id, keyword), {
     enabled: !!userSqlData?.farm_id && !!keyword,
   });
 

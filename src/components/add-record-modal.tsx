@@ -23,6 +23,7 @@ import CustomRadioInput from "./CustomRadioInput";
 import CustomSwitch from "./CustomSwitch";
 import { today } from "@/lib/utils/date";
 import CustomSelect from "./CustomSelect";
+import useNotifications from "@/lib/hooks/useNotifications";
 const addIcon = "/icons/add.png";
 const editIcon = "/icons/edit.png";
 
@@ -42,6 +43,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
   const [sire, setSire] = useState();
   const [dam, setDam] = useState();
   const [otherData, setOtherData] = useState({});
+  const { createNotification } = useNotifications();
 
   const {
     isLoading: isLoadingSire,
@@ -101,11 +103,21 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
 
   const handleCreate = async (data) => {
     createMutation.mutate(data);
+    createNotification({
+      subject: `New record ${data?.name} has been created by ${userSqlData?.username}`,
+      content: "",
+      to_id: userSqlData?.id,
+    });
     setOpen(false);
   };
 
   const handleUpdate = async (data) => {
     updateMutation.mutate(data);
+    createNotification({
+      subject: `Record ${data?.name} has been updated by ${userSqlData?.username}`,
+      content: "",
+      to_id: userSqlData?.id,
+    });
     setOpen(false);
   };
   return (
@@ -140,8 +152,8 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
               ...record,
             }}
             onSubmit={(values) => {
-              values.farm_id = userSqlData?.farm_id,
-              values.gender = otherData?.gender;
+              (values.farm_id = userSqlData?.farm_id),
+                (values.gender = otherData?.gender);
               values.alive = otherData?.alive;
               values.type = otherData?.type || type;
               values.remarks = otherData?.remarks;

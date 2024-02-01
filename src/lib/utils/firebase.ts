@@ -131,6 +131,11 @@ const Logout = () => {
   window.location = "/login";
 };
 
+
+const LogoutWithoutRerouting = () => {
+  signOut(auth)
+}
+
 export {
   auth,
   db,
@@ -139,5 +144,5 @@ export {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,
-  Logout,
+  Logout,LogoutWithoutRerouting
 };

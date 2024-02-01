@@ -10,58 +10,91 @@ import { styled } from "@stitches/react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiSolidBookAdd } from "react-icons/bi";
 import { CustomTextField } from "../CustomTextfield";
 import { Form, Formik } from "formik";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateRecordJSON, updateRecordJSONOne } from "@/lib/api/record";
+import { today } from "@/lib/utils/date";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const LogModal = (props) => {
+type Props = {
+  label: string;
+  data: any;
+  icon: any;
+  edit: boolean;
+  type: string;
+  index : number
+};
+
+const LogModal = ({ label, data, icon, edit, type, index }: Props) => {
   const [open, setOpen] = React.useState(false);
-  const params = useSearchParams();
+  const params = useParams();
   const dispatch = useDispatch();
 
   const [dataInput, setDataInput] = useState([]);
 
   const [record, setRecord] = useState([]);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (props.edit) {
-      switch (props.label) {
+    if (edit) {
+      switch (label) {
         case "weight":
-          setDataInput(props.data);
+          setDataInput(data);
           break;
         case "health_condition":
-          setDataInput(props.data);
+          setDataInput(data);
           break;
         case "vaccination_info":
-          setDataInput(props.data);
+          setDataInput(data);
           break;
         case "remarks":
-          setDataInput(props.data);
+          setDataInput(data);
           break;
         default:
           break;
       }
     }
-  }, [props.edit]);
+  }, [edit]);
 
-  const handleOnChange = (e) => {
-    let value = e.target.value;
-    let name = e.target.name;
-    setDataInput({ ...dataInput, [name]: value });
+
+
+  const addMutation = useMutation(
+    (data) => updateRecordJSON(params?.id, data, label),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(`records-${params?.id}`);
+      },
+    }
+  );
+
+  const updateMutation = useMutation(
+    (data) => updateRecordJSONOne(params?.id, data, label, index),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(`records-${params?.id}`);
+      },
+    }
+  );
+
+  const handleAdd = async (newItem) => {
+    handleClose();
+
+    addMutation.mutate(newItem);
   };
 
-  const handleUpdate = async () => {
-    // !props.edit ? updateRecordJSON(params.id, [dataInput], props.label) :
-    // updateRecordJSONOne(params.id, [dataInput], props.label, props.index)
-    // handleClose()
-    // dispatch(refresh())
+  const handleUpdate = async (newItem) => {
+    handleClose();
+
+    updateMutation.mutate(newItem);
   };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -73,8 +106,8 @@ const LogModal = (props) => {
   return (
     <Root>
       <button onClick={handleClickOpen}>
-        {props.icon == "edit" && <AiOutlineEdit color="" size={20} />}
-        {props.icon == "add" && <BiSolidBookAdd color="#0FA958" size={30} />}
+        {icon == "edit" && <AiOutlineEdit color="" size={20} />}
+        {icon == "add" && <BiSolidBookAdd color="#0FA958" size={30} />}
       </button>
       <Dialog
         open={open}
@@ -85,10 +118,31 @@ const LogModal = (props) => {
         fullWidth
         aria-describedby="alert-dialog-slide-description">
         <DialogTitle className="shadow-md uppercase brand-green-font">
-          {props?.edit ? `EDIT ${props?.type}` : `ADD ${props?.type}`}
+          {edit ? `EDIT ${type}` : `ADD ${type}`}
         </DialogTitle>
         <DialogContent>
-          <Formik onSubmit={(values) => {}}>
+          <Formik
+            initialValues={{
+              date: data?.date || today,
+              content: data?.content,
+            }}
+            onSubmit={(values) => {
+              edit &&
+                handleUpdate([
+                  {
+                    date: values?.date,
+                    content: values?.content,
+                  },
+                ]);
+
+              !edit &&
+                handleAdd([
+                  {
+                    date: values?.date,
+                    content: values?.content,
+                  },
+                ]);
+            }}>
             {({ handleSubmit, handleBlur, values, errors, handleChange }) => (
               <Form>
                 <DialogContentText
@@ -96,38 +150,38 @@ const LogModal = (props) => {
                   className="pt-4 text-black">
                   <div className="flex flex-col gap-2 lg:gap-6">
                     <CustomTextField
-                      label={"date"}
+                      label="date"
                       type="date"
                       name="date"
                       required
-                      onChange={handleOnChange}
-                      value={dataInput && dataInput["date"]}
+                      onChange={handleChange}
+                      value={values?.date}
                     />
                   </div>
 
                   <div className="flex flex-col  gap-3 xl:gap-6">
                     <textarea
                       className="border-2 p-2 rounded-md"
-                      placeholder={props.type}
-                      minRows={4}
+                      placeholder={type}
+                      required
                       name={"content"}
-                      onChange={handleOnChange}
-                      value={dataInput && dataInput["content"]}
+                      onChange={handleChange}
+                      value={values?.content}
                     />
                   </div>
                 </DialogContentText>
+
+                <div className="w-full text-center brand-green-bg mt-3">
+                  <Button type="submit" className="!bg-green1 w-full">
+                    <span className="text-white font-semibold">
+                      {edit ? "EDIT" : "ADD"}
+                    </span>
+                  </Button>
+                </div>
               </Form>
             )}
           </Formik>
         </DialogContent>
-
-        <div className="w-full text-center brand-green-bg ">
-          <Button onClick={() => handleUpdate()} className="!bg-green1 w-full">
-            <span className="text-white font-semibold">
-              {props?.edit ? "EDIT" : "ADD"}
-            </span>
-          </Button>
-        </div>
       </Dialog>
     </Root>
   );

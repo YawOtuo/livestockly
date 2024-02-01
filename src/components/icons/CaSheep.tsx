@@ -1,9 +1,14 @@
-const CaSheep = () => {
+type Props = {
+  width?: number;
+  height?: number;
+};
+
+const CaSheep = ({ width = 68, height = 77 }: Props) => {
   return (
     <svg
+      className="aspect-[68/77]"
       xmlns="http://www.w3.org/2000/svg"
-      width="68"
-      height="77"
+      width={width}
       viewBox="0 0 68 77"
       fill="none">
       <path
@@ -14,4 +19,4 @@ const CaSheep = () => {
   );
 };
 
-export default CaSheep
+export default CaSheep;

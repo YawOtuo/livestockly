@@ -13,7 +13,6 @@ import { DashSearch } from "@/components/dash-search";
 import { RecordCard } from "@/components/record-card";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllFarmRecordsSp } from "@/lib/api/farm";
-import { searchRecords } from "@/lib/api/record";
 
 const cattleIcon = "/icons/cattle.png";
 const goatIcon = "/icons/goat.png";

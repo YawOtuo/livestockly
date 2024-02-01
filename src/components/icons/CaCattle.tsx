@@ -1,6 +1,11 @@
-const CaCattle = () => {
+
+type Props = {
+  width? : number,
+  height? : number
+}
+const CaCattle = ({width=48, height=48} : Props) => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <svg className="aspect-square" xmlns="http://www.w3.org/2000/svg" width={width} viewBox="0 0 48 48" fill="none">
         <path d="M11.465 19.923C10.682 12.481 16.517 6 24 6C31.482 6 37.317 12.481 36.534 19.923L35.046 34.055C34.7577 36.7837 33.4696 39.3092 31.4299 41.1447C29.3903 42.9801 26.7434 43.9957 23.9995 43.9957C21.2556 43.9957 18.6088 42.9801 16.5691 41.1447C14.5295 39.3092 13.2414 36.7837 12.953 34.055L11.465 19.923Z" stroke="#0FA958" stroke-width="4"/>
         <path d="M14 31C17.492 27.875 25.428 23.83 34 31" stroke="#0FA958" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M19 20C20.1046 20 21 19.1046 21 18C21 16.8954 20.1046 16 19 16C17.8954 16 17 16.8954 17 18C17 19.1046 17.8954 20 19 20Z" fill="#0FA958"/>

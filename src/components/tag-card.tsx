@@ -11,6 +11,7 @@ const TagCard: React.FC<Props> = ({ record }: Props) => {
     <Link href={`/dashboard/records/${record?.type}/${record?.id}`}>
       <div className="flex flex-row text-center w-full items-center justify-center py-5 shadow-sm gap-5 pr-10 ">
         <LuTag size="30" color="#0FA958" />
+
         <span className="capitalize">{record?.name}</span>
       </div>
     </Link>

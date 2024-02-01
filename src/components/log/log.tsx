@@ -77,6 +77,7 @@ const Log = (props) => {
         {props.title}
         <LogModal icon="add" type={props.title} label={props.label} />
       </div>
+      
       {r?.map((r, index) => (
         <LogI className="shadow-md flex justify-between" key={index}>
           <div>

@@ -1,12 +1,12 @@
 import { PiWarningBold } from "react-icons/pi";
 import { FaInfoCircle } from "react-icons/fa";
-import IconButton from "@/components/Buttons/IconButton";
-import SuccessCircle from "@/components/icons/SuccessCircle";
+
 import { NotificationType } from "../dashboard/notifications/types";
 import { MdOutlineMessage } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 
 import moment from "moment";
+import IconButton from "@/components/IconButton";
 
 type Props = {
   notification: NotificationType;
@@ -23,12 +23,12 @@ export default function NotificationCard({ notification }: Props) {
     "post-created": `You created a post`,
   };
   const icons: any = {
-    any: <IoIosNotificationsOutline size="30" color="#ba8108" />,
-    "post-created": <IoIosNotificationsOutline size="30" color="#ba8108" />,
+    any: <IoIosNotificationsOutline size="30" color="#0FA958" />,
+    "post-created": <IoIosNotificationsOutline size="30" color="#0FA958" />,
 
-    "post-liked": <MdOutlineMessage size="30" color="#ba8108" />,
+    "post-liked": <MdOutlineMessage size="30" color="#0FA958" />,
 
-    success: <SuccessCircle size="30" />,
+    // success: <SuccessCircle size="30" />,
     caution: (
       <PiWarningBold
         size="30"
@@ -39,7 +39,7 @@ export default function NotificationCard({ notification }: Props) {
     info: <FaInfoCircle size="30" />,
   };
   return (
-    <div className="w-full max-w-[900px] hover:scale-[1.0`] hover:bg-[#e4a9513e] cursor-pointer p-5">
+    <div className="w-full max-w-[900px] hover:scale-[1.0`] hover:bg-green2 cursor-pointer p-5">
       <div className="flex flex-col lg:flex-row items-start justify-between lg:items-center gap-3 lg:gap-0">
         <div className="flex gap-3 items-center">
           <div className="">{icons[notification?.type || "any"]}</div>

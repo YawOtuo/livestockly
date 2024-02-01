@@ -28,7 +28,7 @@ function Page() {
     error,
     data: animal,
   } = useQuery(
-    [`${params?.slug}-${params?.id}`],
+    [`records-${params?.id}`],
     () => GetOneRecord(params?.id),
     {
       enabled: !!userSqlData?.farm_id,

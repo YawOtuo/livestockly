@@ -22,15 +22,18 @@ export const AddRecord = async (data) => {
 };
 
 // Using fetch
-export const searchSpecificRecords = async (type, searchInput) => {
+export const searchSpecificRecords = async (farm_id, type, searchInput) => {
   try {
-    const response = await fetch(`${url}records/${type}/search`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ query: searchInput }),
-    });
+    const response = await fetch(
+      `${url}records/farms/${farm_id}/${type}/search`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: searchInput }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`Error: ${response.status} - ${response.statusText}`);
@@ -45,9 +48,9 @@ export const searchSpecificRecords = async (type, searchInput) => {
 };
 
 // Using fetch
-export const searchRecords = async (searchInput : string) => {
+export const searchRecords = async (farm_id, searchInput: string) => {
   try {
-    const response = await fetch(`${url}records/any/search`, {
+    const response = await fetch(`${url}records/farms/${farm_id}/any/search`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,9 +71,8 @@ export const searchRecords = async (searchInput : string) => {
 };
 
 export const updateRecord = async (id, data) => {
-
   const response = await fetch(`${url}records/${id}`, {
-    method: "POST", 
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -121,3 +123,4 @@ export const deleteImage = async (id, index) => {
   });
   return response.json();
 };
+

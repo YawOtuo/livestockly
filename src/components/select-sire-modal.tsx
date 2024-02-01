@@ -14,16 +14,19 @@ import { SearchResultCard } from "./search-result-card";
 import { url } from "../../weburl";
 import { GetOneRecord, searchRecords } from "@/lib/api/record";
 import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 export const SelectSireModal = (props) => {
   const [open, setOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+
 
   const {
     isLoading: isLoadinganimal,
     error: errorAnimal,
     data: searchResults,
-  } = useQuery([`search-${searchInput}`], () => searchRecords(searchInput), {
+  } = useQuery([`search-${searchInput}`], () => searchRecords(userSqlData?.farm_id,  searchInput), {
     enabled: !!searchInput,
   });
 
