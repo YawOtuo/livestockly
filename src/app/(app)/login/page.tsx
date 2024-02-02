@@ -34,7 +34,7 @@ const Page = () => {
                  bg-white"
           style={{ height: "max-height" }}>
           <h1 className="mb-10   font-bold">
-            <span className="font-semibold lowercase">liveStock</span>
+            <span className="font-semibold text-black lowercase">liveStock</span>
             <span className="font-bold text-green1 uppercase">Diary</span>
           </h1>
           {pages[activeIndex]}
