@@ -13,13 +13,13 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between ">
-      <div className="bg-green3 w-full h-[100vh] flex items-center justify-center flex-col">
+      <div className="bg-green3 w-full h-[100vh] flex items-center justify-center flex-col text-center px-5 lg:px-0">
         <p className="text-4xl">
           <span className="text-black font-semibold lowercase">livestock</span>
           <span className="text-green1 font-bold uppercase mt-2">diary</span>
         </p>
         <p className="">Your Comprehensive Livestock Management Solution</p>
-        <p className="lg:max-w-[60%] text-center mt-5 text-xs text-green1 font-semibold">
+        <p className="hidden lg:block lg:max-w-[60%] text-center mt-5 text-xs text-green1 font-semibold">
           Unlock the full potential of your livestock management with
           LivestockDiary, your all-in-one platform designed to streamline
           operations, boost productivity, and ensure the well-being of your
