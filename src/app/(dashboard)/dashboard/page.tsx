@@ -11,7 +11,7 @@ import RecentlyRegisteredSm from "../components/RecentlyRegisteredSm";
 
 import { useJsonCompletenessCheck } from "@/lib/hooks/useJsonCompletenessCheck";
 import IconButton from "@/components/IconButton";
-import AddRecordModal from "@/components/add-record-modal";
+import AddRecordModal from "@/components/AddRecordModal";
 import {
   GetAllFarmRecords,
   GetAllFarmRecordsSp,

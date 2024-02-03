@@ -15,16 +15,15 @@ type Props = {
   data: Data[];
   onChange: any;
   initialValue?: any;
-  defaultValue? : string
+  defaultValue?: string;
 };
 export default function CustomRadioInput({
   initialValue,
   onChange,
   title,
   data,
-  defaultValue
+  defaultValue,
 }: Props) {
-
   const handleChange = (e) => {
     // Assuming 'value' is either 'yes' or 'no'
     onChange((prev) => ({
@@ -34,7 +33,11 @@ export default function CustomRadioInput({
   };
   return (
     <FormControl>
-      <FormLabel id="demo-radio-buttons-group-label" className="!text-black capitalize">{title}</FormLabel>
+      <FormLabel
+        id="demo-radio-buttons-group-label"
+        className="!text-black capitalize !text-sm">
+        {title}
+      </FormLabel>
       <RadioGroup
         row
         value={initialValue}
@@ -44,6 +47,7 @@ export default function CustomRadioInput({
         name="radio-buttons-group">
         {data?.map((r, index) => (
           <FormControlLabel
+            className="!text-sm"
             value={r?.value}
             control={<Radio />}
             label={r?.label}

@@ -9,21 +9,22 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import axios from "axios";
-import { SelectSireModal } from "./select-sire-modal";
+import { SelectSireModal } from "../select-sire-modal";
 import { useSelector, useDispatch } from "react-redux";
-import { url } from "../../weburl";
+import { url } from "../../../weburl";
 import { addMessage } from "@/lib/redux/reducers/messages";
-import { LoadingModal } from "./loading-modal";
-import { CustomTextField } from "./CustomTextfield";
+import { LoadingModal } from "../loading-modal";
+import { CustomTextField } from "../CustomTextfield";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AddRecord, GetOneRecord, updateRecord } from "@/lib/api/record";
-import CustomTextArea from "./CustomTextArea";
+import CustomTextArea from "../CustomTextArea";
 import { Form, Formik } from "formik";
-import CustomRadioInput from "./CustomRadioInput";
-import CustomSwitch from "./CustomSwitch";
+import CustomRadioInput from "../CustomRadioInput";
+import CustomSwitch from "../CustomSwitch";
 import { today } from "@/lib/utils/date";
-import CustomSelect from "./CustomSelect";
+import CustomSelect from "../CustomSelect";
 import useNotifications from "@/lib/hooks/useNotifications";
+import useRecordFormSubmission from "./useRecordFormSubmission";
 const addIcon = "/icons/add.png";
 const editIcon = "/icons/edit.png";
 
@@ -39,11 +40,19 @@ type Props = {
 };
 export default function AddRecordModal({ edit, record, type, title }: Props) {
   const [open, setOpen] = React.useState(false);
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+
   const [sire, setSire] = useState();
   const [dam, setDam] = useState();
-  const [otherData, setOtherData] = useState({});
-  const { createNotification } = useNotifications();
+  const [otherData, setOtherData] = useState({ gender: "male", type: "sheep" });
+  const { handleSubmit } = useRecordFormSubmission({
+    edit,
+    otherData,
+    setOpen,
+    dam,
+    sire,
+    record,
+    type,
+  });
 
   const {
     isLoading: isLoadingSire,
@@ -77,9 +86,6 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
     }
   }, [sire_, dam_]);
 
-  const dispatch = useDispatch();
-  const queryClient = useQueryClient();
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -87,39 +93,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
   const handleClose = () => {
     setOpen(false);
   };
-  const createMutation = useMutation((newItem) => AddRecord(newItem), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(`records`);
-    },
-  });
-  const updateMutation = useMutation(
-    (newItem) => updateRecord(record?.id, newItem),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(`records-${record?.id}`);
-      },
-    }
-  );
 
-  const handleCreate = async (data) => {
-    createMutation.mutate(data);
-    createNotification({
-      subject: `New record ${data?.name} has been created by ${userSqlData?.username}`,
-      content: "",
-      to_farm_id: userSqlData?.farm_id,
-    });
-    setOpen(false);
-  };
-
-  const handleUpdate = async (data) => {
-    updateMutation.mutate(data);
-    createNotification({
-      subject: `Record ${data?.name} has been updated by ${userSqlData?.username}`,
-      content: "",
-      to_farm_id: userSqlData?.farm_id,
-    });
-    setOpen(false);
-  };
   return (
     <div>
       <Button
@@ -144,38 +118,17 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
         fullWidth
         aria-describedby="alert-dialog-slide-description">
         <DialogTitle className="shadow-md ">
-          {edit ? "EDIT RECORD" : `NEW RECORD (${type})`}
+          {edit ? "EDIT RECORD" : `NEW RECORD ${type ? type : ""}`}
         </DialogTitle>
         <DialogContent>
           <Formik
             initialValues={{
               ...record,
             }}
-            onSubmit={(values) => {
-              (values.farm_id = userSqlData?.farm_id),
-                (values.gender = otherData?.gender);
-              values.alive = otherData?.alive;
-              values.type = otherData?.type || type;
-              values.remarks = otherData?.remarks;
-              values.weight = otherData?.weight && [
-                { content: values?.weight, date: today },
-              ];
-              values.vaccination_info = otherData?.vaccination_info && [
-                { content: otherData?.vaccination_info, date: today },
-              ];
-              values.health_condition = otherData?.health_condition && [
-                { content: otherData?.health_condition, date: today },
-              ];
-
-              values.remarks = otherData?.remarks && [
-                { content: otherData?.remarks, date: today },
-              ];
-
-              values.castrated = otherData?.castrated;
-
-              !edit ? handleCreate(values) : handleUpdate(values);
+            onSubmit={(values, { resetForm }) => {
+              handleSubmit(values);
             }}>
-            {({ handleSubmit, handleBlur, values, errors, handleChange }) => (
+            {({ handleSubmit, handleReset, values, errors, handleChange }) => (
               <Form>
                 <DialogContentText
                   id="alert-dialog-slide-description"
@@ -241,7 +194,53 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
                       onChange={handleChange}
                       value={values.date_of_birth}
                     />
+                  </div>
+                  <div className="flex flex-col col-span-2 lg:col-span-1 gap-3 xl:gap-6">
+                    {!edit && (
+                      <div className="mb-5">
+                        {" "}
+                        <CustomTextField
+                          label={"Vaccination info"}
+                          name="vaccination_info"
+                          // placeholder="Vaccination Info"
+                          type="text"
+                          multiline
+                          onChange={handleChange}
+                          value={values.vaccination_info}
+                        />
+                      </div>
+                    )}
 
+                    {!edit && (
+                      <CustomTextField
+                        label={"Remarks"}
+                        name="remarks"
+                        // placeholder="Vaccination Info"
+                        type="text"
+                        multiline
+                        onChange={handleChange}
+                        value={values.remarks}
+                      />
+                    )}
+                    <div className="flex flex-row gap-10 text-black">
+                      <div className="">
+                        Sire {sire?.name}
+                        <SelectSireModal
+                          setParent={setSire}
+                          type={type}
+                          name="sire"
+                        />
+                      </div>
+
+                      <div>
+                        Dam {dam?.name}
+                        <SelectSireModal
+                          setParent={setDam}
+                          type={type}
+                          name="dam"
+                        />
+                      </div>
+                    </div>
                     <CustomRadioInput
                       defaultValue="sheep"
                       onChange={setOtherData}
@@ -277,27 +276,6 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
                         },
                       ]}
                     />
-                  </div>
-                  <div className="flex flex-col col-span-2 lg:col-span-1 gap-3 xl:gap-6">
-                    <div className="flex flex-row gap-10 text-black">
-                      <div className="">
-                        Sire {sire?.name}
-                        <SelectSireModal
-                          setParent={setSire}
-                          type={type}
-                          name="sire"
-                        />
-                      </div>
-
-                      <div>
-                        Dam {dam?.name}
-                        <SelectSireModal
-                          setParent={setDam}
-                          type={type}
-                          name="dam"
-                        />
-                      </div>
-                    </div>
                     <CustomRadioInput
                       onChange={setOtherData}
                       title="castrated"
@@ -312,43 +290,9 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
                         },
                       ]}
                     />
-                    {!edit && (
-                      <div className="mb-5">
-                        {" "}
-                        <CustomTextArea
-                          label="Vaccination info"
-                          placeholder="Vaccination Info"
-                          name="vaccination_info"
-                          onChange={(e) =>
-                            setOtherData((prev) => ({
-                              ...prev,
-                              vaccination_info: e.target.value,
-                            }))
-                          }
-                          value={record?.vaccination_info?.content}
-                        />
-                      </div>
-                    )}
 
-                    {!edit && (
-                      <CustomTextArea
-                        label="Remarks"
-                        placeholder="Remarks"
-                        name="remarks"
-                        onChange={(e) =>
-                          setOtherData((prev) => ({
-                            ...prev,
-                            remarks: e.target.value,
-                          }))
-                        }
-                        value={record?.remarks?.content}
-                      />
-                    )}
-
-                    {/* <input type="file" /> */}
+                    <CustomSwitch label="alive" onChange={setOtherData} />
                   </div>
-
-                  <CustomSwitch label="alive" onChange={setOtherData} />
                 </DialogContentText>
                 <div className="w-full text-center mt-5 rounded-lg bg-green1 ">
                   <Button type="submit" className="w-full">

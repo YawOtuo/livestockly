@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/lib/utils/provider";
 import ReduxProvider from "./ReduxProvider";
+import MuiTheme from "./MuiTheme";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,11 +18,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  
   return (
     <html lang="en">
       <Providers>
-        <body className={inter.className}>{children}</body>
+        <MuiTheme>
+          <body className={inter.className}>{children}</body>
+        </MuiTheme>
         <ReduxProvider />
+        <ToastContainer />
       </Providers>
     </html>
   );

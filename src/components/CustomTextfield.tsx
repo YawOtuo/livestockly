@@ -7,6 +7,7 @@ type Props = {
   required?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: any;
+  multiline?: boolean;
 };
 
 export const CustomTextField = ({
@@ -16,10 +17,14 @@ export const CustomTextField = ({
   onChange,
   value,
   required,
+  multiline,
 }: Props) => {
   return (
     <div className="py-2 flex flex-row text-black items-center max-w-[500px]">
       <TextField
+        multiline={multiline}
+        rows={4}
+        color="primary"
         className="w-full"
         label={label}
         type={type}

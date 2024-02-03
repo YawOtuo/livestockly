@@ -9,7 +9,7 @@ import Providers from "@/lib/utils/provider";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import useIsLoggedIn from "@/lib/hooks/useIsLoggedInReRoute";
+import useIsLoggedIn from "@/lib/hooks/useIsLoggedIn";
 import { CustomLoaders } from "@/components/Loaders";
 import NotAcceptedIntoFarm from "@/components/NotAcceptedIntoFarm";
 import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
@@ -19,7 +19,8 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const userSqlData = useSelector((state) => state?.users?.userSqlData);
-  const isLoggedIn = useIsLoggedInReRoute(false, "/login");
+  const isLoggedInR = useIsLoggedInReRoute(false, "/login");
+  // const isLoggedIn = useIsLoggedIn()
   const router = useRouter();
   const [showNotAccepted, setShowNotAccepted] = React.useState(false);
   // const [loading, setLoading] = React.useState(true);

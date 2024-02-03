@@ -2,7 +2,7 @@ import Link from 'next/link'
 // import AddRecordModal from './add-record-modal'
 import { useState } from 'react'
 import React from 'react'
-import AddRecordModal from './add-record-modal'
+import AddRecordModal from './AddRecordModal'
 
 const rightArrow = '/icons/arrow-right.png'
 

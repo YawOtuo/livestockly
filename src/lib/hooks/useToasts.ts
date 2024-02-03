@@ -2,6 +2,7 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const useToast = () => {
   const showToast = (message, type) => {
     switch (type) {
@@ -13,6 +14,7 @@ const useToast = () => {
         break;
       case 'info':
         toast.info(message);
+        
         break;
       case 'warning':
         toast.warning(message);

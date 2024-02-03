@@ -5,7 +5,7 @@ import  TagCard  from "@/components/tag-card";
 import { DashSearch } from "@/components/dash-search";
 import Navbar from "../../../components/navbar";
 import SlideEnter from "@/lib/framer/slideEnter";
-import AddRecordModal from "@/components/add-record-modal";
+import AddRecordModal from "@/components/AddRecordModal";
 import { useParams, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllFarmRecordsSp } from "@/lib/api/farm";

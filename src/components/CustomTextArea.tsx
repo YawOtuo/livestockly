@@ -1,3 +1,4 @@
+import { TextField } from "@mui/material";
 import React, { ChangeEvent } from "react";
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
   classes?: string;
   onChange: any;
   value: string;
-  label: string
+  label: string;
 };
 
 const CustomTextArea: React.FC<Props> = ({
@@ -15,18 +16,21 @@ const CustomTextArea: React.FC<Props> = ({
   classes,
   onChange,
   value,
-  label
+  label,
 }) => {
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor="" className="capitalize text-black">{label}</label>
-      <textarea
-        placeholder={placeholder}
+    <div className="py-2 flex flex-row text-black items-center max-w-[500px]">
+      {/* <TextField
+        color="primary"
+        className="w-full"
+        label={label}
+        multiline
+        type={type}
         name={name}
-        className={`${classes} w-full border-2 border-green1 px-5 py-5  rounded-2xl min-h-[200px]`}
+        required={required}
         onChange={onChange}
         value={value}
-      />
+      /> */}
     </div>
   );
 };
