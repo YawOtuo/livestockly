@@ -80,5 +80,5 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
     ),
   };
-  return <body className={montserrat.className}>{options[currentPage]}</body>;
+  return <body className={`!text-black ${montserrat.className}`}>{options[currentPage]}</body>;
 }
