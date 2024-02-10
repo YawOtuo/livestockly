@@ -20,10 +20,10 @@ export default function RootLayout({
 }) {
   
   return (
-    <html lang="en" className="text-black">
+    <html lang="en" className="!text-black">
       <Providers>
         <MuiTheme>
-          <body className={inter.className}>{children}</body>
+          <body className={`${inter.className} text-black`}>{children}</body>
         </MuiTheme>
         <ReduxProvider />
         <ToastContainer />
