@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   
   return (
-    <html lang="en">
+    <html lang="en" className="text-black">
       <Providers>
         <MuiTheme>
           <body className={inter.className}>{children}</body>
