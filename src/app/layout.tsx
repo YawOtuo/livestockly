@@ -5,6 +5,7 @@ import Providers from "@/lib/utils/provider";
 import ReduxProvider from "./ReduxProvider";
 import MuiTheme from "./MuiTheme";
 import { ToastContainer } from "react-toastify";
+import Navbar from "./(app)/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +19,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  
   return (
     <html lang="en" className="!text-black">
       <Providers>
         <MuiTheme>
-          <body className={`${inter.className} text-black`}>{children}</body>
+          <body className={`${inter.className} text-black`}>
+            <div>
+              <Navbar />
+              {children}
+            </div>
+          </body>
         </MuiTheme>
         <ReduxProvider />
         <ToastContainer />

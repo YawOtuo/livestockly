@@ -35,9 +35,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   // }, []);
 
   useEffect(() => {
-    console.log(userSqlData?.acceptedIntoFarm)
+    console.log(userSqlData?.acceptedIntoFarm);
     if (userSqlData?.acceptedIntoFarm) {
-      console.log(userSqlData?.acceptedIntoFarm)
+      console.log(userSqlData?.acceptedIntoFarm);
 
       setCurrentPage("success");
       // setLoading(false);
@@ -80,5 +80,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
     ),
   };
-  return <body className={`!text-black ${montserrat.className}`}>{options[currentPage]}</body>;
+  return (
+    <body className={`!text-black ${montserrat.className}`}>
+      {options[currentPage]}
+    </body>
+  );
 }
