@@ -28,10 +28,10 @@ export default function RootLayout({
               <Navbar />
               {children}
             </div>
+            <ToastContainer />
           </body>
         </MuiTheme>
         <ReduxProvider />
-        <ToastContainer />
       </Providers>
     </html>
   );
