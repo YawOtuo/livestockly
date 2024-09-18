@@ -11,7 +11,20 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "livestockDiary",
-  description: "Your comprehensive livestock solution",
+  description: "Your comprehensive livestock management solution",
+  generator: "Next.js",
+  manifest: "/manifest.json",
+  keywords: ["nextjs", "next14", "pwa", "next-pwa"],
+  authors: [
+    {
+      name: "imvinojanv",
+      url: "https://www.linkedin.com/in/imvinojanv/",
+    },
+  ],
+  icons: [
+    { rel: "apple-touch-icon", url: "icon512_rounded.png" },
+    { rel: "icon", url: "icon512_rounded.png" },
+  ],
 };
 
 export default function RootLayout({
