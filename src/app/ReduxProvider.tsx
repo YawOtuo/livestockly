@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 
-import { auth } from "@/lib/utils/firebase";
 import axios from "axios";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -11,8 +10,10 @@ import {
   setUserDetails,
   setUserSQLDBDetails,
 } from "@/lib/redux/reducers/users";
+import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
 
-export default function ReduxProvider(){
+export default function ReduxProvider() {
+  const { auth } = useFirebaseAuth();
   const [user, loading, error] = useAuthState(auth);
   const dispatch = useDispatch();
 

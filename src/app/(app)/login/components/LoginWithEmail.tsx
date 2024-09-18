@@ -4,27 +4,30 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { VerifyFarmExists } from "@/lib/api/farm";
 import LoginButtons from "./LoginButtons";
-import {
-  logInWithEmailAndPassword,
-  loginWithGoogle,
-  registerWithEmailAndPassword,
-  signUpWithGoogle,
-} from "@/lib/utils/firebase";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "@/lib/redux/reducers/users";
 import { CustomLoaders } from "@/components/Loaders";
 import Link from "next/link";
+import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
 
 type Props = {
   page: string;
 };
 
 function LoginWithEmail({ page }: Props) {
+  const {
+    logInWithEmailAndPassword,
+    loginWithGoogle,
+    registerWithEmailAndPassword,
+    signUpWithGoogle,
+    loading,
+    errorText,
+  } = useFirebaseAuth();
+
   const router = useRouter();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState<boolean>();
-  const [errorText, setErrorText] = useState<string>();
+
   const [showFields, setShowFields] = useState(false);
 
   const farm = useSelector((state) => state?.farm?.details);
@@ -34,21 +37,8 @@ function LoginWithEmail({ page }: Props) {
   };
 
   const handleSubmit = (values) => {
-    setLoading(true);
     page != "sign-up" &&
-      logInWithEmailAndPassword(values?.email, values?.password)
-        .then((res) => {
-          console.log(res);
-          setLoading(false);
-          dispatch(setUserDetails(res));
-          router.push("/dashboard");
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err);
-
-          setErrorText("Invalid credentials");
-        });
+      logInWithEmailAndPassword(values?.email, values?.password);
 
     page == "sign-up" &&
       registerWithEmailAndPassword(
@@ -56,19 +46,7 @@ function LoginWithEmail({ page }: Props) {
         values?.username,
         values?.email,
         values?.password
-      )
-        .then((res) => {
-          console.log(res);
-          setLoading(false);
-          dispatch(setUserDetails(res));
-          router.push("/dashboard");
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err);
-
-          setErrorText("Invalid credentials");
-        });
+      );
   };
 
   return (

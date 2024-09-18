@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between ">
       <div
-        className="bg-green3 w-full h-[70vh] flex items-start justify-center flex-col text-center px-5 lg:px-10 "
+        className="bg-green3 w-full h-[80vh] flex items-start justify-center flex-col text-center px-5 lg:px-10 "
         style={{
           perspective: `${scrollYProgress}px`,
         }}>

@@ -1,5 +1,4 @@
 "use client";
-import { Logout } from "@/lib/utils/firebase";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useSelector } from "react-redux";
@@ -12,8 +11,10 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { IoIosLogOut } from "react-icons/io";
 import { useIsAdmin } from "@/lib/hooks/useIsAdmin";
 import { GrUserAdmin } from "react-icons/gr";
+import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
 
 export default function Navbar() {
+  const { Logout } = useFirebaseAuth();
   const userSqlData = useSelector((state) => state?.users?.userSqlData);
   const [showDetails, setShowDetails] = useState(false);
 

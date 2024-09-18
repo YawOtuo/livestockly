@@ -19,11 +19,13 @@ import {
 } from "@/lib/api/farm";
 import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
 import { PermissionComponent } from "@/components/permission-component";
+import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
 
 type Props = {};
 
 export default function Profile({ searchParams }: any) {
   // const [dogs, setDogs] = useState()  const isLoggedIn = useIsLoggedInReRoute(true, '/dashboard')
+  const {logout} = useFirebaseAuth()
 
   const isLoggedIn = useIsLoggedInReRoute(false, "/login");
 

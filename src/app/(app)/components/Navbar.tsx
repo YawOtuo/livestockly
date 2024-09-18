@@ -2,10 +2,10 @@ import Link from "next/link";
 
 function Navbar() {
   const urls = [
-    { name: "Home", url: "" },
-    { name: "Pricing", url: "" },
-    { name: "Login", url: "" },
-    { name: "Sign Up", url: "" },
+    { name: "Home", url: "/" },
+    { name: "Pricing", url: "/pricing" },
+    { name: "Login", url: "/login" },
+    { name: "Sign Up", url: "/sign-up" },
   ];
   return (
     <div className="flex items-center justify-between px-10 py-3">
