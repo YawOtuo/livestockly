@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Navbar from "./components/navbar";
 import Navbar2 from "./components/navbar2";
 import "../globals.css";
-import { Open_Sans } from "next/font/google";
+// import { Open_Sans } from "next/font/google";
 import "../globals.css";
 import Providers from "@/lib/utils/provider";
 import { useEffect } from "react";
@@ -16,7 +16,7 @@ import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
 import { RootState } from "@/lib/redux/store";
 import { motion } from "framer-motion";
 
-const montserrat = Open_Sans({ subsets: ["latin"] });
+// const montserrat = Open_Sans({ subsets: ["latin"] });
 // ... (other imports)
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -84,8 +84,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     ),
   };
   return (
-    <body className={`!text-black ${montserrat.className}`}>
+    <main className={`!text-black `}>
       {options[currentPage]}
-    </body>
+    </main>
   );
 }

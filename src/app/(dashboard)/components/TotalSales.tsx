@@ -23,7 +23,7 @@ const TotalSales = ({ filter, amount, url }: Props) => {
       {amount && <p className="text-yellow1 font-bold text-xl">{amount}</p>}
       {amount == undefined ||
         (null && <CustomLoaders colour="green1" variant="syncloader" />)}
-      <p className="capitalize text-center text-sm"><span className="hidden lg:block">Total</span> {filter}</p>
+      <p className="capitalize text-center text-sm"> {filter}</p>
     </motion.div>
   );
 };

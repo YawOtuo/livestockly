@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Varela_Round } from "next/font/google";
 import "./globals.css";
 import Providers from "@/lib/utils/provider";
 import ReduxProvider from "./ReduxProvider";
@@ -7,7 +7,7 @@ import MuiTheme from "./MuiTheme";
 import { ToastContainer } from "react-toastify";
 import Navbar from "./(app)/components/Navbar";
 
-const inter = Open_Sans({ subsets: ["latin"] });
+const inter = Varela_Round({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "livestockDiary",
@@ -37,10 +37,8 @@ export default function RootLayout({
       <Providers>
         <MuiTheme>
           <body className={`${inter.className} text-black`}>
-            <div>
-              <Navbar />
+              {/* <Navbar /> */}
               {children}
-            </div>
             <ToastContainer />
           </body>
         </MuiTheme>
