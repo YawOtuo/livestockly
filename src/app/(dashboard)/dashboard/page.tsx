@@ -89,7 +89,7 @@ export default function Profile({ searchParams }: any) {
     <div className="p-10 px-5 lg:px-10 w-full flex flex-col">
       <div className="flex flex-col gap-1">
         <p className="text-4xl font-semibold break-all">
-          Welcome {userSqlData?.username},
+          Welcome <span className="text-primary ">{userSqlData?.username}</span >,
         </p>
         <p className="text-md">What would you like to do today?</p>
       </div>
