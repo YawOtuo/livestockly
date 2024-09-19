@@ -1,6 +1,7 @@
 import { url } from "../../../weburl";
+import { Record } from "../types/record";
 
-export const GetOneRecord = async (id) => {
+export const GetOneRecord = async (id: number): Promise<Record> => {
   const response = await fetch(`${url}records/${id}`, {
     method: "GET",
     headers: {
@@ -10,7 +11,11 @@ export const GetOneRecord = async (id) => {
   return response.json();
 };
 
-export const AddRecord = async (data) => {
+export interface AddRecordBody {
+  name?: string
+}
+
+export const AddRecord = async (data: AddRecordBody): Promise<Record> => {
   const response = await fetch(`${url}records`, {
     method: "POST", // or 'PATCH' depending on your API
     headers: {
@@ -22,7 +27,11 @@ export const AddRecord = async (data) => {
 };
 
 // Using fetch
-export const searchSpecificRecords = async (farm_id, type, searchInput) => {
+export const searchSpecificRecords = async (
+  farm_id: number,
+  type: string,
+  searchInput: string
+): Promise<Record[]> => {
   try {
     const response = await fetch(
       `${url}records/farms/${farm_id}/${type}/search`,
@@ -41,14 +50,17 @@ export const searchSpecificRecords = async (farm_id, type, searchInput) => {
 
     const data = await response.json();
     return data;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Search error:", error.message);
     throw error;
   }
 };
 
 // Using fetch
-export const searchRecords = async (farm_id, searchInput: string) => {
+export const searchRecords = async (
+  farm_id: number,
+  searchInput: string
+): Promise<Record[]> => {
   try {
     const response = await fetch(`${url}records/farms/${farm_id}/any/search`, {
       method: "POST",
@@ -64,13 +76,16 @@ export const searchRecords = async (farm_id, searchInput: string) => {
 
     const data = await response.json();
     return data;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Search error:", error.message);
     throw error;
   }
 };
 
-export const updateRecord = async (id, data) => {
+export const updateRecord = async (
+  id: number,
+  data: AddRecordBody
+): Promise<Record> => {
   const response = await fetch(`${url}records/${id}`, {
     method: "POST",
     headers: {
@@ -81,7 +96,13 @@ export const updateRecord = async (id, data) => {
   return response.json();
 };
 
-export const updateRecordJSON = async (id, data, label) => {
+export interface RecordJsonOne {}
+
+export const updateRecordJSON = async (
+  id: number,
+  data: RecordJsonOne,
+  label: string
+): Promise<Record> => {
   console.log(id, data, label);
   const response = await fetch(`${url}records/${id}/${label}`, {
     method: "POST", // or 'PATCH' depending on your API
@@ -93,7 +114,12 @@ export const updateRecordJSON = async (id, data, label) => {
   return response.json();
 };
 
-export const updateRecordJSONOne = async (id, data, label, index) => {
+export const updateRecordJSONOne = async (
+  id: number,
+  data: RecordJsonOne,
+  label: String,
+  index: number
+): Promise<Record> => {
   const response = await fetch(`${url}records/${id}/${label}/index/${index}`, {
     method: "POST", // or 'PATCH' depending on your API
     headers: {
@@ -104,7 +130,11 @@ export const updateRecordJSONOne = async (id, data, label, index) => {
   return response.json();
 };
 
-export const deleteRecordJSONOne = async (id, label, index) => {
+export const deleteRecordJSONOne = async (
+  id: number,
+  label: string,
+  index: number
+): Promise<Record> => {
   const response = await fetch(`${url}records/${id}/${label}/index/${index}`, {
     method: "DELETE", // or 'PATCH' depending on your API
     headers: {
@@ -114,7 +144,10 @@ export const deleteRecordJSONOne = async (id, label, index) => {
   return response.json();
 };
 
-export const deleteImage = async (id, index) => {
+export const deleteImage = async (
+  id: number,
+  index: number
+): Promise<string> => {
   const response = await fetch(`${url}records/image/${id}/index/${index}`, {
     method: "DELETE", // or 'PATCH' depending on your API
     headers: {
@@ -123,4 +156,3 @@ export const deleteImage = async (id, index) => {
   });
   return response.json();
 };
-

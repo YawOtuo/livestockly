@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import Providers from "@/lib/utils/provider";
 import ReduxProvider from "./ReduxProvider";
@@ -7,7 +7,7 @@ import MuiTheme from "./MuiTheme";
 import { ToastContainer } from "react-toastify";
 import Navbar from "./(app)/components/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "livestockDiary",

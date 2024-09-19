@@ -1,11 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom'
 import { Button, useMediaQuery } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { RxHamburgerMenu } from 'react-icons/rx'
 import SideNav from './sideNav';
-import { setAuthenticated } from '../redux/reducers/users';
 import { useDispatch } from 'react-redux';
-import { Logout } from './logout';
+import Link from 'next/link';
+// import { Logout } from './logout';
 
 
 const faceIcon = '/icons/face.png'
@@ -15,7 +14,6 @@ export const Navbar = () => {
     const dispatch = useDispatch()
     const isMobile = useMediaQuery('(max-width: 600px)');
     const isTab = useMediaQuery('(max-width: 1000px)');
-    const navigate = useNavigate()
     // Get the current date as a string
     var today = currentDate.toLocaleDateString();
     return (
@@ -24,7 +22,7 @@ export const Navbar = () => {
                 {today}
             </div>}
             <div className='col-span-full lg:col-span-1 text-center ' >
-                <Link to='/dashboard' className='brand-green-font 
+                <Link href='/dashboard' className='brand-green-font 
                 font-bold text-lg'>BOATEY FARMS</Link>
             </div>
             {!isTab && <div className='col-span-1 text-right'>
@@ -35,7 +33,7 @@ export const Navbar = () => {
 
                     </p>
 
-                <Logout nav={true}/>
+                {/* <Logout nav={true}/> */}
 
                 </div>
             </div>}

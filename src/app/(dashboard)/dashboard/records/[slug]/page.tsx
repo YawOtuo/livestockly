@@ -10,6 +10,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllFarmRecordsSp } from "@/lib/api/farm";
 import { useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
 
 type Props = {
 
@@ -17,30 +18,29 @@ type Props = {
 
 const Page = ({} : Props) => {
   const params = useParams();
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+  const userSqlData = useSelector((state: RootState) => state?.users?.userSqlData);
 
   let type = params?.slug 
-  console.log(type)
 
   const {
     isLoading: isLoadingGoats,
     error: errorGoats,
     data: goats,
-  } = useQuery(["goats"], () => GetAllFarmRecordsSp(userSqlData?.farm_id, "goats"), {
+  } = useQuery(["goats"], () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "goats"), {
     enabled: !!userSqlData?.farm_id,
   });
   const {
     isLoading: isLoadingCattle,
     error: errorCattle,
     data: cattle,
-  } = useQuery(["cattle"], () => GetAllFarmRecordsSp(userSqlData?.farm_id, "cattle"), {
+  } = useQuery(["cattle"], () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "cattle"), {
     enabled: !!userSqlData?.farm_id,
   });
   const {
     isLoading: isLoadingSheep,
     error: errorSheep,
     data: sheep,
-  } = useQuery(["sheep"], () => GetAllFarmRecordsSp(userSqlData?.farm_id, "sheep"), {
+  } = useQuery(["sheep"], () => GetAllFarmRecordsSp(userSqlData?.farm_id  as number, "sheep"), {
     enabled: !!userSqlData?.farm_id,
   });
 
@@ -91,16 +91,16 @@ const Page = ({} : Props) => {
               Displaying all
               <span className="brand-green-font">
                 {" "}
-                {numberOptions[type]}
+                {numberOptions[type as string]}
               </span>{" "}
               {type}
             </p>
-            <AddRecordModal type={type} />
+            <AddRecordModal type={type as string} />
           </div>
           <div className="">
             <div
               className="justify-center items-center">
-              {renderList[type]}
+              {renderList[type as string]}
             </div>
           </div>
         </div>

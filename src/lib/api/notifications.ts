@@ -1,17 +1,31 @@
 import { url } from "../../../weburl";
+import { Notification } from "../types/notification";
 
-export const CreateNotification = async (notificationData) => {
+// CreateNotification function with Notification type
+
+export interface AddNotificationBody {
+  message?: string;
+  to_farm_id: number;
+  type?: string;
+  subject: string;
+}
+export const CreateNotification = async (
+  notification: AddNotificationBody
+): Promise<Notification> => {
   const response = await fetch(`${url}notifications`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(notificationData),
+    body: JSON.stringify(notification),
   });
   return response.json();
 };
 
-export const GetNotification = async (notificationId) => {
+// GetNotification with typed notificationId and response
+export const GetNotification = async (
+  notificationId: string
+): Promise<Notification> => {
   const response = await fetch(`${url}notifications/${notificationId}`, {
     method: "GET",
     headers: {
@@ -21,7 +35,10 @@ export const GetNotification = async (notificationId) => {
   return response.json();
 };
 
-export const GetUserNotifications = async (userId) => {
+// GetUserNotifications with typed userId and response (array of notifications)
+export const GetUserNotifications = async (
+  userId: number
+): Promise<Notification[]> => {
   const response = await fetch(`${url}notifications/user/${userId}`, {
     method: "GET",
     headers: {
@@ -31,7 +48,10 @@ export const GetUserNotifications = async (userId) => {
   return response.json();
 };
 
-export const MarkNotificationAsRead = async (notificationId) => {
+// MarkNotificationAsRead with typed notificationId and response
+export const MarkNotificationAsRead = async (
+  notificationId: number
+): Promise<Notification> => {
   const response = await fetch(`${url}notifications/${notificationId}`, {
     method: "PUT",
     headers: {
@@ -41,7 +61,10 @@ export const MarkNotificationAsRead = async (notificationId) => {
   return response.json();
 };
 
-export const DeleteNotification = async (notificationId) => {
+// DeleteNotification with typed notificationId and response
+export const DeleteNotification = async (
+  notificationId: number
+): Promise<{ success: boolean }> => {
   const response = await fetch(`${url}notifications/${notificationId}`, {
     method: "DELETE",
     headers: {

@@ -3,6 +3,10 @@ import { handleFileDrop } from "./api";
 import { useDropzone } from "react-dropzone";
 import { useCallback } from "react";
 
+type Props = {
+  setFiles: any;
+}
+
 export const AccountAddImage = ({ setFiles }: Props) => {
     const onDrop = useCallback(
       (acceptedFiles: any) => {

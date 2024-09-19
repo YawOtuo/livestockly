@@ -14,9 +14,10 @@ type Props = {
   onChange: any;
   initialValue? : string
 };
+
 export default function CustomSelect({ label, initialValue,  data, onChange } : Props) {
-  const handleChange = (e) => {
-    onChange((prev) => ({
+  const handleChange = (e : any) => {
+    onChange((prev : any) => ({
       ...prev,
       [label]: e.target.values,
     }));

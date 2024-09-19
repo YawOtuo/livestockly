@@ -1,10 +1,6 @@
 "use client";
 
-import IconButton from "@/components/Buttons/IconButton";
-import DogCard from "@/components/DogCard.tsx";
-import NoPlaceHolder from "@/components/NoPlaceHolder";
-import { fetchDogs } from "@/lib/api/dogs";
-import { fetchUserOne } from "@/lib/api/users";
+
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,9 +11,10 @@ import { FaRegAddressCard } from "react-icons/fa";
 import { FaRegFlag } from "react-icons/fa";
 import EditProfileModal from "./components/EditProfileModal";
 import { SyncLoader } from "react-spinners";
+import { RootState } from "@/lib/redux/store";
 
 export default function Page() {
-  const user = useSelector((state) => state?.users?.userSqlData);
+  const user = useSelector((state : RootState) => state?.users?.userSqlData);
 
   return (
     <div className="flex flex-col gap-5 w-full justify-between px-5 lg:px-10 py-10  items-start">
@@ -80,7 +77,7 @@ export default function Page() {
               </div> */}
             </div>
             <div className="mt-5">
-              <EditProfileModal user={user} />{" "}
+              {/* <EditProfileModal user={user} />{" "} */}
             </div>
           </div>
         )}
@@ -92,7 +89,7 @@ export default function Page() {
 type DetailProps = {
   label: string;
   icon: any;
-  value: string;
+  value: string | null;
 };
 
 const Detail = ({ label, icon, value }: DetailProps) => {

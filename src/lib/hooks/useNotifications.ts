@@ -1,23 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  AddNotificationBody,
   CreateNotification,
   DeleteNotification,
   GetUserNotifications,
   MarkNotificationAsRead,
 } from "../api/notifications";
 import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { Notification } from "../types/notification";
 
-type notificationData = {
-  subject: string;
-  content: string;
-  from_id?: number;
-  to_id?: number;
-  to_farm_id? : number
-};
+
 
 const useNotifications = () => {
   const queryClient = useQueryClient();
-  const userSqlData = useSelector((state) => state.users.userSqlData);
+  const userSqlData = useSelector((state : RootState) => state.users.userSqlData);
 
   const {
     data: notifications,
@@ -28,7 +25,7 @@ const useNotifications = () => {
     ["notifications"],
     async () => {
       console.log("first");
-      const response = await GetUserNotifications(userSqlData?.id);
+      const response = await GetUserNotifications(userSqlData?.id as number);
       return response;
     },
     {
@@ -37,7 +34,7 @@ const useNotifications = () => {
   );
 
   const createNotificationMutation = useMutation(
-    async (notificationData: notificationData) => {
+    async (notificationData: AddNotificationBody) => {
       const response = await CreateNotification(notificationData);
       return response;
     },
@@ -49,7 +46,7 @@ const useNotifications = () => {
   );
 
   const markAsReadMutation = useMutation(
-    async (notificationId) => {
+    async (notificationId: number) => {
       const response = await MarkNotificationAsRead(notificationId);
       return response;
     },
@@ -61,7 +58,7 @@ const useNotifications = () => {
   );
 
   const deleteNotificationMutation = useMutation(
-    async (notificationId) => {
+    async (notificationId : number) => {
       const response = await DeleteNotification(notificationId);
       return response;
     },

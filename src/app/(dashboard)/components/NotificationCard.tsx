@@ -7,9 +7,10 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 
 import moment from "moment";
 import IconButton from "@/components/IconButton";
+import { Notification } from "@/lib/types/notification";
 
 type Props = {
-  notification: NotificationType;
+  notification: Notification;
 };
 
 export default function NotificationCard({ notification }: Props) {
@@ -65,9 +66,9 @@ export default function NotificationCard({ notification }: Props) {
           </div>
         </div>
         <div className="flex  gap-1">
-          <IconButton label="Mark as read" variant="read" />
+          <IconButton label="Mark as read" icon="read" />
 
-          <IconButton label="Delete" variant="delete2" />
+          <IconButton label="Delete" icon="delete2" />
         </div>{" "}
       </div>
     </div>

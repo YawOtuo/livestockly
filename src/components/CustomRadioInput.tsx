@@ -24,9 +24,9 @@ export default function CustomRadioInput({
   data,
   defaultValue,
 }: Props) {
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     // Assuming 'value' is either 'yes' or 'no'
-    onChange((prev) => ({
+    onChange((prev : any) => ({
       ...prev,
       [title]: e.target.value,
     }));

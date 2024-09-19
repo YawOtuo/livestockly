@@ -16,20 +16,25 @@ import { BiSolidBookAdd } from "react-icons/bi";
 import { CustomTextField } from "../CustomTextfield";
 import { Form, Formik } from "formik";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateRecordJSON, updateRecordJSONOne } from "@/lib/api/record";
+import {
+  AddRecordBody,
+  RecordJsonOne,
+  updateRecordJSON,
+  updateRecordJSONOne,
+} from "@/lib/api/record";
 import { today } from "@/lib/utils/date";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//   return <Slide direction="up" ref={ref} {...props} />;
+// });
 
 type Props = {
   label: string;
-  data: any;
+  data?: any;
   icon: any;
-  edit: boolean;
+  edit?: boolean;
   type: string;
-  index : number
+  index?: number;
 };
 
 const LogModal = ({ label, data, icon, edit, type, index }: Props) => {
@@ -63,33 +68,32 @@ const LogModal = ({ label, data, icon, edit, type, index }: Props) => {
     }
   }, [edit]);
 
-
-
   const addMutation = useMutation(
-    (data) => updateRecordJSON(params?.id, data, label),
+    (data: RecordJsonOne) => updateRecordJSON(Number(params?.id), data, label),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(`records-${params?.id}`);
+        queryClient.invalidateQueries([`records-${params?.id}`]);
       },
     }
   );
 
   const updateMutation = useMutation(
-    (data) => updateRecordJSONOne(params?.id, data, label, index),
+    (data: RecordJsonOne) =>
+      updateRecordJSONOne(Number(params?.id), data, label, index as number),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(`records-${params?.id}`);
+        queryClient.invalidateQueries([`records-${params?.id}`]);
       },
     }
   );
 
-  const handleAdd = async (newItem) => {
+  const handleAdd = async (newItem: AddRecordBody) => {
     handleClose();
 
     addMutation.mutate(newItem);
   };
 
-  const handleUpdate = async (newItem) => {
+  const handleUpdate = async (newItem: AddRecordBody) => {
     handleClose();
 
     updateMutation.mutate(newItem);
@@ -111,7 +115,7 @@ const LogModal = ({ label, data, icon, edit, type, index }: Props) => {
       </button>
       <Dialog
         open={open}
-        TransitionComponent={Transition}
+        // TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
         maxWidth={"sm"}
@@ -126,23 +130,7 @@ const LogModal = ({ label, data, icon, edit, type, index }: Props) => {
               date: data?.date || today,
               content: data?.content,
             }}
-            onSubmit={(values) => {
-              edit &&
-                handleUpdate([
-                  {
-                    date: values?.date,
-                    content: values?.content,
-                  },
-                ]);
-
-              !edit &&
-                handleAdd([
-                  {
-                    date: values?.date,
-                    content: values?.content,
-                  },
-                ]);
-            }}>
+            onSubmit={(values) => {}}>
             {({ handleSubmit, handleBlur, values, errors, handleChange }) => (
               <Form>
                 <DialogContentText

@@ -1,6 +1,7 @@
 import { url } from "../../../weburl";
+import { User } from "../types/user";
 
-export const AcceptUser = async (id) => {
+export const AcceptUser = async (id: number): Promise<string> => {
   const response = await fetch(`${url}users/${id}/accept`, {
     method: "GET",
     headers: {
@@ -10,7 +11,7 @@ export const AcceptUser = async (id) => {
   return response.json();
 };
 
-export const DeAcceptUser = async (id) => {
+export const DeAcceptUser = async (id: number): Promise<string> => {
   const response = await fetch(`${url}users/${id}/de-accept`, {
     method: "GET",
     headers: {
@@ -20,7 +21,7 @@ export const DeAcceptUser = async (id) => {
   return response.json();
 };
 
-export const fetchUser = async (id) => {
+export const fetchUser = async (id: number): Promise<User> => {
   const response = await fetch(`${url}users/${id}`, {
     method: "GET",
     headers: {
@@ -30,7 +31,13 @@ export const fetchUser = async (id) => {
   return response.json();
 };
 
-export const AddUser = async (body) => {
+export interface AddUserBody {
+  username: string 
+  uid: string 
+  email: string 
+  farm_id: number
+}
+export const AddUser = async (body: AddUserBody): Promise<User> => {
   const response = await fetch(`${url}users`, {
     method: "POST",
     body: JSON.stringify(body),
@@ -41,7 +48,7 @@ export const AddUser = async (body) => {
   return response.json();
 };
 
-export const UpdateUser = async (body, id) => {
+export const UpdateUser = async (body: AddUserBody, id: number): Promise<User> => {
   const response = await fetch(`${url}users/${id}`, {
     method: "POST",
     body: JSON.stringify(body),
@@ -49,10 +56,14 @@ export const UpdateUser = async (body, id) => {
       "Content-Type": "application/json", // Set the content type to JSON
     },
   });
-  console.log(body);
+  return response.json();
 };
 
-export const ChangeUserPermission = async (farm_id, user_id, level) => {
+export const ChangeUserPermission = async (
+  farm_id: number,
+  user_id: number,
+  level: number
+): Promise<User> => {
   const response = await fetch(
     `${url}farms/${farm_id}/users/${user_id}/permission/${level}`,
     {

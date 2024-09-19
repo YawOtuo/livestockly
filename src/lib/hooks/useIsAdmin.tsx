@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-export const useIsAdmin = (uid) => {
-  const [isAdmin, setIsAdmin] = useState(null);
+export const useIsAdmin = (uid : string) => {
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
   const admins = [
     "YWvppnAVowgY5nevz6loHwCwRTy2",

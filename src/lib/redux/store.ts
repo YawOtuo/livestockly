@@ -6,7 +6,7 @@ import appReducer from './reducers/app'
 import farmReducer from './reducers/farm'
 
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
     counter: counterReducer,
     messages: messagesReducer,
@@ -16,3 +16,6 @@ export default configureStore({
   },
 
 })
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

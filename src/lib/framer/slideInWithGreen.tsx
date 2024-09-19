@@ -1,8 +1,9 @@
 
 import { AnimatePresence, motion, useMotionValue, useTransform } from 'framer-motion';
+import React from 'react';
 
 
-const SlideEnterToLeft = ({children}) => {
+const SlideEnterToLeft = ({children} : {children : React.ReactNode}) => {
     return(
         <motion.div
         initial={{
@@ -21,7 +22,6 @@ const SlideEnterToLeft = ({children}) => {
             duration:1,
             ease: 'easeInOut'
         }}
-        exit={{ opacity: 0 }}
     >   
     {children}
     </motion.div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
-const ImageUploader = (props) => {
+const ImageUploader = () => {
     const [imageURL, setImageURL] = useState('');
 
     const dispatch = useDispatch()

@@ -1,7 +1,7 @@
 // cloudinaryService.js
 import axios from "axios";
 
-const uploadToCloudinary = async (file) => {
+const uploadToCloudinary = async (file : File) => {
   try {
     const formData = new FormData();
     formData.append("file", file);

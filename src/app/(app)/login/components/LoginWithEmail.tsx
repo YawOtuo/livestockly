@@ -10,9 +10,11 @@ import { setUserDetails } from "@/lib/redux/reducers/users";
 import { CustomLoaders } from "@/components/Loaders";
 import Link from "next/link";
 import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
+import { RootState } from "@/lib/redux/store";
+import { Farm } from "@/lib/types/farm";
 
 type Props = {
-  page: string;
+  page?: string;
 };
 
 function LoginWithEmail({ page }: Props) {
@@ -30,19 +32,19 @@ function LoginWithEmail({ page }: Props) {
 
   const [showFields, setShowFields] = useState(false);
 
-  const farm = useSelector((state) => state?.farm?.details);
+  const farm = useSelector((state : RootState) => state.farm.farm);
 
   const handleGoogleSignUp = () => {
-    signUpWithGoogle(farm);
+    signUpWithGoogle(farm as Farm);
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values : any) => {
     page != "sign-up" &&
       logInWithEmailAndPassword(values?.email, values?.password);
 
     page == "sign-up" &&
       registerWithEmailAndPassword(
-        farm,
+        farm as Farm,
         values?.username,
         values?.email,
         values?.password

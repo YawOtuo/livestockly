@@ -10,6 +10,7 @@ import { AcceptUser, DeAcceptUser } from "@/lib/api/users";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PermissionDialog from "./PermissionDialog";
 import { useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
 
 type Props = {
   worker: any;
@@ -18,25 +19,27 @@ type Props = {
 
 export default function WorkerAccordion({ worker, accepted = false }: Props) {
   const queryClient = useQueryClient();
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+  const userSqlData = useSelector(
+    (state: RootState) => state?.users?.userSqlData
+  );
 
-  const acceptMutation = useMutation((id) => AcceptUser(id), {
+  const acceptMutation = useMutation((id: number) => AcceptUser(id), {
     onSuccess: () => {
-      queryClient.invalidateQueries(`workers`, "workers-unaccepted");
+      queryClient.invalidateQueries([`workers`, "workers-unaccepted"]);
     },
   });
 
-  const handleAccept = async (newItem) => {
+  const handleAccept = async (newItem: number) => {
     acceptMutation.mutate(newItem);
   };
 
-  const rejectMutation = useMutation((id) => DeAcceptUser(id), {
+  const rejectMutation = useMutation((id: number) => DeAcceptUser(id), {
     onSuccess: () => {
-      queryClient.invalidateQueries(`workers`, "workers-unaccepted");
+      queryClient.invalidateQueries([`workers`, "workers-unaccepted"]);
     },
   });
 
-  const handleReject = async (newItem) => {
+  const handleReject = async (newItem: number) => {
     rejectMutation.mutate(newItem);
   };
 

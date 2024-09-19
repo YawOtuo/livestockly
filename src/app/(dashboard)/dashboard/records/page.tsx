@@ -13,42 +13,54 @@ import { DashSearch } from "@/components/dash-search";
 import { RecordCard } from "@/components/record-card";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllFarmRecordsSp } from "@/lib/api/farm";
+import { RootState } from "@/lib/redux/store";
 
 const cattleIcon = "/icons/cattle.png";
 const goatIcon = "/icons/goat.png";
 const sheepIcon = "/icons/sheep.png";
 
 const Page = () => {
-  const notify = (message) => toast.success(message);
-
-  const message = useSelector((state) => state.messages.message);
+  const message = useSelector((state: RootState) => state.messages.message);
   const dispatch = useDispatch();
   const matches = useMediaQuery("(max-width: 800px");
-  
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
 
+  const userSqlData = useSelector(
+    (state: RootState) => state?.users?.userSqlData
+  );
 
   const {
     isLoading: isLoadingCattle,
     error: errorCattle,
     data: cattle,
-  } = useQuery(["cattle"], () => GetAllFarmRecordsSp(userSqlData?.farm_id, "cattle"), {
-    enabled: !!userSqlData?.farm_id,
-  });
+  } = useQuery(
+    ["cattle"],
+    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "cattle"),
+    {
+      enabled: !!userSqlData?.farm_id,
+    }
+  );
   const {
     isLoading: isLoadingGoats,
     error: errorGoats,
     data: goats,
-  } = useQuery(["goats"], () => GetAllFarmRecordsSp(userSqlData?.farm_id, "goats"), {
-    enabled: !!userSqlData?.farm_id,
-  });
+  } = useQuery(
+    ["goats"],
+    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "goats"),
+    {
+      enabled: !!userSqlData?.farm_id,
+    }
+  );
   const {
     isLoading: isLoadingSheep,
     error: errorSheep,
     data: sheep,
-  } = useQuery(["sheep"], () => GetAllFarmRecordsSp(userSqlData?.farm_id, "sheep"), {
-    enabled: !!userSqlData?.farm_id,
-  });
+  } = useQuery(
+    ["sheep"],
+    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "sheep"),
+    {
+      enabled: !!userSqlData?.farm_id,
+    }
+  );
 
   return (
     <>
@@ -66,7 +78,7 @@ const Page = () => {
             <div className="mb-10 md:mb-0 ">
               <div className="">
                 <RecordCard
-                  number={goats?.length}
+                  number={goats?.length as number}
                   type="goats"
                   icon={goatIcon}
                 />
@@ -75,7 +87,7 @@ const Page = () => {
             <div className="mb-10 md:mb-0">
               <div className="">
                 <RecordCard
-                  number={sheep?.length}
+                  number={sheep?.length as number}
                   type="sheep"
                   icon={sheepIcon}
                 />
@@ -84,7 +96,7 @@ const Page = () => {
             <div className="mb-10 md:mb-0">
               <div className="">
                 <RecordCard
-                  number={cattle?.length}
+                  number={cattle?.length as number}
                   type="cattle"
                   icon={cattleIcon}
                 />

@@ -3,12 +3,16 @@ import { useState } from "react";
 import { SyncLoader } from "react-spinners"
 
 
-export const LoadingModal = (props) => {
+type Props = {
+
+    open: boolean
+}
+export const LoadingModal = ({open} : Props) => {
 
 
 
     return (
-        <Dialog open={props.open}>
+        <Dialog open={open}>
             <DialogContent  sx={{ backgroundColor: 'transparent' }}>
                 <SyncLoader color="green" cssOverride={{ 'backgroundColor': 'transparent' }} />
             </DialogContent>

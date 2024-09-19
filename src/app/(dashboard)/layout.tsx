@@ -13,19 +13,22 @@ import useIsLoggedIn from "@/lib/hooks/useIsLoggedIn";
 import { CustomLoaders } from "@/components/Loaders";
 import NotAcceptedIntoFarm from "@/components/NotAcceptedIntoFarm";
 import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
+import { RootState } from "@/lib/redux/store";
+import { motion } from "framer-motion";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 // ... (other imports)
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+  const userSqlData = useSelector(
+    (state: RootState) => state?.users?.userSqlData
+  );
   const isLoggedInR = useIsLoggedInReRoute(false, "/login");
   // const isLoggedIn = useIsLoggedIn()
   const router = useRouter();
   const [showNotAccepted, setShowNotAccepted] = React.useState(false);
   // const [loading, setLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = useState("loading");
-  const farm = useSelector((state) => state?.farm?.details);
 
   // useEffect(() => {
   //   if (farm?.id && userSqlData?.farm_id != farm?.id) {
@@ -69,7 +72,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
     ),
     success: (
-      <div className="grid grid-cols-5">
+      <motion.div className="grid grid-cols-5" layout>
         <div className="hidden lg:flex">
           <Navbar2 />
         </div>
@@ -77,7 +80,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Navbar />
           <div className="w-full h-full">{children}</div>
         </div>
-      </div>
+      </motion.div>
     ),
   };
   return (

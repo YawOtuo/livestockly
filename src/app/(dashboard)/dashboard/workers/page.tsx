@@ -1,6 +1,5 @@
 "use client";
 import { CustomLoaders } from "@/components/Loaders";
-import WorkerCard from "@/components/workerCard";
 import {
   GetAllFarmUsersAccepted,
   GetAllFarmUsersUnaccepted,
@@ -8,9 +7,10 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import WorkerAccordion from "./components/WorkerAccordion";
+import { RootState } from "@/lib/redux/store";
 
 function Page() {
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+  const userSqlData = useSelector((state: RootState) => state?.users?.userSqlData);
 
   const {
     isLoading: isLoadingWorkers,
@@ -18,7 +18,7 @@ function Page() {
     data: workers,
   } = useQuery(
     ["workers"],
-    () => GetAllFarmUsersAccepted(userSqlData?.farm_id),
+    () => GetAllFarmUsersAccepted(userSqlData?.farm_id as number),
     {
       enabled: !!userSqlData?.farm_id,
     }
@@ -29,7 +29,7 @@ function Page() {
     data: unaccepted,
   } = useQuery(
     ["workers-unaccepted"],
-    () => GetAllFarmUsersUnaccepted(userSqlData?.farm_id),
+    () => GetAllFarmUsersUnaccepted(userSqlData?.farm_id as number),
     {
       enabled: !!userSqlData?.farm_id,
     }

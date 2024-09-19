@@ -1,4 +1,4 @@
-import { UpdateUser } from "@/lib/api/users";
+import { AddUserBody, UpdateUser } from "@/lib/api/users";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import Image from "next/image";
@@ -6,25 +6,26 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { AccountAddImage } from "./AccountAddImage";
 import { TextField } from "@mui/material";
+import { RootState } from "@/lib/redux/store";
 
 type Props = {
-  setOpen: any;
-  user: any;
+  setOpen?: any;
+  user?: any;
 };
 function EditProfileModalRoot({ setOpen, user }: Props) {
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
   const queryClient = useQueryClient();
   const [image, setImage] = useState();
   const [changeImage, setChangeImage] = useState<boolean>(false);
   const [files, setFiles] = useState();
 
-  const updateMutation = useMutation((data) => UpdateUser(data, user?.id), {
+  const updateMutation = useMutation((data : AddUserBody) => UpdateUser(data, user?.id), {
     onSuccess: () => {
-      queryClient.invalidateQueries(`user`);
+      queryClient.invalidateQueries([`user`]);
     },
   });
 
-  const handleUpdate = async (newItem) => {
+  const handleUpdate = async (newItem : AddUserBody) => {
     updateMutation.mutate(newItem);
   };
 

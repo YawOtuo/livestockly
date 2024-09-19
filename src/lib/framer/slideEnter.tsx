@@ -1,10 +1,14 @@
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useTransform,
+} from "framer-motion";
 
-import { AnimatePresence, motion, useMotionValue, useTransform } from 'framer-motion';
-
-const SlideEnter = ({ children }) => {
+const SlideEnter = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='w-full h-full'>
-      <AnimatePresence mode="wait" >
+    <div className="w-full h-full">
+      <AnimatePresence mode="wait">
         <motion.div
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -17,5 +21,4 @@ const SlideEnter = ({ children }) => {
   );
 };
 
-
-export default SlideEnter
+export default SlideEnter;

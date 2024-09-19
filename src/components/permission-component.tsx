@@ -1,26 +1,25 @@
-import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { RootState } from "@/lib/redux/store";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-export const PermissionComponent = (props) => {
-    const userSqlData = useSelector((state) => state?.users?.userSqlData);
-    const [display, setDisplay] = useState(true)
+type Props = {
+  level: number;
+  children: React.ReactNode;
+};
+export const PermissionComponent = ({ level, children }: Props) => {
+  const userSqlData = useSelector(
+    (state: RootState) => state?.users?.userSqlData
+  );
+  const [display, setDisplay] = useState(true);
 
-    useEffect(()=>{
-        // console.log(userSqlData?.permission)
-        if (Number(userSqlData?.permission) >= props?.level){
-            setDisplay(true)
-            
-        }
-        else{
-            setDisplay(false)
-        }
-    }, [userSqlData])
+  useEffect(() => {
+    // console.log(userSqlData?.permission)
+    if (Number(userSqlData?.permission) >= level) {
+      setDisplay(true);
+    } else {
+      setDisplay(false);
+    }
+  }, [userSqlData]);
 
-    return (
-        <div className="">
-            {display && props.children}
-
-        </div>
-    )
-}
-
+  return <div className="">{display && children}</div>;
+};

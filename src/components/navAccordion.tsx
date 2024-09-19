@@ -1,22 +1,25 @@
 import { styled } from "@stitches/react";
 import { useState } from "react";
 import { NavButtons } from "./sideNav";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 // Define your styles using the styled function
+type Props = {
+  label: string;
+  items: any;
+};
 
-
-const NavAccordion = (props) => {
+const NavAccordion = ({ label, items }: Props) => {
   const [open, setOpen] = useState(false);
 
   return (
     <Root onClick={(e) => setOpen((init) => !init)}>
-      <p>{props.label}</p>
+      <p>{label}</p>
       {open && (
         <div className="pt-5">
-          {props.items.map((r) => (
+          {items.map((r: any) => (
             <NavButtons className="text-white" key={r}>
-              <Link to={`/dashboard/${r}`}>
+              <Link href={`/dashboard/${r}`}>
                 <p className="capitalize">{r}</p>
               </Link>
             </NavButtons>
@@ -27,10 +30,8 @@ const NavAccordion = (props) => {
   );
 };
 
-
 const Root = styled("button", {
-    color: "white",
-    borderRadius: "5px",
-
-  });
+  color: "white",
+  borderRadius: "5px",
+});
 export default NavAccordion;

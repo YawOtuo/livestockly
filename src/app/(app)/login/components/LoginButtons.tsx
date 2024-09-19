@@ -4,7 +4,7 @@ type Props = {
   variant: "email" | "google";
   content: string;
   onClick? : any
-  type? : string
+  type? : "submit" | "reset" |  "button"
 };
 
 function LoginButtons({ variant, content,onClick, type="button" }: Props) {

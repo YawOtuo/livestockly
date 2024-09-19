@@ -7,24 +7,24 @@ import LoginWithEmail from "./LoginWithEmail";
 
 
 type Props = {
-    page: string
+    page?: string
 }
 function LoginOptions({page} : Props) {
   const queryClient = useQueryClient();
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const verifyFarm = useMutation((data) => VerifyFarmExists(data), {
+  const verifyFarm = useMutation((data: string) => VerifyFarmExists(data), {
     onSuccess: () => {
       setLoading(false);
-      queryClient.invalidateQueries(`farm`);
+      queryClient.invalidateQueries([`farm`]);
     },
     onMutate: (newItem) => {
       setLoading(true);
     },
   });
 
-  const handleVerify = async (newItem) => {
+  const handleVerify = async (newItem : string) => {
     verifyFarm.mutate(newItem);
   };
   return (

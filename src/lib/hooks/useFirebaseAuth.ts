@@ -15,6 +15,7 @@ import { getFirestore } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { setUserDetails, setUserSQLDBDetails } from "../redux/reducers/users";
 import { useRouter } from "next/navigation";
+import { Farm } from "../types/farm";
 
 const useFirebaseAuth = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const useFirebaseAuth = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const signUpWithGoogle = async (farm) => {
+  const signUpWithGoogle = async (farm : Farm) => {
     const auth = getAuth();
 
     try {
@@ -53,9 +54,9 @@ const useFirebaseAuth = () => {
       
       if (credential) {
         const result2 = await AddUser({
-          farm_id: farm?.id,
-          username: user.displayName,
-          email: user.email,
+          farm_id: farm?.id as number,
+          username: user.displayName as string,
+          email: user.email as string,
           uid: user.uid,
         })
 
@@ -70,17 +71,17 @@ const useFirebaseAuth = () => {
       } else {
         setErrorText("Google sign-in credential not available.");
       }
-    } catch (error) {
-      setErrorText("Error signing in with Google:", error);
+    } catch (error:  any) {
+      setErrorText(`Error signing in with Google:" ${error}`);
     }
   };
 
-  const loginWithGoogle = async (farm) => {
+  const loginWithGoogle = async () => {
     const auth = getAuth();
     return await signInWithPopup(auth, googleProvider);
   };
 
-  const logInWithEmailAndPassword = async (email, password) => {
+  const logInWithEmailAndPassword = async (email:string, password : string) => {
     try {
       setLoading(true);
       const res = await signInWithEmailAndPassword(auth, email, password);
@@ -95,10 +96,10 @@ const useFirebaseAuth = () => {
   };
 
   const registerWithEmailAndPassword = async (
-    farm,
-    username,
-    email,
-    password
+    farm : Farm,
+    username : string, 
+    email : string,
+    password:  string
   ) => {
     try {
       setLoading(true);
@@ -108,9 +109,9 @@ const useFirebaseAuth = () => {
 
       if (res) {
         const result2 = await AddUser({
-          farm_id: farm?.id,
+          farm_id: farm?.id as number,
           username: username,
-          email: user.email,
+          email: user?.email as string,
           uid: user.uid,
         });
 
@@ -125,7 +126,7 @@ const useFirebaseAuth = () => {
         setLoading(false);
         setErrorText("Invalid credentials");
       }
-    } catch (err) {
+    } catch (err : any)  {
       setLoading(false);
       console.error("Error registering:", err);
       setErrorText(err.message);
@@ -133,11 +134,11 @@ const useFirebaseAuth = () => {
     }
   };
 
-  const sendPasswordReset = async (email) => {
+  const sendPasswordReset = async (email : string) => {
     try {
       await sendPasswordResetEmail(auth, email);
       alert("Password reset link sent!");
-    } catch (err) {
+    } catch (err : any) {
       console.error(err);
       alert(err.message);
     }
@@ -145,7 +146,7 @@ const useFirebaseAuth = () => {
 
   const Logout = () => {
     signOut(auth);
-    window.location = "/login";
+    window.location.href = "/login";
   };
 
   const LogoutWithoutRerouting = () => {

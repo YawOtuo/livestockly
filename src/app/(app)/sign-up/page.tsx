@@ -2,7 +2,6 @@
 import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
 import { addMessage } from "@/lib/redux/reducers/messages";
 import { setUserDetails } from "@/lib/redux/reducers/users";
-import { logInWithEmailAndPassword } from "@/lib/utils/firebase";
 import { Button, TextField } from "@mui/material";
 import { styled } from "@stitches/react";
 import { useFormik } from "formik";

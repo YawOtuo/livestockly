@@ -1,74 +1,85 @@
-import { url } from "../../../weburl";
+import { url } from "../../../weburl"
+import { Farm } from "../types/farm";
+import { Record } from "../types/record";
+import { User } from "../types/user";
 
-export const GetAllFarmUsers = async (id) => {
+interface VerifyResponse {
+  exists: boolean;
+  farmId?: string;
+  // Add other verification fields if necessary
+}
+
+// GetAllFarmUsers with typed id and return value
+export const GetAllFarmUsers = async (id: number): Promise<User[]> => {
   const response = await fetch(`${url}farms/${id}/users`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json", // Set the content type to JSON
+      "Content-Type": "application/json",
     },
   });
   return response.json();
 };
 
-export const GetAllFarmRecords = async (id) => {
+// GetAllFarmRecords with typed id and return value
+export const GetAllFarmRecords = async (id: number): Promise<Record[]> => {
   const response = await fetch(`${url}farms/${id}/records`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json", // Set the content type to JSON
+      "Content-Type": "application/json",
     },
   });
   return response.json();
 };
 
-export const GetAllFarmRecordsSp = async (farm_id, type) => {
+// GetAllFarmRecordsSp with typed farm_id, type and return value
+export const GetAllFarmRecordsSp = async (farm_id: number, type: string): Promise<Record[]> => {
   switch (type) {
-    case "sheep":
-      let response = await fetch(`${url}records/farms/${farm_id}/sheep`);
+    case "sheep": {
+      const response = await fetch(`${url}records/farms/${farm_id}/sheep`);
       return response.json();
-      break;
-    case "goats":
-      let responseS = await fetch(`${url}records/farms/${farm_id}/goats`);
-      // const responseText = await responseS.text(); // Read the response body as text
+    }
+    case "goats": {
+      const responseS = await fetch(`${url}records/farms/${farm_id}/goats`);
       return responseS.json();
-      break;
-
-    case "cattle":
-      let responseC = await fetch(`${url}records/farms/${farm_id}/cattle`);
+    }
+    case "cattle": {
+      const responseC = await fetch(`${url}records/farms/${farm_id}/cattle`);
       return responseC.json();
-      break;
+    }
     default:
-      break;
+      throw new Error("Invalid animal type");
   }
 };
-export const GetAllFarmUsersAccepted = async (id) => {
+
+// GetAllFarmUsersAccepted with typed id and return value
+export const GetAllFarmUsersAccepted = async (id: number): Promise<User[]> => {
   const response = await fetch(`${url}farms/${id}/users/accepted/yes`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json", // Set the content type to JSON
+      "Content-Type": "application/json",
     },
   });
   return response.json();
 };
 
-export const GetAllFarmUsersUnaccepted = async (id) => {
+// GetAllFarmUsersUnaccepted with typed id and return value
+export const GetAllFarmUsersUnaccepted = async (id: number): Promise<User[]> => {
   const response = await fetch(`${url}farms/${id}/users/accepted/no`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json", // Set the content type to JSON
+      "Content-Type": "application/json",
     },
   });
   return response.json();
 };
 
-export const VerifyFarmExists = async (name) => {
+// VerifyFarmExists with typed name and return value
+export const VerifyFarmExists = async (name: string): Promise<Farm> => {
   const response = await fetch(`${url}farms/verify/${name}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
-
-
-
   return response.json();
 };

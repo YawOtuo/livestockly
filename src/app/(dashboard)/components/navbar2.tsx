@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { GrUserAdmin } from "react-icons/gr";
 import { IoReturnUpBackSharp } from "react-icons/io5";
 import { GrUserWorker } from "react-icons/gr";
+import { RootState } from "@/lib/redux/store";
 
 export const Links = [
   { label: "Home", link: "/dashboard", icon: <MdHomeFilled />, level: 1 },
@@ -70,9 +71,9 @@ export const Pagination = ({
 };
 
 export default function Navbar2() {
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
 
-  const isAdmin = useIsAdmin(userSqlData?.uid);
+  const isAdmin = useIsAdmin(userSqlData?.uid as string);
   return (
     <div className="bg-green2 w-full flex flex-col h-[100vh] sticky top-0 items-start py-20 justify-start gap-1">
       {Links.map(

@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 type Props = {
   label: string;
   icon: any;
-  url: any;
+  url?: any;
   reverse?: boolean;
 };
 

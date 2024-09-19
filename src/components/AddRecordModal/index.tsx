@@ -25,12 +25,10 @@ import { today } from "@/lib/utils/date";
 import CustomSelect from "../CustomSelect";
 import useNotifications from "@/lib/hooks/useNotifications";
 import useRecordFormSubmission from "./useRecordFormSubmission";
+import { Record } from "@/lib/types/record";
 const addIcon = "/icons/add.png";
 const editIcon = "/icons/edit.png";
 
-const Transition: any = React.forwardRef(function Transition(props, ref) {
-  return <Slide children={undefined} direction="up" ref={ref} {...props} />;
-});
 
 type Props = {
   edit?: boolean;
@@ -41,8 +39,8 @@ type Props = {
 export default function AddRecordModal({ edit, record, type, title }: Props) {
   const [open, setOpen] = React.useState(false);
 
-  const [sire, setSire] = useState();
-  const [dam, setDam] = useState();
+  const [sire, setSire] = useState<Record>();
+  const [dam, setDam] = useState<Record>();
   const [otherData, setOtherData] = useState({ gender: "male", type: "sheep" });
   const { handleSubmit } = useRecordFormSubmission({
     edit,
@@ -111,7 +109,6 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
       </Button>
       <Dialog
         open={open}
-        TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
         maxWidth={"lg"}

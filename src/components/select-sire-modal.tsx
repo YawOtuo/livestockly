@@ -15,18 +15,20 @@ import { url } from "../../weburl";
 import { GetOneRecord, searchRecords } from "@/lib/api/record";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
 
-export const SelectSireModal = (props) => {
+
+export const SelectSireModal = (props : any) => {
   const [open, setOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
 
 
   const {
     isLoading: isLoadinganimal,
     error: errorAnimal,
     data: searchResults,
-  } = useQuery([`search-${searchInput}`], () => searchRecords(userSqlData?.farm_id,  searchInput), {
+  } = useQuery([`search-${searchInput}`], () => searchRecords(userSqlData?.farm_id as number,  searchInput), {
     enabled: !!searchInput,
   });
 
@@ -57,14 +59,14 @@ export const SelectSireModal = (props) => {
     });
   };
 
-  const onSearchInputChange = (e) => {
+  const onSearchInputChange = (e : any) => {
     setSearchInput(e.target.value);
   };
 
   return (
     <div>
       <Button
-        variant="standard"
+        variant="outlined"
         sx={{ color: "#0FA958" }}
         onClick={handleClickOpen}>
         {<p className="uppercase">Select {props.name}</p>}

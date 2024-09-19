@@ -12,16 +12,17 @@ import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { searchRecords } from "@/lib/api/record";
 import Link from "next/link";
+import { RootState } from "@/lib/redux/store";
 
-export const DashSearch = (props) => {
+export const DashSearch = () => {
   const [keyword, setKeyWord] = useState("");
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
 
   const {
     isLoading: isSearching,
     error: errorSearch,
     data: searches,
-  } = useQuery([`search-${keyword}`], () => searchRecords(userSqlData?.farm_id, keyword), {
+  } = useQuery([`search-${keyword}`], () => searchRecords(userSqlData?.farm_id as number, keyword), {
     enabled: !!userSqlData?.farm_id && !!keyword,
   });
 

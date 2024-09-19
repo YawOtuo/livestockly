@@ -1,5 +1,6 @@
 "use client";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import React from "react";
 const theme = createTheme({
   palette: {
     primary: {
@@ -8,6 +9,6 @@ const theme = createTheme({
   },
 });
 
-export default function MuiTheme({ children }) {
+export default function MuiTheme({ children } : {children :React.ReactNode}) {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }

@@ -10,10 +10,19 @@ import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { GetOneRecord, deleteRecordJSONOne } from "@/lib/api/record";
 import { addMessage } from "@/lib/redux/reducers/messages";
+import { RootState } from "@/lib/redux/store";
+import { Record } from "@/lib/types/record";
 
-const Log = (props) => {
+type Props = {
+  label: string;
+  animalId: number
+  title: string
+};
+const Log = ({ label, animalId, title}: Props) => {
   const params = useParams();
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+  const userSqlData = useSelector(
+    (state: RootState) => state?.users?.userSqlData
+  );
   const router = useRouter();
   const {
     isLoading,
@@ -21,33 +30,33 @@ const Log = (props) => {
     data: record,
   } = useQuery(
     [`${params?.slug}-${params?.id}`],
-    () => GetOneRecord(params?.id),
+    () => GetOneRecord(Number(params?.id)),
     {
       enabled: !!userSqlData?.farm_id,
     }
   );
-  const refreshCount = useSelector((state) => state?.app.refresh);
+  const refreshCount = useSelector((state : RootState) => state?.app.refresh);
   const dispatch = useDispatch();
 
-  const [r, setR] = useState();
+  const [r, setR] = useState<any>(null);
   useEffect(() => {
-    if (props.label == "weight") {
+    if (label == "weight") {
       setR(record?.weight);
     }
-    if (props.label == "vaccination_info") {
+    if (label == "vaccination_info") {
       setR(record?.vaccination_info);
     }
-    if (props.label == "health_condition") {
+    if (label == "health_condition") {
       setR(record?.health_condition);
     }
-    if (props.label == "remarks") {
+    if (label == "remarks") {
       setR(record?.remarks);
     }
   }, [record]);
 
   useEffect(() => {}, [refreshCount]);
 
-  const handleDelete = (index) => {
+  const handleDelete = (index: number) => {
     Swal.fire({
       title: "Are you sure you want to delete?",
       showDenyButton: true,
@@ -57,7 +66,7 @@ const Log = (props) => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "", "success");
-        deleteRecordJSONOne(props.animalId, props.label, index)
+        deleteRecordJSONOne(animalId, label, index)
           .then((res) => {
             router.push("/dashboard");
             dispatch(addMessage("Deleted Data"));
@@ -74,11 +83,11 @@ const Log = (props) => {
       <div
         className="flex gap-3 items-center uppercase text-[#0FA958]
            font-bold ">
-        {props.title}
-        <LogModal icon="add" type={props.title} label={props.label} />
+        {title}
+        <LogModal icon="add" type={title} label={label} />
       </div>
-      
-      {r?.map((r, index) => (
+
+      {r?.map((r : any, index : number) => (
         <LogI className="shadow-md flex justify-between" key={index}>
           <div>
             <p
@@ -101,8 +110,8 @@ const Log = (props) => {
               edit={true}
               icon="edit"
               index={index}
-              type={props.title}
-              label={props.label}
+              type={title}
+              label={label}
               data={r}
             />
             <button onClick={(e) => handleDelete(index)}>

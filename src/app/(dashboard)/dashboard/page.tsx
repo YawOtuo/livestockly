@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import TotalSales from "../components/TotalSales";
 import RecentlyRegistered from "../components/RecentyRegistered";
 import Link from "next/link";
-import { Logout } from "@/lib/utils/firebase";
 import { useSelector } from "react-redux";
 import LargeButtons from "../components/LargeButtons";
 import RecentlyRegisteredSm from "../components/RecentlyRegisteredSm";
@@ -20,22 +19,22 @@ import {
 import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
 import { PermissionComponent } from "@/components/permission-component";
 import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
+import { RootState } from "@/lib/redux/store";
 
 type Props = {};
 
 export default function Profile({ searchParams }: any) {
   // const [dogs, setDogs] = useState()  const isLoggedIn = useIsLoggedInReRoute(true, '/dashboard')
-  const {logout} = useFirebaseAuth()
 
   const isLoggedIn = useIsLoggedInReRoute(false, "/login");
 
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
   const accountDataComplete = useJsonCompletenessCheck(userSqlData || {});
   const {
     isLoading: isLoadingRecords,
     error: errorRecords,
     data: records,
-  } = useQuery(["records"], () => GetAllFarmRecords(userSqlData?.farm_id), {
+  } = useQuery(["records"], () => GetAllFarmRecords(userSqlData?.farm_id as number), {
     enabled: !!userSqlData?.farm_id,
   });
 
@@ -45,7 +44,7 @@ export default function Profile({ searchParams }: any) {
     data: cattle,
   } = useQuery(
     ["cattle"],
-    () => GetAllFarmRecordsSp(userSqlData?.farm_id, "cattle"),
+    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "cattle"),
     {
       enabled: !!userSqlData?.farm_id,
     }
@@ -56,7 +55,7 @@ export default function Profile({ searchParams }: any) {
     data: goats,
   } = useQuery(
     ["goats"],
-    () => GetAllFarmRecordsSp(userSqlData?.farm_id, "goats"),
+    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "goats"),
     {
       enabled: !!userSqlData?.farm_id,
     }
@@ -67,7 +66,7 @@ export default function Profile({ searchParams }: any) {
     data: sheep,
   } = useQuery(
     ["sheep"],
-    () => GetAllFarmRecordsSp(userSqlData?.farm_id, "sheep"),
+    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "sheep"),
     {
       enabled: !!userSqlData?.farm_id,
     }
@@ -78,7 +77,7 @@ export default function Profile({ searchParams }: any) {
     data: workers,
   } = useQuery(
     ["workers"],
-    () => GetAllFarmUsersAccepted(userSqlData?.farm_id),
+    () => GetAllFarmUsersAccepted(userSqlData?.farm_id as number),
     {
       enabled: !!userSqlData?.farm_id,
     }
@@ -130,24 +129,24 @@ export default function Profile({ searchParams }: any) {
         )} */}
       </div>
 
-      <div className="flex gap-24 flex-col lg:flex-row justify-start items-center my-5 border-y-2 ">
+      <div className="flex gap-5 lg:gap-16 flex-col lg:flex-row justify-start items-center my-5 lg:border-y-2 ">
         <TotalSales
-          amount={sheep?.length}
+          amount={sheep?.length as number}
           filter="Sheep"
           url="/dashboard/records/sheep"
         />
         <TotalSales
-          amount={goats?.length}
+          amount={goats?.length as number}
           filter="Goats"
           url="/dashboard/records/goats"
         />
         <TotalSales
-          amount={cattle?.length}
+          amount={cattle?.length as number}
           filter="Cattle"
           url="/dashboard/records/cattle"
         />
         <TotalSales
-          amount={workers?.length}
+          amount={workers?.length as number}
           filter="Workers"
           url="/dashboard"
         />

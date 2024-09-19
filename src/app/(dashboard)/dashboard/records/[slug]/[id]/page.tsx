@@ -18,10 +18,11 @@ import { useParams, useRouter } from "next/navigation";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { RootState } from "@/lib/redux/store";
 
 function Page() {
   const params = useParams();
-  const userSqlData = useSelector((state) => state?.users?.userSqlData);
+  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
   const router = useRouter();
   const {
     isLoading,
@@ -29,7 +30,7 @@ function Page() {
     data: animal,
   } = useQuery(
     [`records-${params?.id}`],
-    () => GetOneRecord(params?.id),
+    () => GetOneRecord(Number(params?.id)),
     {
       enabled: !!userSqlData?.farm_id,
     }
@@ -40,7 +41,7 @@ function Page() {
     data: sire,
   } = useQuery(
     [`${params?.slug}-${animal?.sire}`],
-    () => GetOneRecord(animal?.sire),
+    () => GetOneRecord(animal?.sire as number),
     {
       enabled: !!animal?.sire,
     }
@@ -51,7 +52,7 @@ function Page() {
     data: dam,
   } = useQuery(
     [`${params?.slug}-${animal?.dam}`],
-    () => GetOneRecord(animal?.dam),
+    () => GetOneRecord(animal?.dam as number),
     {
       enabled: !!animal?.sire,
     }
@@ -115,7 +116,7 @@ function Page() {
       <SlideEnterToLeft>
         <div className="relative justify-center">
           <div className="absolute flex w-full justify-between top-0 left-0">
-            <Button className=" !text-green1" onClick={() => router.back(-1)}>
+            <Button className=" !text-green1" onClick={() => router.back()}>
               <IoIosArrowRoundBack size="30" />
               Back
             </Button>
@@ -141,10 +142,7 @@ function Page() {
               {animal?.type == "sheep" && <CaSheep />}
               {animal?.type == "cattle" && <CaCattle />}
 
-              <h1 className="text-2xl font-bold uppercase">
-                {" "}
-                {animal?.name}
-              </h1>
+              <h1 className="text-2xl font-bold uppercase"> {animal?.name}</h1>
             </div>
 
             <div className="flex  col-span-5 lg:col-span-1 flex-col  items-center lg:items-start gap-4 capitalize ">

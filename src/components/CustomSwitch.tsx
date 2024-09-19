@@ -8,9 +8,9 @@ type Props = {
   onChange : any
 };
 export default function CustomSwitch({ label, onChange }: Props) {
-  const handleChange = (e) => {
+  const handleChange = (e : any) => {
     // Assuming 'value' is either 'yes' or 'no'
-    onChange((prev) => ({
+    onChange((prev : any) => ({
       ...prev,
       [label]: e.target.checked,
     }));

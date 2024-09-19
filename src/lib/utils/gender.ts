@@ -1,4 +1,4 @@
-const genders = [
+const genders: any = [
     {
         "goats": ['buck', "doe"],
         "sheep": ['ram', "ewe"],
@@ -7,7 +7,7 @@ const genders = [
     }
 ]
 
-export const returnGender = (type = 'goats', gender) => {
+export const returnGender = (type = 'goats', gender : string | number) => {
     if (gender == 'male'){
         gender = 0
     }

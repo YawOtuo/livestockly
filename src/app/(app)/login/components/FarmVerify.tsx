@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 
 type Props = {
   onSuccess: Dispatch<SetStateAction<number>>;
-  page: string
+  page?: string
 };
 function FarmVerify({ onSuccess, page }: Props) {
   const queryClient = useQueryClient();
@@ -18,10 +18,10 @@ function FarmVerify({ onSuccess, page }: Props) {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
-  const handleSubmit = async (name) => {
+  const handleSubmit = async (name : string) => {
     setLoading(true);
     setSuccess(undefined);
-    const result: Promise<any> = await VerifyFarmExists(name);
+    const result = await VerifyFarmExists(name);
 
     if (!result?.id) {
       console.log(result);
@@ -43,7 +43,7 @@ function FarmVerify({ onSuccess, page }: Props) {
     <div>
       <Formik
         initialValues={{}}
-        onSubmit={(values) => {
+        onSubmit={(values : any) => {
           handleSubmit(values?.farm_name);
         }}>
         {({ handleSubmit, handleBlur, values, errors, handleChange }) => (

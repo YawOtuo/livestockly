@@ -7,9 +7,10 @@ import { useSelector } from "react-redux";
 import NotificationCard from "../../components/NotificationCard";
 import { GetUserNotifications } from "@/lib/api/notifications";
 import useNotifications from "@/lib/hooks/useNotifications";
+import { RootState } from "@/lib/redux/store";
 
 export default function Page() {
-  const userSqlData = useSelector((state) => state.users.userSqlData);
+  const userSqlData = useSelector((state : RootState) => state.users.userSqlData);
   const { notifications, isLoading, error } = useNotifications();
   return (
     <div className="flex flex-col gap-5 w-full justify-start px-5 lg:px-10 py-5">
@@ -27,13 +28,13 @@ export default function Page() {
           <NotificationCard notification={r} key={index} />
         ))}
         {isLoading && <p>Loading...</p>}
-        {notifications?.length < 1 && (
+        {(notifications?.length ?? 0) < 1 && (
           // <div className="flex w-full  h-[50vh]">
           //   <NoPlaceHolder label="notifications" />
           // </div>
           <p className="text-sm ">You have no notifications yet</p>
         )}
-        {error && <p>Sorry there was an error</p> }
+        {error as Error && <p>Sorry there was an error</p> }
       </div>
     </div>
   );
