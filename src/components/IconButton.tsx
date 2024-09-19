@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import CaRecordTag from "./icons/CaRecordTag";
 import { LuTag } from "react-icons/lu";
 
+import { IoIosArrowRoundForward } from "react-icons/io";
 
 import { BsArrowRight } from "react-icons/bs";
 import { useRouter } from "next/navigation";
@@ -15,7 +16,7 @@ type Props = {
 
 const options: any = {
   record: <LuTag  size="30" color="#0FA958"/>,
-  "arrow-right": <BsArrowRight size="30" color="#0FA958" />,
+  "arrow-right": <IoIosArrowRoundForward size="30" color="#0FA958" />,
   "add" :""
 };
 function IconButton({ label, icon, url, reverse=false }: Props) {

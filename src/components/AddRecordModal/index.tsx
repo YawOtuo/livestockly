@@ -17,7 +17,7 @@ import { LoadingModal } from "../loading-modal";
 import { CustomTextField } from "../CustomTextfield";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AddRecord, GetOneRecord, updateRecord } from "@/lib/api/record";
-import CustomTextArea from "../CustomTextArea";
+import { IoAddCircleOutline } from "react-icons/io5";
 import { Form, Formik } from "formik";
 import CustomRadioInput from "../CustomRadioInput";
 import CustomSwitch from "../CustomSwitch";
@@ -28,7 +28,6 @@ import useRecordFormSubmission from "./useRecordFormSubmission";
 import { Record } from "@/lib/types/record";
 const addIcon = "/icons/add.png";
 const editIcon = "/icons/edit.png";
-
 
 type Props = {
   edit?: boolean;
@@ -95,6 +94,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
   return (
     <div>
       <Button
+        startIcon={<IoAddCircleOutline />}
         variant="text"
         className="!text-green1 !capitalize"
         onClick={handleClickOpen}>
@@ -102,7 +102,6 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
           <img src={editIcon} width="90%" />
         ) : (
           <div className="flex gap-1 items-center">
-            <img src={addIcon} width="40px" />
             <p className="whitespace-nowrap">{title}</p>{" "}
           </div>
         )}
