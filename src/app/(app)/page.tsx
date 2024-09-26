@@ -10,6 +10,7 @@ import ThreePoints from "./components/ThreePoints";
 import NewWay from "./components/NewWay";
 import KeepTrack from "./components/KeepTrack";
 import Updates from "./components/Updates";
+import HomeLogin from "./components/HomeLogin";
 
 export default function Home() {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function Home() {
   }, [router]);
 
   return (
-    <div>
+    <div className="max-w-[1728px]">
       <div className="mb-14 lg:mb-20">
         <Comprehensive />
       </div>{" "}
@@ -31,6 +32,7 @@ export default function Home() {
         <div className="flex flex-col gap-20 lg:gap-20">
           <KeepTrack />
           <Updates />
+          <HomeLogin />
         </div>
       </div>
     </div>

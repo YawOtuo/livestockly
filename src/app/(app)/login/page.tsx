@@ -25,7 +25,7 @@ const Page = () => {
     <LoginOptions />,
   ];
   return (
-    <Root className=" bg-grey ">
+    <Root className=" bg-grey w-full ">
       <div className="grid grid-cols-1 lg:grid-cols-2 h-full ">
         <div className="h-[50vh] lg:h-[100vh]  w-full  bg-[url('/images/livestockgrass.jpeg')] bg-cover bg-center flex flex-col justify-center items-center"></div>
         <div

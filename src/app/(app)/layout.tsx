@@ -2,9 +2,9 @@ import Navbar from "./components/Navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <main className=" ">
+    <div className=" w-full">
       <Navbar />
       {children}
-    </main>
+    </div>
   );
 }
