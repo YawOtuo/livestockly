@@ -27,7 +27,7 @@ function Updates() {
       </div>
 
       <div className="order-1 lg:order-2">
-        <div className="relative w-full h-full aspect-[1210/1000]  rounded-2xl overflow-hidden">
+        <div className="relative w-full h-full aspect-[1210/1000]  rounded-xl overflow-hidden">
           <Image src={"/cattle2-home.png"} alt="Cattle " fill />
         </div>
       </div>

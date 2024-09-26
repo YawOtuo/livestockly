@@ -14,7 +14,7 @@ function KeepTrack() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 ">
       <div>
-        <div className="relative w-full h-full aspect-[1210/1000]  rounded-2xl overflow-hidden">
+        <div className="relative w-full h-full aspect-[1210/1000]  rounded-xl overflow-hidden">
           {" "}
           <Image
             src={"/cattle-home.png"}
