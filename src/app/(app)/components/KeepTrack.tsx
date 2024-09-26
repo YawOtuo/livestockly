@@ -25,11 +25,11 @@ function KeepTrack() {
         </div>
       </div>
       <div className="flex flex-col gap-5 items-start justify-center">
-        <h3 className="text-3xl lg:text-5xl">
+        <h3 className="text-3xl lg:text-5xl font-semibold">
           Keep track of <br /> physical data like
         </h3>
 
-        <div className="flex flex-col items-start gap-2">
+        <div className="flex flex-wrap items-start gap-5">
           <Item label="Tag Details" />
           <Item label="Weight" />
           <Item label="Health and Vaccination Info" />

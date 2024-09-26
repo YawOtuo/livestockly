@@ -15,11 +15,11 @@ function Updates() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
       <div className="order-2 lg:order-1 flex flex-col gap-5 items-start justify-center">
-        <p className="text-3xl lg:text-5xl">
+        <p className="text-3xl lg:text-5xl font-semibold">
           Get updates and notifications on the actvities of your farm
         </p>
 
-        <div className="flex flex-col items-start gap-2">
+        <div className="flex flex-wrap items-start gap-5">
           <Item label="Tag Details" />
           <Item label="Weight" />
           <Item label="Health and Vaccination Info" />

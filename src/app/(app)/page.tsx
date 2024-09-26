@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="mb-14">
+      <div className="mb-14 lg:mb-20">
         <Comprehensive />
       </div>{" "}
       <div className="px-5">
