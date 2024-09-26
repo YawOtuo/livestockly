@@ -9,7 +9,7 @@ type PCProps = {
 const PointCard = ({ label, icon, text }: PCProps) => {
   return (
     <div className="flex flex-col gap-5 items-start w-full border-[1px] shadow-primary rounded-xl px-5 lg:px-10 py-10 lg:py-20 hover:bg-green2">
-      <div className=" flex items-center justify-start text-primary gap-5 text-3xl w-full ">
+      <div className=" flex items-center justify-start text-primary gap-5 text-2xl lg:text-3xl w-full ">
         {icon}
         <p className="font-semibold">{label}</p>
       </div>
