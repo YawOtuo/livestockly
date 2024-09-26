@@ -12,6 +12,7 @@ import { GrUserAdmin } from "react-icons/gr";
 import { IoReturnUpBackSharp } from "react-icons/io5";
 import { GrUserWorker } from "react-icons/gr";
 import { RootState } from "@/lib/redux/store";
+import { motion } from "framer-motion";
 
 export const Links = [
   { label: "Home", link: "/dashboard", icon: <MdHomeFilled />, level: 1 },
@@ -57,15 +58,18 @@ export const Pagination = ({
   onClick?: any;
 }) => {
   return (
-    <Link href={link}>
-      <div
+    <Link href={link} className="w-full">
+      <motion.div
+      whileHover={{
+        scale: 1.04
+      }}
         onClick={() => {
           onClick && onClick()
         }}
-        className="hover:scale-[1.05] hover:bg-yellow4 w-full p-3 px-10 flex gap-5 items-center ">
+        className=" hover:bg-primary rounded-md hover:text-white w-full p-2 px-10 flex gap-5 items-center ">
         {icon}
         <p className=" font">{label}</p>
-      </div>
+      </motion.div>
     </Link>
   );
 };
@@ -75,7 +79,7 @@ export default function Navbar2() {
 
   const isAdmin = useIsAdmin(userSqlData?.uid as string);
   return (
-    <div className="bg-green2 w-full flex flex-col h-[100vh] sticky top-0 items-start py-20 justify-start gap-1">
+    <div className="bg-green2 w-full flex flex-col h-[100vh] sticky top-0 items-start py-20 justify-start gap-2">
       {Links.map(
         (r, index) =>
           Number(userSqlData?.permission) >= r?.level && (

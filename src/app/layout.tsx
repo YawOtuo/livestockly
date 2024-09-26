@@ -36,9 +36,11 @@ export default function RootLayout({
     <html lang="en" className="!text-black">
       <Providers>
         <MuiTheme>
-          <body className={`${inter.className} text-black`}>
-              {/* <Navbar /> */}
+          <body className={`${inter.className} text-black flex justify-center`}>
+            {/* <Navbar /> */}
+            <div className="max-w-[1728px] flex items-center justify-center w-full">
               {children}
+            </div>
             <ToastContainer />
           </body>
         </MuiTheme>
