@@ -25,7 +25,7 @@ export default function Home() {
       <div className="mb-14 lg:mb-20">
         <Comprehensive />
       </div>{" "}
-      <div className="px-5">
+      <div className="px-5 lg:px-10">
         <ThreePoints />
         <NewWay />
         <div className="flex flex-col gap-20 lg:gap-20">
