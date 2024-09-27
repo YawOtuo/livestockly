@@ -2,11 +2,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import TotalSales from "../components/TotalSales";
-import RecentlyRegistered from "../components/RecentyRegistered";
+import RecentlyRegistered from "../components/RecentlyRegistered";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import LargeButtons from "../components/LargeButtons";
-import RecentlyRegisteredSm from "../components/RecentlyRegisteredSm";
 
 import { useJsonCompletenessCheck } from "@/lib/hooks/useJsonCompletenessCheck";
 import IconButton from "@/components/IconButton";
@@ -129,7 +128,7 @@ export default function Profile({ searchParams }: any) {
         )} */}
       </div>
 
-      <div className="flex gap-5 lg:gap-16 flex-col lg:flex-row justify-start items-center my-5 lg:border-y-2 ">
+      <div className="grid gap-5 lg:gap-16 grid-cols-2 lg:grid-cols-4 justify-start items-center my-5 lg:border-y-2 ">
         <TotalSales
           amount={sheep?.length as number}
           filter="Sheep"
@@ -151,12 +150,10 @@ export default function Profile({ searchParams }: any) {
           url="/dashboard"
         />
       </div>
-      <div className="hidden lg:flex">
+      <div className="">
         <RecentlyRegistered />
       </div>
-      <div className="lg:hidden">
-        <RecentlyRegisteredSm />
-      </div>
+     
     </div>
   );
 }

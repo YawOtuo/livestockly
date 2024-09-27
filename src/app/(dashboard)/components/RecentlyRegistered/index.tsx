@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
 import { useSelector } from "react-redux";
+import SkRecentlyRegistered from "./SkRecentlyRegistered";
 
 export default function RecentlyRegistered() {
   const userSqlData = useSelector(
@@ -38,12 +39,15 @@ export default function RecentlyRegistered() {
         />{" "}
       </div>{" "}
       <FetchingState
-        className="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-5 justify-start w-full"
+        skeletonCount={5}
+        isLoading={isLoadingRecords}
+        isError={errorRecords}
+        loading={<SkRecentlyRegistered />}
+        className="grid grid-cols-1 md:grid-cols-2 mt-5 gap-5 justify-start w-full"
         success={records?.slice(0, 9).map((r: any, index: any) => (
           <TagCardSpecific key={index} record={r} />
         ))}
       />
- 
     </div>
   );
 }

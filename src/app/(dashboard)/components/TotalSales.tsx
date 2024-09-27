@@ -18,8 +18,8 @@ const TotalSales = ({ filter, amount, url }: Props) => {
       onClick={() => {
         url && router.push(url);
       }}
-      className="flex flex-row border-2 md:border-0 rounded-2xl lg:rounded-none  lg:flex-col py-2 lg:py-0 lg:aspect-[182/109] items-center justify-center gap-3 w-full lg:max-w-[182px]  
-    max-h-[101px] md:max-h-[109px] cursor-pointer hover:scale-[1.05] hover:bg-green2">
+      className="flex  border-[1px] md:border-0 rounded-2xl lg:rounded-none  flex-col  lg:aspect-[182/109] items-center justify-center gap-1 lg:gap-3 w-full py-10 lg:py-5 
+     cursor-pointer hover:scale-[1.05] hover:bg-green2">
       {amount && <p className="text-yellow1 font-bold text-xl">{amount}</p>}
       {amount == undefined ||
         (null && <CustomLoaders colour="green1" variant="syncloader" />)}
