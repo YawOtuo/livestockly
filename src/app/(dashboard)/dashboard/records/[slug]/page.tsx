@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import  TagCard  from "@/components/tag-card";
 import { DashSearch } from "@/components/dash-search";
-import Navbar from "../../../components/navbar";
+import Navbar from "../../../components/HorizontalAndMobileNavbar";
 import SlideEnter from "@/lib/framer/slideEnter";
 import AddRecordModal from "@/components/AddRecordModal";
 import { useParams, useSearchParams } from "next/navigation";
@@ -83,7 +83,7 @@ const Page = ({} : Props) => {
   return (
     <>
       <SlideEnter>
-        <div className="container mx-auto text-center ">
+        <div className="container mx-auto text-center py-5">
           <DashSearch />
 
           <div className="pb-3 flex items-center justify-center">

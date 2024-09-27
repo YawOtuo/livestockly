@@ -18,9 +18,9 @@ export const RecordCard = ({ type, icon, number }: Props) => {
         <Link href={`/dashboard/records/${type}`}>
           <div className="flex flex-row text-center items-center ">
             <div className="">
-              <img src={icon} width="50%" />
+              <img src={icon} width="60%" />
             </div>
-            <div className="text-uppercase w-full">
+            <div className="text-uppercase w-full capitalize">
               {" "}
               {type} ({number})
             </div>
@@ -39,9 +39,7 @@ export const RecordCard = ({ type, icon, number }: Props) => {
               </div>
             </Link>
           </div>
-          {/* <div className='absolute right-0 h-full' >
-                        <img src='/greenFrame.svg' width={"100"} height={"100%"}></img>
-                    </div> */}
+ 
         </div>
       </div>
     </div>

@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -14,7 +12,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { url } from "../../../weburl";
 import { addMessage } from "@/lib/redux/reducers/messages";
 import { LoadingModal } from "../loading-modal";
-import { CustomTextField } from "../CustomTextfield";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AddRecord, GetOneRecord, updateRecord } from "@/lib/api/record";
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -26,6 +23,11 @@ import CustomSelect from "../CustomSelect";
 import useNotifications from "@/lib/hooks/useNotifications";
 import useRecordFormSubmission from "./useRecordFormSubmission";
 import { Record } from "@/lib/types/record";
+import { Button } from "../ui/button";
+import IconButton from "../IconButton";
+import CustomModal from "../ui/CustomDialog";
+import CustomInput from "../ui/CustomInput";
+import CustomTextArea from "../ui/CustomTextArea";
 const addIcon = "/icons/add.png";
 const editIcon = "/icons/edit.png";
 
@@ -83,40 +85,24 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
     }
   }, [sire_, dam_]);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <div>
-      <Button
-        startIcon={<IoAddCircleOutline />}
-        variant="text"
-        className="!text-green1 !capitalize"
-        onClick={handleClickOpen}>
-        {edit ? (
-          <img src={editIcon} width="90%" />
-        ) : (
-          <div className="flex gap-1 items-center">
-            <p className="whitespace-nowrap">{title}</p>{" "}
-          </div>
-        )}
-      </Button>
-      <Dialog
+      <CustomModal
+        onOpenChange={setOpen}
         open={open}
-        keepMounted
-        onClose={handleClose}
-        maxWidth={"lg"}
-        fullWidth
-        aria-describedby="alert-dialog-slide-description">
-        <DialogTitle className="shadow-md ">
-          {edit ? "EDIT RECORD" : `NEW RECORD ${type ? type : ""}`}
-        </DialogTitle>
-        <DialogContent>
+        trigger={
+          <Button>
+            {edit ? (
+              <img src={editIcon} width="90%" />
+            ) : (
+              <div className="flex gap-1 items-center">
+                <p className="whitespace-nowrap">{title}</p>{" "}
+              </div>
+            )}
+          </Button>
+        }
+        size={"7xl"}
+        body={
           <Formik
             initialValues={{
               ...record,
@@ -126,11 +112,10 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
             }}>
             {({ handleSubmit, handleReset, values, errors, handleChange }) => (
               <Form>
-                <DialogContentText
-                  id="alert-dialog-slide-description"
-                  className="pt-4 text-black grid grid-cols-2">
-                  <div className="col-span-2 lg:col-span-1 flex flex-col gap-2 lg:gap-6">
-                    <CustomTextField
+                {edit ? "EDIT RECORD" : `NEW RECORD ${type ? type : ""}`}
+                <div className="pt-4 text-black grid grid-cols-1 lg:grid-cols-3 gap-5">
+                  <div className=" flex flex-col gap-5">
+                    <CustomInput
                       label={"tag name"}
                       type="text"
                       name="name"
@@ -139,7 +124,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
                       value={values.name}
                     />
 
-                    <CustomTextField
+                    <CustomInput
                       label={"tag colour"}
                       type="text"
                       name="tag_colour"
@@ -147,7 +132,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
                       value={values.tag_colour}
                     />
 
-                    <CustomTextField
+                    <CustomInput
                       label={"colour"}
                       name="colour"
                       type="text"
@@ -155,17 +140,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
                       value={values.colour}
                     />
 
-                    {!edit && (
-                      <CustomTextField
-                        label={"health condition"}
-                        name="health_condition"
-                        type="text"
-                        onChange={handleChange}
-                        value={values.health_condition}
-                      />
-                    )}
-
-                    <CustomTextField
+                    <CustomInput
                       label={"number of kids"}
                       name="number_of_kids"
                       type="number"
@@ -173,17 +148,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
                       value={values.number_of_kids}
                     />
 
-                    {!edit && (
-                      <CustomTextField
-                        label={"weight"}
-                        name="weight"
-                        type="number"
-                        onChange={handleChange}
-                        value={values.weight}
-                      />
-                    )}
-
-                    <CustomTextField
+                    <CustomInput
                       label={"date of birth"}
                       name="date_of_birth"
                       type="date"
@@ -191,33 +156,7 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
                       value={values.date_of_birth}
                     />
                   </div>
-                  <div className="flex flex-col col-span-2 lg:col-span-1 gap-3 xl:gap-6">
-                    {!edit && (
-                      <div className="mb-5">
-                        {" "}
-                        <CustomTextField
-                          label={"Vaccination info"}
-                          name="vaccination_info"
-                          // placeholder="Vaccination Info"
-                          type="text"
-                          multiline
-                          onChange={handleChange}
-                          value={values.vaccination_info}
-                        />
-                      </div>
-                    )}
-
-                    {!edit && (
-                      <CustomTextField
-                        label={"Remarks"}
-                        name="remarks"
-                        // placeholder="Vaccination Info"
-                        type="text"
-                        multiline
-                        onChange={handleChange}
-                        value={values.remarks}
-                      />
-                    )}
+                  <div className="flex flex-col  gap-5">
                     <div className="flex flex-row gap-10 text-black">
                       <div className="">
                         Sire {sire?.name}
@@ -237,6 +176,37 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
                         />
                       </div>
                     </div>
+
+                    {!edit && (
+                      <CustomInput
+                        label={"weight"}
+                        name="weight"
+                        type="number"
+                        onChange={handleChange}
+                        value={values.weight}
+                      />
+                    )}
+                    {!edit && (
+                      <div className="mb-5">
+                        {" "}
+                        <CustomTextArea
+                          label={"Vaccination info"}
+                          placeholder="Vaccination Info"
+                          onChange={handleChange}
+                          initialValue={values.vaccination_info}
+                        />
+                      </div>
+                    )}
+
+                    {!edit && (
+                      <CustomTextArea
+                        label={"health condition"}
+                        onChange={handleChange}
+                        initialValue={values.health_condition}
+                      />
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-5">
                     <CustomRadioInput
                       defaultValue="sheep"
                       onChange={setOtherData}
@@ -288,8 +258,17 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
                     />
 
                     <CustomSwitch label="alive" onChange={setOtherData} />
+
+                    {!edit && (
+                      <CustomTextArea
+                        label={"Remarks"}
+                        placeholder="Any extra info"
+                        onChange={handleChange}
+                        initialValue={values.remarks}
+                      />
+                    )}
                   </div>
-                </DialogContentText>
+                </div>
                 <div className="w-full text-center mt-5 rounded-lg bg-green1 ">
                   <Button type="submit" className="w-full">
                     <span className="text-white">{edit ? "EDIT" : "ADD"}</span>
@@ -298,8 +277,8 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
               </Form>
             )}
           </Formik>
-        </DialogContent>
-      </Dialog>
+        }
+      />
     </div>
   );
 }

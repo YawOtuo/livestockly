@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Navbar from "./components/navbar";
+import Navbar from "./components/HorizontalAndMobileNavbar";
 import Navbar2 from "./components/navbar2";
 import "../globals.css";
 // import { Open_Sans } from "next/font/google";
@@ -9,7 +9,6 @@ import Providers from "@/lib/utils/provider";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import useIsLoggedIn from "@/lib/hooks/useIsLoggedIn";
 import { CustomLoaders } from "@/components/Loaders";
 import NotAcceptedIntoFarm from "@/components/NotAcceptedIntoFarm";
 import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";

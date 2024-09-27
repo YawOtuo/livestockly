@@ -22,7 +22,6 @@ const sheepIcon = "/icons/sheep.png";
 const Page = () => {
   const message = useSelector((state: RootState) => state.messages.message);
   const dispatch = useDispatch();
-  const matches = useMediaQuery("(max-width: 800px");
 
   const userSqlData = useSelector(
     (state: RootState) => state?.users?.userSqlData
@@ -66,8 +65,8 @@ const Page = () => {
     <>
       {/* {matches ? <MobileNav /> : <Navbar />} */}
 
-      <SlideEnter>
-        <div className="flex flex-col justify-center items-center w-full  md:mt-0">
+      <SlideEnter >
+        <div className="flex flex-col justify-center items-center w-full  md:mt-0 py-5">
           <div className="w-full">
             <div className="">
               {" "}

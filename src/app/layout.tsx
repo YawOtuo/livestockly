@@ -6,6 +6,7 @@ import ReduxProvider from "./ReduxProvider";
 import MuiTheme from "./MuiTheme";
 import { ToastContainer } from "react-toastify";
 import Navbar from "./(app)/components/Navbar";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Varela_Round({ subsets: ["latin"], weight: "400" });
 
@@ -22,8 +23,8 @@ export const metadata: Metadata = {
     },
   ],
   icons: [
-    { rel: "apple-touch-icon", url: "icon512_rounded.png" },
-    { rel: "icon", url: "icon512_rounded.png" },
+    { rel: "apple-touch-icon", url: "/icon512_rounded.png" },
+    { rel: "icon", url: "/icon512_rounded.png" },
   ],
 };
 
@@ -40,6 +41,7 @@ export default function RootLayout({
             {/* <Navbar /> */}
             <div className="w-full flex justify-center">{children}</div>
             <ToastContainer />
+            <NextTopLoader color="#0FA958" />
           </body>
         </MuiTheme>
         <ReduxProvider />

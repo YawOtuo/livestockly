@@ -1,15 +1,12 @@
 import Link from "next/link";
-import { MdHomeFilled } from "react-icons/md";
-import { PiBoneBold } from "react-icons/pi";
-import { FaRegMessage } from "react-icons/fa6";
-import { TfiWrite } from "react-icons/tfi";
+import { MdHomeFilled, MdOutlineFormatListBulleted } from "react-icons/md";
+
 
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { CiSettings } from "react-icons/ci";
 import { useIsAdmin } from "@/lib/hooks/useIsAdmin";
 import { useSelector } from "react-redux";
 import { GrUserAdmin } from "react-icons/gr";
-import { IoReturnUpBackSharp } from "react-icons/io5";
 import { GrUserWorker } from "react-icons/gr";
 import { RootState } from "@/lib/redux/store";
 import { motion } from "framer-motion";
@@ -22,7 +19,7 @@ export const Links = [
   {
     label: "Records",
     link: "/dashboard/records",
-    icon: <FaRegMessage />,
+    icon: <MdOutlineFormatListBulleted />,
     level: 1,
   },
   {
@@ -60,11 +57,11 @@ export const Pagination = ({
   return (
     <Link href={link} className="w-full">
       <motion.div
-      whileHover={{
-        scale: 1.04
-      }}
+        whileHover={{
+          scale: 1.04,
+        }}
         onClick={() => {
-          onClick && onClick()
+          onClick && onClick();
         }}
         className=" hover:bg-primary rounded-md hover:text-white w-full p-2 px-10 flex gap-5 items-center ">
         {icon}
@@ -75,7 +72,9 @@ export const Pagination = ({
 };
 
 export default function Navbar2() {
-  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
+  const userSqlData = useSelector(
+    (state: RootState) => state?.users?.userSqlData
+  );
 
   const isAdmin = useIsAdmin(userSqlData?.uid as string);
   return (

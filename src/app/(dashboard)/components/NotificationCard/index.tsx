@@ -1,7 +1,7 @@
 import { PiWarningBold } from "react-icons/pi";
 import { FaInfoCircle } from "react-icons/fa";
 
-import { NotificationType } from "../dashboard/notifications/types";
+import { NotificationType } from "../../dashboard/notifications/types";
 import { MdOutlineMessage } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 
@@ -24,10 +24,10 @@ export default function NotificationCard({ notification }: Props) {
     "post-created": `You created a post`,
   };
   const icons: any = {
-    any: <IoIosNotificationsOutline size="30" color="#0FA958" />,
-    "post-created": <IoIosNotificationsOutline size="30" color="#0FA958" />,
+    any: <IoIosNotificationsOutline size="30" className="text-primary" />,
+    "post-created": <IoIosNotificationsOutline size="30" className="text-primary" />,
 
-    "post-liked": <MdOutlineMessage size="30" color="#0FA958" />,
+    "post-liked": <MdOutlineMessage size="30" className="text-primary" />,
 
     // success: <SuccessCircle size="30" />,
     caution: (
@@ -55,7 +55,7 @@ export default function NotificationCard({ notification }: Props) {
               )}
             </p>
 
-            <p className="font-semibold">
+            <p className="">
               {!notification?.type && notification?.subject}
             </p>
 
@@ -66,9 +66,9 @@ export default function NotificationCard({ notification }: Props) {
           </div>
         </div>
         <div className="flex  gap-1">
-          <IconButton label="Mark as read" icon="read" />
+          {/* <IconButton  label="Mark as read" icon="read" /> */}
 
-          <IconButton label="Delete" icon="delete2" />
+          {/* <IconButton label="Delete" icon="delete" /> */}
         </div>{" "}
       </div>
     </div>

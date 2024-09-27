@@ -3,10 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 
-import { IoIosNotificationsOutline } from "react-icons/io";
 import Link from "next/link";
 import { useState } from "react";
-import { Links, Pagination } from "./navbar2";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoIosLogOut } from "react-icons/io";
 import { useIsAdmin } from "@/lib/hooks/useIsAdmin";
@@ -14,8 +12,10 @@ import { GrUserAdmin } from "react-icons/gr";
 import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
 import { RootState } from "@/lib/redux/store";
 import { AnimatePresence, motion } from "framer-motion";
+import { Links, Pagination } from "./navbar2";
+import NotificationPopover from "./NotificationPopover";
 
-export default function Navbar() {
+export default function HorizontalAndMobileNabvar() {
   const { Logout } = useFirebaseAuth();
   const userSqlData = useSelector(
     (state: RootState) => state?.users?.userSqlData
@@ -61,26 +61,19 @@ export default function Navbar() {
               {userSqlData?.username}
             </p>
           </div>{" "}
-          {/* {notifications && notifications?.length > 0 && (
-            <Link href={"/profile/notifications"}>
-              <div className="flex gap-5 font-[400] items-center relative">
-                <div className="absolute top-0 right-0 bg-yellow1 rounded-full aspect-square w-[20px] flex items-center justify-center">
-                  <p className="text-white text-xs">{notifications?.length}</p>
-                </div>
-                <IoIosNotificationsOutline size="35" />
-              </div>
-            </Link>
-          )} */}
-          <div className="hidden lg:flex gap-1  text-sm px-10 mt-2 items-center">
+          <NotificationPopover />
+          <div className="hidden lg:flex gap-1  text-sm px-10  items-center">
             <IoIosLogOut />
             <button onClick={Logout}>Logout</button>
           </div>{" "}
+
           <button
             className="lg:hidden"
             onClick={() => setShowDetails((init) => !init)}>
             <RxHamburgerMenu size="30" className="text-primary font-bold" />
           </button>{" "}
         </div>
+
         {showDetails && (
           <AnimatePresence>
             <motion.div
