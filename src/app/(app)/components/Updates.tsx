@@ -1,22 +1,14 @@
 import Image from "next/image";
+import { Item } from "./KeepTrack";
 
-type ItemProps = {
-  label: string;
-};
-const Item = ({ label }: ItemProps) => {
-  return (
-    <div className="border-[1px] rounded-2xl border-green px-5 py-1">
-      <p className="text-base">{label}</p>
-    </div>
-  );
-};
+
 
 function Updates() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 2xl:gap-20">
       <div className="order-2 lg:order-1 flex flex-col gap-5 items-start justify-center">
         <p className="text-3xl lg:text-5xl ">
-          Get updates and notifications on the actvities of your farm
+          Get <span className="text-primary">updates</span> and <span className="text-primary">notifications</span > on the actvities of your farm
         </p>
 
         <div className="flex flex-wrap items-start gap-5">
