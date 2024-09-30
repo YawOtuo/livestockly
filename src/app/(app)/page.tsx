@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import Comprehensive from "./components/Comprehensive";
+import Comprehensive from "./components/Hero";
 import ThreePoints from "./components/ThreePoints";
 import NewWay from "./components/NewWay";
 import KeepTrack from "./components/KeepTrack";
@@ -32,27 +32,29 @@ export default function Home() {
         <Comprehensive />
       </div>{" "}
       <div className="px-5 lg:px-10">
-        <FramerWrapper {...fadeUp}>
+        <FramerWrapper {...fadeUp} className="">
           <ThreePoints />
         </FramerWrapper>{" "}
         <NewWay />
-        <div className="flex flex-col gap-20 lg:gap-20">
-          <FramerWrapper {...fadeUp}>
-            <KeepTrack />
-          </FramerWrapper>{" "}
-          <FramerWrapper {...fadeUp}>
-            <Updates />
-          </FramerWrapper>{" "}
-          <FramerWrapper {...fadeUp}>
-            <LivestockAI />
-          </FramerWrapper>{" "}
-          <FramerWrapper {...fadeUp}>
-            <Pricing />
-          </FramerWrapper>{" "}
-          <FramerWrapper {...fadeUp}>
-            <HomeLogin />
-          </FramerWrapper>{" "}
-        </div>
+      </div>
+      <div className="flex flex-col gap-20 lg:gap-20 px-5 lg:px-10">
+        <FramerWrapper {...fadeUp}>
+          <KeepTrack />
+        </FramerWrapper>{" "}
+        <FramerWrapper {...fadeUp}>
+          <Updates />
+        </FramerWrapper>{" "}
+      </div>
+      <FramerWrapper {...fadeUp}>
+        <LivestockAI />
+      </FramerWrapper>{" "}
+      <div className="px-5 lg:px-10">
+        <FramerWrapper {...fadeUp}>
+          <Pricing />
+        </FramerWrapper>{" "}
+        <FramerWrapper {...fadeUp}>
+          <HomeLogin />
+        </FramerWrapper>{" "}
       </div>
       <div>
         <Footer />

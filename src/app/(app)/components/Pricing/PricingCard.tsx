@@ -31,9 +31,9 @@ function PricingCard({ type = "free", price, items }: Props) {
           </div>
         ))}
       </div>
-      <div className={`p-5 text-2xl ${priceStyleOptions[type]}`}>Price: {price}</div>
+      <div className={`px-5 text-2xl ${priceStyleOptions[type]}`}><span className="text-lg text-black">Price: </span>{price}</div>
 
-      <div className={`p-5 w-full flex justify-start text-xl bg-primary-foreground ${priceStyleOptions[type]}  `}>Start here</div>
+      <div className={`p-5 w-full flex justify-start text-lg bg-primary-foreground ${priceStyleOptions[type]}  `}>Start here</div>
     </div>
   );
 }

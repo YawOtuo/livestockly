@@ -19,22 +19,29 @@ const PointCard = ({ label, icon, text }: PCProps) => {
 };
 function ThreePoints() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-      <PointCard
-        label="Simple"
-        icon={<CgSmileMouthOpen />}
-        text="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos libero, mollitia dolor illo voluptate temporibus, ut neque, facere earum molestias hic voluptas vero odio saepe excepturi doloremque quia perferendis aspernatur."
-      />
-      <PointCard
-        label="Collaborative"
-        icon={<CgSmileMouthOpen />}
-        text="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos libero, mollitia dolor illo voluptate temporibus, ut neque, facere earum molestias hic voluptas vero odio saepe excepturi doloremque quia perferendis aspernatur."
-      />
-      <PointCard
-        label="Progressive"
-        icon={<CgSmileMouthOpen />}
-        text="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos libero, mollitia dolor illo voluptate temporibus, ut neque, facere earum molestias hic voluptas vero odio saepe excepturi doloremque quia perferendis aspernatur."
-      />
+    <div className="flex flex-col gap-20  items-start py-24">
+      <p className="w-full lg:w-[75%] text-3xl lg:text-4xl">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates
+        <span className="hidden lg:block">dolorum magnam, quae iste eum quisquam quaerat molestiae</span>
+      </p>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <PointCard
+          label="Simple"
+          icon={<CgSmileMouthOpen />}
+          text="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos libero, mollitia dolor illo voluptate temporibus, ut neque, facere earum molestias hic voluptas vero odio saepe excepturi doloremque quia perferendis aspernatur."
+        />
+        <PointCard
+          label="Collaborative"
+          icon={<CgSmileMouthOpen />}
+          text="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos libero, mollitia dolor illo voluptate temporibus, ut neque, facere earum molestias hic voluptas vero odio saepe excepturi doloremque quia perferendis aspernatur."
+        />
+        <PointCard
+          label="Progressive"
+          icon={<CgSmileMouthOpen />}
+          text="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos libero, mollitia dolor illo voluptate temporibus, ut neque, facere earum molestias hic voluptas vero odio saepe excepturi doloremque quia perferendis aspernatur."
+        />
+      </div>
     </div>
   );
 }
