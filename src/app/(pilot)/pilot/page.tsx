@@ -9,7 +9,7 @@ function Page() {
     <div className="max-w-[1728px]">
       <PilotHero />
 
-      <div className="px-5 lg:px-10 py-5 lg:py-24 flex flex-col gap-5 lg:gap-24">
+      <div className="px-5 lg:px-10 py-10 lg:py-24 flex flex-col gap-10 lg:gap-24">
         <PilotSummary />
 
         <PilotWhatWeOffer />
