@@ -1,7 +1,6 @@
 import { Button, useMediaQuery } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { RxHamburgerMenu } from 'react-icons/rx'
-import SideNav from './sideNav';
 import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 // import { Logout } from './logout';
@@ -64,7 +63,7 @@ export const MobileNav = () => {
             {
                 openNav &&
                 <div className='h-[500px] mb-10'>
-                    <SideNav />
+                    {/* <SideNav /> */}
 
                 </div>
             }

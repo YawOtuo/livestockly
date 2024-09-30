@@ -25,7 +25,7 @@ const withPWA = require('next-pwa')({
       domains: ['res.cloudinary.com', 'images.unsplash.com'],
     },
     typescript: {
-      ignoreBuildErrors: true,
+      ignoreBuildErrors: false,
     },
     // Add PWA configuration here
     pwa: {
