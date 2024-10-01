@@ -15,11 +15,25 @@
       "type": "image/png"
     }
   ],
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot2.png",
+      "sizes": "576x1280",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshots/screenshot1.png",
+      "sizes": "1902x1016",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
   "orientation": "portrait",
   "display": "standalone",
   "dir": "auto",
   "lang": "en-US",
-  "name": "livestockDiary",
-  "short_name": "livestockDiary",
+  "name": "livestockly",
+  "short_name": "livestockly",
   "start_url": "/login"
 }

@@ -1,3 +1,4 @@
+"use client"
 import { Button, useMediaQuery } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { RxHamburgerMenu } from 'react-icons/rx'

@@ -19,7 +19,7 @@ function PilotWhyParticipate() {
       <div className="flex flex-col gap-4">
         <PointItem
           label="Early Access"
-          description="Be among the first to experience the benefits of StockWise AI's innovative features."
+          description="Be among the first to experience the benefits of Livestockly AI's innovative features."
         />
         <PointItem
           label="Direct Impact"

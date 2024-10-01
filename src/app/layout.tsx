@@ -5,13 +5,16 @@ import Providers from "@/lib/utils/provider";
 import ReduxProvider from "./ReduxProvider";
 import MuiTheme from "./MuiTheme";
 import { ToastContainer } from "react-toastify";
-import Navbar from "./(app)/components/Navbar";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 import NextTopLoader from "nextjs-toploader";
 
 const inter = Varela_Round({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
-  title: "livestockDiary",
+  title: "livestockly",
   description: "Your comprehensive livestock management solution",
   generator: "Next.js",
   manifest: "/manifest.json",

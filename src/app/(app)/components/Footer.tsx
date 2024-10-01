@@ -8,7 +8,7 @@ export default function Footer() {
           {/* Logo / Branding */}
           <div className="text-lg font-semibold mb-4 md:mb-0">
             <Link href="/">
-              <p className="hover:text-gray-300">livestockDiary</p>
+              <p className="hover:text-gray-300">livestockly</p>
             </Link>
           </div>
 

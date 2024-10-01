@@ -45,13 +45,16 @@ export default function Home() {
           <Updates />
         </FramerWrapper>{" "}
       </div>
-      <FramerWrapper {...fadeUp}>
+      <FramerWrapper {...fadeUp} className="mt-24">
         <LivestockAI />
       </FramerWrapper>{" "}
       <div className="px-5 lg:px-10">
         <FramerWrapper {...fadeUp}>
           <Pricing />
         </FramerWrapper>{" "}
+        {/* <FramerWrapper {...fadeUp}>
+          <Install />
+        </FramerWrapper>{" "} */}
         <FramerWrapper {...fadeUp}>
           <HomeLogin />
         </FramerWrapper>{" "}

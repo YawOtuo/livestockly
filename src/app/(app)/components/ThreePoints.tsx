@@ -20,26 +20,29 @@ const PointCard = ({ label, icon, text }: PCProps) => {
 function ThreePoints() {
   return (
     <div className="flex flex-col gap-20  items-start py-24">
-      <p className="w-full lg:w-[75%] text-3xl lg:text-4xl">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates
-        <span className="hidden lg:block">dolorum magnam, quae iste eum quisquam quaerat molestiae</span>
-      </p>
+      <h2 className="w-full lg:w-[75%] ">
+        Unlock the Potential of Your Farm with{" "}
+        <span className="text-primary">Livestockly</span>
+        <span className="hidden lg:block">
+          —Smart Management for Every Animal.
+        </span>
+      </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <PointCard
           label="Simple"
           icon={<CgSmileMouthOpen />}
-          text="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos libero, mollitia dolor illo voluptate temporibus, ut neque, facere earum molestias hic voluptas vero odio saepe excepturi doloremque quia perferendis aspernatur."
+          text="Manage your livestock with ease. Our intuitive interface ensures you can focus on what matters most—your animals."
         />
         <PointCard
           label="Collaborative"
           icon={<CgSmileMouthOpen />}
-          text="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos libero, mollitia dolor illo voluptate temporibus, ut neque, facere earum molestias hic voluptas vero odio saepe excepturi doloremque quia perferendis aspernatur."
+          text="Engage with your team and partners seamlessly. Livestockly enables effective communication and coordination for optimal farm management."
         />
         <PointCard
           label="Progressive"
           icon={<CgSmileMouthOpen />}
-          text="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos libero, mollitia dolor illo voluptate temporibus, ut neque, facere earum molestias hic voluptas vero odio saepe excepturi doloremque quia perferendis aspernatur."
+          text="Stay ahead with innovative tools and technologies. Livestockly continuously evolves to meet the demands of modern agriculture."
         />
       </div>
     </div>

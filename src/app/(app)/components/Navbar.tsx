@@ -10,7 +10,7 @@ function Navbar() {
   return (
     <div className="flex items-center justify-between px-10 py-3 w-full">
       <p className="font-bold text-lg">
-        livestock<span className="text-green1">Diary</span>
+        livestock<span className="text-green1">ly</span>
       </p>
 
       <div className="hidden lg:flex items-center gap-5">

@@ -12,9 +12,9 @@ function Updates() {
         </p>
 
         <div className="flex flex-wrap items-start gap-5">
-          <Item label="Tag Details" />
-          <Item label="Weight" />
-          <Item label="Health and Vaccination Info" />
+          <Item label="Health Checks" />
+          <Item label="Feeding Schedules" />
+          <Item label="Vaccination Info" />
         </div>
       </div>
 

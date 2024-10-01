@@ -17,7 +17,7 @@ function Hero() {
         </div>
         <p className="text-left mt-3 w-full lg:w-[70%]">
           Unlock the full potential of your livestock management with
-          LivestockDiary, your all-in-one platform designed to streamline
+          livestockly, your all-in-one platform designed to streamline
           operations, boost productivity, and ensure the well-being of your
           animals.
         </p>
