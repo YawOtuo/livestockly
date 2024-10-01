@@ -1,6 +1,6 @@
+import FramerWrapper from "@/components/FramerWrapper";
+import { fadeIn, fadeUp } from "@/lib/animations";
 import { BsCheckAll, BsPatchCheck } from "react-icons/bs";
-import { IoCheckmarkSharp } from "react-icons/io5";
-import { LuCheck } from "react-icons/lu";
 
 type Props = {
   type: string;
@@ -10,7 +10,9 @@ type Props = {
 
 function InfoCard({ type = "free", items, about }: Props) {
   return (
-    <div className="group flex flex-col gap-5 border-2  rounded-2xl overflow-hidden hover:scale-[1.01] transition-all group-hover:border-greendeep border-green2">
+    <FramerWrapper
+      {...fadeIn}
+      className="group flex flex-col gap-5 border-2  rounded-2xl overflow-hidden hover:scale-[1.01] transition-all group-hover:border-greendeep border-green2">
       <div
         className={`uppercase text-primary text-2xl font-semibold p-5 bg-green2 group-hover:bg-greendeep  transition-all group-hover:text-white`}>
         {type}
@@ -27,7 +29,7 @@ function InfoCard({ type = "free", items, about }: Props) {
           ))}
         </div>
       </div>
-    </div>
+    </FramerWrapper>
   );
 }
 
