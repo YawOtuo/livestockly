@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const images = ["1.jpg", "2.jpg", "3.jpg"];
 function Page() {
@@ -47,9 +48,11 @@ function Page() {
             </p>
           </div>
           <div className="w-full lg:w-[40%]">
-            <Button size={"lg"} className="w-full">
-              Register
-            </Button>
+            <Link href={"/add-your-farm/form"}>
+              <Button size={"lg"} className="w-full">
+                Register
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

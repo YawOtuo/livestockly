@@ -1,38 +1,37 @@
+import * as React from "react";
+import { cn } from "@/lib/utils";
 import { Label } from "./label";
-import { Textarea } from "./textarea";
-import { ChangeEventHandler } from "react";
+import { Textarea } from "./textarea"; // Ensure you import your Textarea component
+import FormErrorText from "./FormErrorText";
+import { TextareaProps } from "@/components/ui/textarea"; // Adjust the path as necessary
 
-interface CustomTextAreaProps {
+interface CustomTextAreaProps extends TextareaProps {
   label: string;
-  placeholder?: string;
-  id?: string;
-  onChange: ChangeEventHandler<HTMLTextAreaElement>;
-  helperText?: string; 
-  initialValue: string
+  labelClassName?: string; // Optional prop for custom label styles
+  errorText?: string;
 }
 
-function CustomTextArea({
+const CustomTextArea: React.FC<CustomTextAreaProps> = ({
   label,
-  placeholder,
-  id,
-  onChange,
-  helperText,
-}: CustomTextAreaProps) {
+  labelClassName,
+  errorText,
+  className,
+  ...props // Spread operator to capture other props
+}) => {
   return (
-    <div className="flex flex-col gap-2 w-full ">
-      <Label htmlFor={id} className="text-black">{label}</Label>
-      <Textarea
-        onChange={onChange}
-        placeholder={placeholder}
-        id={id}
-      />
-      {helperText && (
-        <p className="text-sm text-muted-foreground">
-          {helperText}
-        </p>
-      )}
+    <div className="flex flex-col gap-2 w-full">
+      <Label
+        htmlFor={props.id}
+        className={cn(
+          "text-sm capitalize text-black font-medium",
+          labelClassName
+        )}>
+        {label}
+      </Label>
+      <Textarea className={className} {...props} />
+      <FormErrorText text={errorText} />
     </div>
   );
-}
+};
 
 export default CustomTextArea;

@@ -12,7 +12,7 @@ import { GrUserAdmin } from "react-icons/gr";
 import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
 import { RootState } from "@/lib/redux/store";
 import { AnimatePresence, motion } from "framer-motion";
-import { Links, Pagination } from "./navbar2";
+import { Links, Pagination } from "./DashboardSideNav";
 import NotificationPopover from "./NotificationPopover";
 
 export default function HorizontalAndMobileNabvar() {

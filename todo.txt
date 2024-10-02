@@ -1,0 +1,1 @@
+CustomTextArea doesnt vlaidate well

@@ -10,7 +10,7 @@ import { GrUserAdmin } from "react-icons/gr";
 import { GrUserWorker } from "react-icons/gr";
 import { RootState } from "@/lib/redux/store";
 import { motion } from "framer-motion";
-
+import { GiFarmer, GiFarmTractor } from "react-icons/gi";
 export const Links = [
   { label: "Home", link: "/dashboard", icon: <MdHomeFilled />, level: 1 },
 
@@ -27,6 +27,12 @@ export const Links = [
     link: "/dashboard/workers",
     icon: <GrUserWorker />,
     level: 3,
+  },
+  {
+    label: "My farm",
+    link: "/dashboard/my-farm",
+    icon: <GiFarmTractor /> ,
+    level: 1,
   },
   {
     label: "Notifications",
@@ -71,7 +77,7 @@ export const Pagination = ({
   );
 };
 
-export default function Navbar2() {
+export default function DashboardSideNav() {
   const userSqlData = useSelector(
     (state: RootState) => state?.users?.userSqlData
   );

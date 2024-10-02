@@ -1,4 +1,4 @@
-import { url } from "../../../weburl"
+import { url } from "../../../weburl";
 import { Farm } from "../types/farm";
 import { Record } from "../types/record";
 import { User } from "../types/user";
@@ -8,6 +8,32 @@ interface VerifyResponse {
   farmId?: string;
   // Add other verification fields if necessary
 }
+
+export type AddFarmBody = Omit<Farm, "id">;
+
+
+export const GetFarm = async (id: number): Promise<Farm> => {
+  const response = await fetch(`${url}farms/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.json();
+};export const AddFarm = async (data: AddFarmBody): Promise<Record> => {
+  const response = await fetch(`${url}farms`, {
+    method: "POST", // or 'PATCH' depending on your API
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.detail || "Failed to create farm");
+  }
+  return response.json();
+};
 
 // GetAllFarmUsers with typed id and return value
 export const GetAllFarmUsers = async (id: number): Promise<User[]> => {
@@ -32,7 +58,10 @@ export const GetAllFarmRecords = async (id: number): Promise<Record[]> => {
 };
 
 // GetAllFarmRecordsSp with typed farm_id, type and return value
-export const GetAllFarmRecordsSp = async (farm_id: number, type: string): Promise<Record[]> => {
+export const GetAllFarmRecordsSp = async (
+  farm_id: number,
+  type: string
+): Promise<Record[]> => {
   switch (type) {
     case "sheep": {
       const response = await fetch(`${url}records/farms/${farm_id}/sheep`);
@@ -63,7 +92,9 @@ export const GetAllFarmUsersAccepted = async (id: number): Promise<User[]> => {
 };
 
 // GetAllFarmUsersUnaccepted with typed id and return value
-export const GetAllFarmUsersUnaccepted = async (id: number): Promise<User[]> => {
+export const GetAllFarmUsersUnaccepted = async (
+  id: number
+): Promise<User[]> => {
   const response = await fetch(`${url}farms/${id}/users/accepted/no`, {
     method: "GET",
     headers: {

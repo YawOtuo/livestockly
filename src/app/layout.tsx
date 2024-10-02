@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Varela_Round({ subsets: ["latin"], weight: "400" });
 
@@ -43,7 +44,7 @@ export default function RootLayout({
           <body className={`${inter.className} text-black `}>
             {/* <Navbar /> */}
             <div className="w-full flex justify-center">{children}</div>
-            <ToastContainer />
+            <Toaster />
             <NextTopLoader color="#0FA958" />
           </body>
         </MuiTheme>

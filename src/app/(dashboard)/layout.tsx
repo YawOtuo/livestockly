@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Navbar from "./components/HorizontalAndMobileNavbar";
-import Navbar2 from "./components/navbar2";
+import Navbar2 from "./components/DashboardSideNav";
 import "../globals.css";
 // import { Open_Sans } from "next/font/google";
 import "../globals.css";
@@ -14,6 +14,7 @@ import NotAcceptedIntoFarm from "@/components/NotAcceptedIntoFarm";
 import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
 import { RootState } from "@/lib/redux/store";
 import { motion } from "framer-motion";
+import DashboardSideNav from "./components/DashboardSideNav";
 
 // const montserrat = Open_Sans({ subsets: ["latin"] });
 // ... (other imports)
@@ -59,7 +60,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     ),
     loading: (
       <div className="flex flex-col gap-5 items-center justify-center">
-        <p className="uppercase font-semibold mt-10">Boatey Farms</p>{" "}
+        <p className="uppercase font-semibold mt-10">livestockly</p>{" "}
         <div className="min-h-[50vh] flex items-center justify-center">
           <CustomLoaders variant="syncloader" colour="green1" />
         </div>
@@ -73,7 +74,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     success: (
       <motion.div className="grid grid-cols-5" layout>
         <div className="hidden lg:flex">
-          <Navbar2 />
+          <DashboardSideNav />
         </div>
         <div className="col-span-5 lg:col-span-4 flex flex-col">
           <Navbar />

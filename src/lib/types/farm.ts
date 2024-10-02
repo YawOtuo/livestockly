@@ -1,4 +1,8 @@
 export interface Farm {
     id? : number
-    details : string
+    name: string
+    location: string 
+    size: number 
+    livestocktypes : string
+    number_of_workers: number
 }
