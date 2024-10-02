@@ -9,6 +9,7 @@ interface CustomTextAreaProps extends TextareaProps {
   label: string;
   labelClassName?: string; // Optional prop for custom label styles
   errorText?: string;
+  initialValue?: string;
 }
 
 const CustomTextArea: React.FC<CustomTextAreaProps> = ({
