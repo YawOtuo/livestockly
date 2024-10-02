@@ -6,7 +6,7 @@ type ItemProps = {
 export const Item = ({ label }: ItemProps) => {
   return (
     <div className="border-[1px] rounded-2xl bg-green3 border-green1 px-5 py-1">
-      <p className="text-xs lg:text-base text-slate-800">{label}</p>
+      <p className="text-sm lg:text-base text-slate-800">{label}</p>
     </div>
   );
 };
