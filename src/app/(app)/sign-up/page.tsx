@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FarmVerify from "../login/components/FarmVerify";
 import LoginOptions from "../login/components/LoginOptions";
+import FarmsDisplaySlider from "../components/FarmsDisplaySlider";
 
 const Page = () => {
   const router = useRouter();
@@ -24,17 +25,21 @@ const Page = () => {
     <LoginOptions page="sign-up" />,
   ];
   return (
-    <Root className="px-4  bg-grey bg-darkened view_height_100">
-      <div className="flex flex-col lg:flex-row m-1 md:m-5  h-full ">
-        <div className="flex-[0_0_50%] max-h-[50vh] lg:max-h-[100vh] lg:flex-[0_1_50%] aspect-square bg-[url('/images/livestockgrass.jpeg')] bg-cover bg-center flex flex-col justify-center items-center"></div>
+    <Root className=" bg-grey bg-darkened h-screen w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2  h-full ">
+        <div className="w-full h-full col">
+          {" "}
+          <FarmsDisplaySlider />
+        </div>
         <div
-          className="flex-[1_1_700px]
+          className="
                 py-0 lg:py-5 md:py-0 flex flex-col justify-center items-center
-                 bg-white"
-          style={{ height: "max-height" }}>
+                 bg-white">
           <h1 className="mb-10  font-bold">
-            <span className="font-semibold  text-black lowercase">liveStock</span>
-            <span className="font-bold text-green1 uppercase">Diary</span>
+            <span className="font-semibold  text-black lowercase">
+              liveStock
+            </span>
+            <span className="font-bold text-green1">ly</span>
           </h1>
           {pages[activeIndex]}
         </div>

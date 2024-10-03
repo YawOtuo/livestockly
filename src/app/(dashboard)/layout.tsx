@@ -59,8 +59,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
     ),
     loading: (
-      <div className="flex flex-col gap-5 items-center justify-center">
-        <p className="uppercase font-semibold mt-10">livestockly</p>{" "}
+      <div className="flex flex-col gap-5 items-center justify-center bg-green2 h-screen">
+        <p className="uppercase font-semibold mt-10 text-primary">livestockly</p>{" "}
         <div className="min-h-[50vh] flex items-center justify-center">
           <CustomLoaders variant="syncloader" colour="green1" />
         </div>
@@ -72,15 +72,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
     ),
     success: (
-      <motion.div className="grid grid-cols-5" layout>
+      <div className="grid grid-cols-6" >
         <div className="hidden lg:flex">
           <DashboardSideNav />
         </div>
-        <div className="col-span-5 lg:col-span-4 flex flex-col">
+        <div className="col-span-6 lg:col-span-5 flex flex-col">
           <Navbar />
           <div className="w-full h-full">{children}</div>
         </div>
-      </motion.div>
+      </div>
     ),
   };
   return (

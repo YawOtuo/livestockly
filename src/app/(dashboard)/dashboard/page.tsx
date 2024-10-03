@@ -27,15 +27,21 @@ export default function Profile({ searchParams }: any) {
 
   const isLoggedIn = useIsLoggedInReRoute(false, "/login");
 
-  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
+  const userSqlData = useSelector(
+    (state: RootState) => state?.users?.userSqlData
+  );
   const accountDataComplete = useJsonCompletenessCheck(userSqlData || {});
   const {
     isLoading: isLoadingRecords,
     error: errorRecords,
     data: records,
-  } = useQuery(["records"], () => GetAllFarmRecords(userSqlData?.farm_id as number), {
-    enabled: !!userSqlData?.farm_id,
-  });
+  } = useQuery(
+    ["records"],
+    () => GetAllFarmRecords(userSqlData?.farm_id as number),
+    {
+      enabled: !!userSqlData?.farm_id,
+    }
+  );
 
   const {
     isLoading: isLoadingCattle,
@@ -85,15 +91,39 @@ export default function Profile({ searchParams }: any) {
   useEffect(() => {}, [userSqlData]);
 
   return (
-    <div className="p-10 px-5 lg:px-10 w-full flex flex-col">
-      <div className="flex flex-col gap-1">
-        <p className="text-4xl font-semibold break-all">
-          Welcome <span className="text-primary ">{userSqlData?.username}</span >,
-        </p>
-        <p className="text-md">What would you like to do today?</p>
+    <div className="p-5 px-5 lg:px-10 w-full flex flex-col gap-5">
+      <div className="flex gap-2 lg:gap-5 justify-start items-center w-full flex-wrap ">
+        <TotalSales
+          amount={sheep?.length as number}
+          filter="Sheep"
+          url="/dashboard/records/sheep"
+        />
+        <TotalSales
+          amount={goats?.length as number}
+          filter="Goats"
+          url="/dashboard/records/goats"
+        />
+        <TotalSales
+          amount={cattle?.length as number}
+          filter="Cattle"
+          url="/dashboard/records/cattle"
+        />
+        <TotalSales
+          amount={workers?.length as number}
+          filter="Workers"
+          url="/dashboard"
+        />
       </div>
 
-      <div className=" mt-5 flex gap-5 flex-wrap items-center justify-start">
+      <div className="flex flex-col gap-1">
+        <p className="text-4xl font-semibold break-all">
+          Welcome <span className="text-primary ">{userSqlData?.username}</span>
+          ,
+        </p>
+        <p className="text-xs">What would you like to do today?</p>
+      </div>
+
+      <div className=" flex gap-5 flex-wrap items-center justify-start">
         <div className="col-span-3 lg:col-span-1">
           {" "}
           <AddRecordModal title="Add a record" />
@@ -128,32 +158,9 @@ export default function Profile({ searchParams }: any) {
         )} */}
       </div>
 
-      <div className="grid gap-5 lg:gap-16 grid-cols-2 lg:grid-cols-4 justify-start items-center my-5 lg:border-y-2 ">
-        <TotalSales
-          amount={sheep?.length as number}
-          filter="Sheep"
-          url="/dashboard/records/sheep"
-        />
-        <TotalSales
-          amount={goats?.length as number}
-          filter="Goats"
-          url="/dashboard/records/goats"
-        />
-        <TotalSales
-          amount={cattle?.length as number}
-          filter="Cattle"
-          url="/dashboard/records/cattle"
-        />
-        <TotalSales
-          amount={workers?.length as number}
-          filter="Workers"
-          url="/dashboard"
-        />
-      </div>
       <div className="">
         <RecentlyRegistered />
       </div>
-     
     </div>
   );
 }

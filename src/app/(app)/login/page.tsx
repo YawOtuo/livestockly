@@ -1,17 +1,15 @@
 "use client";
 import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
-import { addMessage } from "@/lib/redux/reducers/messages";
-import { setUserDetails } from "@/lib/redux/reducers/users";
-import { Button, TextField } from "@mui/material";
+
 import { styled } from "@stitches/react";
-import { useFormik } from "formik";
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FarmVerify from "./components/FarmVerify";
 import LoginOptions from "./components/LoginOptions";
 import { IoIosArrowBack, IoIosArrowRoundBack } from "react-icons/io";
+import FarmsDisplaySlider from "../components/FarmsDisplaySlider";
 
 const Page = () => {
   const router = useRouter();
@@ -26,13 +24,14 @@ const Page = () => {
   ];
   return (
     <Root className=" bg-grey w-full ">
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-full ">
-        <div className="h-[50vh] lg:h-[100vh]  w-full  bg-[url('/images/livestockgrass.jpeg')] bg-cover bg-center flex flex-col justify-center items-center"></div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen ">
+        <div >
+          <FarmsDisplaySlider />
+        </div>
         <div
           className="
                 py-16 lg:py-5 flex flex-col justify-center items-center
-                 bg-white relative"
- >
+                 bg-white relative">
           <div
             onClick={() => router.push("/")}
             className="absolute top-5 left-5 cursor-pointer z-[1000]">
@@ -42,7 +41,7 @@ const Page = () => {
             <span className="font-semibold text-black lowercase">
               liveStock
             </span>
-            <span className="font-bold text-green1 uppercase">Diary</span>
+            <span className="font-bold text-green1">ly</span>
           </h1>
           {pages[activeIndex]}
         </div>
