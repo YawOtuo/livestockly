@@ -1,26 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Slide from "@mui/material/Slide";
-import { TransitionProps } from "@mui/material/transitions";
-import axios from "axios";
+
 import { SelectSireModal } from "../select-sire-modal";
-import { useSelector, useDispatch } from "react-redux";
-import { url } from "../../../weburl";
-import { addMessage } from "@/lib/redux/reducers/messages";
-import { LoadingModal } from "../loading-modal";
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AddRecord, GetOneRecord, updateRecord } from "@/lib/api/record";
-import { IoAddCircleOutline } from "react-icons/io5";
 import { Form, Formik } from "formik";
 import CustomRadioInput from "../CustomRadioInput";
 import CustomSwitch from "../CustomSwitch";
 import { today } from "@/lib/utils/date";
-import CustomSelect from "../CustomSelect";
-import useNotifications from "@/lib/hooks/useNotifications";
+
 import useRecordFormSubmission from "./useRecordFormSubmission";
 import { Record } from "@/lib/types/record";
 import { Button } from "../ui/button";
@@ -28,6 +17,7 @@ import IconButton from "../IconButton";
 import CustomModal from "../ui/CustomDialog";
 import CustomInput from "../ui/CustomInput";
 import CustomTextArea from "../ui/CustomTextArea";
+import { IoIosAddCircleOutline } from "react-icons/io";
 const addIcon = "/icons/add.png";
 const editIcon = "/icons/edit.png";
 
@@ -36,8 +26,15 @@ type Props = {
   record?: any;
   type?: string;
   title?: string;
+  variant?: "icon" | "text";
 };
-export default function AddRecordModal({ edit, record, type, title }: Props) {
+export default function AddRecordModal({
+  edit,
+  record,
+  type,
+  title,
+  variant,
+}: Props) {
   const [open, setOpen] = React.useState(false);
 
   const [sire, setSire] = useState<Record>();
@@ -91,9 +88,13 @@ export default function AddRecordModal({ edit, record, type, title }: Props) {
         onOpenChange={setOpen}
         open={open}
         trigger={
-          <Button>
-            {edit ? (
-              <img src={editIcon} width="90%" />
+          <Button variant={variant == "icon" ? "ghost" : "default"}>
+            {variant == "icon" ? (
+              edit ? (
+                <img src={editIcon} width="90%" />
+              ) : (
+                <IoIosAddCircleOutline  className="text-primary text-xl"/>
+              )
             ) : (
               <div className="flex gap-1 items-center">
                 <p className="whitespace-nowrap">{title}</p>{" "}

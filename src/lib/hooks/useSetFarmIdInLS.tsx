@@ -1,4 +1,3 @@
-"use client";
 
 import { Farm } from "../types/farm";
 import { useLocalStorage } from "usehooks-ts";

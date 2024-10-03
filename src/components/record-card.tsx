@@ -29,7 +29,7 @@ export const RecordCard = ({ type, icon, number }: Props) => {
 
         <div className="flex flex-row text-center items-center ">
           <div>
-            <AddRecordModal type={type} />
+            <AddRecordModal variant="icon" type={type} />
           </div>
 
           <div>
