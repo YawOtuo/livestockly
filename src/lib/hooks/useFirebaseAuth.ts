@@ -18,6 +18,7 @@ import { Farm } from "../types/farm";
 import { auth } from "./firebase";
 import { FetchOrCreateUserByUid } from "../api/users";
 import useSetFarmIdInLS from "./useSetFarmIdInLS";
+import useEmail from "./useEmail";
 
 const useFirebaseAuth = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const useFirebaseAuth = () => {
   const [errorText, setErrorText] = useState<string>();
 
   const [loading, setLoading] = useState(false);
+  const { sendEmail } = useEmail("livestockly-gmail", "signup");
 
   const signUpWithGoogle = async () => {
     const auth = getAuth();
@@ -45,6 +47,10 @@ const useFirebaseAuth = () => {
           username: user.displayName as string,
           email: user.email as string,
           uid: user.uid,
+        });
+        sendEmail({
+          to_email: user?.email,
+          username: user.displayName as string,
         });
 
         if (result2) {
@@ -97,6 +103,10 @@ const useFirebaseAuth = () => {
           uid: user.uid,
         });
 
+        sendEmail({
+          to_email: user?.email,
+          username: username,
+        });
         if (result2) {
           setLoading(false);
           dispatch(setUserDetails(res));
