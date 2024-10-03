@@ -92,7 +92,7 @@ export default function Profile({ searchParams }: any) {
 
   return (
     <div className="p-5 px-5 lg:px-10 w-full flex flex-col gap-5">
-      <div className="flex gap-2 lg:gap-5 justify-start items-center w-full flex-wrap ">
+      <div className="flex gap-5 lg:gap-5 justify-start items-center w-full flex-wrap ">
         <TotalSales
           amount={sheep?.length as number}
           filter="Sheep"
