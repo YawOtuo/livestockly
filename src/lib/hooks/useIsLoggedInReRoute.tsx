@@ -8,13 +8,17 @@ function useIsLoggedInReRoute(status?: boolean, reRouteUrl?: string) {
   const { DBDetails } = useAppStore();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
-  const [prevUrl, setPrevUrl] = useState();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [previousUrl, setPreviousUrl] = useLocalStorage<any>(
-    "livestockly-prev-url",
-    ""
-  );
+  let previousUrl: string ;
+  let setPreviousUrl: any;
+
+  if (typeof window != undefined) {
+    [previousUrl, setPreviousUrl] = useLocalStorage<any>(
+      "livestockly-prev-url",
+      ""
+    );
+  }
 
   useEffect(() => {
     const url = `${pathname}${searchParams}`;
@@ -27,7 +31,8 @@ function useIsLoggedInReRoute(status?: boolean, reRouteUrl?: string) {
     if (DBDetails?.email) {
       if (status) {
         setIsLoggedIn(true);
-        router.push(previousUrl || reRouteUrl);
+
+        router.push(previousUrl || reRouteUrl as string);
       }
     } else {
       if (reRouteUrl) {

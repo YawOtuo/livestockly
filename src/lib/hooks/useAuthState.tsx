@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useAppStore } from "../store/useAppStore";
@@ -12,6 +13,7 @@ export default function useAuthState(auth: any) {
 
   const { setDBDetails, setFBaseDetails, error, setError, setIsLoading } =
     useAppStore();
+  
   const { farm, setFarm } = useSetFarmIdInLS();
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function useAuthState(auth: any) {
               username: userAuth?.displayName || username || "User",
               email: userAuth?.email || userAuth?.providerData?.[0]?.email,
               uid: userAuth?.uid,
-              farm_id: farm?.id as number,
+              farm_id: farm?.id as number ,
             });
 
             setDBDetails(userData);
@@ -46,7 +48,7 @@ export default function useAuthState(auth: any) {
     );
 
     return () => unsubscribe();
-  }, [auth, setFBaseDetails, setDBDetails]);
+  }, [auth, setFBaseDetails, setDBDetails ,farm]);
 
   // Display authentication error toast
   useEffect(() => {
@@ -60,4 +62,5 @@ export default function useAuthState(auth: any) {
       });
     }
   }, [error, toast]);
+ 
 }

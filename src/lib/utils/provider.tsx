@@ -4,13 +4,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
 import { Provider } from "react-redux";
-import {store} from "../redux/store";
-import useAuthState from "../hooks/useAuthState";
+import { store } from "../redux/store";
 import { auth } from "../hooks/firebase";
+import useAuthState from "../hooks/useAuthState";
 
 function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient();
-  useAuthState(auth)
+  useAuthState(auth);
 
   return (
     <QueryClientProvider client={queryClient}>

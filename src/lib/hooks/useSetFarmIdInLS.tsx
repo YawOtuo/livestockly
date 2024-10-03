@@ -1,10 +1,22 @@
-import { useLocalStorage } from "@uidotdev/usehooks";
+"use client";
+
 import { Farm } from "../types/farm";
+import { useLocalStorage } from "usehooks-ts";
 
 function useSetFarmIdInLS() {
-  const [farm, setFarm] = useLocalStorage<Farm | null>("livestockly-farm", null);
+  // let farm: Farm | null = null;
+  // let setFarm: any;
+
+  // if (typeof window != undefined) {
+  //   [farm, setFarm] = useLocalStorage<Farm | null>("livestockly-farm", null);
+  // }
+  const [farm, setFarm] = useLocalStorage<Farm | null>(
+    "livestockly-farm",
+    null
+  );
+
   return {
-    farm, 
+    farm,
     setFarm,
   };
 }
