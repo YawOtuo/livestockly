@@ -13,13 +13,14 @@ import { RootState } from "@/lib/redux/store";
 import { Button } from "./ui/button";
 import CustomModal from "./ui/CustomDialog";
 import { Input } from "./ui/input";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 export const SelectSireModal = (props: any) => {
   const [open, setOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-  const userSqlData = useSelector(
-    (state: RootState) => state?.users?.userSqlData
-  );
+
+  const { DBDetails } = useAppStore();
+
 
   const {
     isLoading: isLoadinganimal,
@@ -27,7 +28,7 @@ export const SelectSireModal = (props: any) => {
     data: searchResults,
   } = useQuery(
     [`search-${searchInput}`],
-    () => searchRecords(userSqlData?.farm_id as number, searchInput),
+    () => searchRecords(DBDetails?.farm_id as number, searchInput),
     {
       enabled: !!searchInput,
     }

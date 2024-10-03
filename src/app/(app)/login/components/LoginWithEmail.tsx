@@ -35,7 +35,7 @@ function LoginWithEmail({ page }: Props) {
   const farm = useSelector((state : RootState) => state.farm.farm);
 
   const handleGoogleSignUp = () => {
-    signUpWithGoogle(farm as Farm);
+    signUpWithGoogle();
   };
 
   const handleSubmit = (values : any) => {
@@ -44,7 +44,6 @@ function LoginWithEmail({ page }: Props) {
 
     page == "sign-up" &&
       registerWithEmailAndPassword(
-        farm as Farm,
         values?.username,
         values?.email,
         values?.password

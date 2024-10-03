@@ -9,11 +9,10 @@ import Link from "next/link";
 
 import { useSelector } from "react-redux";
 import SkRecentlyRegistered from "./SkRecentlyRegistered";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 export default function RecentlyRegistered() {
-  const userSqlData = useSelector(
-    (state: RootState) => state?.users?.userSqlData
-  );
+  const { DBDetails } = useAppStore();
 
   const {
     isLoading: isLoadingRecords,
@@ -21,9 +20,9 @@ export default function RecentlyRegistered() {
     data: records,
   } = useQuery(
     ["records"],
-    () => GetAllFarmRecords(userSqlData?.farm_id as number),
+    () => GetAllFarmRecords(DBDetails?.farm_id as number),
     {
-      enabled: !!userSqlData?.farm_id,
+      enabled: !!DBDetails?.farm_id,
     }
   );
 
@@ -44,7 +43,7 @@ export default function RecentlyRegistered() {
         isError={errorRecords}
         loading={<SkRecentlyRegistered />}
         className="grid grid-cols-1 md:grid-cols-2 mt-5 gap-5 justify-start w-full"
-        success={records?.slice(0, 9).map((r: any, index: any) => (
+        success={records && records?.slice(0, 9).map((r: any, index: any) => (
           <TagCardSpecific key={index} record={r} />
         ))}
       />

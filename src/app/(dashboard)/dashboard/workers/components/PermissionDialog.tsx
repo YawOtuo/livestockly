@@ -11,6 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChangeUserPermission } from "@/lib/api/users";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/redux/store";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -34,10 +35,11 @@ const PermissionOption = ({
   worker: any;
 }) => {
   const queryClient = useQueryClient();
-  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
+  const { DBDetails } = useAppStore();
 
   const changePermissionMutation = useMutation(
-    (data: any) => ChangeUserPermission(userSqlData?.farm_id as number, data?.id, data?.level),
+    (data: any) =>
+      ChangeUserPermission(DBDetails?.farm_id as number, data?.id, data?.level),
     {
       onSuccess: () => {
         queryClient.invalidateQueries([`workers`]);
@@ -45,7 +47,7 @@ const PermissionOption = ({
     }
   );
 
-  const handlePermission = async (newItem : any) => {
+  const handlePermission = async (newItem: any) => {
     changePermissionMutation.mutate(newItem);
   };
   return (

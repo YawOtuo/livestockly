@@ -10,7 +10,6 @@ import useNotifications from "@/lib/hooks/useNotifications";
 import { RootState } from "@/lib/redux/store";
 
 export default function Page() {
-  const userSqlData = useSelector((state : RootState) => state.users.userSqlData);
   const { notifications, isLoading, error } = useNotifications();
   return (
     <div className="flex flex-col gap-5 w-full justify-start px-5 lg:px-10 py-5">

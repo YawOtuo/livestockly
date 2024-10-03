@@ -19,6 +19,7 @@ import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
 import { PermissionComponent } from "@/components/permission-component";
 import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
 import { RootState } from "@/lib/redux/store";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 type Props = {};
 
@@ -27,19 +28,18 @@ export default function Profile({ searchParams }: any) {
 
   const isLoggedIn = useIsLoggedInReRoute(false, "/login");
 
-  const userSqlData = useSelector(
-    (state: RootState) => state?.users?.userSqlData
-  );
-  const accountDataComplete = useJsonCompletenessCheck(userSqlData || {});
+  const { DBDetails } = useAppStore();
+
+  const accountDataComplete = useJsonCompletenessCheck(DBDetails || {});
   const {
     isLoading: isLoadingRecords,
     error: errorRecords,
     data: records,
   } = useQuery(
     ["records"],
-    () => GetAllFarmRecords(userSqlData?.farm_id as number),
+    () => GetAllFarmRecords(DBDetails?.farm_id as number),
     {
-      enabled: !!userSqlData?.farm_id,
+      enabled: !!DBDetails?.farm_id,
     }
   );
 
@@ -49,9 +49,9 @@ export default function Profile({ searchParams }: any) {
     data: cattle,
   } = useQuery(
     ["cattle"],
-    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "cattle"),
+    () => GetAllFarmRecordsSp(DBDetails?.farm_id as number, "cattle"),
     {
-      enabled: !!userSqlData?.farm_id,
+      enabled: !!DBDetails?.farm_id,
     }
   );
   const {
@@ -60,9 +60,9 @@ export default function Profile({ searchParams }: any) {
     data: goats,
   } = useQuery(
     ["goats"],
-    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "goats"),
+    () => GetAllFarmRecordsSp(DBDetails?.farm_id as number, "goats"),
     {
-      enabled: !!userSqlData?.farm_id,
+      enabled: !!DBDetails?.farm_id,
     }
   );
   const {
@@ -71,9 +71,9 @@ export default function Profile({ searchParams }: any) {
     data: sheep,
   } = useQuery(
     ["sheep"],
-    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "sheep"),
+    () => GetAllFarmRecordsSp(DBDetails?.farm_id as number, "sheep"),
     {
-      enabled: !!userSqlData?.farm_id,
+      enabled: !!DBDetails?.farm_id,
     }
   );
   const {
@@ -82,13 +82,13 @@ export default function Profile({ searchParams }: any) {
     data: workers,
   } = useQuery(
     ["workers"],
-    () => GetAllFarmUsersAccepted(userSqlData?.farm_id as number),
+    () => GetAllFarmUsersAccepted(DBDetails?.farm_id as number),
     {
-      enabled: !!userSqlData?.farm_id,
+      enabled: !!DBDetails?.farm_id,
     }
   );
 
-  useEffect(() => {}, [userSqlData]);
+  useEffect(() => {}, [DBDetails]);
 
   return (
     <div className="p-5 px-5 lg:px-10 w-full flex flex-col gap-5">
@@ -117,8 +117,7 @@ export default function Profile({ searchParams }: any) {
 
       <div className="flex flex-col gap-1">
         <p className="text-4xl font-semibold break-all">
-          Welcome <span className="text-primary ">{userSqlData?.username}</span>
-          ,
+          Welcome <span className="text-primary ">{DBDetails?.username}</span>,
         </p>
         <p className="text-xs">What would you like to do today?</p>
       </div>

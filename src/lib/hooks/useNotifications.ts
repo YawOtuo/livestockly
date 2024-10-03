@@ -8,13 +8,12 @@ import {
 } from "../api/notifications";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { Notification } from "../types/notification";
-
+import { useAppStore } from "../store/useAppStore";
 
 
 const useNotifications = () => {
   const queryClient = useQueryClient();
-  const userSqlData = useSelector((state : RootState) => state.users.userSqlData);
+  const { DBDetails } = useAppStore();
 
   const {
     data: notifications,
@@ -25,11 +24,11 @@ const useNotifications = () => {
     ["notifications"],
     async () => {
       console.log("first");
-      const response = await GetUserNotifications(userSqlData?.id as number);
+      const response = await GetUserNotifications(DBDetails?.id as number);
       return response;
     },
     {
-      enabled: !!userSqlData, // Enable the query only if userSqlData is defined
+      enabled: !!DBDetails, // Enable the query only if DBDetails is defined
     }
   );
 

@@ -1,4 +1,5 @@
 import { RootState } from "@/lib/redux/store";
+import { useAppStore } from "@/lib/store/useAppStore";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -7,19 +8,18 @@ type Props = {
   children: React.ReactNode;
 };
 export const PermissionComponent = ({ level, children }: Props) => {
-  const userSqlData = useSelector(
-    (state: RootState) => state?.users?.userSqlData
-  );
+  const { DBDetails } = useAppStore();
+
   const [display, setDisplay] = useState(true);
 
   useEffect(() => {
-    // console.log(userSqlData?.permission)
-    if (Number(userSqlData?.permission) >= level) {
+    // console.log(DBDetails?.permission)
+    if (Number(DBDetails?.permission) >= level) {
       setDisplay(true);
     } else {
       setDisplay(false);
     }
-  }, [userSqlData]);
+  }, [DBDetails]);
 
   return <div className="">{display && children}</div>;
 };

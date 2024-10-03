@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import FormErrorText from "@/components/ui/FormErrorText";
 import BackButton from "@/components/ui/BackButton";
 import useFarm from "@/lib/hooks/useFarm";
+import InfoText from "@/components/InfoText";
 
 function Page() {
   const { createFarm } = useFarm();
@@ -17,9 +18,10 @@ function Page() {
     formState: { errors },
   } = useForm<AddFarmBody>();
 
-  const onSubmit = async (data: AddFarmBody) => {
-    await createFarm(data);
-    reset()
+  const onSubmit = (data: AddFarmBody) => {
+    createFarm(data, {
+      onSuccess: () => reset(), // Reset the form on successful farm creation
+    });
   };
 
   return (
@@ -30,8 +32,7 @@ function Page() {
         </div>
         <h2 className="text-primary">Register your farm</h2>
         <p className="text-gray-800 text-sm lg">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, eaque
-          necessitatibus. Beatae explicabo corporis fuga consequuntur officia!
+          Take control of your farm&apos;s success with Livestockly. farming.
         </p>
       </div>
       <div className="col-span-2 w-full px-5 lg:px-24 py-5 lg:py-10">
@@ -52,12 +53,12 @@ function Page() {
 
           {errors.location && <p>{errors.location.message}</p>}
 
-          <CustomInput
+          {/* <CustomInput
             type="number"
             errorText={errors.size && errors.size.message}
             label="Size (in acres)"
             {...register("size", { required: "Size is required" })}
-          />
+          /> */}
 
           <CustomInput
             type="number"
@@ -74,11 +75,33 @@ function Page() {
             placeholder="eg: sheep, goats, poultry"
             errorText={errors.livestocktypes && errors.livestocktypes.message}
             label="Different Types of Livestock"
-
             {...register("livestocktypes", {
               required: "Types of Livestock is required",
             })}
           />
+
+          <CustomInput
+            placeholder="eg: +233 20 377 5123"
+            errorText={errors.owners_contact && errors.owners_contact.message}
+            label="Owner's Contact"
+            {...register("owners_contact", {
+              required: "Owners Contact is required",
+            })}
+          />
+          <div className="flex flex-col gap-2">
+            <InfoText
+              text="This email will be marked us the owner's email in the registration process. Please use the same email when creating a personal account if you are the owner"
+              size={"xs"}
+            />
+            <CustomInput
+              placeholder=""
+              errorText={errors.owners_email && errors.owners_email.message}
+              label="Owner's Email"
+              {...register("owners_email", {
+                required: "Owners Email is required",
+              })}
+            />
+          </div>
 
           <Button className="w-full" variant={"default"} type="submit">
             Submit

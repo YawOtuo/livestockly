@@ -2,6 +2,7 @@ import { AddRecord, AddRecordBody, updateRecord } from "@/lib/api/record";
 import useNotifications from "@/lib/hooks/useNotifications";
 import useToast from "@/lib/hooks/useToasts";
 import { RootState } from "@/lib/redux/store";
+import { useAppStore } from "@/lib/store/useAppStore";
 import { today } from "@/lib/utils/date";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -27,23 +28,26 @@ const useRecordFormSubmission = ({
   dam,
 }: Props) => {
   const [submitting, setSubmitting] = useState(false);
-  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
+  const { DBDetails } = useAppStore();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const { createNotification } = useNotifications();
   const { showToast } = useToast();
-  const createMutation = useMutation((newItem : AddRecordBody) => AddRecord(newItem), {
-    onSuccess: () => {
-      showToast(`New ${otherData.type || type} added`, "success");
+  const createMutation = useMutation(
+    (newItem: AddRecordBody) => AddRecord(newItem),
+    {
+      onSuccess: () => {
+        showToast(`New ${otherData.type || type} added`, "success");
 
-      queryClient.invalidateQueries([`records`]);
-    },
-    onMutate: () => {
-      showToast("Submitting", "success");
-    },
-  });
+        queryClient.invalidateQueries([`records`]);
+      },
+      onMutate: () => {
+        showToast("Submitting", "success");
+      },
+    }
+  );
   const updateMutation = useMutation(
-    (newItem : AddRecordBody) => updateRecord(record?.id, newItem),
+    (newItem: AddRecordBody) => updateRecord(record?.id, newItem),
     {
       onMutate: () => {
         showToast("updating", "success");
@@ -55,36 +59,36 @@ const useRecordFormSubmission = ({
       },
     }
   );
-  const handleCreate = async (data : AddRecordBody) => {
+  const handleCreate = async (data: AddRecordBody) => {
     await createMutation.mutateAsync(data);
     // const result = await AddRecord(data);
     // if (result) {
     //   queryClient.invalidateQueries(`records`);
     // }
     createNotification({
-      subject: `New record ${data?.name} has been created by ${userSqlData?.username}`,
+      subject: `New record ${data?.name} has been created by ${DBDetails?.username}`,
       // content: "",
-      to_farm_id: userSqlData?.farm_id as number,
+      to_farm_id: DBDetails?.farm_id as number,
     });
     setOpen(false);
   };
 
-  const handleUpdate = async (data :AddRecordBody) => {
+  const handleUpdate = async (data: AddRecordBody) => {
     updateMutation.mutate(data);
     createNotification({
-      subject: `Record ${data?.name} has been updated by ${userSqlData?.username}`,
+      subject: `Record ${data?.name} has been updated by ${DBDetails?.username}`,
       // content: "",
-      to_farm_id: userSqlData?.farm_id as number,
+      to_farm_id: DBDetails?.farm_id as number,
     });
     setOpen(false);
   };
-  const handleSubmit = (values : any) => {
+  const handleSubmit = (values: any) => {
     // if (submitting) {
     //   return; // Prevent multiple submissions while processing
     // }
 
     // setSubmitting(true);
-    values.farm_id = Number(userSqlData?.farm_id);
+    values.farm_id = Number(DBDetails?.farm_id);
     values.dam = dam?.id;
     values.sire = sire?.id;
     values.gender = otherData?.gender;

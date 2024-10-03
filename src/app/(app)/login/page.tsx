@@ -14,7 +14,7 @@ import FarmsDisplaySlider from "../components/FarmsDisplaySlider";
 const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const isLoggedIn = useIsLoggedInReRoute(true, "/dashboard");
+  useIsLoggedInReRoute(true, "/dashboard");
 
   const [activeIndex, setActiveIndex] = useState(0);
 

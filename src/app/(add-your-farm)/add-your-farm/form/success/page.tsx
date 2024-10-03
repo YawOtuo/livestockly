@@ -1,10 +1,13 @@
+"use client"
 import Navbar from "@/app/(app)/components/Navbar";
 import InfoText from "@/components/InfoText";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { FaCircleCheck } from "react-icons/fa6";
 
 function Page() {
+  const searchParams = useSearchParams();
   return (
     <div className="w-full h-screen">
       <Navbar />
@@ -13,13 +16,16 @@ function Page() {
           <FaCircleCheck className="text-7xl text-primary" />
         </div>
         <div className="col-span-2 px-5 lg:px-10 flex flex-col gap-5 items-start justify-center">
-          <div>
+          <div className="flex flex-col gap-1">
             <h2 className="text-primary font-semibold">Congratulations!!! </h2>
-            <p>Your farm {"name"} has been added</p>
+            <p>Your farm <span className="text-primary uppercase font-semibold">{searchParams.get("farm")}</span> has been added to Livestockly</p>
           </div>
 
-          <InfoText size={"sm"} text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut saepe fugit est fugiat optio ad facere sapiente doloribus libero doloremque dolor nisi repudiandae ut aspernatur quidem, distinctio, consectetur ipsa non?" />
-          
+          <InfoText
+            size={"sm"}
+            text="Your farm has been added now. The next step involves creating your own personal account with your personal credentials that you can use to log into your farm. If you are the owner, please use the owner's email you speicfied in the form. We will get back to you after verification so that you can start using the platform. See you soon!!!"
+          />
+
           <div>
             <Link href="/sign-up">
               <Button variant={"link"}>Add Yourself as the first user</Button>{" "}

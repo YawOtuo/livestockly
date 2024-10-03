@@ -11,6 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PermissionDialog from "./PermissionDialog";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/redux/store";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 type Props = {
   worker: any;
@@ -19,9 +20,8 @@ type Props = {
 
 export default function WorkerAccordion({ worker, accepted = false }: Props) {
   const queryClient = useQueryClient();
-  const userSqlData = useSelector(
-    (state: RootState) => state?.users?.userSqlData
-  );
+
+  const { DBDetails } = useAppStore();
 
   const acceptMutation = useMutation((id: number) => AcceptUser(id), {
     onSuccess: () => {
@@ -56,7 +56,7 @@ export default function WorkerAccordion({ worker, accepted = false }: Props) {
               <div className="flex flex-col gap-1">
                 <p className="font-semibold">
                   {worker?.username}
-                  {worker?.id == userSqlData?.id && (
+                  {worker?.id == DBDetails?.id && (
                     <span className=""> (me)</span>
                   )}
                 </p>
@@ -72,7 +72,7 @@ export default function WorkerAccordion({ worker, accepted = false }: Props) {
               onClick={() => handleReject(worker?.id)}>
               Remove
             </Button>
-            {worker?.id !== userSqlData?.id && (
+            {worker?.id !== DBDetails?.id && (
               <PermissionDialog worker={worker} />
             )}{" "}
           </AccordionDetails>

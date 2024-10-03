@@ -16,4 +16,5 @@ export interface Record{
     vaccination_info :string 
     health_condition: string 
     remarks: string
+    farm_id: number
 }

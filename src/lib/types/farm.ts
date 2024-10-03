@@ -5,4 +5,6 @@ export interface Farm {
     size: number 
     livestocktypes : string
     number_of_workers: number
+    owners_contact: string 
+    owners_email : string
 }

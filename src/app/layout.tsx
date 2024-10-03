@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Varela_Round } from "next/font/google";
 import "./globals.css";
 import Providers from "@/lib/utils/provider";
-import ReduxProvider from "./ReduxProvider";
 import MuiTheme from "./MuiTheme";
-import { ToastContainer } from "react-toastify";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -48,7 +46,6 @@ export default function RootLayout({
             <NextTopLoader color="#0FA958" />
           </body>
         </MuiTheme>
-        <ReduxProvider />
       </Providers>
     </html>
   );

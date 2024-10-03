@@ -19,10 +19,11 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { RootState } from "@/lib/redux/store";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 function Page() {
   const params = useParams();
-  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
+  const { DBDetails } = useAppStore();
   const router = useRouter();
   const {
     isLoading,
@@ -32,7 +33,7 @@ function Page() {
     [`records-${params?.id}`],
     () => GetOneRecord(Number(params?.id)),
     {
-      enabled: !!userSqlData?.farm_id,
+      enabled: !!DBDetails?.farm_id,
     }
   );
   const {

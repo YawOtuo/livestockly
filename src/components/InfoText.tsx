@@ -3,6 +3,7 @@ import { cva, VariantProps } from "class-variance-authority";
 const infoTextStyles = cva("p-5", {
   variants: {
     size: {
+      xs: "text-xs",
       sm: "text-sm",
       base: "text-base",
       lg: "text-lg",

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { MdHomeFilled, MdOutlineFormatListBulleted } from "react-icons/md";
 
-
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { CiSettings } from "react-icons/ci";
 import { useIsAdmin } from "@/lib/hooks/useIsAdmin";
@@ -11,6 +10,7 @@ import { GrUserWorker } from "react-icons/gr";
 import { RootState } from "@/lib/redux/store";
 import { motion } from "framer-motion";
 import { GiFarmer, GiFarmTractor } from "react-icons/gi";
+import { useAppStore } from "@/lib/store/useAppStore";
 export const Links = [
   { label: "Home", link: "/dashboard", icon: <MdHomeFilled />, level: 1 },
 
@@ -31,7 +31,7 @@ export const Links = [
   {
     label: "My farm",
     link: "/dashboard/my-farm",
-    icon: <GiFarmTractor /> ,
+    icon: <GiFarmTractor />,
     level: 1,
   },
   {
@@ -78,16 +78,15 @@ export const Pagination = ({
 };
 
 export default function DashboardSideNav() {
-  const userSqlData = useSelector(
-    (state: RootState) => state?.users?.userSqlData
-  );
 
-  const isAdmin = useIsAdmin(userSqlData?.uid as string);
+  const { DBDetails } = useAppStore();
+
+  const isAdmin = useIsAdmin(DBDetails?.uid as string);
   return (
     <div className="bg-green2 w-full flex flex-col h-[100vh] sticky top-0 items-start py-20 justify-start gap-2">
       {Links.map(
         (r, index) =>
-          Number(userSqlData?.permission) >= r?.level && (
+          Number(DBDetails?.permission) >= r?.level && (
             <Pagination
               label={r?.label}
               link={r?.link}

@@ -11,7 +11,6 @@ interface VerifyResponse {
 
 export type AddFarmBody = Omit<Farm, "id">;
 
-
 export const GetFarm = async (id: number): Promise<Farm> => {
   const response = await fetch(`${url}farms/${id}`, {
     method: "GET",
@@ -20,7 +19,8 @@ export const GetFarm = async (id: number): Promise<Farm> => {
     },
   });
   return response.json();
-};export const AddFarm = async (data: AddFarmBody): Promise<Record> => {
+};
+export const AddFarm = async (data: AddFarmBody): Promise<Farm> => {
   const response = await fetch(`${url}farms`, {
     method: "POST", // or 'PATCH' depending on your API
     headers: {

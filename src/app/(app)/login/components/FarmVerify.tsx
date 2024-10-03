@@ -1,6 +1,7 @@
 import { CustomTextField } from "@/components/CustomTextfield";
 import { CustomLoaders } from "@/components/Loaders";
 import { VerifyFarmExists } from "@/lib/api/farm";
+import useSetFarmIdInLS from "@/lib/hooks/useSetFarmIdInLS";
 import { setFarmDetails } from "@/lib/redux/reducers/farm";
 import { Button, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -10,15 +11,16 @@ import { useDispatch } from "react-redux";
 
 type Props = {
   onSuccess: Dispatch<SetStateAction<number>>;
-  page?: string
+  page?: string;
 };
 function FarmVerify({ onSuccess, page }: Props) {
   const queryClient = useQueryClient();
   const [success, setSuccess] = useState<boolean>();
   const [loading, setLoading] = useState(false);
+  const { farm, setFarm } = useSetFarmIdInLS();
 
   const dispatch = useDispatch();
-  const handleSubmit = async (name : string) => {
+  const handleSubmit = async (name: string) => {
     setLoading(true);
     setSuccess(undefined);
     const result = await VerifyFarmExists(name);
@@ -32,6 +34,7 @@ function FarmVerify({ onSuccess, page }: Props) {
     if (result?.id) {
       console.log(result);
       console.log("success");
+      setFarm(result);
       dispatch(setFarmDetails(result));
       setSuccess(true);
       setLoading(false);
@@ -43,7 +46,7 @@ function FarmVerify({ onSuccess, page }: Props) {
     <div>
       <Formik
         initialValues={{}}
-        onSubmit={(values : any) => {
+        onSubmit={(values: any) => {
           handleSubmit(values?.farm_name);
         }}>
         {({ handleSubmit, handleBlur, values, errors, handleChange }) => (

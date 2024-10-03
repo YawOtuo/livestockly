@@ -7,25 +7,29 @@ import { useSelector } from "react-redux";
 import { AccountAddImage } from "./AccountAddImage";
 import { TextField } from "@mui/material";
 import { RootState } from "@/lib/redux/store";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 type Props = {
   setOpen?: any;
   user?: any;
 };
 function EditProfileModalRoot({ setOpen, user }: Props) {
-  const userSqlData = useSelector((state : RootState) => state?.users?.userSqlData);
+  const { DBDetails } = useAppStore();
   const queryClient = useQueryClient();
   const [image, setImage] = useState();
   const [changeImage, setChangeImage] = useState<boolean>(false);
   const [files, setFiles] = useState();
 
-  const updateMutation = useMutation((data : AddUserBody) => UpdateUser(data, user?.id), {
-    onSuccess: () => {
-      queryClient.invalidateQueries([`user`]);
-    },
-  });
+  const updateMutation = useMutation(
+    (data: AddUserBody) => UpdateUser(data, user?.id),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([`user`]);
+      },
+    }
+  );
 
-  const handleUpdate = async (newItem : AddUserBody) => {
+  const handleUpdate = async (newItem: AddUserBody) => {
     updateMutation.mutate(newItem);
   };
 
@@ -39,9 +43,9 @@ function EditProfileModalRoot({ setOpen, user }: Props) {
           ...user,
         }}
         onSubmit={(values) => {
-         values.public_id = files?.[0]
+          values.public_id = files?.[0];
           handleUpdate(values);
-          console.log(values)
+          console.log(values);
           setOpen(false);
         }}>
         <Form>
@@ -57,21 +61,20 @@ function EditProfileModalRoot({ setOpen, user }: Props) {
                   />{" "}
                 </div>
               )}
-        
-                <div className="w-full">
-                  <AccountAddImage setFiles={setFiles}/>
-                  {files && (
-                    <div className="relative w-full rounded-lg h-[400px]  overflow-hidden border-2 ">
-                      <Image
-                        src={`https://res.cloudinary.com/daurieb51/image/upload/v1642082142/${files}.png`}
-                        fill
-                        alt="USer"
-                        objectFit="cover"
-                      />{" "}
-                    </div>
-                  )}
-                </div>
-            
+
+              <div className="w-full">
+                <AccountAddImage setFiles={setFiles} />
+                {files && (
+                  <div className="relative w-full rounded-lg h-[400px]  overflow-hidden border-2 ">
+                    <Image
+                      src={`https://res.cloudinary.com/daurieb51/image/upload/v1642082142/${files}.png`}
+                      fill
+                      alt="USer"
+                      objectFit="cover"
+                    />{" "}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-5 w-full">

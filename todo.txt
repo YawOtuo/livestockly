@@ -1,3 +1,8 @@
 CustomTextArea doesnt vlaidate well
+
+
 set up different kind of livestock per farm
-emails
+
+if the farm the user logged in is not his farm, alert him 
+
+firebase keys exposed in code and in browser

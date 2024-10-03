@@ -18,10 +18,11 @@ function Page() {
               <span className="text-primary">livestockly</span>
             </h2>{" "}
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Laboriosam perspiciatis animi saepe illo sapiente aliquam aliquid
-              quis, blanditiis, eligendi aperiam eos nobis enim hic voluptates
-              minus impedit quisquam alias. Nemo.
+              Unlock the full potential of your farm with Livestockly’s advanced
+              livestock management platform. Simplify your operations, track
+              your animals&apos; health, and optimize productivity with powerful
+              tools designed for modern agriculture. Join Livestockly today and
+              take your farm to the next level.
             </p>
           </div>
           <div className="w-full lg:w-[40%]">

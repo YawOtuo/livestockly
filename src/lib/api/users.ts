@@ -1,6 +1,17 @@
 import { url } from "../../../weburl";
 import { User } from "../types/user";
 
+
+export const FetchOrCreateUserByUid = async (body: AddUserBody): Promise<User> => {
+  const response = await fetch(`${url}users/get-or-create-user-by-uid`, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json", // Set the content type to JSON
+    },
+  });
+  return response.json();
+};
 export const AcceptUser = async (id: number): Promise<string> => {
   const response = await fetch(`${url}users/${id}/accept`, {
     method: "GET",
@@ -37,16 +48,16 @@ export interface AddUserBody {
   email: string 
   farm_id: number
 }
-export const AddUser = async (body: AddUserBody): Promise<User> => {
-  const response = await fetch(`${url}users`, {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: {
-      "Content-Type": "application/json", // Set the content type to JSON
-    },
-  });
-  return response.json();
-};
+// export const AddUser = async (body: AddUserBody): Promise<User> => {
+//   const response = await fetch(`${url}users`, {
+//     method: "POST",
+//     body: JSON.stringify(body),
+//     headers: {
+//       "Content-Type": "application/json", // Set the content type to JSON
+//     },
+//   });
+//   return response.json();
+// };
 
 export const UpdateUser = async (body: AddUserBody, id: number): Promise<User> => {
   const response = await fetch(`${url}users/${id}`, {

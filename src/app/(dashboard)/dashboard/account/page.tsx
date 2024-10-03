@@ -11,10 +11,11 @@ import { FaRegAddressCard } from "react-icons/fa";
 import { FaRegFlag } from "react-icons/fa";
 import EditProfileModal from "./components/EditProfileModal";
 import { SyncLoader } from "react-spinners";
-import { RootState } from "@/lib/redux/store";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 export default function Page() {
-  const user = useSelector((state : RootState) => state?.users?.userSqlData);
+  const { DBDetails } = useAppStore();
+
 
   return (
     <div className="flex flex-col gap-5 w-full justify-between px-5 lg:px-10 py-10  items-start">
@@ -22,62 +23,62 @@ export default function Page() {
         My Account
       </p>
       <div>
-        {!user && <SyncLoader  color="#0FA958"/>}
+        {!DBDetails && <SyncLoader  color="#0FA958"/>}
       </div>
       <div className="flex flex-col justify-start items-start gap-5 h-full py-10">
         <div className="flex flex-col items-start justify-center gap-1 w-full ">
           <div className="relative w-full max-w-[250px] aspect-square rounded-full overflow-hidden border-2 ">
             <Image
               src={`https://res.cloudinary.com/daurieb51/image/upload/v1642082142/${
-                user?.public_id || "placeholderdog_xyfyje"
+                DBDetails?.public_id || "placeholderdog_xyfyje"
               }.png`}
               fill
-              alt="USer"
+              alt="DBDetails"
             />{" "}
           </div>
           <p className="text-2xl text-yellow1 font-semibold border-b border-b-yellow4">
-            {user?.username}
+            {DBDetails?.username}
           </p>
         </div>
-        {user && (
+        {DBDetails && (
           <div className="flex flex-col items-start">
             <div className="grid grid-cols-2 gap-5 items-center justify-center">
               <Detail
                 label="Email"
                 icon={<MdOutlineMailOutline />}
-                value={user?.email}
+                value={DBDetails?.email}
               />
               <div className="col-span-2">
                 <Detail
                   label="Country"
                   icon={<FaRegFlag />}
-                  value={user?.country}
+                  value={DBDetails?.country}
                 />
               </div>
               <div className="col-span-2">
                 <Detail
                   label="Phone"
                   icon={<MdOutlineLocalPhone />}
-                  value={user?.phone_number}
+                  value={DBDetails?.phone_number}
                 />
               </div>
               <div className="col-span-2">
                 <Detail
                   label="Address1"
                   icon={<FaRegAddressCard />}
-                  value={user?.contact_address}
+                  value={DBDetails?.contact_address}
                 />
               </div>
               {/* <div className="col-span-2">
                 <Detail
                   label="Address2"
                   icon={<FaRegAddressCard />}
-                  value={user?.phone_number}
+                  value={DBDetails?.phone_number}
                 />
               </div> */}
             </div>
             <div className="mt-5">
-              {/* <EditProfileModal user={user} />{" "} */}
+              {/* <EditProfileModal DBDetails={DBDetails} />{" "} */}
             </div>
           </div>
         )}

@@ -15,12 +15,12 @@ import Link from "next/link";
 import { RootState } from "@/lib/redux/store";
 import CustomInput from "./ui/CustomInput";
 import { Input } from "./ui/input";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 export const DashSearch = () => {
   const [keyword, setKeyWord] = useState("");
-  const userSqlData = useSelector(
-    (state: RootState) => state?.users?.userSqlData
-  );
+
+  const { DBDetails } = useAppStore();
 
   const {
     isLoading: isSearching,
@@ -28,9 +28,9 @@ export const DashSearch = () => {
     data: searches,
   } = useQuery(
     [`search-${keyword}`],
-    () => searchRecords(userSqlData?.farm_id as number, keyword),
+    () => searchRecords(DBDetails?.farm_id as number, keyword),
     {
-      enabled: !!userSqlData?.farm_id && !!keyword,
+      enabled: !!DBDetails?.farm_id && !!keyword,
     }
   );
 

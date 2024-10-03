@@ -14,6 +14,7 @@ import { RecordCard } from "@/components/record-card";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllFarmRecordsSp } from "@/lib/api/farm";
 import { RootState } from "@/lib/redux/store";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 const cattleIcon = "/icons/cattle.png";
 const goatIcon = "/icons/goat.png";
@@ -23,9 +24,7 @@ const Page = () => {
   const message = useSelector((state: RootState) => state.messages.message);
   const dispatch = useDispatch();
 
-  const userSqlData = useSelector(
-    (state: RootState) => state?.users?.userSqlData
-  );
+  const { DBDetails } = useAppStore();
 
   const {
     isLoading: isLoadingCattle,
@@ -33,9 +32,9 @@ const Page = () => {
     data: cattle,
   } = useQuery(
     ["cattle"],
-    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "cattle"),
+    () => GetAllFarmRecordsSp(DBDetails?.farm_id as number, "cattle"),
     {
-      enabled: !!userSqlData?.farm_id,
+      enabled: !!DBDetails?.farm_id,
     }
   );
   const {
@@ -44,9 +43,9 @@ const Page = () => {
     data: goats,
   } = useQuery(
     ["goats"],
-    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "goats"),
+    () => GetAllFarmRecordsSp(DBDetails?.farm_id as number, "goats"),
     {
-      enabled: !!userSqlData?.farm_id,
+      enabled: !!DBDetails?.farm_id,
     }
   );
   const {
@@ -55,9 +54,9 @@ const Page = () => {
     data: sheep,
   } = useQuery(
     ["sheep"],
-    () => GetAllFarmRecordsSp(userSqlData?.farm_id as number, "sheep"),
+    () => GetAllFarmRecordsSp(DBDetails?.farm_id as number, "sheep"),
     {
-      enabled: !!userSqlData?.farm_id,
+      enabled: !!DBDetails?.farm_id,
     }
   );
 
@@ -65,7 +64,7 @@ const Page = () => {
     <>
       {/* {matches ? <MobileNav /> : <Navbar />} */}
 
-      <SlideEnter >
+      <SlideEnter>
         <div className="flex flex-col justify-center items-center w-full  md:mt-0 py-5">
           <div className="w-full">
             <div className="">

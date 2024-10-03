@@ -12,17 +12,18 @@ import { GetOneRecord, deleteRecordJSONOne } from "@/lib/api/record";
 import { addMessage } from "@/lib/redux/reducers/messages";
 import { RootState } from "@/lib/redux/store";
 import { Record } from "@/lib/types/record";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 type Props = {
   label: string;
-  animalId: number
-  title: string
+  animalId: number;
+  title: string;
 };
-const Log = ({ label, animalId, title}: Props) => {
+const Log = ({ label, animalId, title }: Props) => {
   const params = useParams();
-  const userSqlData = useSelector(
-    (state: RootState) => state?.users?.userSqlData
-  );
+
+  const { DBDetails } = useAppStore();
+
   const router = useRouter();
   const {
     isLoading,
@@ -32,10 +33,10 @@ const Log = ({ label, animalId, title}: Props) => {
     [`${params?.slug}-${params?.id}`],
     () => GetOneRecord(Number(params?.id)),
     {
-      enabled: !!userSqlData?.farm_id,
+      enabled: !!DBDetails?.farm_id,
     }
   );
-  const refreshCount = useSelector((state : RootState) => state?.app.refresh);
+  const refreshCount = useSelector((state: RootState) => state?.app.refresh);
   const dispatch = useDispatch();
 
   const [r, setR] = useState<any>(null);
@@ -87,7 +88,7 @@ const Log = ({ label, animalId, title}: Props) => {
         <LogModal icon="add" type={title} label={label} />
       </div>
 
-      {r?.map((r : any, index : number) => (
+      {r?.map((r: any, index: number) => (
         <LogI className="shadow-md flex justify-between" key={index}>
           <div>
             <p
