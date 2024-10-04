@@ -60,7 +60,7 @@ export default function NotificationCard({ notification }: Props) {
             </p>
 
             <p className="text-md">
-              {!notification?.type && notification?.message}
+              {!notification?.type && notification?.content}
             </p>
             <p className="text-md">{messages[notification?.type]}</p>
           </div>

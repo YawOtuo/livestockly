@@ -9,6 +9,7 @@ import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
 import { PermissionComponent } from "@/components/permission-component";
 import { useAppStore } from "@/lib/store/useAppStore";
 import { useGetUserFarmDetails } from "@/lib/hooks/useFarm";
+import Link from "next/link";
 
 type Props = {};
 
@@ -17,17 +18,17 @@ export default function Page({ searchParams }: any) {
   const { DBDetails } = useAppStore();
   const { data: farm } = useGetUserFarmDetails();
 
-
   const livestockDataQueries = useQueries({
-    queries: farm?.livestock_categories?.map((category) => ({
-      queryKey: [category.name.toLowerCase()],
-      queryFn: () =>
-        GetAllFarmRecordsSp(
-          DBDetails?.farm_id as number,
-          category.name.toLowerCase()
-        ),
-      enabled: !!farm?.id && !!DBDetails?.farm_id,
-    })) ?? [],
+    queries:
+      farm?.livestock_categories?.map((category) => ({
+        queryKey: [category.name.toLowerCase()],
+        queryFn: () =>
+          GetAllFarmRecordsSp(
+            DBDetails?.farm_id as number,
+            category.name.toLowerCase()
+          ),
+        enabled: !!farm?.id && !!DBDetails?.farm_id,
+      })) ?? [],
   });
 
   const { isLoading: isLoadingWorkers, data: workers } = useQuery(
@@ -54,7 +55,9 @@ export default function Page({ searchParams }: any) {
               filter={farm?.livestock_categories[index]?.name as string}
               url={`/dashboard/records/${farm?.livestock_categories[
                 index
-              ]?.name.toLowerCase()}/category_id/${farm?.livestock_categories[index]?.id}`}
+              ]?.name.toLowerCase()}/category_id/${
+                farm?.livestock_categories[index]?.id
+              }`}
             />
           );
         })}
@@ -78,21 +81,15 @@ export default function Page({ searchParams }: any) {
           <AddRecordModal title="Add a record" />
         </div>
         <div className="col-span-3 lg:col-span-1">
-          <IconButton
-            reverse
-            label="View all animals"
-            icon="arrow-right"
-            url="/dashboard/records"
-          />
+          <Link href={"/dashboard/records"}>
+            <IconButton reverse label="View all animals" icon="arrow-right" />
+          </Link>{" "}
         </div>
         <PermissionComponent level={3}>
           <div className="col-span-3 lg:col-span-1">
-            <IconButton
-              reverse
-              label="View all workers"
-              icon="arrow-right"
-              url="/dashboard/workers"
-            />
+            <Link href={"/dashboard/workers"}>
+              <IconButton reverse label="View all workers" icon="arrow-right" />
+            </Link>
           </div>
         </PermissionComponent>
       </div>

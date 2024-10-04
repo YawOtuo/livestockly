@@ -117,7 +117,9 @@ export default function AddRecordModal({
             }}>
             {({ handleSubmit, handleReset, values, errors, handleChange }) => (
               <Form>
-                {edit ? "EDIT RECORD" : `NEW RECORD ${category?.name ? category.name : ""}`}
+                {edit
+                  ? "EDIT RECORD"
+                  : `NEW RECORD ${category?.name ? category.name : ""}`}
                 <div className="pt-4 text-black grid grid-cols-1 lg:grid-cols-3 gap-5">
                   <div className=" flex flex-col gap-5">
                     <CustomInput
@@ -181,7 +183,15 @@ export default function AddRecordModal({
                         />
                       </div>
                     </div>
-{/* 
+
+                    <div className="flex flex-col gap-5 bg-green2 p-5 items-center justify-center h-full rounded-2xl">
+                      <p>
+                        Details like health condition, vaccination, diet , and
+                        weight are not yet available
+                      </p>
+                    </div>
+                    {/*
+
                     {!edit && (
                       <CustomInput
                         label={"weight"}
@@ -264,14 +274,14 @@ export default function AddRecordModal({
 
                     <CustomSwitch label="alive" onChange={setOtherData} />
 
-                    {!edit && (
+                    {/* {!edit && (
                       <CustomTextArea
                         label={"Remarks"}
                         placeholder="Any extra info"
                         onChange={handleChange}
                         initialValue={values.remarks}
                       />
-                    )}
+                    )} */}
                   </div>
                 </div>
                 <div className="w-full text-center mt-5 rounded-lg bg-green1 ">

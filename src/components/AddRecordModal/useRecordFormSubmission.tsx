@@ -65,24 +65,18 @@ const useRecordFormSubmission = ({
       },
     }
   );
-/*************  ✨ Codeium Command ⭐  *************/
-  /**
-   * Handle the creation of a new record. This function will be called when
-   * the form is submitted. It will create a new record in the database and
-   * invalidate the cache for the records query.
-   * @param {AddRecordBody} data - The data to create the record with
-   * @returns {Promise<void>}
-   */
-/******  55c58c92-55f7-4040-a076-bda09d0aa5f8  *******/
+
   const handleCreate = async (data: AddRecordBody) => {
-    console.log("handleCreate")
+    console.log("handleCreate");
     await createMutation.mutateAsync(data);
     // const result = await AddRecord(data);
     // if (result) {
     //   queryClient.invalidateQueries(`records`);
     // }
     createNotification({
-      subject: `New record ${data?.name} has been created by ${DBDetails?.username}`,
+      subject: `New record`,
+      content: `New record ${data?.name} has been created by ${DBDetails?.username}`,
+
       // content: "",
       to_farm_id: DBDetails?.farm_id as number,
     });
@@ -109,7 +103,7 @@ const useRecordFormSubmission = ({
     values.sire = sire?.id;
     values.gender = otherData?.gender;
     values.alive = otherData?.alive;
-    values.category = otherData?.category
+    values.category = otherData?.category;
     values.remarks = otherData?.remarks;
 
     values.castrated = otherData?.castrated;

@@ -4,7 +4,7 @@ import { Notification } from "../types/notification";
 // CreateNotification function with Notification type
 
 export interface AddNotificationBody {
-  message?: string;
+  content?: string;
   to_farm_id: number;
   type?: string;
   subject: string;

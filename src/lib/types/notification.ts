@@ -3,7 +3,7 @@ export interface Notification {
   type: string;
   date_created: string;
   subject: string;
-  message: string;
+  content: string;
   id: number;
   to_farm_id: number
 }
