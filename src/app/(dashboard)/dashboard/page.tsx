@@ -55,7 +55,7 @@ export default function Page({ searchParams }: any) {
               filter={farm?.livestock_categories[index]?.name as string}
               url={`/dashboard/records/${farm?.livestock_categories[
                 index
-              ]?.name.toLowerCase()}/category_id/${
+              ]?.name.toLowerCase()}/category/${
                 farm?.livestock_categories[index]?.id
               }`}
             />

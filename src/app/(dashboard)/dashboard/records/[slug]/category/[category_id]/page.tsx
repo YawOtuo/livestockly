@@ -21,7 +21,7 @@ const Page = ({}: Props) => {
   const { DBDetails } = useAppStore();
 
   // Extracting the type dynamically from params
-  let type = params?.slug;
+  let type = decodeURIComponent(String(params?.slug));
   const [category, setCategory] = useState<LivestockCategory>({
     id: Number(params?.category_id),
     name: params?.category as string,
@@ -62,7 +62,7 @@ const Page = ({}: Props) => {
             <p>
               Displaying all
               <span className="brand-green-font"> {records?.length}</span>{" "}
-              {type}
+            <span className="capitalize">  {type}</span>
             </p>
             {category && <AddRecordModal variant="icon" category={category} />}{" "}
           </div>
