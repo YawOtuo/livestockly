@@ -1,5 +1,5 @@
+"use client"
 import { CustomLoaders } from "@/components/Loaders";
-import { styled } from "@stitches/react";
 import { useRouter } from "next/navigation";
 import { BeatLoader } from "react-spinners";
 import { motion } from "framer-motion";

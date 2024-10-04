@@ -12,6 +12,7 @@ import Link from "next/link";
 import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
 import { RootState } from "@/lib/redux/store";
 import { Farm } from "@/lib/types/farm";
+import { useFarmStore } from "@/lib/store/useFarmStore";
 
 type Props = {
   page?: string;
@@ -27,13 +28,10 @@ function LoginWithEmail({ page }: Props) {
     errorText,
   } = useFirebaseAuth();
 
-  const router = useRouter();
-  const dispatch = useDispatch();
 
   const [showFields, setShowFields] = useState(false);
 
-  const farm = useSelector((state : RootState) => state.farm.farm);
-
+  const {farm} = useFarmStore()
   const handleGoogleSignUp = () => {
     signUpWithGoogle();
   };

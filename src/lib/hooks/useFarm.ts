@@ -2,12 +2,24 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AddFarm, AddFarmBody, GetFarm } from "../api/farm";
 import { toast } from "@/hooks/use-toast";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { Record } from "../types/record";
 import { useRouter } from "next/navigation";
 import { Farm } from "../types/farm";
 import { useAppStore } from "../store/useAppStore";
+
+export function useGetUserFarmDetails() {
+  const { DBDetails } = useAppStore();
+
+  return useQuery(
+    ["farm"],
+    async () => {
+      const response = await GetFarm(Number(DBDetails?.farm_id));
+      return response;
+    },
+    {
+      enabled: !!DBDetails?.farm_id,
+    }
+  );
+}
 
 function useFarm() {
   const queryClient = useQueryClient();

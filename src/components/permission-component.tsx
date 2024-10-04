@@ -1,4 +1,4 @@
-import { RootState } from "@/lib/redux/store";
+"use client"
 import { useAppStore } from "@/lib/store/useAppStore";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";

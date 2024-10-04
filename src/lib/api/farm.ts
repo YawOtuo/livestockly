@@ -62,22 +62,9 @@ export const GetAllFarmRecordsSp = async (
   farm_id: number,
   type: string
 ): Promise<Record[]> => {
-  switch (type) {
-    case "sheep": {
-      const response = await fetch(`${url}records/farms/${farm_id}/sheep`);
-      return response.json();
-    }
-    case "goats": {
-      const responseS = await fetch(`${url}records/farms/${farm_id}/goats`);
-      return responseS.json();
-    }
-    case "cattle": {
-      const responseC = await fetch(`${url}records/farms/${farm_id}/cattle`);
-      return responseC.json();
-    }
-    default:
-      throw new Error("Invalid animal type");
-  }
+  // Perform fetch regardless of the type
+  const response = await fetch(`${url}records/farms/${farm_id}/categories/${type}`);
+  return response.json();
 };
 
 // GetAllFarmUsersAccepted with typed id and return value

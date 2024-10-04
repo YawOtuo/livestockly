@@ -1,8 +1,8 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useLocalStorage } from "@uidotdev/usehooks";
 import { useAppStore } from "../store/useAppStore";
+import { useLocalStorage } from "usehooks-ts";
 
 function useIsLoggedInReRoute(status?: boolean, reRouteUrl?: string) {
   const { DBDetails } = useAppStore();

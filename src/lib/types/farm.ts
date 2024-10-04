@@ -1,3 +1,5 @@
+import { LivestockCategory } from "./livestockcategory"
+
 export interface Farm {
     id? : number
     name: string
@@ -7,4 +9,5 @@ export interface Farm {
     number_of_workers: number
     owners_contact: string 
     owners_email : string
+    livestock_categories: LivestockCategory[]
 }

@@ -1,7 +1,10 @@
 export interface Record{
     id: number
     name: string
-    type: "cattle" | "sheep" | "goats"
+    category : {
+        id: number 
+        name: "cattle" | "sheep" | "goats"
+    }
     weight? : number 
     gender: "male" | "female"
     colour: string 

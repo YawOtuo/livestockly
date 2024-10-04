@@ -139,9 +139,9 @@ function Page() {
             <div
               className="flex flex-col col-span-5 lg:col-span-2
                         items-center">
-              {animal?.type == "goats" && <CaGoat />}
-              {animal?.type == "sheep" && <CaSheep />}
-              {animal?.type == "cattle" && <CaCattle />}
+              {animal?.category.name == "goats" && <CaGoat />}
+              {animal?.category.name == "sheep" && <CaSheep />}
+              {animal?.category.name == "cattle" && <CaCattle />}
 
               <h1 className="text-2xl font-bold uppercase"> {animal?.name}</h1>
             </div>
@@ -149,9 +149,9 @@ function Page() {
             <div className="flex  col-span-5 lg:col-span-1 flex-col  items-center lg:items-start gap-4 capitalize ">
               <p>
                 {" "}
-                {returnGender(animal?.type, "male")}: &nbsp;
+                {returnGender(animal?.category.name, "male")}: &nbsp;
                 {sire?.id ? (
-                  <Link href={`/dashboard/${sire.type}/${sire.id}`}>
+                  <Link href={`/dashboard/${sire.category.name}/${sire.id}`}>
                     <span className="font-bold brand-green-font">
                       {sire?.["name"] || "N/A"}
                     </span>
@@ -165,9 +165,9 @@ function Page() {
 
               <p>
                 {" "}
-                {returnGender(animal?.type, "female")}: &nbsp;
+                {returnGender(animal?.category.name, "female")}: &nbsp;
                 {dam?.id ? (
-                  <Link href={`/dashboard/${dam?.type}/${dam?.id}`}>
+                  <Link href={`/dashboard/${dam?.category.name}/${dam?.id}`}>
                     {" "}
                     <span className="font-bold brand-green-font">
                       {dam?.["name"] || "N/A"}

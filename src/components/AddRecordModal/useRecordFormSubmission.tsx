@@ -3,6 +3,8 @@ import useNotifications from "@/lib/hooks/useNotifications";
 import useToast from "@/lib/hooks/useToasts";
 import { RootState } from "@/lib/redux/store";
 import { useAppStore } from "@/lib/store/useAppStore";
+import { LivestockCategory } from "@/lib/types/livestockcategory";
+import { Record } from "@/lib/types/record";
 import { today } from "@/lib/utils/date";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -11,9 +13,9 @@ import { useDispatch, useSelector } from "react-redux";
 type Props = {
   otherData: any;
   setOpen: any;
-  type?: string;
+  category?: LivestockCategory;
   edit?: boolean;
-  record?: any;
+  record?: Record;
   dam?: any;
   sire?: any;
 };
@@ -21,7 +23,7 @@ type Props = {
 const useRecordFormSubmission = ({
   otherData,
   setOpen,
-  type,
+  category,
   edit,
   record,
   sire,
@@ -33,11 +35,15 @@ const useRecordFormSubmission = ({
   const queryClient = useQueryClient();
   const { createNotification } = useNotifications();
   const { showToast } = useToast();
+
   const createMutation = useMutation(
     (newItem: AddRecordBody) => AddRecord(newItem),
     {
       onSuccess: () => {
-        showToast(`New ${otherData.type || type} added`, "success");
+        showToast(
+          `New ${otherData.category.name || category?.name} added`,
+          "success"
+        );
 
         queryClient.invalidateQueries([`records`]);
       },
@@ -47,7 +53,7 @@ const useRecordFormSubmission = ({
     }
   );
   const updateMutation = useMutation(
-    (newItem: AddRecordBody) => updateRecord(record?.id, newItem),
+    (newItem: AddRecordBody) => updateRecord(Number(record?.id), newItem),
     {
       onMutate: () => {
         showToast("updating", "success");
@@ -59,7 +65,17 @@ const useRecordFormSubmission = ({
       },
     }
   );
+/*************  ✨ Codeium Command ⭐  *************/
+  /**
+   * Handle the creation of a new record. This function will be called when
+   * the form is submitted. It will create a new record in the database and
+   * invalidate the cache for the records query.
+   * @param {AddRecordBody} data - The data to create the record with
+   * @returns {Promise<void>}
+   */
+/******  55c58c92-55f7-4040-a076-bda09d0aa5f8  *******/
   const handleCreate = async (data: AddRecordBody) => {
+    console.log("handleCreate")
     await createMutation.mutateAsync(data);
     // const result = await AddRecord(data);
     // if (result) {
@@ -93,25 +109,8 @@ const useRecordFormSubmission = ({
     values.sire = sire?.id;
     values.gender = otherData?.gender;
     values.alive = otherData?.alive;
-    values.type =
-      otherData?.type === "goat" ? "goats" : otherData?.type || type;
+    values.category = otherData?.category
     values.remarks = otherData?.remarks;
-
-    if (!edit) {
-      values.weight = values?.weight && [
-        { content: values?.weight, date: today },
-      ];
-      values.vaccination_info = values?.vaccination_info && [
-        { content: values?.vaccination_info, date: today },
-      ];
-      values.health_condition = otherData?.health_condition && [
-        { content: values?.health_condition, date: today },
-      ];
-
-      values.remarks = otherData?.remarks && [
-        { content: otherData?.remarks, date: today },
-      ];
-    }
 
     values.castrated = otherData?.castrated;
 

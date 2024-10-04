@@ -42,10 +42,10 @@ export const DashSearch = () => {
         <Link
           key={index}
           className="flex flex-row items-center gap-2 py-10 lg:py-20 px-5 min-w-[300px] "
-          href={`/dashboard/records/${item["type"]}/${item?.["id"]}`}>
-          {item["type"] == "goats" && <CaGoat />}
-          {item["type"] == "sheep" && <CaSheep />}
-          {item["type"] == "cattle" && <CaCattle />}
+          href={`/dashboard/records/${item?.category?.name}/${item?.["id"]}`}>
+          {item?.category?.name == "goats" && <CaGoat />}
+          {item?.category?.name == "sheep" && <CaSheep />}
+          {item?.category?.name == "cattle" && <CaCattle />}
 
           {item["name"]}
         </Link>

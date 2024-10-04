@@ -11,9 +11,7 @@ export const GetOneRecord = async (id: number): Promise<Record> => {
   return response.json();
 };
 
-export interface AddRecordBody {
-  name?: string
-}
+export type AddRecordBody  = Omit<Record, "id">
 
 export const AddRecord = async (data: AddRecordBody): Promise<Record> => {
   const response = await fetch(`${url}records`, {

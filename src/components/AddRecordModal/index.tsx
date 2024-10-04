@@ -18,28 +18,32 @@ import CustomModal from "../ui/CustomDialog";
 import CustomInput from "../ui/CustomInput";
 import CustomTextArea from "../ui/CustomTextArea";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { LivestockCategory } from "@/lib/types/livestockcategory";
 const addIcon = "/icons/add.png";
 const editIcon = "/icons/edit.png";
 
 type Props = {
   edit?: boolean;
-  record?: any;
-  type?: string;
+  record?: Record;
+  category?: LivestockCategory;
   title?: string;
   variant?: "icon" | "text";
 };
 export default function AddRecordModal({
   edit,
   record,
-  type,
   title,
   variant,
+  category,
 }: Props) {
   const [open, setOpen] = React.useState(false);
 
   const [sire, setSire] = useState<Record>();
   const [dam, setDam] = useState<Record>();
-  const [otherData, setOtherData] = useState({ gender: "male", type: "sheep" });
+  const [otherData, setOtherData] = useState({
+    gender: "male",
+    category: category,
+  });
   const { handleSubmit } = useRecordFormSubmission({
     edit,
     otherData,
@@ -47,7 +51,7 @@ export default function AddRecordModal({
     dam,
     sire,
     record,
-    type,
+    category,
   });
 
   const {
@@ -55,8 +59,8 @@ export default function AddRecordModal({
     error: errorSire,
     data: sire_,
   } = useQuery(
-    [`${record?.type}-${record?.sire}`],
-    () => GetOneRecord(record?.sire),
+    [`${record?.category.name}-${record?.sire}`],
+    () => GetOneRecord(Number(record?.sire)),
     {
       enabled: !!record?.sire,
     }
@@ -66,8 +70,8 @@ export default function AddRecordModal({
     error: errorDam,
     data: dam_,
   } = useQuery(
-    [`${record?.slug}-${record?.dam}`],
-    () => GetOneRecord(record?.dam),
+    [`${record?.category.name}-${record?.dam}`],
+    () => GetOneRecord(Number(record?.dam)),
     {
       enabled: !!record?.sire,
     }
@@ -93,7 +97,7 @@ export default function AddRecordModal({
               edit ? (
                 <img src={editIcon} width="90%" />
               ) : (
-                <IoIosAddCircleOutline  className="text-primary text-xl"/>
+                <IoIosAddCircleOutline className="text-primary text-xl" />
               )
             ) : (
               <div className="flex gap-1 items-center">
@@ -113,7 +117,7 @@ export default function AddRecordModal({
             }}>
             {({ handleSubmit, handleReset, values, errors, handleChange }) => (
               <Form>
-                {edit ? "EDIT RECORD" : `NEW RECORD ${type ? type : ""}`}
+                {edit ? "EDIT RECORD" : `NEW RECORD ${category?.name ? category.name : ""}`}
                 <div className="pt-4 text-black grid grid-cols-1 lg:grid-cols-3 gap-5">
                   <div className=" flex flex-col gap-5">
                     <CustomInput
@@ -163,7 +167,7 @@ export default function AddRecordModal({
                         Sire {sire?.name}
                         <SelectSireModal
                           setParent={setSire}
-                          type={type}
+                          type={category?.name}
                           name="sire"
                         />
                       </div>
@@ -172,12 +176,12 @@ export default function AddRecordModal({
                         Dam {dam?.name}
                         <SelectSireModal
                           setParent={setDam}
-                          type={type}
+                          type={category?.name}
                           name="dam"
                         />
                       </div>
                     </div>
-
+{/* 
                     {!edit && (
                       <CustomInput
                         label={"weight"}
@@ -186,8 +190,8 @@ export default function AddRecordModal({
                         onChange={handleChange}
                         value={values.weight}
                       />
-                    )}
-                    {!edit && (
+                    )} */}
+                    {/* {!edit && (
                       <div className="mb-5">
                         {" "}
                         <CustomTextArea
@@ -197,15 +201,15 @@ export default function AddRecordModal({
                           initialValue={values.vaccination_info}
                         />
                       </div>
-                    )}
+                    )} */}
 
-                    {!edit && (
+                    {/* {!edit && (
                       <CustomTextArea
                         label={"health condition"}
                         onChange={handleChange}
                         initialValue={values.health_condition}
                       />
-                    )}
+                    )} */}
                   </div>
                   <div className="flex flex-col gap-5">
                     <CustomRadioInput

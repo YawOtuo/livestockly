@@ -8,3 +8,6 @@ if the farm the user logged in is not his farm, alert him
 firebase keys exposed in code and in browser
 
 if user is already registered, but still signs up, email will stil be sent
+
+dont pass whole category object when creaging a record
+its affecting the url

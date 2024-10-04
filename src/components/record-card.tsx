@@ -3,43 +3,51 @@ import Link from "next/link";
 import { useState } from "react";
 import React from "react";
 import AddRecordModal from "./AddRecordModal";
+import { GiChicken, GiCow, GiGoat, GiPig, GiSheep } from "react-icons/gi";
+import { LivestockCategory } from "@/lib/types/livestockcategory";
 
 const rightArrow = "/icons/arrow-right.png";
 
 type Props = {
-  type: string;
+  category: LivestockCategory;
   number: number;
-  icon: string;
+  // icon: string;
 };
-export const RecordCard = ({ type, icon, number }: Props) => {
+
+const icons: any = {
+  goats: <GiGoat />,
+  sheep: <GiSheep />,
+  cattle: <GiCow />,
+  poultry: <GiChicken />,
+  pigs: <GiPig />
+
+};
+export const RecordCard = ({ category, number }: Props) => {
   return (
     <div className="record-card relative">
       <div className="shadow-md text-center py-5 px-5 mt-5 flex flex-row justify-between">
-        <Link href={`/dashboard/records/${type}`}>
-          <div className="flex flex-row text-center items-center ">
-            <div className="">
-              <img src={icon} width="60%" />
-            </div>
+        <Link href={`/dashboard/records/${category?.name}/category/${category?.id}`}>
+          <div className="flex flex-row text-center items-center gap-3  ">
+            <div className="text-2xl text-primary">{icons[category?.name]}</div>
             <div className="text-uppercase w-full capitalize">
               {" "}
-              {type} ({number})
+              {category?.name} ({number})
             </div>
           </div>
         </Link>
 
         <div className="flex flex-row text-center items-center ">
           <div>
-            <AddRecordModal variant="icon" type={type} />
+            <AddRecordModal variant="icon" category={category} />
           </div>
 
           <div>
-            <Link href={`/dashboard/records/${type}`}>
+            <Link href={`/dashboard/records/${category?.name}/category/${category.id}`}>
               <div className="">
                 <img src={rightArrow} width="50%" />
               </div>
             </Link>
           </div>
- 
         </div>
       </div>
     </div>

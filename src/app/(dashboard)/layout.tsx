@@ -4,7 +4,6 @@ import Navbar from "./components/HorizontalAndMobileNavbar";
 import "../globals.css";
 // import { Open_Sans } from "next/font/google";
 import "../globals.css";
-import Providers from "@/lib/utils/provider";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
@@ -27,12 +26,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [showNotAccepted, setShowNotAccepted] = React.useState(false);
   const [currentPage, setCurrentPage] = useState("loading");
 
-  // useEffect(() => {
-  //   if (farm?.id && DBDetails?.farm_id != farm?.id) {
-  //     setCurrentPage("userDoesntBelongToFarm");
-  //   }
-
-  // }, []);
 
   useEffect(() => {
     console.log(DBDetails?.acceptedIntoFarm);
