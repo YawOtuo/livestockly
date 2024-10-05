@@ -2,6 +2,9 @@
 import useFarm from "@/lib/hooks/useFarm";
 
 import React from "react";
+import LivestockGrowthChart from "./components/LivestockGrowthCharts";
+import LivestockPopulationChart from "./components/LivestockPopulationChart";
+import FarmTotals from "./components/FarmTotals";
 
 interface InfoComponentProps {
   label: string;
@@ -21,31 +24,23 @@ function Page() {
   const { farm } = useFarm();
 
   return (
-<div className="p-5 lg:p-10">
-        <div className="flex flex-col items-start gap-5">
-          <InfoComponent
-            label="Farm Name"
-            value={farm?.name }
-          />
-          <InfoComponent
-            label="Livestock Types"
-            value={farm?.livestocktypes}
-          />
-          <InfoComponent
-            label="Location"
-            value={farm?.location}
-          />{" "}
-          <InfoComponent
-            label="Number of workers"
-            value={farm?.number_of_workers}
-          />{" "}
-          <InfoComponent
-            label="Size"
-            value={farm?.size}
-          />
-          {/* Add more InfoComponent instances as needed */}
+    <div className="">
+      <div className="flex flex-col lg:flex-row gap-5 py-10 px-5 bg-slate-50 items-center justify-center">
+        <div className="w-2/5 flex justify-end">
+          <h2 className="uppercase text-primary">{farm?.name}</h2>
         </div>
-</div>
+        <LivestockPopulationChart />
+      </div>
+
+      <div className="flex flex-col items-start gap-5 p-5">
+        <FarmTotals />
+        <InfoComponent label="Location" value={farm?.location} />{" "}
+   
+        {/* <InfoComponent label="Size" value={farm?.size} /> */}
+        {/* Add more InfoComponent instances as needed */}
+      </div>
+      <LivestockGrowthChart />
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 "use client";
 import { useQueries, useQuery } from "@tanstack/react-query";
-import TotalSales from "../components/TotalSales";
+import TotalSales from "../components/TotalSalesCard";
 import RecentlyRegistered from "../components/RecentlyRegistered";
 import IconButton from "@/components/IconButton";
 import AddRecordModal from "@/components/AddRecordModal";
@@ -10,6 +10,7 @@ import { PermissionComponent } from "@/components/permission-component";
 import { useAppStore } from "@/lib/store/useAppStore";
 import { useGetUserFarmDetails } from "@/lib/hooks/useFarm";
 import Link from "next/link";
+import useWorkers from "./workers/hooks/useWorkers";
 
 type Props = {};
 
@@ -17,7 +18,7 @@ export default function Page({ searchParams }: any) {
   const isLoggedIn = useIsLoggedInReRoute(false, "/login");
   const { DBDetails } = useAppStore();
   const { data: farm } = useGetUserFarmDetails();
-
+  const { workers, isLoadingWorkers } = useWorkers();
   const livestockDataQueries = useQueries({
     queries:
       farm?.livestock_categories?.map((category) => ({
@@ -30,14 +31,6 @@ export default function Page({ searchParams }: any) {
         enabled: !!farm?.id && !!DBDetails?.farm_id,
       })) ?? [],
   });
-
-  const { isLoading: isLoadingWorkers, data: workers } = useQuery(
-    ["workers"],
-    () => GetAllFarmUsersAccepted(DBDetails?.farm_id as number),
-    {
-      enabled: !!DBDetails?.farm_id,
-    }
-  );
 
   return (
     <div className="p-5 px-5 lg:px-10 w-full flex flex-col gap-5">

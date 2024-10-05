@@ -1,13 +1,23 @@
 import { toast } from "@/hooks/use-toast";
+import { GetAllFarmUsersAccepted } from "@/lib/api/farm";
 import { AcceptUser, DeAcceptUser } from "@/lib/api/users";
 import useNotifications from "@/lib/hooks/useNotifications";
 import { useAppStore } from "@/lib/store/useAppStore";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 function useWorkers() {
+  const { DBDetails } = useAppStore();
+
+  const { isLoading: isLoadingWorkers, data: workers } = useQuery(
+    ["workers"],
+    () => GetAllFarmUsersAccepted(DBDetails?.farm_id as number),
+    {
+      enabled: !!DBDetails?.farm_id,
+    }
+  );
+
   const queryClient = useQueryClient();
 
-  const { DBDetails } = useAppStore();
   const { createNotification } = useNotifications();
 
   const acceptMutation = useMutation((id: number) => AcceptUser(id), {
@@ -48,10 +58,7 @@ function useWorkers() {
   const handleReject = async (newItem: number) => {
     rejectMutation.mutate(newItem);
   };
-  return {
-    handleAccept,
-    handleReject,
-  };
+  return { workers, isLoadingWorkers, handleAccept, handleReject };
 }
 
 export default useWorkers;

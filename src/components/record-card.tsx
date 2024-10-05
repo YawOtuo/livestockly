@@ -2,21 +2,13 @@ import Link from "next/link";
 // import AddRecordModal from './add-record-modal'
 import { useState } from "react";
 import React from "react";
-import AddRecordModal from "./AddRecordModal";
-import {
-  GiChicken,
-  GiCow,
-  GiFlatfish,
-  GiGoat,
-  GiPig,
-  GiRabbit,
-  GiSheep,
-  GiSnail,
-} from "react-icons/gi";
+
 import { LivestockCategory } from "@/lib/types/livestockcategory";
 import { IoFishSharp } from "react-icons/io5";
-
+import dynamic from "next/dynamic";
+import { categoryIcons } from "@/lib/utils/categoryicons";
 const rightArrow = "/icons/arrow-right.png";
+const AddRecordModal = dynamic(() => import("./AddRecordModal"));
 
 type Props = {
   category: LivestockCategory;
@@ -24,20 +16,8 @@ type Props = {
   // icon: string;
 };
 
-const icons: any = {
-  goats: <GiGoat />,
-  sheep: <GiSheep />,
-  cattle: <GiCow />,
-  poultry: <GiChicken />,
-  pigs: <GiPig />,
-  tilapia: <IoFishSharp />,
-  catfish: <GiFlatfish />,
-  "guinea fowl": <GiChicken />,
-  "guinea pig": <GiPig />,
-  turkey: <GiChicken />,
-  rabbit: <GiRabbit />,
-  snail: <GiSnail />,
-};
+
+
 export const RecordCard = ({ category, number }: Props) => {
   return (
     <div className="record-card relative">
@@ -45,7 +25,7 @@ export const RecordCard = ({ category, number }: Props) => {
         <Link
           href={`/dashboard/records/${category?.name}/category/${category?.id}`}>
           <div className="flex flex-row text-center items-center gap-3  ">
-            <div className="text-2xl text-primary">{icons[category?.name]}</div>
+            <div className="text-2xl text-primary">{categoryIcons[category?.name]}</div>
             <div className="text-uppercase w-full capitalize">
               {" "}
               {category?.name} ({number})
