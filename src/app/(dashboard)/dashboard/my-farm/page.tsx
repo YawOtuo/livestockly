@@ -26,20 +26,21 @@ function Page() {
   return (
     <div className="">
       <div className="flex flex-col lg:flex-row gap-5 py-10 px-5 bg-slate-50 items-center justify-center">
-        <div className="w-2/5 flex justify-end">
+        <div className="w-full lg:w-2/5 flex justify-center lg:justify-end">
           <h2 className="uppercase text-primary">{farm?.name}</h2>
         </div>
         <LivestockPopulationChart />
       </div>
 
-      <div className="flex flex-col items-start gap-5 p-5">
-        <FarmTotals />
-        <InfoComponent label="Location" value={farm?.location} />{" "}
-   
-        {/* <InfoComponent label="Size" value={farm?.size} /> */}
-        {/* Add more InfoComponent instances as needed */}
+      <div className="p-5">
+        <div className="flex flex-col items-start gap-5 ">
+          <FarmTotals />
+          <InfoComponent label="Location" value={farm?.location} />{" "}
+          {/* <InfoComponent label="Size" value={farm?.size} /> */}
+          {/* Add more InfoComponent instances as needed */}
+        </div>
+        <LivestockGrowthChart />
       </div>
-      <LivestockGrowthChart />
     </div>
   );
 }
