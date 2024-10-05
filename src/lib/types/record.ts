@@ -20,4 +20,5 @@ export interface Record{
     health_condition: string 
     remarks: string
     farm_id: number
+    created_at: string
 }

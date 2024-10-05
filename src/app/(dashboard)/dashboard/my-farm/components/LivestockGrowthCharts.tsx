@@ -36,17 +36,16 @@ const LivestockGrowthChart = () => {
 
   // Prepare livestock growth data from queries
   const livestockGrowthData = React.useMemo(() => {
-    // Create initial growthData based on livestock categories
     const growthData: GrowthData[] = Array.from(
       { length: 12 },
       (_, monthIndex) => ({
         month: new Date(0, monthIndex).toLocaleString("default", {
           month: "long",
-        }), // Get month name
+        }),
         ...farm?.livestock_categories?.reduce((acc, category) => {
-          acc[category.name.toLowerCase()] = 0; // Initialize each category count to 0
+          acc[category.name.toLowerCase()] = 0; 
           return acc;
-        }, {} as { [key: string]: number }), // Start with an empty object
+        }, {} as { [key: string]: number }), 
       })
     );
 
@@ -57,25 +56,30 @@ const LivestockGrowthChart = () => {
           const categoryName = category.name.toLowerCase();
 
           query.data.forEach((record: Record) => {
-            const monthIndex = new Date(record.date_of_birth).getMonth(); // Get the month index (0-11)
-            if (monthIndex >= 0 && monthIndex < growthData.length) {
-              (growthData[monthIndex][categoryName] as number) += 1; // Increment the count for the appropriate month
+            const monthIndex = new Date(record.created_at).getMonth(); 
+            const recordYear = new Date(record.created_at).getFullYear(); // Extract the year from created_at
+            
+            const currentYear = new Date().getFullYear(); // Get the current year
+            
+            // Ensure the record year matches the current year before incrementing
+            if (monthIndex >= 0 && monthIndex < growthData.length && recordYear === currentYear) {
+              (growthData[monthIndex][categoryName] as number) += 1; 
             }
           });
         }
       }
     });
 
+    console.log(growthData); // Debugging: Check the generated growth data
     return growthData;
   }, [livestockDataQueries, farm]);
 
-  // Define an array of colors for different categories
   const categoryColors = [
-    "#8884d8", // Color for the first category
-    "#82ca9d", // Color for the second category
-    "#ffc658", // Color for the third category
-    "#ff7300", // Color for the fourth category
-    "#ff0000", // Color for the fifth category (add more colors as needed)
+    "#8884d8",
+    "#82ca9d",
+    "#ffc658",
+    "#ff7300",
+    "#ff0000",
     "#0000ff",
     "#ff00ff",
     "#00ff00",
@@ -95,8 +99,9 @@ const LivestockGrowthChart = () => {
             <Line
               key={category.name}
               type="monotone"
+              strokeWidth={2}
               dataKey={category.name.toLowerCase()}
-              stroke={categoryColors[index % categoryColors.length]} // Use color based on the index
+              stroke={categoryColors[index % categoryColors.length]}
               activeDot={{ r: 8 }}
             />
           ))}
