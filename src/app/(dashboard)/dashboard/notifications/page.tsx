@@ -8,6 +8,8 @@ import NotificationCard from "../../components/NotificationCard";
 import { GetUserNotifications } from "@/lib/api/notifications";
 import useNotifications from "@/lib/hooks/useNotifications";
 import { RootState } from "@/lib/redux/store";
+import FetchingState from "@/components/ui/FetchingState";
+import SkeletonNotifications from "./components/SkeletonNotifications";
 
 export default function Page() {
   const { notifications, isLoading, error } = useNotifications();
@@ -23,17 +25,16 @@ export default function Page() {
       </div>
 
       <div className="flex flex-col gap-5 w-full h-full">
-        {notifications?.map((r, index: number) => (
-          <NotificationCard notification={r} key={index} />
-        ))}
-        {isLoading && <p>Loading...</p>}
-        {(notifications?.length ?? 0) < 1 && (
-          // <div className="flex w-full  h-[50vh]">
-          //   <NoPlaceHolder label="notifications" />
-          // </div>
-          <p className="text-sm ">You have no notifications yet</p>
-        )}
-        {error as Error && <p>Sorry there was an error</p> }
+        <FetchingState
+          className="flex flex-col gap-5 w-full"
+          skeletonCount={10}
+          success={notifications?.map((r, index: number) => (
+            <NotificationCard notification={r} key={index} />
+          ))}
+          loading={<SkeletonNotifications />}
+          isLoading={isLoading}
+          isError={error}
+        />
       </div>
     </div>
   );

@@ -8,61 +8,49 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import moment from "moment";
 import IconButton from "@/components/IconButton";
 import { Notification } from "@/lib/types/notification";
+import {
+  IoCheckmarkCircleSharp,
+  IoInformationCircleOutline,
+} from "react-icons/io5";
 
 type Props = {
   notification: Notification;
 };
 
 export default function NotificationCard({ notification }: Props) {
-  const subjects: any = {
-    "post-liked": "Post Liked",
-    "post-created": `Post succesfully shared`,
-  };
-
-  const messages: any = {
-    "post-liked": `${notification?.from_name} has just liked your post`,
-    "post-created": `You created a post`,
-  };
   const icons: any = {
-    any: <IoIosNotificationsOutline size="30" className="text-primary" />,
-    "post-created": <IoIosNotificationsOutline size="30" className="text-primary" />,
-
-    "post-liked": <MdOutlineMessage size="30" className="text-primary" />,
-
-    // success: <SuccessCircle size="30" />,
-    caution: (
-      <PiWarningBold
-        size="30"
-        color="#E4A951
-    "
-      />
-    ),
-    info: <FaInfoCircle size="30" />,
+    // any: <IoIosNotificationsOutline  className="text-primary" />,
+    alert: <IoIosNotificationsOutline size="30" className="text-primary" />,
+    success: <IoCheckmarkCircleSharp />,
+    warning: <PiWarningBold className="text-red-500" />,
+    info: <IoInformationCircleOutline className="text-yellow-500 text-2xl" />,
   };
   return (
-    <div className="w-full max-w-[900px] hover:scale-[1.0`] hover:bg-green2 cursor-pointer p-5">
+    <div className="w-full  hover:scale-[1.0`] hover:bg-green2 cursor-pointer p-5">
       <div className="flex flex-col lg:flex-row items-start justify-between lg:items-center gap-3 lg:gap-0">
-        <div className="flex gap-3 items-center">
-          <div className="">{icons[notification?.type || "any"]}</div>
+        <div className="flex gap-3 items-start justify-start">
+          <div className="flex items-start h-full pt-2">
+            {icons[notification?.type || "info"]}
+          </div>
 
           <div className="flex flex-col gap-0 w-full">
-            <p className="font-semibold text-lg">
-              {subjects[notification?.type]}
-            </p>
-            <p className="text-xs text-gray-500">
-              {moment(new Date(notification?.date_created)).format(
-                "YYYY-MM-DD HH:mm:ss"
-              )}
+            <p className="text-xs text-gray-500 capitalize">
+              {moment(notification?.createdAt).fromNow()}
             </p>
 
-            <p className="">
-              {!notification?.type && notification?.subject}
+            <p
+              className={`text-lg capitalize ${
+                notification.read && "font-semibold"
+              }`}>
+              {notification?.subject}
             </p>
 
-            <p className="text-md">
-              {!notification?.type && notification?.content}
+            <p className="text-sm">
+              {" "}
+              {notification?.content} at{" "}
+              {moment(notification?.createdAt).format("hh:mm A DD/MM/YYYY")}
             </p>
-            <p className="text-md">{messages[notification?.type]}</p>
+            {/* <p className="text-md">{content[notification?.type]}</p> */}
           </div>
         </div>
         <div className="flex  gap-1">

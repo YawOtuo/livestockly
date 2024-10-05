@@ -6,9 +6,15 @@ import {
 } from "@/lib/api/farm";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
-import WorkerAccordion from "./components/WorkerAccordion";
-import { RootState } from "@/lib/redux/store";
+import dynamic from "next/dynamic";
 import { useAppStore } from "@/lib/store/useAppStore";
+import WorkersSearch from "./components/WorkersSearch";
+import WorkersUnaccepted from "./components/WorkersUnaccepted";
+import SkeletonWorkerCard from "./components/SkeletonWorkerCard";
+import NullComponent from "@/components/ui/NullComponent";
+import FetchingState from "@/components/ui/FetchingState";
+
+const WorkersDialog = dynamic(() => import("./components/WorkerDialog"));
 
 function Page() {
   const { DBDetails } = useAppStore();
@@ -21,49 +27,31 @@ function Page() {
     ["workers"],
     () => GetAllFarmUsersAccepted(DBDetails?.farm_id as number),
     {
-      enabled: !!DBDetails?.farm_id,
+      enabled: !!DBDetails?.id,
     }
   );
-  const {
-    isLoading: isLoadingUnaccepted,
-    error: errorUnaccepted,
-    data: unaccepted,
-  } = useQuery(
-    ["workers-unaccepted"],
-    () => GetAllFarmUsersUnaccepted(DBDetails?.farm_id as number),
-    {
-      enabled: !!DBDetails?.farm_id,
-    }
-  );
-  return (
-    <div className="flex flex-col gap-5 px-5">
-      <div className="flex flex-col gap-4 mt-5 ">
-        <p className="text-lg font-semibold border-b-2 text-green1">
-          Pending Users
-        </p>
-        <div className="flex flex-wrap gap-5 items-center justify-start">
-          {isLoadingWorkers && (
-            <CustomLoaders variant="syncloader" colour="green1" />
-          )}
-          {unaccepted?.length &&
-            unaccepted?.map((r, index) => (
-              <WorkerAccordion worker={r} key={index} />
-            ))}
-        </div>
-      </div>
-      <div className="flex flex-col gap-4">
-        <p className="text-lg font-semibold border-b-2 text-green1">
-          All Workers
-        </p>
-        <div className="flex flex-wrap gap-5 items-center justify-start">
-          {isLoadingWorkers && (
-            <CustomLoaders variant="syncloader" colour="green1" />
-          )}
 
-          {workers?.length &&
-            workers?.map((r, index) => (
-              <WorkerAccordion worker={r} accepted key={index} />
-            ))}
+  return (
+    <div className="flex flex-col gap-5 p-5">
+      <WorkersSearch />
+      <WorkersUnaccepted />
+      <div className="flex flex-col gap-4 w-full">
+        <h2 className="text-lg font-semibold  text-green1">All Workers</h2>
+        <div>
+          <FetchingState
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-5 items-center justify-start w-full"
+            skeletonCount={5}
+            success={
+              (workers?.length  ?? 0 > 0) &&
+              workers?.map((r, index) => (
+                <WorkersDialog worker={r} key={index} />
+              ))
+            }
+            isError={errorWorkers}
+            loading={<SkeletonWorkerCard />}
+            isLoading={isLoadingWorkers}
+            nullComponent={<NullComponent />}
+          />
         </div>
       </div>
     </div>

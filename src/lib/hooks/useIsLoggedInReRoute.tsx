@@ -5,7 +5,7 @@ import { useAppStore } from "../store/useAppStore";
 import { useLocalStorage } from "usehooks-ts";
 
 function useIsLoggedInReRoute(status?: boolean, reRouteUrl?: string) {
-  const { DBDetails } = useAppStore();
+  const {  FBaseDetails } = useAppStore();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -28,7 +28,7 @@ function useIsLoggedInReRoute(status?: boolean, reRouteUrl?: string) {
   }, [pathname, searchParams]);
 
   useEffect(() => {
-    if (DBDetails?.email) {
+    if (FBaseDetails?.email) {
       if (status) {
         setIsLoggedIn(true);
 
@@ -39,7 +39,7 @@ function useIsLoggedInReRoute(status?: boolean, reRouteUrl?: string) {
         !status && router?.push(reRouteUrl);
       }
     }
-  }, [DBDetails?.email]);
+  }, [FBaseDetails?.email]);
 
   return isLoggedIn;
 }
