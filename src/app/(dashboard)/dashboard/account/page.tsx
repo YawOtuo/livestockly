@@ -16,7 +16,7 @@ export default function Page() {
   const { DBDetails } = useAppStore();
 
   return (
-    <div className="flex flex-col gap-5 w-full justify-between px-5 lg:px-10 py-5  items-start">
+    <div className="flex flex-col gap-5 w-full justify-between  items-start">
       {/* <p className=" font-semibold text-2xl w-full text-left">
         My Account
       </p> */}
@@ -58,7 +58,6 @@ export default function Page() {
           </div>
         </div>
         <div className="flex flex-col items-start">
-       
           <div className="mt-5">
             {/* <EditProfileModal DBDetails={DBDetails} />{" "} */}
           </div>

@@ -14,7 +14,7 @@ import SkeletonNotifications from "./components/SkeletonNotifications";
 export default function Page() {
   const { notifications, isLoading, error } = useNotifications();
   return (
-    <div className="flex flex-col gap-5 w-full justify-start px-5 lg:px-10 py-5">
+    <div className="flex flex-col gap-5 w-full justify-start  ">
       <div className="flex gap-5 font-[400] items-center">
         <p className="font-semibold text-green1 text-xl">Notifcations</p>
         {/* {items?.length > 1 && (

@@ -27,20 +27,20 @@ export const Links = [
     level: 3,
   },
   {
-    label: "farm",
+    label: "My Farm",
     link: "/dashboard/my-farm",
     icon: <GiFarmTractor />,
     level: 1,
   },
   {
     label: "Sales",
-    link: "/dashboard/my-sales",
+    link: "/dashboard/sales",
     icon: <GrMoney />,
     level: 1,
   },
   {
     label: "Inventory",
-    link: "/dashboard/my-inventory",
+    link: "/dashboard/inventory",
     icon: <MdOutlineInventory />,
     level: 1,
   },

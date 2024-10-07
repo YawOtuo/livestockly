@@ -31,10 +31,10 @@ export default function HorizontalAndMobileNabvar() {
   const isAdmin = useIsAdmin(DBDetails?.uid as string);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence >
       <motion.div
      
-        className="border-b-yellow4 bg-yellow5 lg:bg-inherit border-b-[1px] w-full flex flex-col items-center justify-between px-0 lg:px-10 py-2 gap-5">
+        className=" lg:bg-inherit border-b-[1px] w-full flex flex-col items-center justify-between px-0 lg:px-10 py-2 gap-5">
         <div className="flex gap-5 w-full px-3 items-center">
           <div className="w-full"></div>
           <NotificationPopover />

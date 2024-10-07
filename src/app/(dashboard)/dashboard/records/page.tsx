@@ -33,7 +33,7 @@ const Page = () => {
   return (
     <>
       <SlideEnter>
-        <div className="flex flex-col justify-center items-center w-full md:mt-0 py-5">
+        <div className="flex flex-col justify-center items-center w-full">
           <div className="w-full">
             <DashSearch />
           </div>

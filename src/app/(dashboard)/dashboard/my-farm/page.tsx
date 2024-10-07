@@ -11,7 +11,7 @@ function Page() {
   const { farm } = useFarm();
 
   return (
-    <div className="p-5">
+    <div className="">
       <div className="w-full  flex justify-start ">
         <h3 className="capitalize font-semibold text-primary">{farm?.name}</h3>
       </div>

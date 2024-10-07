@@ -32,7 +32,7 @@ function Page() {
   );
 
   return (
-    <div className="flex flex-col gap-5 p-5">
+    <div className="flex flex-col gap-5">
       <WorkersSearch />
       <WorkersUnaccepted />
       <div className="flex flex-col gap-4 w-full">

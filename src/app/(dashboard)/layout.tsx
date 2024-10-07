@@ -26,7 +26,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [showNotAccepted, setShowNotAccepted] = React.useState(false);
   const [currentPage, setCurrentPage] = useState("loading");
 
-
   useEffect(() => {
     console.log(DBDetails?.acceptedIntoFarm);
     if (DBDetails?.acceptedIntoFarm) {
@@ -64,13 +63,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
     ),
     success: (
-      <div className="grid grid-cols-6">
-        <div className="hidden lg:flex">
+      <div className="grid grid-cols-10 bg-green2">
+        <div className="col-span-2 hidden lg:flex">
           <DashboardSideNav />
         </div>
-        <div className="col-span-6 lg:col-span-5 flex flex-col">
-          <Navbar />
-          <div className="w-full h-full">{children}</div>
+        <div className="col-span-6 lg:col-span-8  ">
+          <div className="flex flex-col rounded-tl-3xl bg-white overflow-hidden h-full">
+            <Navbar />
+            <div className="w-full h-full p-5 ">{children}</div>
+          </div>
         </div>
       </div>
     ),

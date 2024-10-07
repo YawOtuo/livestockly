@@ -45,7 +45,7 @@ export default function DashboardSideNav() {
 
   const isAdmin = useIsAdmin(DBDetails?.uid as string);
   return (
-    <div className="bg-green2 w-full flex flex-col h-[100vh] sticky top-0 items-start py-5 justify-start gap-2 px-2">
+    <div className=" w-full flex flex-col h-[100vh] sticky top-0 items-start py-5 justify-start gap-2 px-2">
       <div className="flex flex-col w-full items-start justify-center px-5 pb-10">
         <p>
           livestock<span className="text-primary">ly</span>
