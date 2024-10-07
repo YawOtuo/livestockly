@@ -19,7 +19,7 @@ type Props = {
 
 export const RecordCard = ({ category, number }: Props) => {
   return (
-    <div className="shadow-md shadow-green2 text-center py-3 px-5  flex flex-row justify-between items-center rounded-lg hover:bg-green2 hover:text-white group transition-all duration-200" >
+    <div className="shadow-md shadow-green3 text-center py-4 px-5  flex flex-row justify-between items-center rounded-lg hover:bg-green2 hover:text-white group transition-all duration-200" >
       <Link
         href={`/dashboard/records/${category?.name}/category/${category?.id}`}>
         <div className="flex flex-row text-center items-center gap-3  ">

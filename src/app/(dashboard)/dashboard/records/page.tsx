@@ -37,7 +37,7 @@ const Page = () => {
           <div className="w-full">
             <DashSearch />
           </div>
-          <div className="w-4/5 md:w-3/5 flex flex-col gap-5 lg:gap-5">
+          <div className="w-full lg:w-3/5 flex flex-col gap-5 lg:gap-5">
             {farm?.livestock_categories?.map((category, index) => {
               const queryData = livestockDataQueries[index]; // Get the data for each category
               return (
