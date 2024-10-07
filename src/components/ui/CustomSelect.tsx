@@ -33,7 +33,6 @@ const CustomSelect = <T extends { [key: string]: any }>({
   React.useEffect(() => {
     if (initialValue !== undefined) {
       setSelectedValue(initialValue)
-      console.log("chaingin")
       onChange && onChange(initialValue)
     }
   }, [initialValue]);
@@ -44,8 +43,8 @@ const CustomSelect = <T extends { [key: string]: any }>({
   };
 
   return (
-    <div className="w-full flex items-center gap-3">
-      {label && <p className="text-xs whitespace-nowrap">{label}</p>}
+    <div className="w-full flex flex-col items-start gap-3">
+      {label && <p className="text-sm whitespace-nowrap">{label}</p>}
       <Select onValueChange={handleValueChange}>
         <SelectTrigger className={`${className} w-full`}>
           <p>
@@ -54,7 +53,7 @@ const CustomSelect = <T extends { [key: string]: any }>({
               : placeholder}
           </p>
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="z-[700]">
           {data.map((item, index) => (
             <SelectItem
               key={index}

@@ -1,59 +1,41 @@
-import * as React from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+import React from "react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
-type Data = {
-  value: string;
+type RadioOption = {
   label: string;
+  value: string;
+  id: string;
 };
 
-type Props = {
-  title: string;
-  data: Data[];
-  onChange: any;
-  initialValue?: any;
+type CustomRadioInputProps = {
+  options: RadioOption[];
   defaultValue?: string;
+  onChange?: (value: string) => void;
+  title?: string;
 };
-export default function CustomRadioInput({
-  initialValue,
+
+const CustomRadioInput: React.FC<CustomRadioInputProps> = ({
+  options,
+  defaultValue,
   onChange,
   title,
-  data,
-  defaultValue,
-}: Props) {
-  const handleChange = (e: any) => {
-    // Assuming 'value' is either 'yes' or 'no'
-    onChange((prev : any) => ({
-      ...prev,
-      [title]: e.target.value,
-    }));
-  };
+}) => {
   return (
-    <FormControl>
-      <FormLabel
-        id="demo-radio-buttons-group-label"
-        className="!text-black capitalize !text-sm">
-        {title}
-      </FormLabel>
+    <div>
+      {title && <p className="mb-2 font-semibold">{title}</p>}
       <RadioGroup
-        row
-        value={initialValue}
-        onChange={handleChange}
-        aria-labelledby="demo-radio-buttons-group-label"
         defaultValue={defaultValue}
-        name="radio-buttons-group">
-        {data?.map((r, index) => (
-          <FormControlLabel
-            className="!text-sm"
-            value={r?.value}
-            control={<Radio />}
-            label={r?.label}
-          />
+        onValueChange={(value) => onChange && onChange(value)}>
+        {options.map((option) => (
+          <div key={option.id} className="flex items-center space-x-2">
+            <RadioGroupItem value={option.value} id={option.id} />
+            <Label htmlFor={option.id}>{option.label}</Label>
+          </div>
         ))}
       </RadioGroup>
-    </FormControl>
+    </div>
   );
-}
+};
+
+export default CustomRadioInput;

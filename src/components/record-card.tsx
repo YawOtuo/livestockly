@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 import { categoryIcons } from "@/lib/utils/categoryicons";
 import { MdKeyboardArrowRight } from "react-icons/md";
 const rightArrow = "/icons/arrow-right.png";
-const AddRecordModal = dynamic(() => import("./AddRecordModal"));
+const AddRecordModal = dynamic(() => import("./modals/AddRecordModal"));
 
 type Props = {
   category: LivestockCategory;

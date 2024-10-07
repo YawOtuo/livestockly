@@ -3,7 +3,7 @@ import { useQueries, useQuery } from "@tanstack/react-query";
 import TotalSales from "../components/TotalSalesCard";
 import RecentlyRegistered from "../components/RecentlyRegistered";
 import IconButton from "@/components/IconButton";
-import AddRecordModal from "@/components/AddRecordModal";
+import AddRecordModal from "@/components/modals/AddRecordModal";
 import { GetAllFarmRecordsSp, GetAllFarmUsersAccepted } from "@/lib/api/farm";
 import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
 import { PermissionComponent } from "@/components/permission-component";

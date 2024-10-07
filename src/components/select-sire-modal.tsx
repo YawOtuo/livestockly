@@ -1,26 +1,23 @@
 import { useEffect, useState } from "react";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-
 import { SearchResultCard } from "./search-result-card";
 import { url } from "../../weburl";
 import { GetOneRecord, searchRecords } from "@/lib/api/record";
 import { useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/redux/store";
+
 import { Button } from "./ui/button";
 import CustomModal from "./ui/CustomDialog";
 import { Input } from "./ui/input";
 import { useAppStore } from "@/lib/store/useAppStore";
 
-export const SelectSireModal = (props: any) => {
+type Props=  {
+  setParent : any
+  name: string
+}
+export const SelectSireModal = ({setParent, name} : Props) => {
   const [open, setOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
 
   const { DBDetails } = useAppStore();
-
 
   const {
     isLoading: isLoadinganimal,
@@ -36,16 +33,16 @@ export const SelectSireModal = (props: any) => {
 
   useEffect(() => {}, [searchInput]);
 
-
   const displaySires = () => {
     return searchResults?.map((item, index) => {
       return (
         <Button
+          type="button"
           key={index}
           className=""
           onClick={(e) => {
             e.preventDefault();
-            props.setParent({ id: item["id"], name: item["name"] });
+            setParent({ id: item["id"], name: item["name"] });
             setOpen(false);
           }}>
           <SearchResultCard name={item["name"]} />
@@ -65,13 +62,13 @@ export const SelectSireModal = (props: any) => {
         onOpenChange={setOpen}
         size={"4xl"}
         trigger={
-          <Button variant="outline" >
-            {<p className="uppercase">Select {props.name}</p>}
+          <Button variant="outline">
+            {<p className="uppercase">Select {name}</p>}
           </Button>
         }
         body={
           <div>
-            <div>Select {props.name}</div>
+            <div>Select {name}</div>
             <div>
               <div>
                 <div className="justify-center items-center flex flex-col">

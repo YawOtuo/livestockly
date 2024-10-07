@@ -1,5 +1,5 @@
 "use client";
-import AddRecordModal from "@/components/AddRecordModal";
+import AddRecordModal from "@/components/modals/AddRecordModal";
 import CaCattle from "@/components/icons/CaCattle";
 import CaGoat from "@/components/icons/CaGoat";
 import CaSheep from "@/components/icons/CaSheep";

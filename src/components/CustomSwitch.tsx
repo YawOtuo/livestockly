@@ -1,27 +1,35 @@
-import * as React from "react";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
+import React from "react";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
-type Props = {
-  label: string;
-  onChange : any
-};
-export default function CustomSwitch({ label, onChange }: Props) {
-  const handleChange = (e : any) => {
-    // Assuming 'value' is either 'yes' or 'no'
-    onChange((prev : any) => ({
-      ...prev,
-      [label]: e.target.checked,
-    }));
-  };
-  return (
-    <FormGroup onChange={handleChange}>
-      <FormControlLabel
-        control={<Switch defaultChecked />}
-        label={label}
-        className="!capitalize"
-      />
-    </FormGroup>
-  );
+interface CustomSwitchProps {
+  id: string;                   // Unique ID for the Switch component
+  label: string;                // Text for the label
+  defaultChecked?: boolean;     // Optional initial state
+  onChange?: (checked: boolean) => void; // Handler for state change
+  labelPosition?: "left" | "right"; // Optional prop for label position
 }
+
+const CustomSwitch: React.FC<CustomSwitchProps> = ({
+  id,
+  label,
+  defaultChecked = false,
+  onChange,
+  labelPosition = "right",
+}) => {
+  const [checked, setChecked] = React.useState(defaultChecked);
+
+  const handleSwitchChange = (value: boolean) => {
+    setChecked(value);
+    if (onChange) onChange(value);
+  };
+
+  return (
+    <div className={`flex items-center space-x-2 ${labelPosition === "left" ? "flex-row-reverse" : ""}`}>
+      <Switch id={id} checked={checked} onCheckedChange={handleSwitchChange} />
+      <Label htmlFor={id}>{label}</Label>
+    </div>
+  );
+};
+
+export default CustomSwitch;
