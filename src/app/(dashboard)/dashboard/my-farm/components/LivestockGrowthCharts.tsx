@@ -12,6 +12,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  LineChart,
+  Line,
 } from "recharts";
 
 const LivestockGrowthChart = () => {
@@ -58,11 +60,15 @@ const LivestockGrowthChart = () => {
           query.data.forEach((record: Record) => {
             const monthIndex = new Date(record.created_at).getMonth();
             const recordYear = new Date(record.created_at).getFullYear(); // Extract the year from created_at
-            
+
             const currentYear = new Date().getFullYear(); // Get the current year
-            
+
             // Ensure the record year matches the current year before incrementing
-            if (monthIndex >= 0 && monthIndex < growthData.length && recordYear === currentYear) {
+            if (
+              monthIndex >= 0 &&
+              monthIndex < growthData.length &&
+              recordYear === currentYear
+            ) {
               (growthData[monthIndex][categoryName] as number) += 1;
             }
           });
@@ -89,14 +95,14 @@ const LivestockGrowthChart = () => {
     <div className="w-full">
       <h5>Livestock Growth Over Time</h5>
       <ResponsiveContainer width="100%" height={400}>
-        <AreaChart data={livestockGrowthData}>
+        <LineChart data={livestockGrowthData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
           <Legend />
           {farm?.livestock_categories?.map((category, index) => (
-            <Area
+            <Line
               key={category.name}
               type="monotone"
               strokeWidth={2}
@@ -106,7 +112,7 @@ const LivestockGrowthChart = () => {
               activeDot={{ r: 8 }}
             />
           ))}
-        </AreaChart>
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );
