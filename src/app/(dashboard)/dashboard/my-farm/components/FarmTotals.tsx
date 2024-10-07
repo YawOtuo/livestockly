@@ -31,7 +31,7 @@ function FarmTotals() {
         );
       })}
 
-      <TotalSales
+      <FarmTotalsCard
         amount={workers?.length as number}
         filter="Workers"
         url="/dashboard"

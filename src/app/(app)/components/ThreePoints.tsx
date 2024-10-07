@@ -20,7 +20,7 @@ const PointCard = ({ label, icon, text }: PCProps) => {
 function ThreePoints() {
   return (
     <div className="flex flex-col gap-20  items-start py-24">
-      <h2 className="w-full lg:w-[75%] ">
+      <h2 className="w-full  ">
         Unlock the Potential of Your Farm with{" "}
         <span className="text-primary">Livestockly</span>
         <span className="hidden lg:block">

@@ -4,8 +4,8 @@ import { Record } from "@/lib/types/record";
 import { useQueries } from "@tanstack/react-query";
 import React from "react";
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -43,9 +43,9 @@ const LivestockGrowthChart = () => {
           month: "long",
         }),
         ...farm?.livestock_categories?.reduce((acc, category) => {
-          acc[category.name.toLowerCase()] = 0; 
+          acc[category.name.toLowerCase()] = 0;
           return acc;
-        }, {} as { [key: string]: number }), 
+        }, {} as { [key: string]: number }),
       })
     );
 
@@ -56,14 +56,14 @@ const LivestockGrowthChart = () => {
           const categoryName = category.name.toLowerCase();
 
           query.data.forEach((record: Record) => {
-            const monthIndex = new Date(record.created_at).getMonth(); 
+            const monthIndex = new Date(record.created_at).getMonth();
             const recordYear = new Date(record.created_at).getFullYear(); // Extract the year from created_at
             
             const currentYear = new Date().getFullYear(); // Get the current year
             
             // Ensure the record year matches the current year before incrementing
             if (monthIndex >= 0 && monthIndex < growthData.length && recordYear === currentYear) {
-              (growthData[monthIndex][categoryName] as number) += 1; 
+              (growthData[monthIndex][categoryName] as number) += 1;
             }
           });
         }
@@ -87,25 +87,26 @@ const LivestockGrowthChart = () => {
 
   return (
     <div className="w-full">
-      <h4>Livestock Growth Over Time</h4>
+      <h5>Livestock Growth Over Time</h5>
       <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={livestockGrowthData}>
+        <AreaChart data={livestockGrowthData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
           <Legend />
           {farm?.livestock_categories?.map((category, index) => (
-            <Line
+            <Area
               key={category.name}
               type="monotone"
               strokeWidth={2}
               dataKey={category.name.toLowerCase()}
               stroke={categoryColors[index % categoryColors.length]}
+              fill={categoryColors[index % categoryColors.length]} // Fill the area with color
               activeDot={{ r: 8 }}
             />
           ))}
-        </LineChart>
+        </AreaChart>
       </ResponsiveContainer>
     </div>
   );

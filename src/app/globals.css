@@ -43,6 +43,28 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+
+    --shadow-color: 0deg 0% 78%;
+    --shadow-elevation-low:
+      0px 0.7px 0.7px hsl(var(--shadow-color) / 0.28),
+      0px 1px 0.9px -1.9px hsl(var(--shadow-color) / 0.22),
+      -0.1px 2.2px 2.1px -3.7px hsl(var(--shadow-color) / 0.16);
+    --shadow-elevation-medium:
+      0px 0.7px 0.7px hsl(var(--shadow-color) / 0.3),
+      0px 1.5px 1.4px -1.2px hsl(var(--shadow-color) / 0.25),
+      -0.1px 4.1px 3.8px -2.5px hsl(var(--shadow-color) / 0.2),
+      -0.3px 10.9px 10.2px -3.7px hsl(var(--shadow-color) / 0.15);
+    --shadow-elevation-high:
+      0px 0.7px 0.7px hsl(var(--shadow-color) / 0.24),
+      0px 1.6px 1.5px -0.5px hsl(var(--shadow-color) / 0.23),
+      -0.1px 2.6px 2.4px -0.9px hsl(var(--shadow-color) / 0.21),
+      -0.1px 4.4px 4.1px -1.4px hsl(var(--shadow-color) / 0.19),
+      -0.2px 7.3px 6.8px -1.9px hsl(var(--shadow-color) / 0.17),
+      -0.3px 11.8px 11.1px -2.3px hsl(var(--shadow-color) / 0.15),
+      -0.5px 18.2px 17.1px -2.8px hsl(var(--shadow-color) / 0.14),
+      -0.8px 27.2px 25.5px -3.3px hsl(var(--shadow-color) / 0.12),
+      -1.1px 39.1px 36.7px -3.7px hsl(var(--shadow-color) / 0.1);
+
   }
 
   .dark {

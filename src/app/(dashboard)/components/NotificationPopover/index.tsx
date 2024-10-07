@@ -9,11 +9,11 @@ function NotificationPopover() {
   const { notifications, isLoading, error } = useNotifications();
 
   return (
-    <div>
+    <div className="flex items-center">
       <CustomPopover
-      contentClassName="w-[500px]"
+      contentClassName="w-[90vw] md:w-[500px]"
         trigger={
-          <div>
+          <div className="flex items-center">
             <IoMdNotifications className="text-primary text-2xl"/>
           </div>
         }

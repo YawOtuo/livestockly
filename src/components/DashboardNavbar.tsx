@@ -23,7 +23,7 @@ export const Navbar = () => {
             </div>}
             <div className='col-span-full lg:col-span-1 text-center ' >
                 <Link href='/dashboard' className='brand-green-font 
-                font-bold text-lg'>BOATEY FARMS</Link>
+                font-bold text-lg'>livestockly</Link>
             </div>
             {!isTab && <div className='col-span-1 text-right'>
                 <div className='flex flex-row justify-center items-center w-full'>

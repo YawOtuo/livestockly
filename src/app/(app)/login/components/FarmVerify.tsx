@@ -2,8 +2,6 @@ import { CustomTextField } from "@/components/CustomTextfield";
 import { CustomLoaders } from "@/components/Loaders";
 import { VerifyFarmExists } from "@/lib/api/farm";
 import useSetFarmIdInLS from "@/lib/hooks/useSetFarmIdInLS";
-import { setFarmDetails } from "@/lib/redux/reducers/farm";
-import { useFarmStore } from "@/lib/store/useFarmStore";
 import { Button, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
@@ -18,8 +16,10 @@ function FarmVerify({ onSuccess, page }: Props) {
   const queryClient = useQueryClient();
   const [success, setSuccess] = useState<boolean>();
   const [loading, setLoading] = useState(false);
-  const {farm, setFarmDetails} = useFarmStore()
+  const { farm, setFarm } = useSetFarmIdInLS();
+
   const dispatch = useDispatch();
+
   const handleSubmit = async (name: string) => {
     setLoading(true);
     setSuccess(undefined);
@@ -29,12 +29,12 @@ function FarmVerify({ onSuccess, page }: Props) {
       console.log(result);
       setSuccess(false);
       console.log("faiiled");
-      setLoading(false)
+      setLoading(false);
     }
     if (result?.id) {
       console.log(result);
       console.log("success");
-      setFarmDetails(result);
+      setFarm(result);
       setSuccess(true);
       setLoading(false);
       onSuccess((prev) => 1);
@@ -61,7 +61,7 @@ function FarmVerify({ onSuccess, page }: Props) {
                   setSuccess(undefined);
                 }}
                 value={values.farm_name}
-            />
+              />
               {loading && (
                 <CustomLoaders variant="syncloader" colour="green1" />
               )}

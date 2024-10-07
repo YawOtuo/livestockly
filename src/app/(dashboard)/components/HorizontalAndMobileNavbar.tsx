@@ -43,26 +43,11 @@ export default function HorizontalAndMobileNabvar() {
         // // }}
         // initial={{ opacity: 0 }}
         // animate={{ opacity: 1 }}
-        className="border-b-yellow4 bg-yellow5 lg:bg-inherit border-b-2 lg:h-[52px] w-full flex flex-col items-center justify-between px-0 lg:px-10 py-2 gap-5">
+        className="border-b-yellow4 bg-yellow5 lg:bg-inherit border-b-[1px] w-full flex flex-col items-center justify-between px-0 lg:px-10 py-2 gap-5">
         <div className="flex gap-5 w-full px-3 items-center">
-          <div className="flex gap-5 items-center w-full">
-            {DBDetails?.public_id && (
-              <div className="relative w-full max-w-[50px] aspect-square rounded-full overflow-hidden border-2 border-yellow1">
-                <Image
-                  alt="Image"
-                  fill
-                  src={`https://res.cloudinary.com/daurieb51/image/upload/v1642082142/${
-                    DBDetails?.public_id || "placeholderdog_xyfyje"
-                  }.png`}
-                />
-              </div>
-            )}
-
-            <p className="font-semibold text-yellow1 lg:text-black">
-              {DBDetails?.username}
-            </p>
-          </div>{" "}
+          <div className="w-full"></div>
           <NotificationPopover />
+
           <div className="hidden lg:flex gap-1  text-sm px-10  items-center">
             <IoIosLogOut />
             <button onClick={Logout}>Logout</button>

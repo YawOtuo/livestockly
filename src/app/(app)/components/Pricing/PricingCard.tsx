@@ -26,7 +26,7 @@ function PricingCard({ type = "free", price, items, label, summary }: Props) {
     enterprise: "text-black/80",
   };
   return (
-    <div className="flex flex-col gap-5 border-2  rounded-2xl overflow-hidden hover:scale-[1.01] transition-all">
+    <div className="flex flex-col gap-5 shadow-lg  rounded-2xl overflow-hidden hover:scale-[1.01] transition-all">
       <div
         className={`uppercase text-primary text-3xl font-semibold p-5 ${bgOptions[type]}`}>
         {label}
