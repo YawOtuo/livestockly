@@ -67,8 +67,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="col-span-2 hidden lg:flex">
           <DashboardSideNav />
         </div>
-        <div className="col-span-6 lg:col-span-8  ">
-          <div className="flex flex-col rounded-tl-3xl bg-white overflow-hidden h-full">
+        <div className="col-span-10 lg:col-span-8  ">
+          
+          <div className="flex 
+          flex-col rounded-tl-3xl bg-white overflow-hidden h-full">
             <Navbar />
             <div className="w-full h-full p-5 ">{children}</div>
           </div>
