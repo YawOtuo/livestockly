@@ -13,6 +13,7 @@ import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
 import { RootState } from "@/lib/redux/store";
 import { Farm } from "@/lib/types/farm";
 import { useFarmStore } from "@/lib/store/useFarmStore";
+import useSetFarmIdInLS from "@/lib/hooks/useSetFarmIdInLS";
 
 type Props = {
   page?: string;
@@ -31,7 +32,7 @@ function LoginWithEmail({ page }: Props) {
 
   const [showFields, setShowFields] = useState(false);
 
-  const {farm} = useFarmStore()
+  const {farm} = useSetFarmIdInLS()
   const handleGoogleSignUp = () => {
     signUpWithGoogle();
   };

@@ -18,8 +18,8 @@ const FarmTotalsCard = ({ filter, amount, url }: Props) => {
       {amount ? (
         <motion.div
           layout
-          className="flex  shadow-md border-green2 rounded-2xl lg:rounded-2xl  flex-col   items-center justify-center gap-1 lg:gap-1  lg:w-fit lg:min-w-[150px] aspect-square
-       cursor-pointer hover:scale-[1.05]  hover:border-green1 transition-all duration-300">
+          className="flex  shadow-md border-green2 rounded-2xl  items-center justify-center gap-3 lg:gap-5  
+       cursor-pointer hover:scale-[1.05]  hover:border-green1 transition-all duration-300 px-5 py-3">
           {<p className=" font-bold text-xl">{amount}</p>}
 
           <p className="capitalize text-center text-xs"> {filter}</p>

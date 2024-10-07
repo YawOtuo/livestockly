@@ -9,8 +9,6 @@ import AddRecordModal from "@/components/AddRecordModal";
 import { useParams, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllFarmRecordsSp } from "@/lib/api/farm";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/redux/store";
 import { useAppStore } from "@/lib/store/useAppStore";
 import { LivestockCategory } from "@/lib/types/livestockcategory";
 

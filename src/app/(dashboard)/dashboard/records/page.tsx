@@ -37,15 +37,14 @@ const Page = () => {
           <div className="w-full">
             <DashSearch />
           </div>
-          <div className="w-4/5 md:w-3/5">
+          <div className="w-4/5 md:w-3/5 flex flex-col gap-5 lg:gap-5">
             {farm?.livestock_categories?.map((category, index) => {
               const queryData = livestockDataQueries[index]; // Get the data for each category
               return (
-                <div className="mb-10 md:mb-0" key={category.name}>
+                <div className="" key={category.name}>
                   <RecordCard
                     number={queryData.data?.length || 0} // Use the query data length
-                    category={category} // Use category name as type
-                    // icon={`/icons/${category.name.toLowerCase()}.png`} // Construct icon path based on category
+                    category={category} 
                   />
                 </div>
               );

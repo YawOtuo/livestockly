@@ -76,7 +76,6 @@ const LivestockGrowthChart = () => {
       }
     });
 
-    console.log(growthData); // Debugging: Check the generated growth data
     return growthData;
   }, [livestockDataQueries, farm]);
 
@@ -93,27 +92,65 @@ const LivestockGrowthChart = () => {
 
   return (
     <div className="w-full">
-      <h5>Livestock Growth Over Time</h5>
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={livestockGrowthData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          {farm?.livestock_categories?.map((category, index) => (
-            <Line
-              key={category.name}
-              type="monotone"
-              strokeWidth={2}
-              dataKey={category.name.toLowerCase()}
-              stroke={categoryColors[index % categoryColors.length]}
-              fill={categoryColors[index % categoryColors.length]} // Fill the area with color
-              activeDot={{ r: 8 }}
-            />
-          ))}
-        </LineChart>
-      </ResponsiveContainer>
+      {/* Combined Area Chart */}
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {farm?.livestock_categories?.map((category, index) => {
+          const categoryName = category.name.toLowerCase();
+          const categoryData = livestockGrowthData.map((data) => ({
+            month: data.month,
+            [categoryName]: data[categoryName],
+          }));
+
+          return (
+            <div key={category.name} className="my-8">
+              <h6 className="capitalize">
+                <span className="font-bold text-primary">{category.name}</span>{" "}
+                Growth Over Time
+              </h6>
+              <ResponsiveContainer width="100%" height={400}>
+                <AreaChart data={categoryData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Area
+                    type="monotone"
+                    dataKey={categoryName}
+                    stroke={categoryColors[index % categoryColors.length]}
+                    fill={categoryColors[index % categoryColors.length]}
+                    activeDot={{ r: 8 }}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="my-8">
+        <h6>Combined Growth of All Livestock Categories</h6>
+        <ResponsiveContainer width="100%" height={400}>
+          <LineChart data={livestockGrowthData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            {farm?.livestock_categories?.map((category, index) => (
+              <Line
+                key={category.name}
+                type="monotone"
+                dataKey={category.name.toLowerCase()}
+                stroke={categoryColors[index % categoryColors.length]}
+                fill={categoryColors[index % categoryColors.length]}
+                activeDot={{ r: 8 }}
+              />
+            ))}
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };

@@ -16,7 +16,6 @@ import { Button } from "../ui/button";
 import IconButton from "../IconButton";
 import CustomModal from "../ui/CustomDialog";
 import CustomInput from "../ui/CustomInput";
-import CustomTextArea from "../ui/CustomTextArea";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { LivestockCategory } from "@/lib/types/livestockcategory";
 const addIcon = "/icons/add.png";
@@ -28,6 +27,7 @@ type Props = {
   category?: LivestockCategory;
   title?: string;
   variant?: "icon" | "text";
+  iconClassname?: string
 };
 export default function AddRecordModal({
   edit,
@@ -35,6 +35,7 @@ export default function AddRecordModal({
   title,
   variant,
   category,
+  iconClassname
 }: Props) {
   const [open, setOpen] = React.useState(false);
 
@@ -97,7 +98,7 @@ export default function AddRecordModal({
               edit ? (
                 <img src={editIcon} width="90%" />
               ) : (
-                <IoIosAddCircleOutline className="text-primary text-xl" />
+                <IoIosAddCircleOutline className={`text-inherit text-xl ${iconClassname}`} />
               )
             ) : (
               <div className="flex gap-1 items-center">
