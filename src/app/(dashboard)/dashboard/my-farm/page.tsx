@@ -12,8 +12,8 @@ function Page() {
 
   return (
     <div className="p-5">
-      <div className="w-full  flex justify-center lg:justify-start ">
-        <h3 className="capitalize text-primary">{farm?.name}</h3>
+      <div className="w-full  flex justify-start ">
+        <h3 className="capitalize font-semibold text-primary">{farm?.name}</h3>
       </div>
 
       <CustomTabs

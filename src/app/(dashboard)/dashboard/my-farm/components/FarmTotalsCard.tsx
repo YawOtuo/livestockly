@@ -18,7 +18,7 @@ const FarmTotalsCard = ({ filter, amount, url }: Props) => {
       {amount ? (
         <motion.div
           layout
-          className="flex  shadow-md border-green2 rounded-2xl lg:rounded-2xl  flex-col   items-center justify-center gap-1 lg:gap-1  lg:w-fit min-w-[200px] aspect-square
+          className="flex  shadow-md border-green2 rounded-2xl lg:rounded-2xl  flex-col   items-center justify-center gap-1 lg:gap-1  lg:w-fit lg:min-w-[200px] aspect-square
        cursor-pointer hover:scale-[1.05]  hover:border-green1 transition-all duration-300">
           {<p className=" font-bold text-xl">{amount}</p>}
 

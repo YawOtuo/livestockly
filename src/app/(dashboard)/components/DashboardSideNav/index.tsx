@@ -1,54 +1,16 @@
 import Link from "next/link";
-import { MdHomeFilled, MdOutlineFormatListBulleted } from "react-icons/md";
 
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { CiSettings } from "react-icons/ci";
 import { useIsAdmin } from "@/lib/hooks/useIsAdmin";
 import { useSelector } from "react-redux";
 import { GrUserAdmin } from "react-icons/gr";
-import { GrUserWorker } from "react-icons/gr";
 import { RootState } from "@/lib/redux/store";
 import { motion } from "framer-motion";
 import { GiFarmer, GiFarmTractor } from "react-icons/gi";
 import { useAppStore } from "@/lib/store/useAppStore";
 import Image from "next/image";
-export const Links = [
-  { label: "Home", link: "/dashboard", icon: <MdHomeFilled />, level: 1 },
+import { Links } from "./dashboardLinks";
 
-  // { label: "Socials", link: "/profile/socials", icon: <TfiWrite /> },
 
-  {
-    label: "Records",
-    link: "/dashboard/records",
-    icon: <MdOutlineFormatListBulleted />,
-    level: 1,
-  },
-  {
-    label: "My workers",
-    link: "/dashboard/workers",
-    icon: <GrUserWorker />,
-    level: 3,
-  },
-  {
-    label: "My farm",
-    link: "/dashboard/my-farm",
-    icon: <GiFarmTractor />,
-    level: 1,
-  },
-  {
-    label: "Notifications",
-    link: "/dashboard/notifications",
-    icon: <IoIosNotificationsOutline />,
-    level: 1,
-  },
-  {
-    label: "Account",
-    link: "/dashboard/account",
-    icon: <CiSettings />,
-    level: 1,
-  },
-  // { label: "Back to site", link: "/", icon: <IoReturnUpBackSharp /> },
-];
 
 export const Pagination = ({
   label,

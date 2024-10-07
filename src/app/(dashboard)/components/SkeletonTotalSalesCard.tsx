@@ -2,8 +2,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function SkeletonTotalSalesCard() {
     return ( 
-        <div>
-            <Skeleton className="min-w-[200px] aspect-[5/2] "  />
+        <div className="w-full lg:w-fit">
+            <Skeleton className=" w-full lg:w-fit lg:min-w-[200px] aspect-[5/2] "  />
         </div>
      );
 }

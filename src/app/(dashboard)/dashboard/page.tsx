@@ -34,7 +34,7 @@ export default function Page({ searchParams }: any) {
 
   return (
     <div className="p-5 px-5 lg:px-10 w-full flex flex-col gap-5">
-      <div className="flex gap-5 lg:gap-5 justify-start items-center w-full flex-wrap">
+      <div className="grid grid-cols-3 lg:flex gap-5 lg:gap-5 justify-start items-center w-full flex-wrap">
         {/* Render TotalSales for each livestock category */}
         {livestockDataQueries?.map((query, index) => {
           const isLoading = query.isLoading;

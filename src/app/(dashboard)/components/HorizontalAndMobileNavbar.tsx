@@ -1,8 +1,4 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
-import { useSelector } from "react-redux";
-
 import Link from "next/link";
 import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -12,9 +8,10 @@ import { GrUserAdmin } from "react-icons/gr";
 import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
 import { RootState } from "@/lib/redux/store";
 import { AnimatePresence, motion } from "framer-motion";
-import { Links, Pagination } from "./DashboardSideNav";
+import {  Pagination } from "./DashboardSideNav";
 import NotificationPopover from "./NotificationPopover";
 import { useAppStore } from "@/lib/store/useAppStore";
+import { Links } from "./DashboardSideNav/dashboardLinks";
 
 export default function HorizontalAndMobileNabvar() {
   const { Logout } = useFirebaseAuth();
@@ -36,13 +33,7 @@ export default function HorizontalAndMobileNabvar() {
   return (
     <AnimatePresence>
       <motion.div
-        // layout
-        // // style={{
-        // //   height: showDetails ? "h-full" : "h-[52px]",
-
-        // // }}
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1 }}
+     
         className="border-b-yellow4 bg-yellow5 lg:bg-inherit border-b-[1px] w-full flex flex-col items-center justify-between px-0 lg:px-10 py-2 gap-5">
         <div className="flex gap-5 w-full px-3 items-center">
           <div className="w-full"></div>
