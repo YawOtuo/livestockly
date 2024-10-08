@@ -4,13 +4,9 @@ import { Button } from "../../ui/button";
 import CustomModal from "../../ui/CustomDialog";
 import CustomInput from "@/components/ui/CustomInput";
 import useVaccines from "@/lib/hooks/useVaccines";
+import { AddVaccineBody } from "@/lib/api/vaccines";
 
-interface AddVaccineFormValues {
-  name: string;
-  manufacturer: string;
-  expiration_date: string;
-  type: "global" | "local";
-}
+
 
 function AddVaccineModal() {
   const { addVaccine } = useVaccines(); // Assuming useVaccinations returns addVaccination function
@@ -19,10 +15,11 @@ function AddVaccineModal() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<AddVaccineFormValues>();
+  } = useForm<AddVaccineBody>();
 
-  const onSubmit = async (data: AddVaccineFormValues) => {
+  const onSubmit = async (data: AddVaccineBody) => {
     data.type = "local";
+    
     try {
       await addVaccine(data); // Call your addVaccination API
       reset(); // Reset the form fields after submission

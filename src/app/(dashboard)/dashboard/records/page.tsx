@@ -33,11 +33,11 @@ const Page = () => {
   return (
     <>
       <SlideEnter>
-        <div className="flex flex-col justify-center items-center w-full">
-          <div className="w-full">
-            <DashSearch />
+        <div className="flex flex-col justify-center items-center w-full lg:w-3/5 gap-5">
+          <div className="w-full flex items-start">
+            <p>Displaying <span className="text-primary">{farm?.livestock_categories.length}</span> categories of livestock</p>
           </div>
-          <div className="w-full lg:w-3/5 flex flex-col gap-5 lg:gap-5">
+          <div className="w-full flex flex-col gap-5 lg:gap-5">
             {farm?.livestock_categories?.map((category, index) => {
               const queryData = livestockDataQueries[index]; // Get the data for each category
               return (

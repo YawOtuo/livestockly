@@ -1,12 +1,12 @@
 import { url } from "../../../weburl";
-import { Notification } from "../types/notification";
+import { Notification, NotificationType } from "../types/notification";
 
 // CreateNotification function with Notification type
 
 export interface AddNotificationBody {
   content?: string;
   to_farm_id: number;
-  type?: string;
+  type: NotificationType;
   subject: string;
 }
 export const CreateNotification = async (

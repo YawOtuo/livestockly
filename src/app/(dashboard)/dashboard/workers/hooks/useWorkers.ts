@@ -46,7 +46,7 @@ function useWorkers() {
       });
       createNotification({
         subject: `User accepted`,
-
+        type: "success",
         content: `User rejected by ${DBDetails?.username}`,
         // // content: "",
         to_farm_id: DBDetails?.farm_id as number,

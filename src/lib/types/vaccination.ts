@@ -5,4 +5,5 @@ export interface Vaccination {
     vaccination_date: string 
     vaccine_id: Vaccine 
     record_id: number
+    farm_id: number
 }

@@ -1,71 +1,65 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import TagCard from "@/components/tag-card";
+import TagCard from "@/components/TagCard";
 import { DashSearch } from "@/components/dash-search";
 import Navbar from "../../../../../components/HorizontalAndMobileNavbar";
 import SlideEnter from "@/lib/framer/slideEnter";
-import AddRecordModal from "@/components/modals/AddRecordModal";
 import { useParams, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllFarmRecordsSp } from "@/lib/api/farm";
 import { useAppStore } from "@/lib/store/useAppStore";
 import { LivestockCategory } from "@/lib/types/livestockcategory";
+import CustomTabs from "@/components/ui/CustomTabs";
+import RecordsAllTab from "./components.tsx/RecordsAllTab";
+import RecordsCatFeedingSchedulesTab from "./components.tsx/RecordsCatFeedingSchedulesTab";
+import RecordsCategoryVaccinationsSchedulesTab from "./components.tsx/RecordsCategoryVaccinationsSchedulesTab";
 
 type Props = {};
 
 const Page = ({}: Props) => {
-  const params = useParams();
   const { DBDetails } = useAppStore();
+  const params = useParams();
+  let type = decodeURIComponent(String(params?.slug));
 
   // Extracting the type dynamically from params
-  let type = decodeURIComponent(String(params?.slug));
   const [category, setCategory] = useState<LivestockCategory>({
     id: Number(params?.category_id),
     name: params?.category as string,
   });
 
   // Fetching records based on the farm ID and the dynamic type
-  const {
-    isLoading,
-    error,
-    data: records,
-  } = useQuery(
-    [type], // Query key based on dynamic type
-    () => GetAllFarmRecordsSp(DBDetails?.farm_id as number, type as string),
-    {
-      enabled: !!type, // Enable the query only when type is available
-    }
-  );
 
   // Dynamic rendering of records
-  const renderList = (
-    <div className="grid grid-cols-3 gap-5 px-3">
-      {records &&
-        records?.map((item: any, index: number) => (
-          <div className="col-span-3 lg:col-span-1 items-center" key={index}>
-            <TagCard record={item} />
-          </div>
-        ))}
-    </div>
-  );
 
   return (
     <>
       <SlideEnter>
-        <div className="container mx-auto text-center py-5">
-          <DashSearch />
+        <div className="flex flex-col items-start gap-5 text-center py-5">
+          <p>My {type}</p>
 
-          <div className="pb-3 flex items-center justify-center">
-            <p>
-              Displaying all
-              <span className="brand-green-font"> {records?.length}</span>{" "}
-            <span className="capitalize">  {type}</span>
-            </p>
-            {category && <AddRecordModal variant="icon" category={category} />}{" "}
-          </div>
-          <div className="">
-            <div className="justify-center items-center">{renderList}</div>
+          <div className="flex flex-col gap-5 items-start w-full">
+            <CustomTabs
+            className="flex justify-start flex-col"
+              defaultValue="all"
+              tabs={[
+                {
+                  label: "All",
+                  value: "all",
+                  content: <RecordsAllTab category={category} />,
+                },
+                {
+                  label: "Vaccination Schedules",
+                  value: "vaccination",
+                  content: <RecordsCategoryVaccinationsSchedulesTab />,
+                },
+                {
+                  label: "Feeding Schedules",
+                  value: "feeding",
+                  content: <RecordsCatFeedingSchedulesTab />,
+                },
+              ]}
+            />
           </div>
         </div>
       </SlideEnter>

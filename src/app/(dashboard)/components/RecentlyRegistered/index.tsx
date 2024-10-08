@@ -1,6 +1,6 @@
 import IconButton from "@/components/IconButton";
 import TagCardSpecific from "@/components/TagCardSpecific";
-import TagCard from "@/components/tag-card";
+import TagCard from "@/components/TagCard";
 import FetchingState from "@/components/ui/FetchingState";
 import { GetAllFarmRecords } from "@/lib/api/farm";
 import { RootState } from "@/lib/redux/store";

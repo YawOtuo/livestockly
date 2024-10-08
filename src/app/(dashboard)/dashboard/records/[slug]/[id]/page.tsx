@@ -1,5 +1,4 @@
 "use client";
-import AddRecordModal from "@/components/modals/AddRecordModal";
 import CaCattle from "@/components/icons/CaCattle";
 import CaGoat from "@/components/icons/CaGoat";
 import CaSheep from "@/components/icons/CaSheep";
@@ -20,7 +19,10 @@ import { useSelector } from "react-redux";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { RootState } from "@/lib/redux/store";
 import { useAppStore } from "@/lib/store/useAppStore";
-
+import dynamic from "next/dynamic";
+const AddRecordModal = dynamic(
+  () => import("@/components/modals/AddRecordModal")
+);
 function Page() {
   const params = useParams();
   const { DBDetails } = useAppStore();
@@ -113,7 +115,7 @@ function Page() {
   };
 
   return (
-    <Root className="justify-center text-center bg-[#446353fa]">
+    <Root className="justify-center text-center bg-[#446353fa] overflow-hidden rounded-tl-2xl">
       <SlideEnterToLeft>
         <div className="relative justify-center">
           <div className="absolute flex w-full justify-between top-0 left-0">
@@ -135,7 +137,7 @@ function Page() {
               </div>
             </PermissionComponent>{" "}
           </div>
-          <div className=" grid grid-cols-5 py-20 justify-center items-center text-uppercase mb-5 detail-header gap-5">
+          <div className=" grid grid-cols-5 py-20 justify-center items-center text-uppercase mb-5 bg-green2  gap-5">
             <div
               className="flex flex-col col-span-5 lg:col-span-2
                         items-center">

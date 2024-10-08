@@ -74,9 +74,9 @@ const useRecordFormSubmission = ({
     //   queryClient.invalidateQueries(`records`);
     // }
     createNotification({
+      type: "success",
       subject: `New record`,
       content: `New record ${data?.name} has been created by ${DBDetails?.username}`,
-
       // content: "",
       to_farm_id: DBDetails?.farm_id as number,
     });
@@ -86,6 +86,7 @@ const useRecordFormSubmission = ({
   const handleUpdate = async (data: AddRecordBody) => {
     updateMutation.mutate(data);
     createNotification({
+      type: "success",
       subject: `Record ${data?.name} has been updated by ${DBDetails?.username}`,
       // content: "",
       to_farm_id: DBDetails?.farm_id as number,

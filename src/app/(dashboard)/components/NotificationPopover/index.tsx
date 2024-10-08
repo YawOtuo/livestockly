@@ -20,7 +20,7 @@ function NotificationPopover() {
         content={
           <div>
             <FetchingState
-              success={notifications && notifications?.map((r, index: number) => (
+              success={notifications && notifications?.slice(0,6).map((r, index: number) => (
                 <NotificationCard notification={r} key={index} />
               ))}
               loading={<SkeletonNotificationCard />}

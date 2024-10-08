@@ -4,4 +4,5 @@ export interface Vaccine {
     manufacturer :string 
     expiration_date: string 
     type: "global" | "local"
+    farm_id: number
 }

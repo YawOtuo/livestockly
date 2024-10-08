@@ -8,8 +8,8 @@ type Props = {
 
 const TagCard: React.FC<Props> = ({ record }: Props) => {
   return (
-    <Link href={`/dashboard/records/${record?.category?.name}/${record?.id}`} className="rounded-md">
-      <div className="flex flex-row text-center w-full items-center justify-center py-5 shadow-sm gap-5 pr-10 hover:bg-green2">
+    <Link href={`/dashboard/records/${record?.category?.name}/${record?.id}`} className="">
+      <div className="flex flex-row text-center w-full items-center justify-center py-5 shadow-md shadow-green2 gap-5 pr-10 hover:bg-green2 rounded-lg">
         <LuTag size="30" className="text-green1" />
 
         <span className="capitalize">{record?.name}</span>

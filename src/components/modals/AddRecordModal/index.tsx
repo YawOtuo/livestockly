@@ -36,11 +36,15 @@ export default function AddRecordModal({
   const [open, setOpen] = useState(false);
   const [sire, setSire] = useState<Record>();
   const [dam, setDam] = useState<Record>();
-  const [otherData, setOtherData] = useState({
-    gender: "male",
-    castrated: false,
-    alive: true,
-    category: category,
+  const [otherData, setOtherData] = useState<{
+    gender: string;
+    castrated: boolean;
+    alive: boolean;
+    category?: LivestockCategory; // Add this line
+  }>({
+    gender: "",
+    castrated: true,
+    alive: false,
   });
 
   const { handleSubmit: submitForm } = useRecordFormSubmission({
@@ -79,6 +83,13 @@ export default function AddRecordModal({
     if (sire_) setSire(sire_);
     if (dam_) setDam(dam_);
   }, [sire_, dam_]);
+
+  useEffect(() => {
+    setOtherData((prevData) => ({
+      ...prevData,
+      category: category,
+    }));
+  }, []);
 
   const onSubmit = (data: any) => {
     submitForm(data);
@@ -142,41 +153,9 @@ export default function AddRecordModal({
                   type="number"
                   {...register("number_of_kids")}
                 />
-
-                <CustomInput
-                  label="Date of Birth"
-                  type="date"
-                  {...register("date_of_birth")}
-                />
               </div>
 
               <div className="flex flex-col gap-5">
-                <div className="flex items-start flex-col gap-5">
-                  Sire: {sire?.name}
-                  <SelectSireModal setParent={setSire} name="sire" />
-                </div>
-                <div className="flex items-start flex-col gap-5">
-                  Dam: {dam?.name}
-                  <SelectSireModal setParent={setDam} name="dam" />
-                </div>
-
-                <CustomSelect
-                  valueField={"value"}
-                  labelField={"label"}
-                  label="Category"
-                  data={categories_options ?? []}
-                  initialValue={otherData.category?.name}
-                  onChange={(value) =>
-                    setOtherData((prevData: any) => {
-                      const selectedCategory = farm?.livestock_categories?.find(
-                        (category) => category.id === Number(value)
-                      );
-               
-                      return { ...prevData, category: selectedCategory };
-                    })
-                  }
-                />
-
                 <CustomSelect
                   valueField={"value"}
                   labelField={"label"}
@@ -185,12 +164,11 @@ export default function AddRecordModal({
                     { label: "Male", value: "male" },
                     { label: "Female", value: "female" },
                   ]}
-                  initialValue={otherData.gender}
+                  initialValue={otherData.gender || "male"}
                   onChange={(value) =>
                     setOtherData((prevData) => ({ ...prevData, gender: value }))
                   }
                 />
-
                 <CustomSelect
                   valueField={"value"}
                   labelField={"label"}
@@ -199,22 +177,52 @@ export default function AddRecordModal({
                     { label: "Yes", value: "yes" },
                     { label: "No", value: "no" },
                   ]}
-                  initialValue={otherData.castrated ? "yes" : "no"}
-                  onChange={(value) =>
+                  initialValue={otherData.castrated === false ? "no" : "yes"}                  onChange={(value) =>
                     setOtherData((prevData) => ({
                       ...prevData,
                       castrated: value === "yes",
                     }))
                   }
                 />
+                <CustomSelect
+                  valueField={"value"}
+                  labelField={"label"}
+                  label="Category"
+                  data={categories_options ?? []}
+                  initialValue={String(otherData?.category?.id)}
+                  onChange={(value) => {
+                    const selectedCategory = farm?.livestock_categories?.find(
+                      (category) => String(category.id) === value
+                    );
+                    console.log(selectedCategory);
+                    setOtherData((prevData) => ({
+                      ...prevData,
+                      category: selectedCategory,
+                    }));
+                  }}
+                />
+
+                <CustomInput
+                  required
+                  label="Date of Birth"
+                  type="date"
+                  {...register("date_of_birth")}
+                />
               </div>
 
               <div className="flex flex-col gap-5 items-start">
-                <AddVaccinationModal />
+                <div className="flex items-start flex-col gap-5">
+                  Sire: {sire?.name}
+                  <SelectSireModal setParent={setSire} name="sire" />
+                </div>
+                <div className="flex items-start flex-col gap-5">
+                  Dam: {dam?.name}
+                  <SelectSireModal setParent={setDam} name="dam" />
+                </div>
                 <CustomSwitch
                   id="alive"
                   label="Alive"
-                  defaultChecked={otherData.alive}
+                  defaultChecked={otherData.alive || true}
                   onChange={(value) =>
                     setOtherData((prevData) => ({
                       ...prevData,

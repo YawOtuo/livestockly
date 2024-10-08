@@ -1,6 +1,8 @@
+
+export type NotificationType = "info" | "caution" | "success" | "alert" | "reminder"
 export interface Notification {
   from_name: string;
-  type: "info" | "caution" | "success" | "alert" | "reminder"
+  type: NotificationType
   createdAt: string;
   subject: string;
   content: string;
