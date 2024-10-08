@@ -67,21 +67,6 @@ function Page() {
           },
         ]}
       />
-      <CustomModal
-        trigger={<div>as</div>}
-        body={
-          <CustomSelect
-            valueField={"value"}
-            labelField={"label"}
-            label="Gender"
-            data={[
-              { label: "Male", value: "male" },
-              { label: "Female", value: "female" },
-            ]}
-            // initialValue={otherData.gender}
-          />
-        }
-      />
     </div>
   );
 }
