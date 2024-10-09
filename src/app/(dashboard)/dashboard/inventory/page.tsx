@@ -21,7 +21,7 @@ function Page() {
       <div className="flex flex-col gap-3 items-start">
         <p className="font-semibold text-green1 text-lg">Categories</p>
         <FetchingState
-          className="flex items-center flex-wrap gap-2"
+          className="w-full flex items-center flex-wrap gap-2"
           success={categories?.map((r) => (
             <CategoryCard category={r} />
           ))}
@@ -31,14 +31,14 @@ function Page() {
           loading={<SkeletonCategoriesCard />}
         />
       </div>
-      <div className="flex flex-col gap-3 items-start">
+      <div className="flex flex-col gap-3 items-start w-full">
         <div className="flex items-center gap-5">
           <p className="font-semibold text-green1 text-lg">Items</p>
 
           <AddInventoryItemModal />
         </div>
         <FetchingState
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
           success={inventoryItems?.map((r) => (
             <InventoryItemCard item={r} />
           ))}
