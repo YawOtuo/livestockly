@@ -1,8 +1,5 @@
 import { PiWarningBold } from "react-icons/pi";
 import { FaInfoCircle } from "react-icons/fa";
-
-import { NotificationType } from "../../dashboard/notifications/types";
-import { MdOutlineMessage } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 
 import moment from "moment";

@@ -1,5 +1,55 @@
+"use client";
+import { useInventory } from "@/lib/hooks/useInventory";
+import InventoryItemCard from "./components/InventoryItemCard";
+import AddInventoryItemModal from "@/components/modals/AddInventoryItemModal";
+import FetchingState from "@/components/ui/FetchingState";
+import SkeletonInventoryItemCard from "./components/InventoryItemCard/SkeletonInventoryItemCard";
+import CategoryCard from "./components/CategoriesCard";
+import SkeletonCategoriesCard from "./components/CategoriesCard/SkeletonCategoriesCard";
+
 function Page() {
-  return <div>Coming soon!!!</div>;
+  const {
+    inventoryItems,
+    isItemsLoading,
+    itemsError,
+    categories,
+    categoriesError,
+    isCategoriesLoading,
+  } = useInventory();
+  return (
+    <div className="flex flex-col gap-5 items-start">
+      <div className="flex flex-col gap-3 items-start">
+        <p className="font-semibold text-green1 text-lg">Categories</p>
+        <FetchingState
+          className="flex items-center flex-wrap gap-2"
+          success={categories?.map((r) => (
+            <CategoryCard category={r} />
+          ))}
+          isLoading={isItemsLoading}
+          isError={isCategoriesLoading}
+          skeletonCount={7}
+          loading={<SkeletonCategoriesCard />}
+        />
+      </div>
+      <div className="flex flex-col gap-3 items-start">
+        <div className="flex items-center gap-5">
+          <p className="font-semibold text-green1 text-lg">Items</p>
+
+          <AddInventoryItemModal />
+        </div>
+        <FetchingState
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+          success={inventoryItems?.map((r) => (
+            <InventoryItemCard item={r} />
+          ))}
+          isLoading={isItemsLoading}
+          isError={itemsError}
+          skeletonCount={7}
+          loading={<SkeletonInventoryItemCard />}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default Page;

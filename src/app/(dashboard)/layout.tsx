@@ -49,10 +49,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     ),
     loading: (
       <div className="flex flex-col gap-5 items-center justify-center bg-green2 h-screen">
-        <p className="uppercase font-semibold mt-10 text-primary">
+        <p className="uppercase font-bold mt-10 text-primary">
           livestockly
         </p>{" "}
-        <div className="min-h-[50vh] flex items-center justify-center">
+        <div className=" flex items-center justify-center">
           <CustomLoaders variant="syncloader" colour="green1" />
         </div>
       </div>
