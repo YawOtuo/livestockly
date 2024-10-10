@@ -12,7 +12,7 @@ function InventoryPage({ inventory }: Props) {
   return (
     <div className="flex flex-col gap-5">
       <h3> {inventory?.item?.name}</h3>
-      <p> {inventory?.item.quantity} remaining</p>
+      <p> {inventory?.item?.quantity} remaining</p>
 
       <div className="flex items-cente gap-5">
         <Button>Add More</Button>
