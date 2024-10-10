@@ -19,21 +19,21 @@ function Page() {
   return (
     <div className="flex flex-col gap-5 items-start">
       <div className="flex flex-col gap-3 items-start">
-        <p className="font-semibold text-green1 text-lg">Categories</p>
+        <p className="font-semibold text-gray-600 text-lg">Categories</p>
         <FetchingState
           className="w-full flex items-center flex-wrap gap-2"
-          success={categories?.map((r) => (
+          success={categories && categories?.map((r) => (
             <CategoryCard category={r} />
           ))}
-          isLoading={isItemsLoading}
-          isError={isCategoriesLoading}
+          isLoading={isCategoriesLoading}
+          isError={categoriesError}
           skeletonCount={7}
           loading={<SkeletonCategoriesCard />}
         />
       </div>
       <div className="flex flex-col gap-3 items-start w-full">
         <div className="flex items-center gap-5">
-          <p className="font-semibold text-green1 text-lg">Items</p>
+          <p className="font-semibold text-green1 text-2xl">Items</p>
 
           <AddInventoryItemModal />
         </div>

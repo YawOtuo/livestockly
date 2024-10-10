@@ -1,18 +1,32 @@
 "use client"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  getCategories,
   getInventoryItems,
-  addCategory,
   addInventoryItem,
   updateInventoryItem,
   deleteInventoryItem,
-  deleteCategory,
-  AddCategoryBody,
   AddInventoryItemBody,
+  getOneInventoryItem,
+  UpdateInvItemBody,
 } from "../api/inventory"; // Import the necessary API methods
 import useFarm from "./useFarm";
+import { addCategory, AddCategoryBody, deleteCategory, getCategories } from "../api/category";
 
+export const useGetOneInventory = (id: number) => {
+  const {farm} = useFarm()
+  const farm_id  = Number(farm?.id)
+
+  return  useQuery(
+    ["categories", farm?.id], // Cache key
+    async () => {
+      const response = await getOneInventoryItem(id);
+      return response;
+    },
+    {
+      enabled: !!farm_id, 
+    }
+  );
+}
 export const useInventory = () => {
   const queryClient = useQueryClient();
   const {farm} = useFarm()
@@ -70,13 +84,14 @@ export const useInventory = () => {
 
   // Update inventory item
   const updateInventoryItemMutation = useMutation(
-    async ({ id, data }: { id: number; data: AddInventoryItemBody }) => {
+    async ({ id, data }: { id: number; data: UpdateInvItemBody }) => {
       data.farm_id = farm_id
 
       const response = await updateInventoryItem(id, data);
       return response;
     },
     {
+
       onSuccess: (data, variables) => {
         const { id } = variables;
         queryClient.invalidateQueries(["inventoryItems", farm_id]); // Invalidate and refetch the specific item

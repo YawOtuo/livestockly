@@ -1,20 +1,7 @@
 import { url } from "../../../weburl";
-import { InventoryItem, InventoryCategory } from "../types/inventory";
+import { InventoryItem, InventoryCategory, InventoryTransaction } from "../types/inventory";
 
-// Fetch all categories for a specific farm
-export const getCategories = async (
-  farm_id: number
-): Promise<InventoryCategory[]> => {
-  const response = await fetch(`${url}inventories/farms/${farm_id}/categories`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  return response.json();
-};
 
-// Fetch all inventory items for a specific farm
 export const getInventoryItems = async (
   farm_id: number
 ): Promise<InventoryItem[]> => {
@@ -28,22 +15,17 @@ export const getInventoryItems = async (
 };
 
 // Fetch a single category by ID
-export const getCategory = async (
-  category_id: number
-): Promise<InventoryCategory> => {
-  const response = await fetch(`${url}inventories/categories/${category_id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  return response.json();
-};
+
 
 // Fetch a single inventory item by ID
-export const getInventoryItem = async (
+
+export interface InventoryItemResponse {
+  item: InventoryItem
+  transactions: InventoryTransaction[]
+}
+export const getOneInventoryItem = async (
   item_id: number
-): Promise<InventoryItem> => {
+): Promise<InventoryItemResponse> => {
   const response = await fetch(`${url}inventories/${item_id}`, {
     method: "GET",
     headers: {
@@ -54,21 +36,6 @@ export const getInventoryItem = async (
 };
 
 // Add a new category for a specific farm
-export type AddCategoryBody = Omit<InventoryCategory, "id" | "farm_id">;
-
-export const addCategory = async (
-  farm_id: number,
-  data: AddCategoryBody
-): Promise<InventoryCategory> => {
-  const response = await fetch(`${url}inventories/farms/${farm_id}/categories`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  return response.json();
-};
 
 // Add a new inventory item for a specific farm
 export type AddInventoryItemBody = {
@@ -91,10 +58,15 @@ export const addInventoryItem = async (
   return response.json();
 };
 
-// Update an existing inventory item
+export type UpdateInvItemBody = {
+  name: string;
+  quantity: number;
+  farm_id: number;
+};
+
 export const updateInventoryItem = async (
   item_id: number,
-  data: AddInventoryItemBody
+  data: UpdateInvItemBody
 ): Promise<InventoryItem> => {
   const response = await fetch(`${url}inventories/${item_id}`, {
     method: "PUT",
@@ -120,14 +92,3 @@ export const deleteInventoryItem = async (
 };
 
 // Delete a specific category
-export const deleteCategory = async (
-  category_id: number
-): Promise<{ message: string }> => {
-  const response = await fetch(`${url}inventories/categories/${category_id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  return response.json();
-};
