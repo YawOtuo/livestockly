@@ -1,48 +1,30 @@
-"use client"
+"use client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  getInventoryItems,
-  addInventoryItem,
-  updateInventoryItem,
-  deleteInventoryItem,
-  AddInventoryItemBody,
-  getOneInventoryItem,
-  UpdateInvItemBody,
-} from "../api/inventory"; // Import the necessary API methods
+import { getInventoryItems, addInventoryItem, updateInventoryItem, deleteInventoryItem, AddInventoryItemBody, getOneInventoryItem, UpdateInvItemBody } from "../api/inventory";
 import useFarm from "./useFarm";
-import { addCategory, AddCategoryBody, deleteCategory, getCategories } from "../api/category";
 
 export const useGetOneInventory = (id: number) => {
-  const {farm} = useFarm()
-  const farm_id  = Number(farm?.id)
+  const { farm } = useFarm();
+  const farm_id = Number(farm?.id);
 
-  return  useQuery(
-    ["categories", farm?.id], // Cache key
+  return useQuery(
+    ["inventoryItem", id], // Cache key
     async () => {
       const response = await getOneInventoryItem(id);
       return response;
     },
     {
-      enabled: !!farm_id, 
+      enabled: !!farm_id,
     }
   );
-}
+};
+
 export const useInventory = () => {
   const queryClient = useQueryClient();
-  const {farm} = useFarm()
-  const farm_id  = Number(farm?.id)
-  // Fetch categories and inventory items
-  const { data: categories, isLoading: isCategoriesLoading, error: categoriesError } = useQuery(
-    ["categories", farm_id], // Cache key
-    async () => {
-      const response = await getCategories(farm_id);
-      return response;
-    },
-    {
-      enabled: !!farm_id, // Enable query only if farm_id is provided
-    }
-  );
+  const { farm } = useFarm();
+  const farm_id = Number(farm?.id);
 
+  // Fetch inventory items
   const { data: inventoryItems, isLoading: isItemsLoading, error: itemsError } = useQuery(
     ["inventoryItems", farm_id], // Cache key
     async () => {
@@ -50,28 +32,14 @@ export const useInventory = () => {
       return response;
     },
     {
-      enabled: !!farm_id, // Enable query only if farm_id is provided
-    }
-  );
-
-  // Add new category
-  const addCategoryMutation = useMutation(
-    async (categoryData: AddCategoryBody) => {
-      const response = await addCategory(farm_id, categoryData);
-      return response;
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["categories", farm_id]); // Invalidate and refetch categories after addition
-      },
+      enabled: !!farm_id,
     }
   );
 
   // Add new inventory item
   const addInventoryItemMutation = useMutation(
     async (itemData: AddInventoryItemBody) => {
-
-      itemData.farm_id = farm_id
+      itemData.farm_id = farm_id;
       const response = await addInventoryItem(farm_id, itemData);
       return response;
     },
@@ -85,13 +53,11 @@ export const useInventory = () => {
   // Update inventory item
   const updateInventoryItemMutation = useMutation(
     async ({ id, data }: { id: number; data: UpdateInvItemBody }) => {
-      data.farm_id = farm_id
-
+      data.farm_id = farm_id;
       const response = await updateInventoryItem(id, data);
       return response;
     },
     {
-
       onSuccess: (data, variables) => {
         const { id } = variables;
         queryClient.invalidateQueries(["inventoryItems", farm_id]); // Invalidate and refetch the specific item
@@ -113,33 +79,14 @@ export const useInventory = () => {
     }
   );
 
-  // Delete category
-  const deleteCategoryMutation = useMutation(
-    async (category_id: number) => {
-      const response = await deleteCategory(category_id);
-      return response;
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["categories", farm_id]); // Invalidate and refetch categories after deletion
-      },
-    }
-  );
-
-  // Return the combined data, status, and mutation functions
+  // Return the inventory-related data, loading states, and mutation functions
   return {
-    categories,
     inventoryItems,
-    isCategoriesLoading,
     isItemsLoading,
-    categoriesError,
     itemsError,
-    addCategory: addCategoryMutation.mutate,
     addInventoryItem: addInventoryItemMutation.mutate,
     updateInventoryItem: updateInventoryItemMutation.mutate,
     deleteInventoryItem: deleteInventoryItemMutation.mutate,
-    deleteCategory: deleteCategoryMutation.mutate,
-    refetchCategories: () => queryClient.invalidateQueries(["categories", farm_id]),
     refetchInventoryItems: () => queryClient.invalidateQueries(["inventoryItems", farm_id]),
   };
 };

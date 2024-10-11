@@ -8,6 +8,8 @@ import {
 import { InventoryItem } from "@/lib/types/inventory";
 import Link from "next/link";
 import { MdArrowRightAlt, MdOutlineKeyboardArrowRight } from "react-icons/md";
+import AddQuantity from "./components/AddQuantity";
+import RemoveQuantity from "./components/RemoveQuantity";
 
 type Props = {
   item: InventoryItem;
@@ -19,63 +21,25 @@ function InventoryItemCard({ item }: Props) {
   const { farm } = useFarm();
 
   return (
-    <div className="shadow p-5 flex flex-col gap-5 rounded-lg hover:bg-green2 transition-all duration-150">
+    <div className="shadow p-5 flex flex-col gap-5 rounded-lg hover:bg-green2 transition-all duration-150 ">
       <div className="flex items-center justify-between gap-5">
         <h5 className="capitalize font-semibold">{item.name}</h5>
-        <Link href={`/dashboard/inventory/${item?.id}`}>
-          <MdOutlineKeyboardArrowRight className="text-gray-600 text-4xl" />
-        </Link>{" "}
+        {/* <p>{item.category_name}</p> */}
       </div>
 
-      <div className="flex items-center justify-between gap-5">
+      <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Button variant={"outline"}>-</Button>
-          {item.quantity}
-          <Button variant={"outline"}>+</Button>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button
-            variant={"link"}
-            onClick={() => {
-              const qty = item?.quantity + 5;
-              updateInventoryItem({
-                id: item?.id,
-                data: {
-                  ...item,
-                  quantity: qty,
-                },
-              });
-              addTransaction({
-                inventory_item_id: item?.id,
-                quantity_change: qty,
-                transaction_type: "ADD",
-                farm_id: Number(farm?.id),
-              });
-            }}>
-            Buy more
-          </Button>
-          <Button
-            variant={"link"}
-            onClick={() => {
-              const qty = item?.quantity - 5;
+          <RemoveQuantity item={item} iconClassName={"text-2xl"} />
 
-              updateInventoryItem({
-                id: item?.id,
-                data: {
-                  ...item,
-                  quantity: qty,
-                },
-              });
-              addTransaction({
-                inventory_item_id: item?.id,
-                quantity_change: qty,
-                transaction_type: "REMOVE",
-                farm_id: Number(farm?.id),
-              });
-            }}>
-            Sell
-          </Button>
+          {item.quantity}
+          <AddQuantity item={item} iconClassName="text-2xl" />
         </div>
+        <Link
+          href={`/dashboard/inventory/${item?.id}`}
+          className="flex items-center gap-3 text-xs">
+          <p> View Details </p>
+          <MdArrowRightAlt className="text-gray-600 text-xl" />
+        </Link>{" "}
       </div>
     </div>
   );

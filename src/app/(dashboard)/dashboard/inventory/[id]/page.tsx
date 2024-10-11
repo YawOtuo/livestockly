@@ -20,7 +20,7 @@ function Page({ params }: Props) {
         isError={isError}
         skeletonCount={1}
         className="w-full"
-        success={<InventoryPage inventory={data} />}
+        success={data && <InventoryPage key={data?.item.id} inventory={data} />}
       />
     </div>
   );

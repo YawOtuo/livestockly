@@ -177,7 +177,8 @@ export default function AddRecordModal({
                     { label: "Yes", value: "yes" },
                     { label: "No", value: "no" },
                   ]}
-                  initialValue={otherData.castrated === false ? "no" : "yes"}                  onChange={(value) =>
+                  initialValue={otherData.castrated === false ? "no" : "yes"}
+                  onChange={(value) =>
                     setOtherData((prevData) => ({
                       ...prevData,
                       castrated: value === "yes",
@@ -212,12 +213,22 @@ export default function AddRecordModal({
 
               <div className="flex flex-col gap-5 items-start">
                 <div className="flex items-start flex-col gap-5">
-                  Sire: {sire?.name}
-                  <SelectSireModal setParent={setSire} name="sire" />
+                  Father&apos;s Tag{" "}
+                  <span className="text-greendeep">{sire?.name}</span>
+                  <SelectSireModal
+                    setParent={setSire}
+                    category={category?.name}
+                    name="father"
+                  />
                 </div>
                 <div className="flex items-start flex-col gap-5">
-                  Dam: {dam?.name}
-                  <SelectSireModal setParent={setDam} name="dam" />
+                  Mother&apos;s Tag{" "}
+                  <span className="text-greendeep">{dam?.name}</span>
+                  <SelectSireModal
+                    category={category?.name}
+                    setParent={setDam}
+                    name="mother"
+                  />
                 </div>
                 <CustomSwitch
                   id="alive"

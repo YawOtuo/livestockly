@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { SearchResultCard } from "./search-result-card";
-import { url } from "../../weburl";
 import { GetOneRecord, searchRecords } from "@/lib/api/record";
 import { useQuery } from "@tanstack/react-query";
 
@@ -12,8 +11,9 @@ import { useAppStore } from "@/lib/store/useAppStore";
 type Props=  {
   setParent : any
   name: string
+  category?: string
 }
-export const SelectSireModal = ({setParent, name} : Props) => {
+export const SelectSireModal = ({setParent, name, category="any"} : Props) => {
   const [open, setOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
 
@@ -25,7 +25,7 @@ export const SelectSireModal = ({setParent, name} : Props) => {
     data: searchResults,
   } = useQuery(
     [`search-${searchInput}`],
-    () => searchRecords(DBDetails?.farm_id as number, searchInput),
+    () => searchRecords(DBDetails?.farm_id as number, category , searchInput),
     {
       enabled: !!searchInput,
     }
@@ -60,7 +60,7 @@ export const SelectSireModal = ({setParent, name} : Props) => {
       <CustomModal
         open={open}
         onOpenChange={setOpen}
-        size={"4xl"}
+        size={"3xl"}
         trigger={
           <Button variant="outline">
             {<p className="uppercase">Select {name}</p>}
