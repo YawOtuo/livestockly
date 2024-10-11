@@ -28,7 +28,7 @@ export const DashSearch = () => {
     data: searches,
   } = useQuery(
     [`search-${keyword}`],
-    () => searchRecords(DBDetails?.farm_id as number, keyword),
+    () => searchRecords(DBDetails?.farm_id as number, "any", keyword),
     {
       enabled: !!DBDetails?.farm_id && !!keyword,
     }
