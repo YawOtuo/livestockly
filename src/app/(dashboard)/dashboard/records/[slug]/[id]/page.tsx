@@ -151,7 +151,7 @@ function Page() {
             <div className="flex  col-span-5 lg:col-span-1 flex-col  items-center lg:items-start gap-4 capitalize ">
               <p>
                 {" "}
-                {returnGender(animal?.category.name, "male")}: &nbsp;
+                Father&apos;s Tag: &nbsp;
                 {sire?.id ? (
                   <Link href={`/dashboard/${sire.category.name}/${sire.id}`}>
                     <span className="font-bold brand-green-font">
@@ -167,7 +167,7 @@ function Page() {
 
               <p>
                 {" "}
-                {returnGender(animal?.category.name, "female")}: &nbsp;
+                Mother&apos;s Tag: &nbsp;
                 {dam?.id ? (
                   <Link href={`/dashboard/${dam?.category.name}/${dam?.id}`}>
                     {" "}

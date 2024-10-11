@@ -213,19 +213,23 @@ export default function AddRecordModal({
 
               <div className="flex flex-col gap-5 items-start">
                 <div className="flex items-start flex-col gap-5">
-                  Father&apos;s Tag{" "}
-                  <span className="text-greendeep">{sire?.name}</span>
+                  <div className="flex items-center gap-2">
+                    <p> Father&apos;s Tag </p>
+                    <span className="text-greendeep">{sire?.name}</span>
+                  </div>
                   <SelectSireModal
                     setParent={setSire}
-                    category={category?.name}
+                    category={category?.id}
                     name="father"
                   />
                 </div>
                 <div className="flex items-start flex-col gap-5">
-                  Mother&apos;s Tag{" "}
-                  <span className="text-greendeep">{dam?.name}</span>
+                <div  className="flex items-center gap-2">
+                    <p> Mother&apos;s Tag </p>
+                    <span className="text-greendeep">{dam?.name}</span>
+                </div>
                   <SelectSireModal
-                    category={category?.name}
+                    category={category?.id}
                     setParent={setDam}
                     name="mother"
                   />

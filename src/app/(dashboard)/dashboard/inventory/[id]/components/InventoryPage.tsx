@@ -3,6 +3,8 @@ import { InventoryItem } from "@/lib/types/inventory";
 import InventoryTransactionCard from "./InventoryTransactionCard";
 import { Button } from "@/components/ui/button";
 import InventoryTransactionCardSm from "./InventoryTransactionCardSm";
+import AddQuantity from "../../components/InventoryItemCard/components/AddQuantity";
+import RemoveQuantity from "../../components/InventoryItemCard/components/RemoveQuantity";
 
 type Props = {
   inventory?: InventoryItemResponse;
@@ -15,8 +17,8 @@ function InventoryPage({ inventory }: Props) {
       <p> {inventory?.item?.quantity} remaining</p>
 
       <div className="flex items-cente gap-5">
-        <Button>Add More</Button>
-        <Button variant={"destructive"}>Remove </Button>
+        {inventory?.item && <AddQuantity item={inventory?.item} />}{" "}
+        {inventory?.item && <RemoveQuantity item={inventory?.item} />}
       </div>
       <div className="hidden lg:grid grid-cols-3 gap-5 text-gray-600 px-2">
         <div>Type</div>

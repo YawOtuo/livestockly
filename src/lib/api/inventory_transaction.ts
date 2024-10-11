@@ -1,5 +1,5 @@
 import { url } from "../../../weburl";
-import { InventoryTransaction } from "../types/inventory";
+import { InventoryTransaction, TransactionType } from "../types/inventory";
 
 // Fetch all transactions for a specific inventory item
 export const getInventoryTransactions = async (
@@ -19,7 +19,7 @@ export const getInventoryTransactions = async (
 export type AddInventoryTransactionBody = {
   inventory_item_id: number;
   quantity_change: number;
-  transaction_type: string; // Use "add", "remove", or "adjust"
+  transaction_type: TransactionType; // Use "add", "remove", or "adjust"
   farm_id: number;
 };
 export const addInventoryTransaction = async (

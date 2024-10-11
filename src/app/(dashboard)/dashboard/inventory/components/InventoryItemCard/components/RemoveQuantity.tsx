@@ -8,7 +8,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 
 type Props = {
   item: InventoryItem;
-  iconClassName: string;
+  iconClassName?: string;
 };
 
 function RemoveQuantity({ item, iconClassName }: Props) {
@@ -30,7 +30,7 @@ function RemoveQuantity({ item, iconClassName }: Props) {
           addTransaction({
             inventory_item_id: item?.id,
             quantity_change: qty,
-            transaction_type: "ADD",
+            transaction_type: "remove",
             farm_id: Number(farm?.id),
           });
         }}

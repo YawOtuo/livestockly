@@ -57,11 +57,11 @@ export const searchSpecificRecords = async (
 // Using fetch
 export const searchRecords = async (
   farm_id: number,
-  category: string,
+  category_id: number | "any" ,
   searchInput: string
 ): Promise<Record[]> => {
   try {
-    const response = await fetch(`${url}records/farms/${farm_id}/${category}/search`, {
+    const response = await fetch(`${url}records/farms/${farm_id}/${category_id}/search`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

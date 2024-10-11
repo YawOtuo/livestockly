@@ -12,12 +12,13 @@ export interface InventoryItem {
     farm_id: number
 }
 
+export type TransactionType = "add" | "remove" | "adjust"
 
 export interface InventoryTransaction {
     id: number 
     inventory_item_id: number 
     farm_id: number
     quantity_change: number 
-    transaction_type: "add" | "remove" | "adjust"
+    transaction_type: TransactionType
     timestamp: string
 }

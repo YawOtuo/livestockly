@@ -11,7 +11,7 @@ import { useAppStore } from "@/lib/store/useAppStore";
 type Props=  {
   setParent : any
   name: string
-  category?: string
+  category?: number  | "any"
 }
 export const SelectSireModal = ({setParent, name, category="any"} : Props) => {
   const [open, setOpen] = useState(false);
@@ -62,7 +62,7 @@ export const SelectSireModal = ({setParent, name, category="any"} : Props) => {
         onOpenChange={setOpen}
         size={"3xl"}
         trigger={
-          <Button variant="outline">
+          <Button variant="outline" type="button">
             {<p className="uppercase">Select {name}</p>}
           </Button>
         }

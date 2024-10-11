@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { InventoryTransaction } from "@/lib/types/inventory";
 
 type Props = {
@@ -14,10 +15,14 @@ function InventoryTransactionCardSm({ inv_trans }: Props) {
               ? "text-primary"
               : "text-destructive"
           }`}>
-          Type: {inv_trans.transaction_type}
+          Type: <p className="font-semibold">{inv_trans.transaction_type}</p>
         </div>
         <div>Quantity: {inv_trans.quantity_change}</div>{" "}
         <div className="text-wrap break-all">Date: {inv_trans.timestamp}</div>{" "}
+        <div className="flex items-center gap-5">
+          <Button variant={"secondary"}>Edit</Button>
+          <Button variant={"destructive"}>Delete</Button>
+        </div>
       </div>
     </div>
   );

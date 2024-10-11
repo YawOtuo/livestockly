@@ -8,7 +8,7 @@ import { IoMdAdd } from "react-icons/io";
 
 type Props = {
   item: InventoryItem;
-  iconClassName: string
+  iconClassName?: string
 };
 
 function AddQuantity({ item, iconClassName }: Props) {
@@ -30,7 +30,7 @@ function AddQuantity({ item, iconClassName }: Props) {
           addTransaction({
             inventory_item_id: item?.id,
             quantity_change: qty,
-            transaction_type: "ADD",
+            transaction_type: "add",
             farm_id: Number(farm?.id),
           });
         }}
