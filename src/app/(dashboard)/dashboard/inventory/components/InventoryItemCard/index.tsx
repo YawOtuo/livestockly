@@ -19,8 +19,8 @@ function InventoryItemCard({ item, low = false }: Props) {
   }, [low]);
   return (
     <div
-      className={`w-full cursor-pointer  shadow p-5 flex flex-col gap-5 rounded-lg hover:bg-green2 justify-between transition-all duration-300 ${
-        belowThreshold && "bg-bsecondary-400/5 hover:bg-bseconday-400 hover:text-white"
+      className={`w-full cursor-pointer  shadow p-5 flex flex-col gap-5 rounded-lg hover:bg-green2 justify-between transition-all duration-200 ${
+        belowThreshold && "bg-bsecondary-400/5 hover:bg-bsecondary-400 hover:text-white"
       } `}>
       <div className="flex items-center justify-between gap-5">
         <h6 className="capitalize ">{item?.name}</h6>
@@ -28,7 +28,7 @@ function InventoryItemCard({ item, low = false }: Props) {
           className={` px-3  text-white rounded-md text-xs py-1 ${
             belowThreshold ? "bg-bsecondary-400" : "bg-bsecondary-400"
           }`}>
-          <p>{item?.category?.name}</p>
+          <p className="capitalize">{item?.category?.name}</p>
         </div>{" "}
       </div>
 
