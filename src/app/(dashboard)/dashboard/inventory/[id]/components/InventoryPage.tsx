@@ -15,7 +15,7 @@ function InventoryPage({ inventory }: Props) {
   return (
     <div className="flex flex-col gap-5 items-start">
       <div className="flex flex-col gap-1 w-full items-start">
-        <h2 className="text-black"> {inventory?.item?.name}</h2>
+        <h2 className="text-black capitalize"> {inventory?.item?.name}</h2>
         <div className="bg-bsecondary-400 px-3 py-1 rounded-md  w-fit text-white">
           <p className="text-sm">
             {" "}
@@ -44,7 +44,7 @@ function InventoryPage({ inventory }: Props) {
           <InventoryTransactionCard inv_trans={r} />
         ))}
       </div>
-      <div className="flex lg:hidden flex-col gap-5">
+      <div className="flex lg:hidden flex-col gap-5 w-full">
         {inventory?.transactions?.map((r) => (
           <InventoryTransactionCardSm inv_trans={r} />
         ))}

@@ -9,7 +9,7 @@ type Props = {
 
 function InventoryTransactionCardSm({ inv_trans }: Props) {
   return (
-    <div className="hover transition-all hover:bg-secondary">
+    <div className="hover transition-all hover:bg-secondary w-full">
       <div className="shadow px-5 py-3 rounded-lg     capitalize  flex flex-col items-start gap-2">
         <div
           className={`${
