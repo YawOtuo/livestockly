@@ -1,26 +1,33 @@
-import { Button } from "@/components/ui/button";
-import useFarm from "@/lib/hooks/useFarm";
-import { useInventory } from "@/lib/hooks/useInventory";
-import {
-  useAddAndUpdateInventoryTransaction,
-  useInventoryTransactions,
-} from "@/lib/hooks/useInventoryTransactions";
 import { InventoryItem } from "@/lib/types/inventory";
 import Link from "next/link";
 import { MdArrowRightAlt, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import AddQuantity from "./components/AddQuantity";
 import RemoveQuantity from "./components/RemoveQuantity";
+import { useEffect, useState } from "react";
 
 type Props = {
   item: InventoryItem;
+  low?: boolean;
 };
 
-function InventoryItemCard({ item }: Props) {
+function InventoryItemCard({ item, low = false }: Props) {
+  const [belowThreshold, setBelowThreshold] = useState(low);
+  useEffect(() => {
+    if (item?.quantity < item?.alert_threshold) {
+      setBelowThreshold(true);
+    }
+  }, [low]);
   return (
-    <div className="shadow p-5 flex flex-col gap-5 rounded-lg hover:bg-green2 transition-all duration-150 ">
+    <div
+      className={`w-full cursor-pointer  shadow p-5 flex flex-col gap-5 rounded-lg hover:bg-green2 justify-between transition-all duration-300 ${
+        belowThreshold && "bg-bsecondary-400/5 hover:bg-bseconday-400 hover:text-white"
+      } `}>
       <div className="flex items-center justify-between gap-5">
-        <h5 className="capitalize font-semibold">{item?.name}</h5>
-        <div className="bg-bsecondary-400 px-3  text-white rounded-md text-xs py-1">
+        <h6 className="capitalize ">{item?.name}</h6>
+        <div
+          className={` px-3  text-white rounded-md text-xs py-1 ${
+            belowThreshold ? "bg-bsecondary-400" : "bg-bsecondary-400"
+          }`}>
           <p>{item?.category?.name}</p>
         </div>{" "}
       </div>
@@ -34,9 +41,9 @@ function InventoryItemCard({ item }: Props) {
         </div>
         <Link
           href={`/dashboard/inventory/${item?.id}`}
-          className="flex items-center gap-3 text-xs">
-          <p> View Details </p>
-          <MdArrowRightAlt className="text-gray-600 text-xl" />
+          className="flex items-center gap-2 text-xs">
+          <p> View </p>
+          <MdArrowRightAlt className=" text-sm" />
         </Link>{" "}
       </div>
     </div>

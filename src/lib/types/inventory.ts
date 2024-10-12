@@ -10,6 +10,7 @@ export interface InventoryItem {
     category: InventoryCategory
     quantity: number 
     farm_id: number
+    alert_threshold: number
 }
 
 export type TransactionType = "add" | "remove" | "adjust"

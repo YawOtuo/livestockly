@@ -11,6 +11,7 @@ import { useAppStore } from "@/lib/store/useAppStore";
 import { useGetUserFarmDetails } from "@/lib/hooks/useFarm";
 import Link from "next/link";
 import useWorkers from "./workers/hooks/useWorkers";
+import InventoryItemsBelowThreshold from "../components/InventoryItemsBelowThreshold";
 
 type Props = {};
 
@@ -34,6 +35,7 @@ export default function Page({ searchParams }: any) {
 
   return (
     <div className=" w-full flex flex-col gap-5">
+      <InventoryItemsBelowThreshold />
       <div className="grid grid-cols-3 lg:flex gap-5 lg:gap-5 justify-start items-center w-full flex-wrap">
         {/* Render TotalSales for each livestock category */}
         {livestockDataQueries?.map((query, index) => {

@@ -14,6 +14,18 @@ export const getInventoryItems = async (
   return response.json();
 };
 
+export const getInventoryItemsBelowThreshold = async (
+  farm_id: number
+): Promise<InventoryItem[]> => {
+  const response = await fetch(`${url}inventories/farms/${farm_id}/below-threshold`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.json();
+};
+
 // Fetch a single category by ID
 
 

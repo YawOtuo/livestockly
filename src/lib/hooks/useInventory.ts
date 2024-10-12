@@ -7,10 +7,28 @@ import {
   deleteInventoryItem,
   AddInventoryItemBody,
   getOneInventoryItem,
+  getInventoryItemsBelowThreshold,
 } from "../api/inventory";
 import useFarm from "./useFarm";
 import useDisclosure from "./useDisclosure";
 
+
+
+export const useInventoryItemsBelowThreshold = ( ) => {
+  const { farm } = useFarm();
+  const farm_id = Number(farm?.id);
+
+  return useQuery(
+    ["inventoryItems-below-threshold"], // Cache key
+    async () => {
+      const response = await getInventoryItemsBelowThreshold(farm_id);
+      return response;
+    },
+    {
+      enabled: !!farm_id,
+    }
+  );
+};
 export const useGetOneInventory = (id: number) => {
   const { farm } = useFarm();
   const farm_id = Number(farm?.id);

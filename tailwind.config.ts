@@ -32,7 +32,7 @@ const config: Config = {
           500: "#A98743",
           600: "#25291C",
         },
-        popover: {
+    popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
         },
