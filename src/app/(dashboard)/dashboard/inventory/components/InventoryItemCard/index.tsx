@@ -19,8 +19,8 @@ function InventoryItemCard({ item, low = false }: Props) {
   }, [low]);
   return (
     <div
-      className={`w-full cursor-pointer  shadow p-5 flex flex-col gap-5 rounded-lg hover:bg-green2 justify-between transition-all duration-200 ${
-        belowThreshold && "bg-bsecondary-400/5 hover:bg-bsecondary-400 hover:text-white"
+      className={`w-full cursor-pointer  shadow p-5 flex flex-col gap-5 rounded-lg hover:bg-bsecondary-400 hover:text-white justify-between transition-all duration-200 ${
+        belowThreshold && "bg-bsecondary-400/5  "
       } `}>
       <div className="flex items-center justify-between gap-5">
         <h6 className="capitalize ">{item?.name}</h6>
