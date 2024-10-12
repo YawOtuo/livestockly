@@ -58,15 +58,11 @@ export const addInventoryItem = async (
   return response.json();
 };
 
-export type UpdateInvItemBody = {
-  name: string;
-  quantity: number;
-  farm_id: number;
-};
+
 
 export const updateInventoryItem = async (
   item_id: number,
-  data: UpdateInvItemBody
+  data: AddInventoryItemBody
 ): Promise<InventoryItem> => {
   const response = await fetch(`${url}inventories/${item_id}`, {
     method: "PUT",

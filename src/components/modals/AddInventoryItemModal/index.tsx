@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react"; // Import useEffect
 import { useForm } from "react-hook-form";
 import { Button } from "../../ui/button";
 import CustomModal from "../../ui/CustomDialog";
 import CustomInput from "@/components/ui/CustomInput";
-import useVaccines from "@/lib/hooks/useVaccines";
-import { AddVaccineBody } from "@/lib/api/vaccines";
 import { useInventory } from "@/lib/hooks/useInventory";
 import { AddInventoryItemBody } from "@/lib/api/inventory";
+import { InventoryItem } from "@/lib/types/inventory";
+import useDisclosure from "@/lib/hooks/useDisclosure";
 
-function AddInventoryItemModal() {
-  const { addInventoryItem } = useInventory(); // Assuming useVaccinations returns addVaccination function
+type AddInventoryItemModalProps = {
+  initialData?: InventoryItem; // Data to populate form for editing
+  edit?: boolean; // Flag to indicate edit mode
+};
+
+function AddInventoryItemModal({
+  initialData,
+  edit = false,
+}: AddInventoryItemModalProps) {
+  const { addInventoryItem, updateInventoryItem } = useInventory();
+  const { open, setOpen } = useDisclosure();
   const {
     register,
     handleSubmit,
@@ -17,20 +26,42 @@ function AddInventoryItemModal() {
     reset,
   } = useForm<AddInventoryItemBody>();
 
-  const onSubmit = async (data: AddInventoryItemBody) => {
+  // Populate form with initial data when it changes
+  useEffect(() => {
+    if (initialData) {
+      reset({
+        ...initialData,
+        category_name: initialData.category.name, 
+      });
+    }
+  }, [initialData, reset]);
 
+  const onSubmit = async (data: AddInventoryItemBody) => {
     try {
-      await addInventoryItem(data); // Call your addVaccination API
+      if (edit) {
+        // If in edit mode, update the inventory item
+        await updateInventoryItem({ id: Number(initialData?.id), data: data }); // Call your update function
+      } else {
+        // Otherwise, add a new inventory item
+        await addInventoryItem(data); // Call your add function
+      }
       reset(); // Reset the form fields after submission
     } catch (error) {
-      console.error("Failed to add vaccine", error);
+      console.error("Failed to save inventory item", error);
     }
+    setOpen(false);
   };
 
   return (
     <div>
       <CustomModal
-        trigger={<Button variant={"default"} size={"sm"}>Add  New Item</Button>}
+        open={open}
+        onOpenChange={setOpen}
+        trigger={
+          <Button variant={"secondary"} size={"sm"}>
+            {edit ? "Edit Item" : "Add New Item"}
+          </Button>
+        }
         body={
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -40,24 +71,25 @@ function AddInventoryItemModal() {
               {...register("name", { required: "Item name is required" })}
               errorText={errors.name?.message}
             />
-         
+
             <CustomInput
               label="Category"
               {...register("category_name", {
-                required: "Expiration date is required",
+                required: "Category is required",
               })}
               errorText={errors.category_name?.message}
             />
 
             <CustomInput
               label="Quantity"
+              type="number" // Ensure quantity is a number input
               {...register("quantity", {
-                required: "Expiration date is required",
+                required: "Quantity is required",
               })}
               errorText={errors.quantity?.message}
             />
 
-            <Button type="submit">Add Item</Button>
+            <Button type="submit">{edit ? "Update Item" : "Add Item"}</Button>
           </form>
         }
       />

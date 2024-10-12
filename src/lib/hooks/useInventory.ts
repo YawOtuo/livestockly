@@ -1,7 +1,15 @@
 "use client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getInventoryItems, addInventoryItem, updateInventoryItem, deleteInventoryItem, AddInventoryItemBody, getOneInventoryItem, UpdateInvItemBody } from "../api/inventory";
+import {
+  getInventoryItems,
+  addInventoryItem,
+  updateInventoryItem,
+  deleteInventoryItem,
+  AddInventoryItemBody,
+  getOneInventoryItem,
+} from "../api/inventory";
 import useFarm from "./useFarm";
+import useDisclosure from "./useDisclosure";
 
 export const useGetOneInventory = (id: number) => {
   const { farm } = useFarm();
@@ -23,9 +31,12 @@ export const useInventory = () => {
   const queryClient = useQueryClient();
   const { farm } = useFarm();
   const farm_id = Number(farm?.id);
-
   // Fetch inventory items
-  const { data: inventoryItems, isLoading: isItemsLoading, error: itemsError } = useQuery(
+  const {
+    data: inventoryItems,
+    isLoading: isItemsLoading,
+    error: itemsError,
+  } = useQuery(
     ["inventoryItems", farm_id], // Cache key
     async () => {
       const response = await getInventoryItems(farm_id);
@@ -52,7 +63,7 @@ export const useInventory = () => {
 
   // Update inventory item
   const updateInventoryItemMutation = useMutation(
-    async ({ id, data }: { id: number; data: UpdateInvItemBody }) => {
+    async ({ id, data }: { id: number; data: AddInventoryItemBody }) => {
       data.farm_id = farm_id;
       const response = await updateInventoryItem(id, data);
       return response;
@@ -87,6 +98,7 @@ export const useInventory = () => {
     addInventoryItem: addInventoryItemMutation.mutate,
     updateInventoryItem: updateInventoryItemMutation.mutate,
     deleteInventoryItem: deleteInventoryItemMutation.mutate,
-    refetchInventoryItems: () => queryClient.invalidateQueries(["inventoryItems", farm_id]),
+    refetchInventoryItems: () =>
+      queryClient.invalidateQueries(["inventoryItems", farm_id]),
   };
 };

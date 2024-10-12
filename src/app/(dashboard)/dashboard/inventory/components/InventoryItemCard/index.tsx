@@ -16,23 +16,21 @@ type Props = {
 };
 
 function InventoryItemCard({ item }: Props) {
-  const { addTransaction } = useAddAndUpdateInventoryTransaction(item?.id);
-  const { updateInventoryItem } = useInventory();
-  const { farm } = useFarm();
-
   return (
     <div className="shadow p-5 flex flex-col gap-5 rounded-lg hover:bg-green2 transition-all duration-150 ">
       <div className="flex items-center justify-between gap-5">
-        <h5 className="capitalize font-semibold">{item.name}</h5>
-        {/* <p>{item.category_name}</p> */}
+        <h5 className="capitalize font-semibold">{item?.name}</h5>
+        <div className="bg-bsecondary-400 px-3  text-white rounded-md text-xs py-1">
+          <p>{item?.category?.name}</p>
+        </div>{" "}
       </div>
 
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <RemoveQuantity item={item} iconClassName={"text-2xl"} />
+          <RemoveQuantity item={item} iconClassName={"text-xs"} />
 
           {item.quantity}
-          <AddQuantity item={item} iconClassName="text-2xl" />
+          <AddQuantity item={item} iconClassName="text-xs" />
         </div>
         <Link
           href={`/dashboard/inventory/${item?.id}`}
