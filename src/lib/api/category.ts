@@ -1,5 +1,5 @@
 import { url } from "../../../weburl";
-import { InventoryCategory } from "../types/inventory";
+import { InventoryCategory, InventoryItem } from "../types/inventory";
 
 export const getCategories = async (
   farm_id: number
@@ -16,6 +16,21 @@ export const getCategories = async (
   return response.json();
 };
 
+export const getCategoryItems = async (
+  farm_id: number,
+  category_id: number
+): Promise<InventoryItem[]> => {
+  const response = await fetch(
+    `${url}inventories/categories/${category_id}/items`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.json();
+};
 export const getCategory = async (
   category_id: number
 ): Promise<InventoryCategory> => {

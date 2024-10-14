@@ -7,6 +7,7 @@ import { useInventory } from "@/lib/hooks/useInventory";
 import { AddInventoryItemBody } from "@/lib/api/inventory";
 import { InventoryItem } from "@/lib/types/inventory";
 import useDisclosure from "@/lib/hooks/useDisclosure";
+import { CiCirclePlus, CiEdit } from "react-icons/ci";
 
 type AddInventoryItemModalProps = {
   initialData?: InventoryItem; // Data to populate form for editing
@@ -31,7 +32,7 @@ function AddInventoryItemModal({
     if (initialData) {
       reset({
         ...initialData,
-        category_name: initialData.category.name, 
+        category_name: initialData.category.name,
       });
     }
   }, [initialData, reset]);
@@ -58,7 +59,11 @@ function AddInventoryItemModal({
         open={open}
         onOpenChange={setOpen}
         trigger={
-          <Button variant={"secondary"} size={"sm"}>
+          <Button
+            variant={"secondary"}
+            size={"sm"}
+            className="text-bsecondary-400">
+            {!edit ? <CiCirclePlus className="mr-1 text-xl" /> : <CiEdit  className="mr-2"/>}
             {edit ? "Edit Item" : "Add New Item"}
           </Button>
         }

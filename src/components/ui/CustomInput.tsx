@@ -29,6 +29,7 @@ const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
           defaultValue={defaultValue}
           ref={ref}
           {...props}
+          autoFocus={false}
         />
 
         <FormErrorText text={errorText} />

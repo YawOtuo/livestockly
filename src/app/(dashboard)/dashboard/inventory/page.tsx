@@ -1,37 +1,21 @@
 "use client";
 import { useInventory } from "@/lib/hooks/useInventory";
 import InventoryItemCard from "./components/InventoryItemCard";
-import AddInventoryItemModal from "@/components/modals/AddInventoryItemModal";
 import FetchingState from "@/components/ui/FetchingState";
 import SkeletonInventoryItemCard from "./components/InventoryItemCard/SkeletonInventoryItemCard";
-import CategoryCard from "./components/CategoriesCard";
-import SkeletonCategoriesCard from "./components/CategoriesCard/SkeletonCategoriesCard";
-import { useCategory } from "@/lib/hooks/useCategory";
-
+import CategoriesSection from "./components/CategoriesSection";
+import dynamic from "next/dynamic";
+const AddInventoryItemModal = dynamic(
+  () => import("@/components/modals/AddInventoryItemModal")
+);
 function Page() {
   const { inventoryItems, isItemsLoading, itemsError } = useInventory();
-  const { categories, categoriesError, isCategoriesLoading } = useCategory();
   return (
     <div className="flex flex-col gap-5 items-start">
-      <div className="flex flex-col gap-3 items-start">
-        <p className="font-semibold text-gray-500 text-lg">Categories</p>
-        <FetchingState
-          className="w-full flex items-center flex-wrap gap-2"
-          success={
-            categories &&
-            categories?.map((r) => (
-              <CategoryCard key={r.id} category={r} />
-            ))
-          }
-          isLoading={isCategoriesLoading}
-          isError={categoriesError}
-          skeletonCount={7}
-          loading={<SkeletonCategoriesCard />}
-        />
-      </div>
+      <CategoriesSection />
       <div className="flex flex-col gap-3 items-start w-full">
         <div className="flex items-center gap-5">
-          <p className="font-semibold text-gray-600 text-lg">Items</p>
+          <p className="font-semibold text-gray-600 ">Items</p>
 
           <AddInventoryItemModal />
         </div>

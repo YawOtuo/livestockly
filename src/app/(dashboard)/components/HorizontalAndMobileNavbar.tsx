@@ -8,10 +8,11 @@ import { GrUserAdmin } from "react-icons/gr";
 import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
 import { RootState } from "@/lib/redux/store";
 import { AnimatePresence, motion } from "framer-motion";
-import {  Pagination } from "./DashboardSideNav";
+import { Pagination } from "./DashboardSideNav";
 import NotificationPopover from "./NotificationPopover";
 import { useAppStore } from "@/lib/store/useAppStore";
 import { Links } from "./DashboardSideNav/dashboardLinks";
+import { useDashboardMobileStore } from "@/components/DashboardMobileNavbar/components/useDashboardMobileNavStore";
 
 export default function HorizontalAndMobileNabvar() {
   const { Logout } = useFirebaseAuth();
@@ -19,6 +20,7 @@ export default function HorizontalAndMobileNabvar() {
   const { DBDetails } = useAppStore();
 
   const [showDetails, setShowDetails] = useState(false);
+  const { setDashboardMobileMenu } = useDashboardMobileStore();
 
   // const {
   //   isLoading: notificationsIsLoading,
@@ -31,22 +33,18 @@ export default function HorizontalAndMobileNabvar() {
   const isAdmin = useIsAdmin(DBDetails?.uid as string);
 
   return (
-    <AnimatePresence >
-      <motion.div
-     
-        className=" lg:bg-inherit border-b-[1px] w-full flex flex-col items-center justify-between px-0 lg:px-10 py-2 gap-5">
+    <AnimatePresence>
+      <motion.div className=" lg:bg-inherit shadow w-full flex flex-col items-center justify-between px-0 lg:px-10 py-2 gap-5">
         <div className="flex gap-5 w-full px-3 items-center">
-          <div className="w-full"></div>
+          <div className="w-full lg:invisible">livestockly</div>
           <NotificationPopover />
-
           <div className="hidden lg:flex gap-1  text-sm px-10  items-center">
             <IoIosLogOut />
             <button onClick={Logout}>Logout</button>
           </div>{" "}
-
           <button
             className="lg:hidden"
-            onClick={() => setShowDetails((init) => !init)}>
+            onClick={() => setDashboardMobileMenu(true)}>
             <RxHamburgerMenu size="30" className="text-primary font-bold" />
           </button>{" "}
         </div>

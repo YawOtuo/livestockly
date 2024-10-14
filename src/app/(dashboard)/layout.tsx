@@ -13,6 +13,7 @@ import useIsLoggedInReRoute from "@/lib/hooks/useIsLoggedInReRoute";
 import { RootState } from "@/lib/redux/store";
 import DashboardSideNav from "./components/DashboardSideNav";
 import { useAppStore } from "@/lib/store/useAppStore";
+import DashboardMobileMenuWrapper from "@/components/DashboardMobileNavbar/DashboardMobileMenuWrapper";
 
 // const montserrat = Open_Sans({ subsets: ["latin"] });
 // ... (other imports)
@@ -49,9 +50,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     ),
     loading: (
       <div className="flex flex-col gap-5 items-center justify-center bg-green2 h-screen">
-        <p className="uppercase font-bold mt-10 text-primary">
-          livestockly
-        </p>{" "}
+        <p className="uppercase font-bold mt-10 text-primary">livestockly</p>{" "}
         <div className=" flex items-center justify-center">
           <CustomLoaders variant="syncloader" colour="green1" />
         </div>
@@ -63,18 +62,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
     ),
     success: (
-      <div className="grid grid-cols-10 bg-green2">
-        <div className="col-span-2 hidden lg:flex">
-          <DashboardSideNav />
-        </div>
-        <div className="col-span-10 lg:col-span-8  ">
-          <div className="flex 
-          flex-col rounded-tl-3xl bg-white overflow-hidden h-full">
-            <Navbar />
-            <div className="w-full h-full p-5 ">{children}</div>
+      <DashboardMobileMenuWrapper>
+        <div className="grid grid-cols-10 bg-green2">
+          <div className="col-span-2 hidden lg:flex">
+            <DashboardSideNav />
+          </div>
+          <div className="col-span-10 lg:col-span-8  ">
+            <div
+              className="flex 
+            flex-col rounded-tl-3xl bg-white overflow-hidden h-full">
+              <Navbar />
+              <div className="w-full h-full p-5 ">{children}</div>
+            </div>
           </div>
         </div>
-      </div>
+      </DashboardMobileMenuWrapper>
     ),
   };
   return <div className={`!text-black  w-full`}>{options[currentPage]}</div>;

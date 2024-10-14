@@ -91,6 +91,16 @@ export default function AddRecordModal({
     }));
   }, []);
 
+  useEffect(() => {
+    if(record){
+      setOtherData({
+        gender: record?.gender,
+        castrated: record?.castrated,
+        alive: record?.alive,
+      })
+    }
+  }, [record]);
+
   const onSubmit = (data: any) => {
     submitForm(data);
   };
@@ -237,7 +247,7 @@ export default function AddRecordModal({
                 <CustomSwitch
                   id="alive"
                   label="Alive"
-                  defaultChecked={otherData.alive || true}
+                  defaultChecked={otherData?.alive}
                   onChange={(value) =>
                     setOtherData((prevData) => ({
                       ...prevData,

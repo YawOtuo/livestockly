@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 function SkeletonCategoriesCard() {
     return (  
         <div className="w-full">
-            <Skeleton className="w-full h-10"/>
+            <Skeleton className="w-24 h-10"/>
         </div>
     );
 }

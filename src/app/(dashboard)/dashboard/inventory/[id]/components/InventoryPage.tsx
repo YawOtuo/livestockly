@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import InventoryTransactionCardSm from "./InventoryTransactionCardSm";
 import AddQuantity from "../../components/InventoryItemCard/components/AddQuantity";
 import RemoveQuantity from "../../components/InventoryItemCard/components/RemoveQuantity";
-import AddInventoryItemModal from "@/components/modals/AddInventoryItemModal";
-
+import dynamic from "next/dynamic";
+const AddInventoryItemModal = dynamic(
+  () => import("@/components/modals/AddInventoryItemModal")
+);
 type Props = {
   inventory?: InventoryItemResponse;
 };

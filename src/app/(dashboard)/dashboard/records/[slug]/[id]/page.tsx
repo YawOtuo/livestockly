@@ -2,22 +2,17 @@
 import CaCattle from "@/components/icons/CaCattle";
 import CaGoat from "@/components/icons/CaGoat";
 import CaSheep from "@/components/icons/CaSheep";
-import ImageUploader from "@/components/image-uploader";
 import Log from "@/components/log/log";
 import { PermissionComponent } from "@/components/permission-component";
-import RecentRecords from "@/components/recentRecords";
 import { GetOneRecord } from "@/lib/api/record";
 import SlideEnterToLeft from "@/lib/framer/slideInWithGreen";
-import { returnGender } from "@/lib/utils/gender";
 import { Button } from "@mui/material";
 import { styled } from "@stitches/react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { AiOutlineDelete } from "react-icons/ai";
-import { useSelector } from "react-redux";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { RootState } from "@/lib/redux/store";
 import { useAppStore } from "@/lib/store/useAppStore";
 import dynamic from "next/dynamic";
 const AddRecordModal = dynamic(

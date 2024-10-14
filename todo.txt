@@ -14,4 +14,4 @@ its affecting the url
 
 accepting workers doesnt refresh the page
 
-farm id didnt save when creating foreman account
+add level permissions in dashboard mobile menu
