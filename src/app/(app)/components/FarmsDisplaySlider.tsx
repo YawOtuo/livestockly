@@ -7,7 +7,7 @@ const images = ["1.jpg", "2.jpg", "3.jpg"];
 function FarmsDisplaySlider() {
   return (
     <Swiper
-      className="w-full h-[50vh] lg:h-full"
+      className="w-full h-full lg:h-full"
       spaceBetween={30}
       autoplay={{
         delay: 2500,
