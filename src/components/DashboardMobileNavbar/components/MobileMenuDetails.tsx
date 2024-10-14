@@ -2,10 +2,13 @@ import Link from "next/link";
 import { useDashboardMobileStore } from "./useDashboardMobileNavStore";
 import { Links } from "@/app/(dashboard)/components/DashboardSideNav/dashboardLinks";
 import { Button } from "@/components/ui/button";
+import useFirebaseAuth from "@/lib/hooks/useFirebaseAuth";
+import { IoIosLogOut } from "react-icons/io";
 
 export const MobileMenuDetails = (props: any) => {
   // const { setToggle } = useMenuStore();
   const { setDashboardMobileMenu } = useDashboardMobileStore();
+  const { Logout } = useFirebaseAuth();
 
   return (
     <div
@@ -28,11 +31,13 @@ export const MobileMenuDetails = (props: any) => {
             onClick={() => setDashboardMobileMenu(false)}>
             {link?.icon}
 
-            <p className={"text-base  capitalize text-white "}>
-              {link.label}
-            </p>
+            <p className={"text-base  capitalize text-white "}>{link.label}</p>
           </Link>
         ))}
+        <button onClick={Logout} className="border-2 border-white px-4 py-1 rounded-lg text-white flex items-center justify-center">
+          <IoIosLogOut className="mr-1" />
+          Logout
+        </button>
       </div>
     </div>
   );

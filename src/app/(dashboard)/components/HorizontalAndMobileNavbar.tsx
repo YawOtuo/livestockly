@@ -15,15 +15,7 @@ import { Links } from "./DashboardSideNav/dashboardLinks";
 import { useDashboardMobileStore } from "@/components/DashboardMobileNavbar/components/useDashboardMobileNavStore";
 import { CgMenu } from "react-icons/cg";
 
-/*************  ✨ Codeium Command ⭐  *************/
-/**
- * @function HorizontalAndMobileNabvar
- * @description A horizontal navigation bar with a mobile menu toggle.
- * @returns {JSX.Element} A JSX element containing the navigation bar.
- * @example
- * <HorizontalAndMobileNabvar />
- */
-/******  7f640dbe-323d-4ef4-9697-d07095fe7003  *******/
+
 export default function HorizontalAndMobileNabvar() {
   const { Logout } = useFirebaseAuth();
 
@@ -46,7 +38,7 @@ export default function HorizontalAndMobileNabvar() {
     <AnimatePresence>
       <motion.div className=" lg:bg-inherit shadow w-full flex flex-col items-center justify-between px-0 lg:px-10 py-2 gap-5">
         <div className="flex gap-5 w-full px-3 items-center">
-          <div className="w-full lg:invisible"><span className="text-primary-900">livestock</span><span className="text-primary-d">ly</span></div>
+          <div className="w-full lg:invisible"><span className="text-primary-900">livestock</span><span className="text-black">ly</span></div>
           <NotificationPopover />
           <div className="hidden lg:flex gap-1  text-sm px-10  items-center">
             <IoIosLogOut />
