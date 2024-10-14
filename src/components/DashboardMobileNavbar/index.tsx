@@ -48,7 +48,7 @@ export default function DashboardMobileNavBar(props: any) {
           opacity: 0,
         },
       }}>
-      <div className="mt-10">
+      <div className="mt-16">
         <MobileMenuArea />
       </div>{" "}
     </motion.aside>

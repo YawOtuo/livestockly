@@ -20,7 +20,7 @@ export const Pagination = ({
 }: {
   label: string;
   link: string;
-  icon: any;
+icon: any;
   onClick?: any;
 }) => {
   return (
