@@ -23,12 +23,12 @@ function Page({ params }: Props) {
     <div className="flex flex-col gap-5">
       <BackButton className="w-fit" icon />
       <h5 className="capitalize text-bsecondary-400">{params.category_name}</h5>
-      <p>Showing {items?.length} item(s) in category</p>
+      <p>Showing {items?.length || 0} item(s) in category</p>
       <FetchingState
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5 w-full"
         isError={isItemsError}
         isLoading={isItemsLoading}
-        success={items && items?.map((r) => <InventoryItemCard item={r} />)}
+        success={items && Array.isArray(items) && items?.map((r) => <InventoryItemCard item={r} />)}
         skeletonCount={10}
         loading={<SkeletonInventoryItemCard />}
         nullComponent={
