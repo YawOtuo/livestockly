@@ -34,7 +34,7 @@ export const MobileMenuDetails = (props: any) => {
             <p className={"text-base  capitalize text-white "}>{link.label}</p>
           </Link>
         ))}
-        <button onClick={Logout} className="border-2 border-white px-4 py-1 rounded-lg text-white flex items-center justify-center">
+        <button onClick={Logout} className="border-2 border-white px-4 py-2 rounded-lg text-white flex items-center justify-center">
           <IoIosLogOut className="mr-1" />
           Logout
         </button>
