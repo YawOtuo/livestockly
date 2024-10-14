@@ -11,12 +11,13 @@ type Props = {
   filter: string;
   amount: string | number;
   url?: string;
+  isLoading: boolean
 };
 
-const TotalSales = ({ filter, amount, url }: Props) => {
+const TotalSales = ({ filter, amount, url, isLoading }: Props) => {
   return (
     <Link href={`${url}`}>
-      {amount ? (
+      {!isLoading ? (
         <motion.div
           layout
           className="flex  shadow border-green2 rounded-2xl lg:rounded-2xl  flex-col   items-center justify-center gap-1 lg:gap-1 py-5  lg:min-w-[200px] aspect-[5/2]

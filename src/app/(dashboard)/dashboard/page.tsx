@@ -45,6 +45,7 @@ export default function Page({ searchParams }: any) {
 
           return (
             <TotalSales
+              isLoading={isLoading}
               key={index}
               amount={records?.length || 0}
               filter={farm?.livestock_categories[index]?.name as string}
@@ -58,6 +59,7 @@ export default function Page({ searchParams }: any) {
         })}
 
         <TotalSales
+          isLoading={isLoadingWorkers}
           amount={workers?.length as number}
           filter="Workers"
           url="/dashboard"
