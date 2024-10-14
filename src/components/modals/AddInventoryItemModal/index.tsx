@@ -12,11 +12,13 @@ import { CiCirclePlus, CiEdit } from "react-icons/ci";
 type AddInventoryItemModalProps = {
   initialData?: InventoryItem; // Data to populate form for editing
   edit?: boolean; // Flag to indicate edit mode
+  className?: string
 };
 
 function AddInventoryItemModal({
   initialData,
   edit = false,
+  className
 }: AddInventoryItemModalProps) {
   const { addInventoryItem, updateInventoryItem } = useInventory();
   const { open, setOpen } = useDisclosure();
@@ -62,7 +64,7 @@ function AddInventoryItemModal({
           <Button
             variant={"secondary"}
             size={"sm"}
-            className="text-bsecondary-400">
+            className={`text-bsecondary-400 ${className}`}>
             {!edit ? <CiCirclePlus className="mr-1 text-xl" /> : <CiEdit  className="mr-2"/>}
             {edit ? "Edit Item" : "Add New Item"}
           </Button>

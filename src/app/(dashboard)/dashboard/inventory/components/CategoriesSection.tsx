@@ -18,6 +18,7 @@ function CategoriesSection() {
       <p className="font-semibold text-gray-600 text-base">Categories</p>
 
       <FetchingState
+        nullComponent={<div>No categories added yet</div>}
         className="w-full flex items-center justify-start flex-wrap gap-2"
         success={
           categories && (

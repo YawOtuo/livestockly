@@ -20,14 +20,12 @@ function InventoryItemCard({ item, low = false }: Props) {
   return (
     <div
       className={`w-full cursor-pointer  shadow p-5 flex flex-col gap-5 rounded-lg hover:bg-bsecondary-400 hover:text-white justify-between transition-all duration-200 ${
-        belowThreshold && "bg-bsecondary-400/5  "
+        belowThreshold && "bg-red-700/5  "
       } `}>
       <div className="flex items-center justify-between gap-5">
         <h6 className="capitalize ">{item?.name}</h6>
         <div
-          className={` px-3  text-white rounded-md text-xs py-1 ${
-            belowThreshold ? "bg-bsecondary-400" : "bg-bsecondary-400"
-          }`}>
+          className={` px-3  text-white rounded-md text-xs py-1 `}>
           <p className="capitalize">{item?.category?.name}</p>
         </div>{" "}
       </div>
