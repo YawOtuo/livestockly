@@ -55,7 +55,7 @@ function AddQuantity({ item, iconClassName }: Props) {
         open={open}
         onOpenChange={setOpen}
         trigger={
-          <Button variant={"outline"} className="bg-transparent w-full lg:w-fit">
+          <Button  size={"sm"} variant={"outline"} className="bg-transparent w-full lg:w-fit hover:text-black">
             <IoMdAdd className={iconClassName} />
           </Button>
         }

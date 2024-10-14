@@ -54,13 +54,16 @@ export const updateInventoryTransaction = async (
 
 // Delete a specific inventory transaction
 export const deleteInventoryTransaction = async (
-  transaction_id: number
+  transaction_id: number,
+  quantity_change: number
 ): Promise<{ message: string }> => {
   const response = await fetch(`${url}inventories/transactions/${transaction_id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(quantity_change),
+
   });
   return response.json();
 };

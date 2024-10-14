@@ -61,7 +61,7 @@ function RemoveQuantity({ item, iconClassName }: Props) {
         open={open}
         onOpenChange={setOpen}
         trigger={
-          <Button variant={"outline"} className="bg-transparent w-full lg:w-fit">
+          <Button variant={"outline"} size={"sm"} className="bg-transparent w-full lg:w-fit hover:text-black">
             <GrSubtract className={iconClassName} />
           </Button>
         }

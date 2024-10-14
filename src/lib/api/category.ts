@@ -21,7 +21,7 @@ export const getCategoryItems = async (
   category_id: number
 ): Promise<InventoryItem[]> => {
   const response = await fetch(
-    `${url}inventories/categories/${category_id}/items`,
+    `${url}inventories/farms/${farm_id}/categories/${category_id}/items`,
     {
       method: "GET",
       headers: {

@@ -8,17 +8,18 @@ import { AddInventoryItemBody } from "@/lib/api/inventory";
 import { InventoryItem } from "@/lib/types/inventory";
 import useDisclosure from "@/lib/hooks/useDisclosure";
 import { CiCirclePlus, CiEdit } from "react-icons/ci";
+import InfoText from "@/components/InfoText";
 
 type AddInventoryItemModalProps = {
   initialData?: InventoryItem; // Data to populate form for editing
   edit?: boolean; // Flag to indicate edit mode
-  className?: string
+  className?: string;
 };
 
 function AddInventoryItemModal({
   initialData,
   edit = false,
-  className
+  className,
 }: AddInventoryItemModalProps) {
   const { addInventoryItem, updateInventoryItem } = useInventory();
   const { open, setOpen } = useDisclosure();
@@ -64,8 +65,12 @@ function AddInventoryItemModal({
           <Button
             variant={"secondary"}
             size={"sm"}
-            className={`text-bsecondary-400 ${className}`}>
-            {!edit ? <CiCirclePlus className="mr-1 text-xl" /> : <CiEdit  className="mr-2"/>}
+            className={`${!edit ? "bg-bsecondary-400 text-white hover:bg-bsecondary-600" : "text-black"} ${className}`}>
+            {!edit ? (
+              <CiCirclePlus className="mr-1 text-xl" />
+            ) : (
+              <CiEdit className="mr-2" />
+            )}
             {edit ? "Edit Item" : "Add New Item"}
           </Button>
         }
@@ -95,6 +100,14 @@ function AddInventoryItemModal({
               })}
               errorText={errors.quantity?.message}
             />
+            <CustomInput
+              label="Threshold Quantity"
+              {...register("alert_threshold", {
+                required: "Threshold Quantity is required",
+              })}
+              errorText={errors.alert_threshold?.message}
+            />
+            <InfoText text="Threshold quantity is the quantity that if the item is below that quantity you would receive alerts to refill" size={"xs"}  />
 
             <Button type="submit">{edit ? "Update Item" : "Add Item"}</Button>
           </form>

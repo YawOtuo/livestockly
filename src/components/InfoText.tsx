@@ -21,11 +21,16 @@ const infoTextStyles = cva("p-5", {
 });
 
 type Props = {
+  className?: string;
   text: string;
 } & VariantProps<typeof infoTextStyles>;
 
-function InfoText({ text, size, variant }: Props) {
-  return <div className={infoTextStyles({ size, variant })}>{text}</div>;
+function InfoText({ text, size, variant, className }: Props) {
+  return (
+    <div className={`${infoTextStyles({ size, variant })} ${className}`}>
+      {text}
+    </div>
+  );
 }
 
 export default InfoText;

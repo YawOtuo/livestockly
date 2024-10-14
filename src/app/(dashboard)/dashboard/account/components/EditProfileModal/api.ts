@@ -10,7 +10,7 @@ const uploadToCloudinary = async (file : File) => {
     const response = await axios.post(
       "https://api.cloudinary.com/v1_1/daurieb51/image/upload",
       formData
-    );
+    )
 
     return response.data.public_id;
   } catch (error) {

@@ -55,6 +55,7 @@ export type AddInventoryItemBody = {
   category_name: string;
   quantity: number;
   farm_id: number;
+  alert_threshold: number
 };
 export const addInventoryItem = async (
   farm_id: number,

@@ -30,10 +30,17 @@ function InventoryPage({ inventory }: Props) {
       </div>
       <div className="flex flex-col lg:flex-row lg:items-center justify-start gap-2 lg:gap-4 w-full items-start">
         <div className="flex items-center gap-2 lg:gap-4 ">
-          <p className="whitespace-nowrap">
-            {" "}
-            {inventory?.item?.quantity} remaining
-          </p>
+          <div className="flex flex-col gap-0 w-full">
+            <p className="whitespace-nowrap">
+              {" "}
+              {inventory?.item?.quantity} remaining
+            </p>
+            <div className="w-full whitespace-nowrap">
+              <p className="text-xs">
+                Threshold value: {inventory?.item?.alert_threshold}
+              </p>
+            </div>
+          </div>
           <AddInventoryItemModal edit initialData={inventory?.item} />
         </div>
         <div className="flex w-full flex-row gap-2 lg:gap-4">

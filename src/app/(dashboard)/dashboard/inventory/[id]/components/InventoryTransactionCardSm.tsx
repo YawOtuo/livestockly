@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { InventoryTransaction } from "@/lib/types/inventory";
-import { MdOutlineDelete } from "react-icons/md";
-import DeleteInventoryButton from "./DeleteInventoryButton";
+import EditInventoryTransactionModal from "@/components/modals/EditInventoryTransactionModal";
+import DeleteInventoryTransactionModal from "@/components/modals/DeleteInventoryTransactionModal";
 
 type Props = {
   inv_trans: InventoryTransaction;
@@ -20,10 +19,12 @@ function InventoryTransactionCardSm({ inv_trans }: Props) {
           Type: <p className="font-semibold">{inv_trans.transaction_type}</p>
         </div>
         <div>Quantity: {inv_trans.quantity_change}</div>{" "}
-        <div className="text-wrap break-all text-xs">Date: {inv_trans.timestamp}</div>{" "}
+        <div className="text-wrap break-all text-xs">
+          Date: {inv_trans.timestamp}
+        </div>{" "}
         <div className="flex items-center gap-5">
-          <Button variant={"secondary"}>Edit</Button>
-          <DeleteInventoryButton />
+          <EditInventoryTransactionModal transaction={inv_trans} />{" "}
+          <DeleteInventoryTransactionModal transaction={inv_trans} />
         </div>
       </div>
     </div>
