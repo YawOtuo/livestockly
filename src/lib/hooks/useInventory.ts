@@ -11,10 +11,9 @@ import {
 } from "../api/inventory";
 import useFarm from "./useFarm";
 import useDisclosure from "./useDisclosure";
+import { useRouter } from "next/navigation";
 
-
-
-export const useInventoryItemsBelowThreshold = ( ) => {
+export const useInventoryItemsBelowThreshold = () => {
   const { farm } = useFarm();
   const farm_id = Number(farm?.id);
 
@@ -48,6 +47,7 @@ export const useGetOneInventory = (id: number) => {
 export const useInventory = () => {
   const queryClient = useQueryClient();
   const { farm } = useFarm();
+  const router = useRouter();
   const farm_id = Number(farm?.id);
   // Fetch inventory items
   const {
@@ -103,6 +103,7 @@ export const useInventory = () => {
     },
     {
       onSuccess: () => {
+        router.push("/dashboard/inventory");
         queryClient.invalidateQueries(["inventoryItems", farm_id]); // Invalidate and refetch items after deletion
       },
     }
