@@ -27,14 +27,14 @@ export const Pagination = ({
     <Link href={link} className="w-full">
       <motion.div
         whileHover={{
-          scale: 1.04,
+          scale: 1.03,
         }}
         onClick={() => {
           onClick && onClick();
         }}
         className=" hover:bg-primary rounded-md hover:text-white w-full p-2 flex gap-5 items-center pl-10 ">
         {icon}
-        <p className=" font">{label}</p>
+        <p className=" text-base">{label}</p>
       </motion.div>
     </Link>
   );

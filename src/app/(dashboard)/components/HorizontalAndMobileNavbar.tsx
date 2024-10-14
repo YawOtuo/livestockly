@@ -13,6 +13,7 @@ import NotificationPopover from "./NotificationPopover";
 import { useAppStore } from "@/lib/store/useAppStore";
 import { Links } from "./DashboardSideNav/dashboardLinks";
 import { useDashboardMobileStore } from "@/components/DashboardMobileNavbar/components/useDashboardMobileNavStore";
+import { CgMenu } from "react-icons/cg";
 
 export default function HorizontalAndMobileNabvar() {
   const { Logout } = useFirebaseAuth();
@@ -45,7 +46,7 @@ export default function HorizontalAndMobileNabvar() {
           <button
             className="lg:hidden"
             onClick={() => setDashboardMobileMenu(true)}>
-            <RxHamburgerMenu size="30" className="text-primary font-bold" />
+            <CgMenu size="30" className="text-primary font-bold" />
           </button>{" "}
         </div>
 
