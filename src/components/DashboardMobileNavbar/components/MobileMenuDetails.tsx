@@ -24,7 +24,7 @@ export const MobileMenuDetails = (props: any) => {
           <Link
             href={`${link.link}`}
             key={index}
-            className="border-2 rounded-lg border-white text-white px-4 py-3 flex flex-col gap-1 items-center"
+            className="border-2 rounded-lg border-white text-white px-4 py-7 flex flex-col gap-2 items-center"
             onClick={() => setDashboardMobileMenu(false)}>
             {link?.icon}
 
