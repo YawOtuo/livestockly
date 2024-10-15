@@ -43,7 +43,10 @@ export const getCategory = async (
   return response.json();
 };
 
-export type AddCategoryBody = Omit<InventoryCategory, "id" | "farm_id">;
+export type AddCategoryBody = Omit<
+  InventoryCategory,
+  "id" | "farm_id" | "item_count"
+>;
 
 export const addCategory = async (
   farm_id: number,
@@ -62,14 +65,13 @@ export const addCategory = async (
   return response.json();
 };
 
-
-
 export const updateCategory = async (
   farm_id: number,
+  category_id: number,
   data: AddCategoryBody
 ): Promise<InventoryCategory> => {
   const response = await fetch(
-    `${url}inventories/farms/${farm_id}/categories`,
+    `${url}inventories/farms/${farm_id}/categories/${category_id}`,
     {
       method: "PUT",
       headers: {

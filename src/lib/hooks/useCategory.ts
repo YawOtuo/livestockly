@@ -80,15 +80,25 @@ export const useCategory = () => {
 
   // Update category
   const updateCategoryMutation = useMutation(
-    async (categoryData: InventoryCategory) => {
-      const response = await updateCategory(categoryData.id, categoryData); // Assuming updateCategory takes id and category data
+    async ({
+      category_id,
+      categoryData,
+    }: {
+      category_id: number;
+      categoryData: AddCategoryBody;
+    }) => {
+      const response = await updateCategory(
+        DBDetails?.farm_id as number,
+        category_id,
+        categoryData
+      ); // Assuming updateCategory takes id and category data
       return response;
     },
     {
       onMutate: () => {
         toast({ title: "Updating category", variant: "default" });
       },
-      onSuccess: (response, categoryData) => {
+      onSuccess: (response, {category_id, categoryData}) => {
         createNotification({
           type: "info",
           subject: `Category updated - ${categoryData.name}`,
@@ -110,7 +120,7 @@ export const useCategory = () => {
     },
     {
       onMutate: () => {
-        toast({ title: "Updating", variant: "default" });
+        toast({ title: "Deleting", variant: "default" });
       },
       onSuccess: (response, categoryData) => {
         createNotification({

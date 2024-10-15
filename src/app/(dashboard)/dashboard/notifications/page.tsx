@@ -14,7 +14,7 @@ export default function Page() {
   return (
     <div className="flex flex-col gap-5 w-full justify-start  ">
       <div className="flex gap-5 font-[400] items-center">
-        <p className="font-semibold text-green1 text-xl">Notifcations</p>
+        <p className="font-semibold text-green1 text-xl">Notifications</p>
         {/* {items?.length > 1 && (
           <div className="bg-yellow1 rounded-full aspect-square w-[30px] flex items-center justify-center">
             <p className="text-white font-semibold">{items?.length}</p>

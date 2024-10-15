@@ -19,14 +19,14 @@ function CategoriesSection() {
 
       <FetchingState
         nullComponent={<div>No categories added yet</div>}
-        className="w-full flex items-center justify-start flex-wrap gap-2"
+        className="w-full flex gap-2"
         success={
           categories && (
-            <div className="flex items-center justify-start gap-5 w-full">
+            <div className="flex  items-center justify-center gap-5 w-full">
               <Swiper
                 spaceBetween={10}
                 ref={ref}
-                className="w-full pb-2"
+                className="w-full  pb-2"
                 freeMode
                 modules={[FreeMode]}>
                 {categories?.map((r) => (
@@ -38,11 +38,11 @@ function CategoriesSection() {
 
               <Link
                 href={"/dashboard/inventory/categories"}
-                className=" flex justify-start">
+                className="w-full min-w-[40%] flex items-center justify-start">
                 <Button
-                  className="text-bsecondary-400"
+                  className="text-bsecondary-400 text-xs !px-0"
                   variant={"link"}
-                  size={"sm"}>
+                  size={"sm"} >
                   See All
                   <FaArrowRightLong className="ml-2" />
                 </Button>

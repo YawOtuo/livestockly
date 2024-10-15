@@ -2,6 +2,7 @@ export interface InventoryCategory {
     id: number 
     name: string 
     farm_id: number 
+    item_count: number
 }
 
 export interface InventoryItem {
