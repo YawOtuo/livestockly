@@ -11,13 +11,13 @@ type Props = {
 };
 function CategoriesAllCard({ category }: Props) {
   return (
-    <div className="rounded-md shadow p-5 hover:bg-bsecondary-400/5 transition-all capitalize flex flex-col items-start justify-between gap-0">
+    <div className="rounded-md shadow p-4 lg:p-5 hover:bg-bsecondary-400/5 transition-all capitalize flex flex-col items-start justify-between gap-0">
       <Link
         href={`/dashboard/inventory/categories/${category.name}/${category.id} `}>
         {category.name}
       </Link>
 
-      <div className="flex items-center justify-between w-full gap-5">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between w-full gap-5">
         <Link
           href={`/dashboard/inventory/categories/${category.name}/${category.id} `}>
           <div className="lowercase text-sm text-slate-500">
@@ -25,7 +25,7 @@ function CategoriesAllCard({ category }: Props) {
           </div>
         </Link>
 
-        <div className="flex items-center gap-2 justify-center">
+        <div className="flex items-center gap-2 justify-center w-full lg:w-fit">
           <EditCategoryModal category={category} />
           <DeleteCategoryModal category={category}/>
         </div>

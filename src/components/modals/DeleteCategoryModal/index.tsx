@@ -17,7 +17,7 @@ function DeleteCategoryModal({ category }: Props) {
   const { deleteCategory } = useCategory(); // Assuming useVaccinations returns addVaccination function
   const { setOpen, open } = useDisclosure();
   return (
-    <div>
+    <div className="w-full lg:w-fit">
       <CustomModal
         open={open}
         onOpenChange={setOpen}
@@ -25,7 +25,7 @@ function DeleteCategoryModal({ category }: Props) {
           <Button
             size={"sm"}
             variant={"outline"}
-            className="text-xs hover:bg-transparent bg-transparent">
+            className="w-full lg:w-fit text-xs hover:bg-transparent bg-transparent">
             <MdDeleteSweep />
           </Button>
         }

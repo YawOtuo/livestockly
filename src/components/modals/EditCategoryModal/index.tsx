@@ -47,7 +47,7 @@ function EditCategoryModal({ category }: Props) {
   };
 
   return (
-    <div>
+    <div className="w-full lg:w-fit">
       <CustomModal
         open={open}
         onOpenChange={setOpen}
@@ -55,7 +55,7 @@ function EditCategoryModal({ category }: Props) {
           <Button
             size={"sm"}
             variant={"outline"}
-            className="text-xs  hover:bg-transparent bg-transparent">
+            className="w-full lg:w-fit text-xs  hover:bg-transparent bg-transparent">
             <CiEdit />
           </Button>
         }
