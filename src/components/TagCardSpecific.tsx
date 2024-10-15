@@ -1,11 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { LuTag } from "react-icons/lu";
 
-import CaSheep from "./icons/CaSheep";
-import CaGoat from "./icons/CaGoat";
-import CaCattle from "./icons/CaCattle";
-import { CiCalendarDate } from "react-icons/ci";
 
 import { Record } from "@/lib/types/record";
 import { categoryIcons } from "@/lib/utils/categoryicons";

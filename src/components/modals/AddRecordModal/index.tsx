@@ -14,7 +14,7 @@ import { Record } from "@/lib/types/record";
 import CustomSelect from "@/components/ui/CustomSelect";
 import useLivestockData from "@/lib/hooks/useLivestockRecords";
 import useFarm from "@/lib/hooks/useFarm";
-import AddVaccinationModal from "../AddVacinationModal";
+import { MdEdit } from "react-icons/md";
 
 type Props = {
   edit?: boolean;
@@ -92,12 +92,12 @@ export default function AddRecordModal({
   }, []);
 
   useEffect(() => {
-    if(record){
+    if (record) {
       setOtherData({
         gender: record?.gender,
         castrated: record?.castrated,
         alive: record?.alive,
-      })
+      });
     }
   }, [record]);
 
@@ -120,7 +120,7 @@ export default function AddRecordModal({
           <Button variant={variant == "icon" ? "ghost" : "default"}>
             {variant == "icon" ? (
               edit ? (
-                <img src={"/icons/edit.png"} width="90%" />
+                <MdEdit />
               ) : (
                 <IoIosAddCircleOutline
                   className={`text-primary text-xl ${iconClassname}`}
@@ -234,10 +234,10 @@ export default function AddRecordModal({
                   />
                 </div>
                 <div className="flex items-start flex-col gap-5">
-                <div  className="flex items-center gap-2">
+                  <div className="flex items-center gap-2">
                     <p> Mother&apos;s Tag </p>
                     <span className="text-greendeep">{dam?.name}</span>
-                </div>
+                  </div>
                   <SelectSireModal
                     category={category?.id}
                     setParent={setDam}

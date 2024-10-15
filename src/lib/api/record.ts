@@ -155,3 +155,16 @@ export const deleteImage = async (
   });
   return response.json();
 };
+
+
+export const deleteRecord = async (
+  id: number,
+): Promise<string> => {
+  const response = await fetch(`${url}records/${id}`, {
+    method: "DELETE", // or 'PATCH' depending on your API
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.json();
+};

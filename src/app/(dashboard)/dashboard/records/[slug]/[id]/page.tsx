@@ -1,7 +1,5 @@
 "use client";
-import CaCattle from "@/components/icons/CaCattle";
-import CaGoat from "@/components/icons/CaGoat";
-import CaSheep from "@/components/icons/CaSheep";
+
 import Log from "@/components/log/log";
 import { PermissionComponent } from "@/components/permission-component";
 import { GetOneRecord } from "@/lib/api/record";
@@ -11,10 +9,11 @@ import { styled } from "@stitches/react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { AiOutlineDelete } from "react-icons/ai";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useAppStore } from "@/lib/store/useAppStore";
 import dynamic from "next/dynamic";
+import DeleteRecordModal from "@/components/modals/DeleteRecordModal";
+import { categoryIcons } from "@/lib/utils/categoryicons";
 const AddRecordModal = dynamic(
   () => import("@/components/modals/AddRecordModal")
 );
@@ -119,28 +118,25 @@ function Page() {
               Back
             </Button>
             <PermissionComponent level={2}>
-              <div className="w-full justify-center items-center flex flex-wrap">
+              <div className="w-full justify-center items-center flex flex-wrap gap-5">
                 <div className="flex uppercase items-center">
                   {animal && (
                     <AddRecordModal edit={true} title="Edit" record={animal} />
                   )}
-                </div>
-                <div className="flex uppercase items-center flex-wrap">
-                  <AiOutlineDelete color="red" size={30} />
-                  Delete
                 </div>
               </div>
             </PermissionComponent>{" "}
           </div>
           <div className=" grid grid-cols-5 py-20 justify-center items-center text-uppercase mb-5 bg-green2  gap-5">
             <div
-              className="flex flex-col col-span-5 lg:col-span-2
+              className="flex flex-col col-span-5 lg:col-span-2 
                         items-center">
-              {animal?.category.name == "goats" && <CaGoat />}
-              {animal?.category.name == "sheep" && <CaSheep />}
-              {animal?.category.name == "cattle" && <CaCattle />}
+              <span className="text-primary text-4xl">
+                {" "}
+                {animal?.category && categoryIcons[animal?.category?.name]}
+              </span>
 
-              <h1 className="text-2xl font-bold uppercase"> {animal?.name}</h1>
+              <h1 className="text-3xl font-bold uppercase"> {animal?.name}</h1>
             </div>
 
             <div className="flex  col-span-5 lg:col-span-1 flex-col  items-center lg:items-start gap-4 capitalize ">
@@ -239,6 +235,10 @@ function Page() {
                 data={recentsSp}
               /> */}
             </div>
+          </div>
+          <div className="w-full justify-end flex ">
+            {" "}
+            {animal && <DeleteRecordModal record={animal} />}
           </div>
         </div>
       </SlideEnterToLeft>

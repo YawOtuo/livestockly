@@ -1,7 +1,6 @@
-import { AddRecord, AddRecordBody, updateRecord } from "@/lib/api/record";
+import { AddRecord, AddRecordBody, updateRecord, deleteRecord } from "@/lib/api/record"; // Import deleteRecord
 import useNotifications from "@/lib/hooks/useNotifications";
 import useToast from "@/lib/hooks/useToasts";
-import { RootState } from "@/lib/redux/store";
 import { useAppStore } from "@/lib/store/useAppStore";
 import { LivestockCategory } from "@/lib/types/livestockcategory";
 import { Record } from "@/lib/types/record";
@@ -52,11 +51,12 @@ const useRecordFormSubmission = ({
       },
     }
   );
+  
   const updateMutation = useMutation(
     (newItem: AddRecordBody) => updateRecord(Number(record?.id), newItem),
     {
       onMutate: () => {
-        showToast("updating", "success");
+        showToast("Updating", "success");
       },
       onSuccess: () => {
         showToast(`${record?.name} updated`, "success");
@@ -66,18 +66,17 @@ const useRecordFormSubmission = ({
     }
   );
 
+  // Add a delete mutation
+
+
   const handleCreate = async (data: AddRecordBody) => {
     console.log("handleCreate");
     await createMutation.mutateAsync(data);
-    // const result = await AddRecord(data);
-    // if (result) {
-    //   queryClient.invalidateQueries(`records`);
-    // }
+
     createNotification({
       type: "success",
       subject: `New record`,
       content: `New record ${data?.name} has been created by ${DBDetails?.username}`,
-      // content: "",
       to_farm_id: DBDetails?.farm_id as number,
     });
     setOpen(false);
@@ -88,17 +87,15 @@ const useRecordFormSubmission = ({
     createNotification({
       type: "success",
       subject: `Record ${data?.name} has been updated by ${DBDetails?.username}`,
-      // content: "",
       to_farm_id: DBDetails?.farm_id as number,
     });
     setOpen(false);
   };
-  const handleSubmit = (values: any) => {
-    // if (submitting) {
-    //   return; // Prevent multiple submissions while processing
-    // }
 
-    // setSubmitting(true);
+  // Add the handleDelete function
+
+
+  const handleSubmit = (values: any) => {
     values.farm_id = Number(DBDetails?.farm_id);
     values.dam = dam?.id;
     values.sire = sire?.id;
@@ -106,7 +103,6 @@ const useRecordFormSubmission = ({
     values.alive = otherData?.alive;
     values.category = otherData?.category;
     values.remarks = otherData?.remarks;
-
     values.castrated = otherData?.castrated;
 
     !edit ? handleCreate(values) : handleUpdate(values);
