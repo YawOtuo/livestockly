@@ -1,9 +1,7 @@
 import { PiWarningBold } from "react-icons/pi";
-import { FaInfoCircle } from "react-icons/fa";
 import { IoIosNotificationsOutline, IoIosWarning } from "react-icons/io";
 
 import moment from "moment";
-import IconButton from "@/components/IconButton";
 import { Notification, NotificationType } from "@/lib/types/notification";
 import {
   IoCheckmarkCircleSharp,
@@ -25,7 +23,7 @@ export default function NotificationCard({ notification }: Props) {
     info: <IoInformationCircleOutline className="text-slate-600 " />,
   };
   return (
-    <div className="w-full  hover:scale-[1.0`] hover:bg-green2 cursor-pointer p-5">
+    <div className="w-full  hover:scale-[1.0`] hover:bg-green2 cursor-pointer p-5 border-b-[1px] rounded-md">
       <div className="flex flex-col lg:flex-row items-start justify-between lg:items-center gap-3 lg:gap-0">
         <div className="flex gap-3 items-start justify-start">
           <div className="flex items-start h-full pt-2 text-2xl">

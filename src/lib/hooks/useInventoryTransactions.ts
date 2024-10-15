@@ -37,21 +37,35 @@ export const useAddAndUpdateInventoryTransaction = (itemId: number) => {
       return response;
     },
     {
-      onMutate: () => {
-        toast({ title: "Adding", variant: "default" });
+      onMutate: ({transactionData}) => {
+        toast({
+          title: `${
+            transactionData.transaction_type == "add" ? "Added" : "Removed"
+          }`,
+          variant: "default",
+        });
       },
 
       onSuccess: (data, { transactionData, item_name }) => {
-        toast({ title: "Added", variant: "default" });
+        toast({
+          title: `${
+            transactionData.transaction_type == "add" ? "Added" : "Removed"
+          }`,
+          variant: "default",
+        });
 
         createNotification({
           type: "caution",
-          subject: `${transactionData.quantity_change} of ${item_name} have been ${
+          subject: `${
+            transactionData.quantity_change
+          } of ${item_name} have been ${
             transactionData.transaction_type == "add" ? "added" : "removed"
           } from your inventory`,
-          content: `${transactionData.quantity_change} of ${item_name} have been  ${
+          content: `${
+            transactionData.quantity_change
+          } of ${item_name} have been  ${
             transactionData.transaction_type == "add" ? "added" : "removed"
-          }s from your inventory by ${DBDetails?.username}`,
+          } from your inventory by ${DBDetails?.username}`,
           to_farm_id: DBDetails?.farm_id as number,
         });
         queryClient.invalidateQueries([
@@ -88,7 +102,7 @@ export const useAddAndUpdateInventoryTransaction = (itemId: number) => {
         toast({ title: "Updated", variant: "default" });
 
         createNotification({
-          type: "caution",
+          type: "info",
           subject: `Inventory Record Update`,
           content: `${data.quantity_change} of ${item_name} have been updated in your inventory of ${item_name} by ${DBDetails?.username}`,
           to_farm_id: DBDetails?.farm_id as number,

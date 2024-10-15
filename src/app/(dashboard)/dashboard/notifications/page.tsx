@@ -1,9 +1,7 @@
 "use client";
 
 import NoPlaceHolder from "@/components/NoPlaceHolder";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useSelector } from "react-redux";
 import NotificationCard from "../../components/NotificationCard";
 import { GetUserNotifications } from "@/lib/api/notifications";
 import useNotifications from "@/lib/hooks/useNotifications";
@@ -26,7 +24,7 @@ export default function Page() {
 
       <div className="flex flex-col gap-5 w-full h-full">
         <FetchingState
-          className="flex flex-col gap-5 w-full"
+          className="flex flex-col gap-2 w-full"
           skeletonCount={10}
           success={notifications?.map((r, index: number) => (
             <NotificationCard notification={r} key={index} />
