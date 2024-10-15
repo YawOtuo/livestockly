@@ -62,6 +62,25 @@ export const addCategory = async (
   return response.json();
 };
 
+
+
+export const updateCategory = async (
+  farm_id: number,
+  data: AddCategoryBody
+): Promise<InventoryCategory> => {
+  const response = await fetch(
+    `${url}inventories/farms/${farm_id}/categories`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  return response.json();
+};
+
 export const deleteCategory = async (
   category_id: number
 ): Promise<{ message: string }> => {

@@ -39,7 +39,7 @@ function useRecords() {
     await deleteMutation.mutateAsync(record);
 
     createNotification({
-      type: "success",
+      type: "caution",
       subject: `Record deleted by ${DBDetails?.username}`,
       content: `Record has been deleted`,
       to_farm_id: DBDetails?.farm_id as number,

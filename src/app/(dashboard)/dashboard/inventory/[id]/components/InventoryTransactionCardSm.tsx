@@ -1,12 +1,13 @@
-import { InventoryTransaction } from "@/lib/types/inventory";
+import { InventoryItem, InventoryTransaction } from "@/lib/types/inventory";
 import EditInventoryTransactionModal from "@/components/modals/EditInventoryTransactionModal";
 import DeleteInventoryTransactionModal from "@/components/modals/DeleteInventoryTransactionModal";
 
 type Props = {
   inv_trans: InventoryTransaction;
+  item: InventoryItem;
 };
 
-function InventoryTransactionCardSm({ inv_trans }: Props) {
+function InventoryTransactionCardSm({ inv_trans, item }: Props) {
   return (
     <div className="hover transition-all hover:bg-secondary w-full">
       <div className="shadow px-5 py-3 rounded-lg     capitalize  flex flex-col items-start gap-2">
@@ -23,8 +24,8 @@ function InventoryTransactionCardSm({ inv_trans }: Props) {
           Date: {inv_trans.timestamp}
         </div>{" "}
         <div className="flex items-center gap-5">
-          <EditInventoryTransactionModal transaction={inv_trans} />{" "}
-          <DeleteInventoryTransactionModal transaction={inv_trans} />
+          <EditInventoryTransactionModal transaction={inv_trans} item_name={item.name} />{" "}
+          <DeleteInventoryTransactionModal transaction={inv_trans} item_name={item.name}  />
         </div>
       </div>
     </div>

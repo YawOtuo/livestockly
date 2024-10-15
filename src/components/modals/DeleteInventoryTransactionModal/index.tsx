@@ -16,9 +16,10 @@ import InfoText from "@/components/InfoText";
 
 type Props = {
   transaction: InventoryTransaction;
+  item_name: string
 };
 
-function DeleteInventoryTransactionModal({ transaction }: Props) {
+function DeleteInventoryTransactionModal({ transaction, item_name }: Props) {
   const { deleteTransaction } = useInventoryTransactions(transaction?.id); // Assuming useVaccinations returns addVaccination function
   const { setOpen, open } = useDisclosure();
   return (
@@ -67,7 +68,7 @@ function DeleteInventoryTransactionModal({ transaction }: Props) {
                   deleteTransaction({
                     transaction_id: transaction?.id as number,
                     quantity_change: transaction?.quantity_change,
-                  });
+                 item_name: item_name });
                   setOpen(false);
                 }}>
                 Delete

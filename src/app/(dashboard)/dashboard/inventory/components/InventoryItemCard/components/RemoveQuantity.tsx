@@ -47,10 +47,13 @@ function RemoveQuantity({ item, iconClassName }: Props) {
     });
 
     addTransaction({
-      inventory_item_id: item?.id,
-      quantity_change: qty,
-      transaction_type: "remove",
-      farm_id: Number(farm?.id),
+      transactionData: {
+        inventory_item_id: item?.id,
+        quantity_change: qty,
+        transaction_type: "remove",
+        farm_id: Number(farm?.id),
+      },
+      item_name : item?.name
     });
     setOpen(false);
   };
@@ -61,7 +64,10 @@ function RemoveQuantity({ item, iconClassName }: Props) {
         open={open}
         onOpenChange={setOpen}
         trigger={
-          <Button variant={"outline"} size={"sm"} className="bg-transparent w-full lg:w-fit hover:text-black">
+          <Button
+            variant={"outline"}
+            size={"sm"}
+            className="bg-transparent w-full lg:w-fit hover:text-black">
             <GrSubtract className={iconClassName} />
           </Button>
         }

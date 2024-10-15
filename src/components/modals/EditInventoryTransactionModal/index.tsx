@@ -4,7 +4,7 @@ import { Button } from "../../ui/button";
 import CustomModal from "../../ui/CustomDialog";
 import CustomInput from "@/components/ui/CustomInput";
 import useVaccines from "@/lib/hooks/useVaccines";
-import { InventoryTransaction } from "@/lib/types/inventory";
+import { InventoryItem, InventoryTransaction } from "@/lib/types/inventory";
 import {
   useAddAndUpdateInventoryTransaction,
   useInventoryTransactions,
@@ -14,9 +14,10 @@ import useDisclosure from "@/lib/hooks/useDisclosure";
 
 type Props = {
   transaction: InventoryTransaction;
+  item_name: string;
 };
 
-function EditInventoryTransactionModal({ transaction }: Props) {
+function EditInventoryTransactionModal({ transaction, item_name }: Props) {
   const { updateTransaction } = useAddAndUpdateInventoryTransaction(
     transaction?.id
   ); // Assuming useVaccinations returns addVaccination function
@@ -39,9 +40,13 @@ function EditInventoryTransactionModal({ transaction }: Props) {
     // data.type = "local";
 
     try {
-      await updateTransaction({ id: transaction?.id, data: data }); // Call your addVaccination API
+      await updateTransaction({
+        id: transaction?.id,
+        data: data,
+        item_name: item_name,
+      }); // Call your addVaccination API
       reset(); // Reset the form fields after submission
-      setOpen(false)
+      setOpen(false);
     } catch (error) {
       console.error("Failed to add vaccine", error);
     }

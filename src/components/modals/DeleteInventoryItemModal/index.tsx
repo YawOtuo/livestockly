@@ -57,7 +57,7 @@ function DeleteInventoryItemModal({
                 variant={"destructive"}
                 type="submit"
                 onClick={() => {
-                  deleteInventoryItem(item?.id as number);
+                  deleteInventoryItem(item as InventoryItem);
                   setOpen(false);
                 }}>
                 Delete

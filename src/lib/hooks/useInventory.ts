@@ -12,6 +12,10 @@ import {
 import useFarm from "./useFarm";
 import useDisclosure from "./useDisclosure";
 import { useRouter } from "next/navigation";
+import { toast } from "@/hooks/use-toast";
+import useNotifications from "./useNotifications";
+import { useAppStore } from "../store/useAppStore";
+import { InventoryItem } from "../types/inventory";
 
 export const useInventoryItemsBelowThreshold = () => {
   const { farm } = useFarm();
@@ -45,6 +49,8 @@ export const useGetOneInventory = (id: number) => {
 };
 
 export const useInventory = () => {
+  const { createNotification } = useNotifications();
+  const { DBDetails } = useAppStore();
   const queryClient = useQueryClient();
   const { farm } = useFarm();
   const router = useRouter();
@@ -73,7 +79,17 @@ export const useInventory = () => {
       return response;
     },
     {
-      onSuccess: () => {
+      onMutate: () => {
+        toast({ title: "Adding", variant: "default" });
+      },
+      onSuccess: (data, itemData) => {
+        createNotification({
+          type: "success",
+          subject: `${itemData.name} added to your inventory`,
+          content: `${itemData.name} added to your inventory by ${DBDetails?.username}`,
+          to_farm_id: DBDetails?.farm_id as number,
+        });
+        toast({ title: `${itemData.name} added`, variant: "default" });
         queryClient.invalidateQueries(["inventoryItems", farm_id]); // Invalidate and refetch items after addition
       },
     }
@@ -87,8 +103,18 @@ export const useInventory = () => {
       return response;
     },
     {
-      onSuccess: (data, variables) => {
-        const { id } = variables;
+      onMutate: () => {
+        toast({ title: "Updating", variant: "default" });
+      },
+      onSuccess: (response, variables) => {
+        const { id, data } = variables;
+        toast({ title: `${data.name} added`, variant: "default" });
+        createNotification({
+          type: "info",
+          subject: `${data.name} updated in your inventory`,
+          content: `${data.name} updated in your inventory by ${DBDetails?.username}`,
+          to_farm_id: DBDetails?.farm_id as number,
+        });
         queryClient.invalidateQueries(["inventoryItems", farm_id]); // Invalidate and refetch the specific item
         queryClient.invalidateQueries(["inventoryItem", id]); // Invalidate the item list after update
       },
@@ -97,12 +123,22 @@ export const useInventory = () => {
 
   // Delete inventory item
   const deleteInventoryItemMutation = useMutation(
-    async (item_id: number) => {
-      const response = await deleteInventoryItem(item_id);
+    async (item: InventoryItem) => {
+      const response = await deleteInventoryItem(item.id);
       return response;
     },
     {
-      onSuccess: () => {
+      onMutate: (item) => {
+        toast({ title: `Deleting ${item.name}`, variant: "default" });
+      },
+      onSuccess: (data, item) => {
+        toast({ title: "Deleted", variant: "default" });
+        createNotification({
+          type: "caution",
+          subject: `${item?.name} deleted from your inventory`,
+          content: `${item.name} deleted from your inventory by ${DBDetails?.username}`,
+          to_farm_id: DBDetails?.farm_id as number,
+        });
         router.push("/dashboard/inventory");
         queryClient.invalidateQueries(["inventoryItems", farm_id]); // Invalidate and refetch items after deletion
       },

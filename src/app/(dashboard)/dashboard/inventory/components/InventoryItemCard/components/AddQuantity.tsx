@@ -20,7 +20,7 @@ function AddQuantity({ item, iconClassName }: Props) {
   const { updateInventoryItem } = useInventory();
   const { farm } = useFarm();
   const { open, setOpen } = useDisclosure();
-  
+
   // Use useForm hook from React Hook Form
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
@@ -41,10 +41,13 @@ function AddQuantity({ item, iconClassName }: Props) {
     });
 
     addTransaction({
-      inventory_item_id: item?.id,
-      quantity_change: qty,
-      transaction_type: "add",
-      farm_id: Number(farm?.id),
+      transactionData: {
+        inventory_item_id: item?.id,
+        quantity_change: qty,
+        transaction_type: "add",
+        farm_id: Number(farm?.id),
+      },
+      item_name: item?.name,
     });
     setOpen(false);
   };
@@ -55,7 +58,10 @@ function AddQuantity({ item, iconClassName }: Props) {
         open={open}
         onOpenChange={setOpen}
         trigger={
-          <Button  size={"sm"} variant={"outline"} className="bg-transparent w-full lg:w-fit hover:text-black">
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            className="bg-transparent w-full lg:w-fit hover:text-black">
             <IoMdAdd className={iconClassName} />
           </Button>
         }

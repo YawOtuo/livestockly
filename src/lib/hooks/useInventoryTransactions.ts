@@ -8,15 +8,26 @@ import {
   deleteInventoryTransaction,
 } from "../api/inventory_transaction";
 import useFarm from "./useFarm";
+import useNotifications from "./useNotifications";
+import { useAppStore } from "../store/useAppStore";
+import { toast } from "@/hooks/use-toast";
 
 export const useAddAndUpdateInventoryTransaction = (itemId: number) => {
   const queryClient = useQueryClient();
   const { farm } = useFarm();
   const farm_id = Number(farm?.id);
+  const { createNotification } = useNotifications();
+  const { DBDetails } = useAppStore();
 
   // Add new inventory transaction
   const addTransactionMutation = useMutation(
-    async (transactionData: AddInventoryTransactionBody) => {
+    async ({
+      transactionData,
+      item_name,
+    }: {
+      transactionData: AddInventoryTransactionBody;
+      item_name: string;
+    }) => {
       transactionData.farm_id = farm_id;
       const response = await addInventoryTransaction(
         itemId,
@@ -26,7 +37,23 @@ export const useAddAndUpdateInventoryTransaction = (itemId: number) => {
       return response;
     },
     {
-      onSuccess: () => {
+      onMutate: () => {
+        toast({ title: "Adding", variant: "default" });
+      },
+
+      onSuccess: (data, { transactionData, item_name }) => {
+        toast({ title: "Added", variant: "default" });
+
+        createNotification({
+          type: "caution",
+          subject: `${transactionData.quantity_change} of ${item_name} have been ${
+            transactionData.transaction_type == "add" ? "added" : "removed"
+          } from your inventory`,
+          content: `${transactionData.quantity_change} of ${item_name} have been  ${
+            transactionData.transaction_type == "add" ? "added" : "removed"
+          }s from your inventory by ${DBDetails?.username}`,
+          to_farm_id: DBDetails?.farm_id as number,
+        });
         queryClient.invalidateQueries([
           "inventoryTransactions",
           farm_id,
@@ -39,14 +66,33 @@ export const useAddAndUpdateInventoryTransaction = (itemId: number) => {
 
   // Update an inventory transaction
   const updateTransactionMutation = useMutation(
-    async ({ id, data }: { id: number; data: AddInventoryTransactionBody }) => {
+    async ({
+      id,
+      data,
+      item_name,
+    }: {
+      id: number;
+      data: AddInventoryTransactionBody;
+      item_name: string;
+    }) => {
       data.farm_id = farm_id;
       const response = await updateInventoryTransaction(id, data);
       return response;
     },
     {
-      onSuccess: (data, variables) => {
-        const { id } = variables;
+      onMutate: () => {
+        toast({ title: "Updating", variant: "default" });
+      },
+      onSuccess: (response, variables) => {
+        const { id, data, item_name } = variables;
+        toast({ title: "Updated", variant: "default" });
+
+        createNotification({
+          type: "caution",
+          subject: `Inventory Record Update`,
+          content: `${data.quantity_change} of ${item_name} have been updated in your inventory of ${item_name} by ${DBDetails?.username}`,
+          to_farm_id: DBDetails?.farm_id as number,
+        });
         queryClient.invalidateQueries([
           "inventoryTransactions",
           farm_id,
@@ -67,6 +113,8 @@ export const useInventoryTransactions = (itemId: number) => {
   const queryClient = useQueryClient();
   const { farm } = useFarm();
   const farm_id = Number(farm?.id);
+  const { createNotification } = useNotifications();
+  const { DBDetails } = useAppStore();
 
   // Fetch inventory transactions for a specific item
   const {
@@ -89,15 +137,30 @@ export const useInventoryTransactions = (itemId: number) => {
     async ({
       transaction_id,
       quantity_change,
+      item_name,
     }: {
       transaction_id: number;
       quantity_change: number;
+      item_name: string;
     }) => {
-      const response = await deleteInventoryTransaction(transaction_id, quantity_change);
+      const response = await deleteInventoryTransaction(
+        transaction_id,
+        quantity_change
+      );
       return response;
     },
     {
-      onSuccess: () => {
+      onMutate: () => {
+        toast({ title: "Deleting", variant: "default" });
+      },
+      onSuccess: (data, { item_name, quantity_change }) => {
+        toast({ title: "Deleted", variant: "default" });
+        createNotification({
+          type: "caution",
+          subject: `${quantity_change} ${item_name}s deleted from your inventory`,
+          content: `${quantity_change} ${item_name}s have been deleted from your inventory by ${DBDetails?.username}`,
+          to_farm_id: DBDetails?.farm_id as number,
+        });
         queryClient.invalidateQueries([
           "inventoryTransactions",
           farm_id,

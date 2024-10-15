@@ -70,12 +70,12 @@ function InventoryPage({ inventory }: Props) {
       )}
       <div className="hidden lg:flex flex-col gap-5">
         {inventory?.transactions?.map((r) => (
-          <InventoryTransactionCard inv_trans={r} />
+          <InventoryTransactionCard inv_trans={r} item={inventory.item}/>
         ))}
       </div>
       <div className="flex lg:hidden flex-col gap-5 w-full">
         {inventory?.transactions?.map((r) => (
-          <InventoryTransactionCardSm inv_trans={r} />
+          <InventoryTransactionCardSm inv_trans={r} item={inventory.item}/>
         ))}
       </div>
       <div className="flex w-full justify-end">
