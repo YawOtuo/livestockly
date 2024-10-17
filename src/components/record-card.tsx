@@ -17,9 +17,9 @@ type Props = {
 
 export const RecordCard = ({ category, number }: Props) => {
   return (
-    <div className="shadow-md shadow-green3 text-center py-4 px-5  flex flex-row justify-between items-center rounded-lg hover:bg-green2 hover:text-white group transition-all duration-200" >
+    <div className="shadow-md shadow-green3 text-center py-4 px-5  flex flex-row justify-between items-center rounded-lg hover:bg-green2 hover:text-white group transition-all duration-200">
       <Link
-        href={`/dashboard/records/${category?.name}/category/${category?.id}`}>
+        href={`/dashboard/records/category/${category?.id}/${category?.name}`}>
         <div className="flex flex-row text-center items-center gap-3  ">
           <div className="text-2xl text-primary group-hover:text-primary">
             {categoryIcons[category?.name]}
@@ -33,12 +33,16 @@ export const RecordCard = ({ category, number }: Props) => {
 
       <div className="flex flex-row text-center items-center ">
         <div>
-          <AddRecordModal variant="icon" iconClassname="group-hover:text-primary" category={category} />
+          <AddRecordModal
+            variant="icon"
+            iconClassname="group-hover:text-primary"
+            category={category}
+          />
         </div>
 
         <div>
           <Link
-            href={`/dashboard/records/${category?.name}/category/${category.id}`}>
+            href={`/dashboard/records/category/${category?.id}/${category?.name}`}>
             <MdKeyboardArrowRight className="text-2xl group-hover:text-primary" />
           </Link>
         </div>

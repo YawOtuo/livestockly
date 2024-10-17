@@ -14,9 +14,11 @@ import { useAppStore } from "@/lib/store/useAppStore";
 import dynamic from "next/dynamic";
 import DeleteRecordModal from "@/components/modals/DeleteRecordModal";
 import { categoryIcons } from "@/lib/utils/categoryicons";
+import AdditionalDetails from "./AdditionalDetails";
 const AddRecordModal = dynamic(
   () => import("@/components/modals/AddRecordModal")
 );
+
 function Page() {
   const params = useParams();
   const { DBDetails } = useAppStore();
@@ -58,7 +60,7 @@ function Page() {
   const displayInfo = () => {
     if (animal) {
       return (
-        <div className="p-5 px-10 flex flex-col gap-5">
+        <div className="w-full flex flex-col gap-5">
           <div
             className="flex flex-col
                     justify-start items-start  w-full ">
@@ -73,36 +75,7 @@ function Page() {
             </div>
           </div>
 
-          <div
-            className="
-                    
-                    flex flex-col justify-start items-center lg:items-start capitalize text-left gap-4">
-            <Log title="Weight" label="weight" animalId={animal?.id} />
-
-            <Log
-              title="Health Condition"
-              label="health_condition"
-              animalId={animal?.id}
-            />
-
-            <Log
-              title="Vaccination Info"
-              label="vaccination_info"
-              animalId={animal?.id}
-            />
-
-            <Log
-              title="General Information"
-              label="remarks"
-              animalId={animal?.id}
-            />
-
-            {/* <ImageUploader
-            //   setRecordEditted={setRecordEditted}
-              public_id={animal.public_id}
-              id={animal.id}
-            /> */}
-          </div>
+          <AdditionalDetails recordId={Number(params.id)}/>
         </div>
       );
     }
@@ -216,8 +189,8 @@ function Page() {
             </div>
           </div>
 
-          <div className="grid grid-cols-5">
-            <div className=" col-span-5 md:col-span-4 ">
+          <div className="flex flex-col gap-5 w-full">
+            <div className=" w-full ">
               {isLoading && <p>Loading...</p>}
               {displayInfo()}
               <div className="px-10">

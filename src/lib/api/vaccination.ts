@@ -11,7 +11,14 @@ export const GetOneRecordVaccination = async (id: number): Promise<Vaccination> 
   return response.json();
 };
 
-export type AddVaccinationBody = Omit<Vaccination, "id">;
+export interface AddVaccinationBody  {
+  records: number[]
+  vaccination_date: string 
+  vaccine_id: number
+  repeat: boolean 
+  repeat_every_n_days: number 
+  farm_id: number
+};
 
 export const AddVaccination = async (data: AddVaccinationBody): Promise<Vaccination> => {
   const response = await fetch(`${url}vaccinations`, {
@@ -46,6 +53,7 @@ export const DeleteVaccination = async (id: number): Promise<void> => {
     throw new Error(`Error: ${response.status} - ${response.statusText}`);
   }
 };
+
 
 export const GetVaccinationsByRecord = async (recordId: number): Promise<Vaccination[]> => {
   const response = await fetch(`${url}vaccinations/records/${recordId}`, {

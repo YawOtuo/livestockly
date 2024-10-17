@@ -1,28 +1,59 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AddVaccination, AddVaccinationBody, UpdateVaccination } from "../api/vaccination";
+import { GetVaccinationsByRecord, DeleteVaccination } from "../api/vaccination";
 import { useAppStore } from "../store/useAppStore";
-import {
-  AddVaccination,
-  AddVaccinationBody,
-  DeleteVaccination,
-  GetVaccinationsByRecord,
-  UpdateVaccination,
-} from "../api/vaccination";
+import { useQuery } from "@tanstack/react-query";
+import { useVaccinateStore } from "@/app/(dashboard)/dashboard/records/category/[category_id]/[slug]/components.tsx/useVaccinate";
 
-export const useGetOneRecordVaccinations = (recordId: number) => {
-  const { DBDetails } = useAppStore();
+export const useAddVaccination = (records: number[]) => {
+  const queryClient = useQueryClient();
+  const { clearSelection} = useVaccinateStore();
 
-  return useQuery(
-    ["vaccinations", recordId], // Unique key for caching
-    async () => {
-      const response = await GetVaccinationsByRecord(recordId);
+  const addVaccinationMutation = useMutation(
+    async (vaccinationData: AddVaccinationBody) => {
+      const response = await AddVaccination(vaccinationData);
       return response;
     },
     {
-      enabled: !!DBDetails && !!recordId, // Enable the query only if DBDetails and recordId are defined
+      onSuccess: () => {
+        clearSelection()
+        queryClient.invalidateQueries(["vaccinations"]); // Refetch vaccinations after adding
+      },
     }
   );
+
+  return {
+    addVaccination: addVaccinationMutation.mutate,
+    isAdding: addVaccinationMutation.isLoading,
+    addError: addVaccinationMutation.error,
+  };
 };
+
+
+export const useUpdateVaccination = (records: number[]) => {
+  const queryClient = useQueryClient();
+
+  const updateVaccinationMutation = useMutation(
+    async ({ id, data }: { id: number; data: AddVaccinationBody }) => {
+      const response = await UpdateVaccination(id, data);
+      return response;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["vaccinations"]); // Refetch vaccinations after updating
+      },
+    }
+  );
+
+  return {
+    updateVaccination: updateVaccinationMutation.mutate,
+    isUpdating: updateVaccinationMutation.isLoading,
+    updateError: updateVaccinationMutation.error,
+  };
+};
+
+
+
 
 const useVaccinations = (recordId: number) => {
   const queryClient = useQueryClient();
@@ -44,30 +75,6 @@ const useVaccinations = (recordId: number) => {
     }
   );
 
-  const addVaccinationMutation = useMutation(
-    async (vaccinationData: AddVaccinationBody) => {
-      const response = await AddVaccination(vaccinationData);
-      return response;
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["vaccinations", recordId]); // Refetch vaccinations after adding
-      },
-    }
-  );
-
-  const updateVaccinationMutation = useMutation(
-    async ({ id, data }: { id: number; data: AddVaccinationBody }) => {
-      const response = await UpdateVaccination(id, data);
-      return response;
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["vaccinations", recordId]); // Refetch vaccinations after updating
-      },
-    }
-  );
-
   const deleteVaccinationMutation = useMutation(
     async (vaccinationId: number) => {
       const response = await DeleteVaccination(vaccinationId);
@@ -84,8 +91,6 @@ const useVaccinations = (recordId: number) => {
     vaccinations,
     isLoading,
     error,
-    addVaccination: addVaccinationMutation.mutate,
-    updateVaccination: updateVaccinationMutation.mutate,
     deleteVaccination: deleteVaccinationMutation.mutate,
     refetchVaccinations: refetch,
   };

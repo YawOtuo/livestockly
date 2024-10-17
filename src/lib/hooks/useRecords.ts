@@ -22,7 +22,7 @@ function useRecords() {
       onSuccess: (data, record) => {
         toast({ title: `${record.name} deleted`, variant: "default" });
         router.push(
-          `/dashboard/records/${record.category.name}/category/${record.category.id}`
+          `/dashboard/records/category/${record.category.name}/${record.category.id}`
         );
         queryClient.invalidateQueries([`records`]); // Invalidate records cache
       },

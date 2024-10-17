@@ -1,14 +1,22 @@
+import useDisclosure from "@/lib/hooks/useDisclosure";
 import { Button } from "../../ui/button";
 import CustomModal from "../../ui/CustomDialog";
 import AddVacModalBody from "./components/AddVacModalBody";
 
-
-function AddVaccinationModal() {
+type Props = {
+  type?: string;
+  selectedRecords: number[];
+};
+function AddVaccinationModal({ selectedRecords }: Props) {
+  const { open, setOpen } = useDisclosure();
   return (
     <div className="flex items-start">
       <CustomModal
-        trigger={<Button variant={"outline"}>Add Vaccination</Button>}
-        body={<AddVacModalBody />}
+        open={open}
+        onOpenChange={setOpen}
+        size={"8xl"}
+        trigger={<Button>Go</Button>}
+        body={<AddVacModalBody setOpen={setOpen}  />}
       />
     </div>
   );

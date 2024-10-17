@@ -22,11 +22,9 @@ function FarmTotals() {
             key={index}
             amount={records?.length || 0}
             filter={farm?.livestock_categories[index]?.name as string}
-            url={`/dashboard/records/${farm?.livestock_categories[
-              index
-            ]?.name.toLowerCase()}/category/${
+            url={`/dashboard/records/category/${
               farm?.livestock_categories[index]?.id
-            }`}
+            }/${farm?.livestock_categories[index]?.name.toLowerCase()}`}
           />
         );
       })}

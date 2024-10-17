@@ -20,7 +20,7 @@ const CustomTabs: React.FC<CustomTabsProps> = ({
 }) => {
   return (
     <Tabs defaultValue={defaultValue} className={`${className} w-full`}>
-      <TabsList>
+      <TabsList >
         {tabs.map((tab) => (
           <TabsTrigger key={tab.value} value={tab.value}>
             {tab.label}
@@ -28,7 +28,7 @@ const CustomTabs: React.FC<CustomTabsProps> = ({
         ))}
       </TabsList>
       {tabs.map((tab) => (
-        <TabsContent key={tab.value} value={tab.value}>
+        <TabsContent key={tab.value} value={tab.value} className="w-full">
           {tab.content}
         </TabsContent>
       ))}
