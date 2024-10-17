@@ -4,18 +4,18 @@ import {
   AddVaccine,
   AddVaccineBody,
   DeleteVaccine,
-  GetVaccines,
+  GetVaccinesByFarm,
   UpdateVaccine,
 } from "../api/vaccines"; // Make sure to import the correct API methods
 
-const useGetOneVaccine = (id: number) =>  useQuery(
-    ["vaccines", id], // Unique key for caching
-    async () => {
-      const response = await GetVaccines();
-      return response;
-    },
- 
-  );
+// const useGetOneVaccine = (id: number) =>
+//   useQuery(
+//     ["vaccines", id], // Unique key for caching
+//     async () => {
+//       const response = await GetVaccines();
+//       return response;
+//     }
+//   );
 export const useVaccines = () => {
   const queryClient = useQueryClient();
   const { DBDetails } = useAppStore();
@@ -28,16 +28,17 @@ export const useVaccines = () => {
   } = useQuery(
     ["vaccines"], // Unique key for caching
     async () => {
-      const response = await GetVaccines();
+      const response = await GetVaccinesByFarm(DBDetails?.farm_id as number);
       return response;
     },
     {
-      enabled: !!DBDetails, // Enable the query only if DBDetails is defined
+      enabled: !!DBDetails?.farm_id, // Enable the query only if DBDetails is defined
     }
   );
 
   const addVaccineMutation = useMutation(
     async (vaccineData: AddVaccineBody) => {
+      vaccineData.farm_id = Number(DBDetails?.farm_id);
       const response = await AddVaccine(vaccineData);
       return response;
     },

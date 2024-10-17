@@ -51,7 +51,7 @@ const Page = ({}: Props) => {
                 {
                   label: "Vaccination Schedules",
                   value: "vaccination",
-                  content: <RecordsCategoryVaccinationsSchedulesTab />,
+                  content: <RecordsCategoryVaccinationsSchedulesTab  category={category}/>,
                 },
                 {
                   label: "Feeding Schedules",

@@ -69,7 +69,7 @@ function RecordsAllTab({ category }: Props) {
           <div className="col-span-3 lg:col-span-1 items-center" key={index}>
             <div
               className={`cursor-pointer`}
-              onClick={() => handleSelectRecord(item.id)} // Pass only the ID
+              onClick={() => readyToVaccinate && handleSelectRecord(item.id)} // Pass only the ID
             >
               <TagCard
                 record={item}

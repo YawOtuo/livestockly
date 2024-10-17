@@ -4,8 +4,8 @@ import { Vaccine } from "../types/vaccines";
 export type AddVaccineBody = Omit<Vaccine, "id">; // Adjust based on your Vaccine model structure
 
 // Fetch all vaccines
-export const GetVaccines = async (): Promise<Vaccine[]> => {
-  const response = await fetch(`${url}vaccines`, {
+export const GetVaccinesByFarm = async (farm_id: number): Promise<Vaccine[]> => {
+  const response = await fetch(`${url}vaccines/farms/${farm_id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

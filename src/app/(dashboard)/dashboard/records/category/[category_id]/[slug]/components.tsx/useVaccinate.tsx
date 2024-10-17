@@ -20,7 +20,7 @@ export const useVaccinateStore = create<VaccinateStore>((set) => ({
 
   addRecord: (recordId) => set((state) => ({
     selectedRecords: [...state.selectedRecords, recordId],
-    readyToVaccinate: true, // Set ready if at least one record is selected
+    // readyToVaccinate: true, // Set ready if at least one record is selected
   })),
   
   removeRecord: (recordId) => set((state) => {

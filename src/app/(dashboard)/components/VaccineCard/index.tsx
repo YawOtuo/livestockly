@@ -8,7 +8,7 @@ type Props = {
 
 function VaccineCard({ vaccine }: Props) {
   return (
-    <div className="shadow-md p-5 flex flex-col w-full rounded-2xl cursor-pointer hover:bg-green2 ">
+    <div className="shadow-lg p-5 flex flex-col w-full rounded-2xl cursor-pointer hover:bg-green2 ">
       <div className="w-[200px] aspect-[3/2] flex items-center justify-center roudned-lg">
         <TbVaccine className="text-primary text-5xl" />
       </div>

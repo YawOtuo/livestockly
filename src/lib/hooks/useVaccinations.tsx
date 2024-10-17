@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AddVaccination, AddVaccinationBody, UpdateVaccination } from "../api/vaccination";
+import { AddVaccination, AddVaccinationBody, GetVaccinationsByCategory, UpdateVaccination } from "../api/vaccination";
 import { GetVaccinationsByRecord, DeleteVaccination } from "../api/vaccination";
 import { useAppStore } from "../store/useAppStore";
 import { useQuery } from "@tanstack/react-query";
@@ -52,6 +52,20 @@ export const useUpdateVaccination = (records: number[]) => {
   };
 };
 
+export const useAllCategoriesVaccinations = (category_id: number) => {
+  const { DBDetails } = useAppStore();
+
+ return useQuery(
+    ["vaccinations-category", category_id], // Unique key for caching
+    async () => {
+      const response = await GetVaccinationsByCategory(category_id);
+      return response;
+    },
+    {
+      enabled: !!DBDetails && !!category_id, // Enable the query only if DBDetails and recordId are defined
+    }
+  );
+}
 
 
 

@@ -1,5 +1,7 @@
 import { url } from "../../../weburl";
+import { Record } from "../types/record";
 import { Vaccination } from "../types/vaccination";
+import { Vaccine } from "../types/vaccines";
 
 export const GetOneRecordVaccination = async (id: number): Promise<Vaccination> => {
   const response = await fetch(`${url}vaccinations/records/${id}`, {
@@ -64,3 +66,18 @@ export const GetVaccinationsByRecord = async (recordId: number): Promise<Vaccina
   });
   return response.json();
 };
+export interface GetVaccinationsByCategoryResponse extends Vaccination {
+  records: Record[]
+  vaccine: Vaccine
+}
+
+export const GetVaccinationsByCategory = async (category_id: number): Promise<GetVaccinationsByCategoryResponse[]> => {
+  const response = await fetch(`${url}vaccinations/categories/${category_id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.json();
+};
+
