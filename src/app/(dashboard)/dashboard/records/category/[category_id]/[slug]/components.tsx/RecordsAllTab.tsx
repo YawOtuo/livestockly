@@ -96,15 +96,15 @@ function RecordsAllTab({ category }: Props) {
 
       <motion.div
         layout
-        className="w-full justify-start flex gap-5 items-center ">
+        className="w-full justify-start flex gap-3 items-center ">
         <Button
-          variant={`${readyToVaccinate ? "secondary" : "default"}`}
+          variant={`${readyToVaccinate ? "secondary" : "primary-900"}`}
           onClick={() => {
             setReadyToVaccinate(true);
           }}>
           Vaccinate
         </Button>
-        {!readyToVaccinate && <Button>Feed</Button>}{" "}
+        {!readyToVaccinate && <Button variant={"primary-900"}>Feed</Button>}{" "}
         {readyToVaccinate && (
           <Button onClick={() => clearSelection()} variant={"destructive"}>
             Cancel
