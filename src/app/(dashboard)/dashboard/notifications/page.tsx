@@ -1,11 +1,7 @@
 "use client";
 
-import NoPlaceHolder from "@/components/NoPlaceHolder";
-import Link from "next/link";
 import NotificationCard from "../../components/NotificationCard";
-import { GetUserNotifications } from "@/lib/api/notifications";
 import useNotifications from "@/lib/hooks/useNotifications";
-import { RootState } from "@/lib/redux/store";
 import FetchingState from "@/components/ui/FetchingState";
 import SkeletonNotifications from "./components/SkeletonNotifications";
 

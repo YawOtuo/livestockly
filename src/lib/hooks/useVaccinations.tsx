@@ -58,11 +58,11 @@ export const useAllCategoriesVaccinations = (category_id: number) => {
  return useQuery(
     ["vaccinations-category", category_id], // Unique key for caching
     async () => {
-      const response = await GetVaccinationsByCategory(category_id);
+      const response = await GetVaccinationsByCategory(Number(DBDetails?.farm_id),  category_id);
       return response;
     },
     {
-      enabled: !!DBDetails && !!category_id, // Enable the query only if DBDetails and recordId are defined
+      enabled: !!DBDetails?.farm_id && !!category_id, // Enable the query only if DBDetails and recordId are defined
     }
   );
 }

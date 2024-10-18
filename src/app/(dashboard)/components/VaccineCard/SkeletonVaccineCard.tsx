@@ -2,8 +2,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function SkeletonVaccineCard() {
     return ( 
-        <div>
-            <Skeleton className="w-10 h-20"/>
+        <div className="w-full">
+            <Skeleton className="w-full h-20"/>
         </div>
      );
 }

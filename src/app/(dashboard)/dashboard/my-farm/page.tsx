@@ -3,17 +3,17 @@ import useFarm from "@/lib/hooks/useFarm";
 
 import React, { useState } from "react";
 import CustomTabs from "@/components/ui/CustomTabs";
-import TabFarmTotals from "./components/TabFarmTotals";
-import TabFarmAnalytics from "./components/TabFarmAnalytics";
-import TabFarmDetails from "./components/TabFarmDetails";
-import TabFarmVaccines from "./components/TabFarmVaccines";
-import { CustomCombobox } from "@/components/ui/CustomCombobox";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllFarmRecordsSp } from "@/lib/api/farm";
 import { useAppStore } from "@/lib/store/useAppStore";
-import CustomSelect from "@/components/ui/CustomSelect";
-import CustomModal from "@/components/ui/CustomDialog";
+import dynamic from "next/dynamic";
 
+const TabFarmTotals = dynamic(() => import("./components/TabFarmTotals"));
+const TabFarmAnalytics = dynamic(
+  () => import("./components/TabFarmAnalytics")
+);
+const TabFarmDetails = dynamic(() => import("./components/TabFarmDetails"));
+const TabFarmVaccines = dynamic(() => import("./components/TabFarmVaccines"));
 function Page() {
   const { DBDetails } = useAppStore();
 
@@ -36,8 +36,6 @@ function Page() {
         .filter((rec) => rec.gender === "female")
         .map((rec) => ({ value: rec.id.toString(), label: rec.name })) // Add value and label
     : [];
-  const [selectedSire, setSelectedSire] = useState<string>("");
-
   const { farm } = useFarm();
 
   return (

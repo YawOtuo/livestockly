@@ -19,6 +19,12 @@ function TabFarmVaccines() {
             <VaccineCard vaccine={r} />
           ))}
           loading={<SkeletonVaccineCard />}
+          isEmpty={vaccines && vaccines.length < 1}
+          nullComponent={
+            <div>
+              No vaccines added
+            </div>
+          }
         />
       </div>
     </div>

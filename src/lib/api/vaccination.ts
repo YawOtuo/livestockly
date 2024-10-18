@@ -3,7 +3,9 @@ import { Record } from "../types/record";
 import { Vaccination } from "../types/vaccination";
 import { Vaccine } from "../types/vaccines";
 
-export const GetOneRecordVaccination = async (id: number): Promise<Vaccination> => {
+export const GetOneRecordVaccination = async (
+  id: number
+): Promise<Vaccination> => {
   const response = await fetch(`${url}vaccinations/records/${id}`, {
     method: "GET",
     headers: {
@@ -13,16 +15,18 @@ export const GetOneRecordVaccination = async (id: number): Promise<Vaccination> 
   return response.json();
 };
 
-export interface AddVaccinationBody  {
-  records: number[]
-  vaccination_date: string 
-  vaccine_id: number
-  repeat: boolean 
-  repeat_every_n_days: number 
-  farm_id: number
-};
+export interface AddVaccinationBody {
+  records: number[];
+  vaccination_date: string;
+  vaccine_id: number;
+  repeat: boolean;
+  repeat_every_n_days: number;
+  farm_id: number;
+}
 
-export const AddVaccination = async (data: AddVaccinationBody): Promise<Vaccination> => {
+export const AddVaccination = async (
+  data: AddVaccinationBody
+): Promise<Vaccination> => {
   const response = await fetch(`${url}vaccinations`, {
     method: "POST",
     headers: {
@@ -33,7 +37,10 @@ export const AddVaccination = async (data: AddVaccinationBody): Promise<Vaccinat
   return response.json();
 };
 
-export const UpdateVaccination = async (id: number, data: AddVaccinationBody): Promise<Vaccination> => {
+export const UpdateVaccination = async (
+  id: number,
+  data: AddVaccinationBody
+): Promise<Vaccination> => {
   const response = await fetch(`${url}vaccinations/${id}`, {
     method: "PUT",
     headers: {
@@ -56,8 +63,9 @@ export const DeleteVaccination = async (id: number): Promise<void> => {
   }
 };
 
-
-export const GetVaccinationsByRecord = async (recordId: number): Promise<Vaccination[]> => {
+export const GetVaccinationsByRecord = async (
+  recordId: number
+): Promise<Vaccination[]> => {
   const response = await fetch(`${url}vaccinations/records/${recordId}`, {
     method: "GET",
     headers: {
@@ -67,17 +75,23 @@ export const GetVaccinationsByRecord = async (recordId: number): Promise<Vaccina
   return response.json();
 };
 export interface GetVaccinationsByCategoryResponse extends Vaccination {
-  records: Record[]
-  vaccine: Vaccine
+  records: Record[];
+  vaccine: Vaccine;
 }
 
-export const GetVaccinationsByCategory = async (category_id: number): Promise<GetVaccinationsByCategoryResponse[]> => {
-  const response = await fetch(`${url}vaccinations/categories/${category_id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+
+export const GetVaccinationsByCategory = async (
+  farm_id: number,
+  category_id: number
+): Promise<GetVaccinationsByCategoryResponse[]> => {
+  const response = await fetch(
+    `${url}vaccinations/farms/${farm_id}/categories/${category_id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   return response.json();
 };
-

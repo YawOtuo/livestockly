@@ -3,12 +3,15 @@ import { useInventory } from "@/lib/hooks/useInventory";
 import InventoryItemCard from "./components/InventoryItemCard";
 import FetchingState from "@/components/ui/FetchingState";
 import SkeletonInventoryItemCard from "./components/InventoryItemCard/SkeletonInventoryItemCard";
-import CategoriesSection from "./components/CategoriesSection";
 import dynamic from "next/dynamic";
 import NoItemsComponent from "./components/NoItemsComponent";
 const AddInventoryItemModal = dynamic(
   () => import("@/components/modals/AddInventoryItemModal")
 );
+const CategoriesSection = dynamic(
+  () => import("./components/CategoriesSection")
+);
+
 function Page() {
   const { inventoryItems, isItemsLoading, itemsError } = useInventory();
   return (

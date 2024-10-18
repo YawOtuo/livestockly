@@ -18,7 +18,7 @@ function RecordsCategoryVaccinationsSchedulesTab({ category }: Props) {
   return (
     <div className="flex flex-col gap-5  items-center justify-center ">
       <FetchingState
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+        className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full`}
         isLoading={isLoading}
         isError={isError}
         skeletonCount={10}
@@ -26,6 +26,12 @@ function RecordsCategoryVaccinationsSchedulesTab({ category }: Props) {
           <RecordCategoryVaccinationCard vaccination={r} />
         ))}
         loading={<SkeletonRecordCategoryVaccinationCard />}
+        isEmpty={vaccinations && vaccinations?.length < 1}
+        nullComponent={
+          <div className="col-span-3 flex items-center justify-center bg-green2 rounded-xl min-h-[50vh] w-full">
+            No vaccination schedules yet
+          </div>
+        }
       />
     </div>
   );

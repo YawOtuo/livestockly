@@ -1,20 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import TagCard from "@/components/TagCard";
-import { DashSearch } from "@/components/dash-search";
-import Navbar from "../../../../../components/HorizontalAndMobileNavbar";
-import SlideEnter from "@/lib/framer/slideEnter";
 import { useParams, useSearchParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { GetAllFarmRecordsSp } from "@/lib/api/farm";
 import { useAppStore } from "@/lib/store/useAppStore";
 import { LivestockCategory } from "@/lib/types/livestockcategory";
 import CustomTabs from "@/components/ui/CustomTabs";
 import RecordsAllTab from "./components.tsx/RecordsAllTab";
-import RecordsCatFeedingSchedulesTab from "./components.tsx/RecordsCatFeedingSchedulesTab";
-import RecordsCategoryVaccinationsSchedulesTab from "./components.tsx/RecordsCategoryVaccinationsSchedulesTab";
-
+import dynamic from "next/dynamic";
+const SlideEnter = dynamic(() => import("@/lib/framer/slideEnter"));
+const RecordsCatFeedingSchedulesTab = dynamic(
+  () => import("./components.tsx/RecordsCatFeedingSchedulesTab")
+);
+const RecordsCategoryVaccinationsSchedulesTab = dynamic(
+  () => import("./components.tsx/RecordsCategoryVaccinationsSchedulesTab")
+);
 type Props = {};
 
 const Page = ({}: Props) => {
@@ -40,7 +38,7 @@ const Page = ({}: Props) => {
 
           <div className="flex flex-col gap-5 items-start w-full">
             <CustomTabs
-            className="flex justify-start flex-col"
+              className="flex justify-start flex-col"
               defaultValue="all"
               tabs={[
                 {
@@ -51,7 +49,11 @@ const Page = ({}: Props) => {
                 {
                   label: "Vaccination Schedules",
                   value: "vaccination",
-                  content: <RecordsCategoryVaccinationsSchedulesTab  category={category}/>,
+                  content: (
+                    <RecordsCategoryVaccinationsSchedulesTab
+                      category={category}
+                    />
+                  ),
                 },
                 {
                   label: "Feeding Schedules",

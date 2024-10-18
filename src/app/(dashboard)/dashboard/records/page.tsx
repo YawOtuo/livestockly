@@ -1,16 +1,16 @@
 "use client";
 import React from "react";
-import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import SlideEnter from "@/lib/framer/slideEnter";
 import { DashSearch } from "@/components/dash-search";
 import { RecordCard } from "@/components/record-card";
 import { useQueries } from "@tanstack/react-query";
 import { GetAllFarmRecordsSp } from "@/lib/api/farm";
 import { useAppStore } from "@/lib/store/useAppStore";
 import { useGetUserFarmDetails } from "@/lib/hooks/useFarm";
+import dynamic from "next/dynamic";
 
+const SlideEnter = dynamic(
+  () => import("@/lib/framer/slideEnter")
+);
 const Page = () => {
   // const { DBDetails } = useAppStore();
 

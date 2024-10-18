@@ -1,9 +1,6 @@
 "use client";
-
-import Log from "@/components/log/log";
 import { PermissionComponent } from "@/components/permission-component";
 import { GetOneRecord } from "@/lib/api/record";
-import SlideEnterToLeft from "@/lib/framer/slideInWithGreen";
 import { Button } from "@mui/material";
 import { styled } from "@stitches/react";
 import { useQuery } from "@tanstack/react-query";
@@ -12,11 +9,16 @@ import { useParams, useRouter } from "next/navigation";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useAppStore } from "@/lib/store/useAppStore";
 import dynamic from "next/dynamic";
-import DeleteRecordModal from "@/components/modals/DeleteRecordModal";
 import { categoryIcons } from "@/lib/utils/categoryicons";
-import AdditionalDetails from "./AdditionalDetails";
 const AddRecordModal = dynamic(
   () => import("@/components/modals/AddRecordModal")
+);
+const SlideEnterToLeft = dynamic(() => import("@/lib/framer/slideInWithGreen"));
+const DeleteRecordModal = dynamic(
+  () => import("@/components/modals/DeleteRecordModal")
+);
+const AdditionalDetails = dynamic(
+  () => import("./AdditionalDetails")
 );
 
 function Page() {
@@ -75,7 +77,7 @@ function Page() {
             </div>
           </div>
 
-          <AdditionalDetails recordId={Number(params.id)}/>
+          <AdditionalDetails recordId={Number(params.id)} />
         </div>
       );
     }
