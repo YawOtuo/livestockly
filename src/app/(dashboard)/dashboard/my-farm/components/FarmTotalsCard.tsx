@@ -9,13 +9,15 @@ type Props = {
   filter: string;
   amount: string | number;
   url?: string;
+  isLoading: boolean
+
 };
 
-const FarmTotalsCard = ({ filter, amount, url }: Props) => {
+const FarmTotalsCard = ({ filter, amount, url, isLoading }: Props) => {
   const router = useRouter();
   return (
     <>
-      {amount ? (
+      {!isLoading ? (
         <motion.div
           layout
           className="flex  shadow-md border-green2 rounded-2xl  items-center justify-center gap-3 lg:gap-5  

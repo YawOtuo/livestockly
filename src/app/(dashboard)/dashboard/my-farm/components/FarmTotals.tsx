@@ -19,6 +19,7 @@ function FarmTotals() {
 
         return (
           <FarmTotalsCard
+            isLoading={isLoading}
             key={index}
             amount={records?.length || 0}
             filter={farm?.livestock_categories[index]?.name as string}
@@ -30,6 +31,7 @@ function FarmTotals() {
       })}
 
       <FarmTotalsCard
+        isLoading={isLoadingWorkers}
         amount={workers?.length as number}
         filter="Workers"
         url="/dashboard"
