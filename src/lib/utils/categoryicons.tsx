@@ -17,10 +17,10 @@ export const categoryIcons: any = {
     poultry: <GiChicken />,
     pigs: <GiPig />,
     tilapia: <IoFishSharp />,
-    catfish: <GiFlatfish />,
+    catfishes: <GiFlatfish />,
     "guinea fowls": <GiChicken />,
     "guinea pigs": <GiPig />,
-    turkey: <GiChicken />,
+    turkeys: <GiChicken />,
     rabbits: <GiRabbit />,
     snails: <GiSnail />,
   };

@@ -46,6 +46,12 @@ export default function RecentlyRegistered() {
         success={records && records?.slice(0, 9).map((r: any, index: any) => (
           <TagCardSpecific key={index} record={r} />
         ))}
+        isEmpty={records && records?.length < 1}
+        nullComponent={
+          <div className="flex flex-col items-center justify-center bg-green2 min-h-[40vh] col-span-3 rounded-xl">
+            <p className="text-slate-700">No records added yet!!</p>
+          </div>
+        }
       />
     </div>
   );
