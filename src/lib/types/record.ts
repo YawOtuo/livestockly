@@ -5,7 +5,6 @@ export interface Record{
         id: number 
         name: "cattle" | "sheep" | "goats"
     }
-    weight? : number 
     gender: "male" | "female"
     colour: string 
     castrated: boolean 
@@ -16,9 +15,6 @@ export interface Record{
     date_purchased: string 
     sire : number 
     dam : number
-    vaccination_info :string 
-    health_condition: string 
-    remarks: string
     farm_id: number
     created_at: string
 }

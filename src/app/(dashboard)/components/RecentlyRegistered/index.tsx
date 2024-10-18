@@ -42,7 +42,7 @@ export default function RecentlyRegistered() {
         isLoading={isLoadingRecords}
         isError={errorRecords}
         loading={<SkRecentlyRegistered />}
-        className="grid grid-cols-1 md:grid-cols-2 mt-5 gap-5 justify-start w-full"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-5 justify-start w-full"
         success={records && records?.slice(0, 9).map((r: any, index: any) => (
           <TagCardSpecific key={index} record={r} />
         ))}
